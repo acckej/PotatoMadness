@@ -1,19 +1,22 @@
-/*
- Name:		ControlUnit.ino
- Created:	8/16/2017 11:21:32 PM
- Author:	Acckej
-*/
-#include "HwCheckSequence.h"
+﻿//#include "HwCheckSequence.h"
+#include <LiquidCrystal_I2C.h>
 
-// the setup function runs once when you press reset or power the board
+LiquidCrystal_I2C lcd(0x27, 20, 4); //0x3f
+
 void setup() 
 {
-
+	lcd.begin();
+	lcd.backlight();
 }
 
-// the loop function runs over and over again until power down or reset
 void loop() 
 {
-	auto a = HwCheckSequence();	
+	lcd.setCursor(1, 1);
+	lcd.print("Kurkas");
+
+	delay(1000);
+
+	
+	
 }
 

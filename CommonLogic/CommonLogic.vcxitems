@@ -14,18 +14,30 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsMapItem.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IAction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IArduinoWrapper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h">
       <DeploymentContent>true</DeploymentContent>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)HwCheckBase.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Context.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IHwCheck.h">
       <DeploymentContent>true</DeploymentContent>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)HwCheckSequence.h">
       <DeploymentContent>true</DeploymentContent>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)IButtonsController.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ITestScreen.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)LoaderCheck.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TypeDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)HwCheckBase.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsMapItem.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)IAction.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)IArduinoWrapper.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Context.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)IHwCheck.cpp">
       <DeploymentContent>true</DeploymentContent>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -33,5 +45,8 @@
       <DeploymentContent>true</DeploymentContent>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)IButtonsController.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ITestScreen.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)LoaderCheck.cpp" />
   </ItemGroup>
 </Project>

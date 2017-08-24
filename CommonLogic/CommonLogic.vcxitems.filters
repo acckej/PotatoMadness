@@ -4,21 +4,65 @@
     <Filter Include="HardwareTest">
       <UniqueIdentifier>{ebe73672-d6c7-4de4-875b-427ccbbc9684}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Buttons">
+      <UniqueIdentifier>{94e18709-2b32-497f-8088-e814b10c7bda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sequences">
+      <UniqueIdentifier>{b4656243-06b5-4f63-9ddd-01f0aa679a0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="HardwareTest\Checks">
+      <UniqueIdentifier>{d4db7a31-2669-473a-9ffa-e991b6399346}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\HwCheckBase.cpp">
+    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\HwCheckSequence.cpp">
       <Filter>HardwareTest</Filter>
     </ClCompile>
-    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\HwCheckSequence.cpp">
+    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\IButtonsController.cpp">
+      <Filter>Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Context.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)IArduinoWrapper.cpp" />
+    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\IAction.cpp">
+      <Filter>Sequences</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\ButtonsMapItem.cpp">
+      <Filter>Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\IHwCheck.cpp">
+      <Filter>HardwareTest</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\LoaderCheck.cpp">
+      <Filter>HardwareTest\Checks</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\ITestScreen.cpp">
       <Filter>HardwareTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h" />
-    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\HwCheckBase.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)TypeDefinitions.h" />
+    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\HwCheckSequence.h">
       <Filter>HardwareTest</Filter>
     </ClInclude>
-    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\HwCheckSequence.h">
+    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\IButtonsController.h">
+      <Filter>Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Context.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IArduinoWrapper.h" />
+    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\IAction.h">
+      <Filter>Sequences</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\ButtonsMapItem.h">
+      <Filter>Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\IHwCheck.h">
+      <Filter>HardwareTest</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\LoaderCheck.h">
+      <Filter>HardwareTest\Checks</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\ITestScreen.h">
       <Filter>HardwareTest</Filter>
     </ClInclude>
   </ItemGroup>

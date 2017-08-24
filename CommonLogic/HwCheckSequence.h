@@ -1,5 +1,5 @@
 #pragma once
-#include "HwCheckBase.h"
+#include "IHwCheck.h"
 
 class HwCheckSequence
 {
@@ -7,6 +7,6 @@ public:
 	HwCheckSequence();
 	~HwCheckSequence();
 private:
-	HwCheckBase* _checks;
+	IHwCheck* _checks;
 };
 
