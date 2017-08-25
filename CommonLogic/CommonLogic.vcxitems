@@ -14,6 +14,8 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsCheck.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsController.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsMapItem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IArduinoWrapper.h" />
@@ -27,12 +29,13 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)HwCheckSequence.h">
       <DeploymentContent>true</DeploymentContent>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)IButtonsController.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)ITestScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderCheck.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TestScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsCheck.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsController.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsMapItem.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)IAction.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)IArduinoWrapper.cpp" />
@@ -45,8 +48,7 @@
       <DeploymentContent>true</DeploymentContent>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)IButtonsController.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)ITestScreen.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)LoaderCheck.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)TestScreen.cpp" />
   </ItemGroup>
 </Project>

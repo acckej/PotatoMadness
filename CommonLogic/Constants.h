@@ -31,7 +31,7 @@
 #define BTN5_PORT 31
 #define BTN6_PORT 33
 
-enum Buttons { x1, x2, x3, x4, x5, x6 };
+enum Buttons { x1, x2, x3, x4, x5, x6, Combo, None };
 
 #define TestAbortButton x1
 

@@ -1,10 +1,8 @@
 #include "LoaderCheck.h"
 #include <stdio.h>
 
-LoaderCheck::LoaderCheck(IArduinoWrapper * wrapper, ITestScreen* screen)
+LoaderCheck::LoaderCheck(IArduinoWrapper * wrapper, TestScreen* screen): IHwCheck(wrapper, screen)
 {
-	_wrapper = wrapper;
-	_screen = screen;
 }
 
 CheckResult LoaderCheck::Check()

@@ -21,3 +21,23 @@ void IArduinoWrapper::AnalogWrite(ArduinoUInt port, ArduinoInt value)
 void IArduinoWrapper::Delay(ArduinoULong delay)
 {
 }
+
+void IArduinoWrapper::ClearScreen()
+{
+}
+
+void IArduinoWrapper::SetScreenCursor(char col, char row)
+{
+}
+
+void IArduinoWrapper::Print(const char[])
+{	
+}
+
+void IArduinoWrapper::Print(ArduinoDouble val, ArduinoInt = 2)
+{	
+}
+
+void IArduinoWrapper::SerialPrint(char * message)
+{
+}

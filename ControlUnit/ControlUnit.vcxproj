@@ -85,7 +85,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArduinoWrapper.h" />
     <ClInclude Include="__vm\.ControlUnit.vsarduino.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ArduinoWrapper.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

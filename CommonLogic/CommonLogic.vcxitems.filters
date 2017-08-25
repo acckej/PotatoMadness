@@ -15,54 +15,60 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\HwCheckSequence.cpp">
-      <Filter>HardwareTest</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\IButtonsController.cpp">
-      <Filter>Buttons</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Context.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)IArduinoWrapper.cpp" />
-    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\IAction.cpp">
-      <Filter>Sequences</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\ButtonsMapItem.cpp">
-      <Filter>Buttons</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\IHwCheck.cpp">
-      <Filter>HardwareTest</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\LoaderCheck.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)LoaderCheck.cpp">
       <Filter>HardwareTest\Checks</Filter>
     </ClCompile>
-    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\ITestScreen.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)TestScreen.cpp">
+      <Filter>HardwareTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)IAction.cpp">
+      <Filter>Sequences</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsCheck.cpp">
+      <Filter>HardwareTest\Checks</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsController.cpp">
+      <Filter>Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsMapItem.cpp">
+      <Filter>Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)HwCheckSequence.cpp">
+      <Filter>HardwareTest</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)IHwCheck.cpp">
       <Filter>HardwareTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeDefinitions.h" />
-    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\HwCheckSequence.h">
-      <Filter>HardwareTest</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\IButtonsController.h">
-      <Filter>Buttons</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Context.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IArduinoWrapper.h" />
-    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\IAction.h">
-      <Filter>Sequences</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\ButtonsMapItem.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsMapItem.h">
       <Filter>Buttons</Filter>
     </ClInclude>
-    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\IHwCheck.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)TestScreen.h">
       <Filter>HardwareTest</Filter>
     </ClInclude>
-    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\LoaderCheck.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)IAction.h">
+      <Filter>Sequences</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)LoaderCheck.h">
       <Filter>HardwareTest\Checks</Filter>
     </ClInclude>
-    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\ITestScreen.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsCheck.h">
+      <Filter>HardwareTest\Checks</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsController.h">
+      <Filter>Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)HwCheckSequence.h">
+      <Filter>HardwareTest</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)IHwCheck.h">
       <Filter>HardwareTest</Filter>
     </ClInclude>
   </ItemGroup>

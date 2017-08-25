@@ -1,12 +1,12 @@
 #pragma once
 #include "Constants.h"
 #include "IArduinoWrapper.h"
-#include "IButtonsController.h"
+#include "ButtonsController.h"
 
 class Context 
 {
 public:
-	Context(IArduinoWrapper *wrapper, IButtonsController* buttons);
+	Context(IArduinoWrapper *wrapper, ButtonsController* buttons);
 
 	static OperationMode GetOperationMode();
 	static void SetOperationMode(OperationMode mode);
@@ -17,10 +17,12 @@ public:
 
 	static bool WaitForButton(Buttons button, int delay);	
 
-	static IButtonsController GetButtonsController();
+	static ButtonsController GetButtonsController();
+
+	static void LogMessage(char* message);
 private:
 	static OperationMode _mode;
 	static IArduinoWrapper* _wrapper;
-	static IButtonsController* _buttonsController;
+	static ButtonsController* _buttonsController;
 };
 

@@ -1,6 +1,6 @@
 #include "Context.h"
 
-Context::Context(IArduinoWrapper *wrapper, IButtonsController* buttons)
+Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons)
 {
 	_mode = FiringMode;
 	_wrapper = wrapper;
@@ -32,7 +32,7 @@ bool Context::WaitForButton(Buttons button, int delay)
 {
 	for(auto i = 0; i < delay / 100; i++)
 	{
-		if(_buttonsController->IsButtonPressed((button)))
+		if(_buttonsController->IsButtonPressed(button))
 		{
 			return true;
 		}
@@ -43,7 +43,12 @@ bool Context::WaitForButton(Buttons button, int delay)
 	return false;
 }
 
-IButtonsController Context::GetButtonsController()
+ButtonsController Context::GetButtonsController()
 {
 	return *_buttonsController;
+}
+
+void Context::LogMessage(char * message)
+{
+	_wrapper->SerialPrint(message);
 }

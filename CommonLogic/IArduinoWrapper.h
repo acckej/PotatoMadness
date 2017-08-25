@@ -11,5 +11,14 @@ public:
 	virtual void AnalogWrite(ArduinoUInt port, ArduinoInt value);
 
 	virtual void Delay(ArduinoULong delay);
+
+	virtual void ClearScreen();
+
+	virtual void SetScreenCursor(char col, char row);
+	virtual void Print(const char[]);
+
+	virtual void Print(ArduinoDouble val, ArduinoInt = 2);
+
+	virtual void SerialPrint(char* message);
 };
 
