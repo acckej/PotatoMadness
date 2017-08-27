@@ -17,7 +17,7 @@ public:
 	virtual void SetScreenCursor(char col, char row);
 	virtual void Print(const char[]);
 
-	virtual void Print(ArduinoDouble val, ArduinoInt = 2);
+	virtual void Print(ArduinoDouble val, ArduinoInt digits);
 
 	virtual void SerialPrint(char* message);
 };

@@ -5,12 +5,7 @@ ButtonsCheck::ButtonsCheck(IArduinoWrapper* wrapper, TestScreen* screen): IHwChe
 {
 }
 
-
-ButtonsCheck::~ButtonsCheck()
-{
-}
-
-CheckResult ButtonsCheck::Check()
+CheckResult ButtonsCheck::Check() 
 {
 	_screen->PutTestMessage("Buttons test", 1);
 

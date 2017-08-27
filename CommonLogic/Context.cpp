@@ -1,9 +1,14 @@
 #include "Context.h"
 
+OperationMode Context::_mode;
+IArduinoWrapper* Context::_wrapper;
+ButtonsController* Context::_buttonsController;
+
 Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons)
 {
 	_mode = FiringMode;
 	_wrapper = wrapper;
+	_buttonsController = buttons;
 }
 
 

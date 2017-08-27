@@ -2,7 +2,7 @@
 #include "Context.h"
 
 
-HwCheckSequence::HwCheckSequence(IArduinoWrapper * wrapper, IHwCheck * checks, int checksCount)
+HwCheckSequence::HwCheckSequence(IArduinoWrapper * wrapper, IHwCheck ** checks, int checksCount)
 {
 	_wrapper = wrapper;
 	_checks = checks;
@@ -25,7 +25,7 @@ CheckResult HwCheckSequence::Run() const
 		}
 
 		auto check = _checks[i];
-		auto checkResult = check.Check();
+		auto checkResult = check->Check();
 
 		if(checkResult == Interrupted)
 		{

@@ -4,11 +4,10 @@
 class IArduinoWrapper;
 class TestScreen;
 
-class ButtonsCheck : IHwCheck
+class ButtonsCheck : public IHwCheck
 {
 public:
-	ButtonsCheck(IArduinoWrapper* wrapper, TestScreen* screen);
-	~ButtonsCheck();
+	ButtonsCheck(IArduinoWrapper* wrapper, TestScreen* screen);	
 
 	CheckResult Check() override;
 };

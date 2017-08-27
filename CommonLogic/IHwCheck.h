@@ -7,6 +7,7 @@ enum CheckResult {Passed, Interrupted, Failed};
 class IHwCheck
 {
 public:
+	IHwCheck();
 	IHwCheck(IArduinoWrapper* wrapper, TestScreen* screen);
 	virtual CheckResult Check();
 

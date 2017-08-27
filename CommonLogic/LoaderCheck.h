@@ -5,7 +5,7 @@
 #include "Constants.h"
 #include "Context.h"
 
-class LoaderCheck : IHwCheck
+class LoaderCheck : public IHwCheck
 {
 public:
 	LoaderCheck(IArduinoWrapper* wrapper, TestScreen* screen);

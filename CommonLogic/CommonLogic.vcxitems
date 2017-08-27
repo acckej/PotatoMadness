@@ -34,12 +34,24 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsCheck.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsController.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsMapItem.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)IAction.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)IArduinoWrapper.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)Context.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsCheck.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsController.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsMapItem.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)IAction.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)IArduinoWrapper.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Context.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)IHwCheck.cpp">
       <DeploymentContent>true</DeploymentContent>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -48,7 +60,11 @@
       <DeploymentContent>true</DeploymentContent>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)LoaderCheck.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)TestScreen.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)LoaderCheck.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TestScreen.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
   </ItemGroup>
 </Project>

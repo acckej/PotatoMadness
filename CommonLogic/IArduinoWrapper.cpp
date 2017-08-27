@@ -34,7 +34,7 @@ void IArduinoWrapper::Print(const char[])
 {	
 }
 
-void IArduinoWrapper::Print(ArduinoDouble val, ArduinoInt = 2)
+void IArduinoWrapper::Print(ArduinoDouble val, ArduinoInt digits)
 {	
 }
 
