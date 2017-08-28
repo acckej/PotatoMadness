@@ -15,5 +15,8 @@ public:
 private:
 	void Stop() const;
 	CheckResult CheckCurrent(char messageLine) const;	
+
+	int _cyclesCounter;
+	bool _forward;
 };
 

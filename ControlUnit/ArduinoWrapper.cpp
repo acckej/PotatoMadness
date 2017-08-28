@@ -5,6 +5,12 @@
 
 LiquidCrystal_I2C lcd(0x27, 20, 4); //0x3f
 
+ArduinoWrapper::ArduinoWrapper()
+{
+	lcd.begin();
+	lcd.backlight();
+}
+
 int ArduinoWrapper::DigitalRead(int port)
 {
 	return digitalRead(port);
@@ -52,5 +58,5 @@ void ArduinoWrapper::Print(float val, int dp = 2)
 
 void ArduinoWrapper::SerialPrint(char * message)
 {
-	Serial.print(message);
+	Serial.println(message);
 }

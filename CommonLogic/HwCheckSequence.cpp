@@ -7,36 +7,53 @@ HwCheckSequence::HwCheckSequence(IArduinoWrapper * wrapper, IHwCheck ** checks, 
 	_wrapper = wrapper;
 	_checks = checks;
 	_checksCount = checksCount;
+	_checkIndex = 0;
 }
 
 HwCheckSequence::~HwCheckSequence()
 {
 }
 
-CheckResult HwCheckSequence::Run() const
+CheckResult HwCheckSequence::Run()
 {
-	CheckResult result = Passed;
-
-	for (auto i = 0; i < _checksCount; i++)
+	if (Context::GetButtonsController().AreButtonsPressed(x1, x3))
 	{
-		if(Context::GetButtonsController().AreButtonsPressed(x1, x3))
-		{
-			return Interrupted;
-		}
-
-		auto check = _checks[i];
-		auto checkResult = check->Check();
-
-		if(checkResult == Interrupted)
-		{
-			return Interrupted;
-		}
-
-		if(checkResult == Failed)
-		{
-			result = Failed;
-		}
+		return Interrupted;
 	}
 
-	return result;
+	auto check = _checks[_checkIndex];
+	auto checkResult = check->Check();
+
+	switch (checkResult)
+	{
+	case Interrupted:
+	{
+		_checkIndex = 0;
+		return Interrupted;
+	}
+	case Failed:
+	{
+		_checkIndex = 0;
+		return Failed;
+	}
+	case Running:
+	{
+		return Running;
+	}	
+	case Passed:
+	{
+		_checkIndex++;
+		if (_checkIndex >= _checksCount)
+		{
+			_checkIndex = 0;
+			return Passed;
+		}
+	}
+	default:
+	{
+		Context::LogMessage("Unexpected hw check result code");
+		_checkIndex = 0;
+		return Failed;
+	}
+	}	
 }

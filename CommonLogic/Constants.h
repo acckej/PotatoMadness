@@ -11,7 +11,7 @@
 #define I2C_SCL_PORT 21
 
 #define LOADER_FWD_PORT 3
-#define  LOADER_REV_PORT 4
+#define LOADER_REV_PORT 4
 #define LOADER_ENABLE_PORT 5
 #define LOADER_CURRENT_PORT 1
 

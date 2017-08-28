@@ -55,5 +55,7 @@ ButtonsController Context::GetButtonsController()
 
 void Context::LogMessage(char * message)
 {
+#ifdef Debug
 	_wrapper->SerialPrint(message);
+#endif
 }

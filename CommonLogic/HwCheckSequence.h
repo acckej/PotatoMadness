@@ -8,10 +8,11 @@ public:
 	HwCheckSequence(IArduinoWrapper* wrapper, IHwCheck** checks, int checksCount);
 	~HwCheckSequence();
 
-	CheckResult Run() const;
+	CheckResult Run();
 private:
 	IHwCheck** _checks;
 	IArduinoWrapper* _wrapper;
 	int _checksCount;
+	int _checkIndex;
 };
 

@@ -1,18 +1,31 @@
 #include "stdafx.h"
 #include "ArduinoStub.h"
+#include <thread>
+#include <chrono>
+
+ArduinoStub::ArduinoStub(DigitalReadDelegate digRead, DigitalWriteDelegate digWrite, AnalogReadDelegate anRead)
+{
+	_readDelegate = digRead;
+	_writeDelegate = digWrite;
+	_analogReadDelegate = anRead;
+}
 
 int ArduinoStub::DigitalRead(int port)
 {
-	return 0;
+	return _readDelegate == nullptr ? 0 : _readDelegate(port);
 }
 
 void ArduinoStub::DigitalWrite(int port, int value)
 {
+	if (_writeDelegate != nullptr)
+	{
+		_writeDelegate(port, value);
+	}
 }
 
 int ArduinoStub::AnalogRead(int port)
 {
-	return 0;
+	return _analogReadDelegate == nullptr ? 0 : _analogReadDelegate(port);
 }
 
 void ArduinoStub::AnalogWrite(int port, int value)
@@ -21,6 +34,7 @@ void ArduinoStub::AnalogWrite(int port, int value)
 
 void ArduinoStub::Delay(unsigned long delay)
 {
+	std::this_thread::sleep_for(std::chrono::milliseconds(delay));
 }
 
 void ArduinoStub::ClearScreen()

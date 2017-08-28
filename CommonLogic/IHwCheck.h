@@ -2,7 +2,7 @@
 #include "IArduinoWrapper.h"
 #include "TestScreen.h"
 
-enum CheckResult {Passed, Interrupted, Failed};
+enum CheckResult {Passed, Interrupted, Failed, Running};
 
 class IHwCheck
 {

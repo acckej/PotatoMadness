@@ -3,37 +3,62 @@
 
 LoaderCheck::LoaderCheck(IArduinoWrapper * wrapper, TestScreen* screen): IHwCheck(wrapper, screen)
 {
+	_cyclesCounter = 0;
+	_forward = true;
 }
 
 CheckResult LoaderCheck::Check()
 {
-	Context::Halt();
-	_screen->Refresh();
-	_screen->PutTestMessage("Loader check, test forward", 1);
-
-	_wrapper->DigitalWrite(LOADER_FWD_PORT, 1);
-	_wrapper->DigitalWrite(LOADER_REV_PORT, 1);
-	_wrapper->DigitalWrite(LOADER_ENABLE_PORT, 1);
-	
-	for (auto i = 0; i < 50; i++)
+	if (_cyclesCounter == 0)
 	{
-		if(Context::GetButtonsController().IsButtonPressed(TestAbortButton))
+		Context::Halt();
+		_screen->Refresh();		
+	}
+
+#ifdef Debug
+	char buf[100];
+	sprintf(buf, "Loader fwd:%i, cycle %i", _forward, _cyclesCounter);
+	Context::LogMessage(buf);
+#endif
+
+	if (_forward)
+	{
+		if (_cyclesCounter == 0)
+		{
+			_screen->PutTestMessage("Loader check, test forward", 1);
+			_wrapper->DigitalWrite(LOADER_FWD_PORT, 1);
+			_wrapper->DigitalWrite(LOADER_REV_PORT, 1);
+			_wrapper->DigitalWrite(LOADER_ENABLE_PORT, 1);
+		}		
+
+		if (Context::GetButtonsController().IsButtonPressed(TestAbortButton))
 		{
 			Stop();
-			
 			return Interrupted;
 		}
 
-		if(CheckCurrent(2) == Failed)
+		if (CheckCurrent(2) == Failed)
 		{
 			return Failed;
 		}
+		
+		_cyclesCounter++;
+
+		if(_cyclesCounter >= 50)
+		{
+			_forward = false;
+			_cyclesCounter = 0;
+		}
 	}
-
-	_screen->PutTestMessage("Loader check, test reverse", 3);
-
-	for (auto i = 0; i < 50; i++)
+	else
 	{
+		if (_cyclesCounter == 0)
+		{
+			_screen->PutTestMessage("Loader check, test reverse", 3);
+			_wrapper->DigitalWrite(LOADER_FWD_PORT, 0);
+			_wrapper->DigitalWrite(LOADER_REV_PORT, 0);
+		}		
+
 		if (Context::GetButtonsController().IsButtonPressed(TestAbortButton))
 		{
 			Stop();
@@ -44,9 +69,21 @@ CheckResult LoaderCheck::Check()
 		{
 			return Failed;
 		}
+
+		_cyclesCounter++;
+
+		if (_cyclesCounter >= 50)
+		{
+			Stop();
+			_forward = true;
+			_cyclesCounter = 0;
+			return Passed;
+		}
 	}
 
-	return Passed;
+	_wrapper->Delay(100);
+
+	return Running;
 }
 
 void LoaderCheck::Stop() const

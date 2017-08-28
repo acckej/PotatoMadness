@@ -1,9 +1,11 @@
 #pragma once
 #include "IArduinoWrapper.h"
 
-class ArduinoWrapper : IArduinoWrapper
+class ArduinoWrapper : public IArduinoWrapper 
 {
 public:	
+	ArduinoWrapper();
+
 	int DigitalRead(int port) override;
 	void DigitalWrite(int port, int value) override;
 	int AnalogRead(int port) override;
