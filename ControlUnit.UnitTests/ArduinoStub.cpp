@@ -11,12 +11,12 @@ ArduinoStub::ArduinoStub(DigitalReadDelegate digRead, DigitalWriteDelegate digWr
 	_analogReadDelegate = anRead;
 }
 
-int ArduinoStub::DigitalRead(int port)
+int ArduinoStub::DigitalRead(unsigned int port)
 {
 	return _readDelegate == nullptr ? 0 : _readDelegate(port);
 }
 
-void ArduinoStub::DigitalWrite(int port, int value)
+void ArduinoStub::DigitalWrite(unsigned int port, int value)
 {
 	if (_writeDelegate != nullptr)
 	{
@@ -24,12 +24,12 @@ void ArduinoStub::DigitalWrite(int port, int value)
 	}
 }
 
-int ArduinoStub::AnalogRead(int port)
+int ArduinoStub::AnalogRead(unsigned int port)
 {
 	return _analogReadDelegate == nullptr ? 0 : _analogReadDelegate(port);
 }
 
-void ArduinoStub::AnalogWrite(int port, int value)
+void ArduinoStub::AnalogWrite(unsigned int port, int value)
 {
 }
 
@@ -52,7 +52,7 @@ void ArduinoStub::Print(const char msg[])
 	Microsoft::VisualStudio::CppUnitTestFramework::Logger::WriteMessage(msg);
 }
 
-void ArduinoStub::Print(float val, int)
+void ArduinoStub::Print(double val, int)
 {
 	Microsoft::VisualStudio::CppUnitTestFramework::Logger::WriteMessage("Lcd number print:");
 	Microsoft::VisualStudio::CppUnitTestFramework::Logger::WriteMessage(std::to_string(val).c_str());

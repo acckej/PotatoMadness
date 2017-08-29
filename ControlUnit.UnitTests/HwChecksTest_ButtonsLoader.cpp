@@ -15,7 +15,7 @@ namespace ControlUnitUnitTests
 	static int _buttonsPort;
 	static int _currentValue;
 
-	TEST_CLASS(HardwareChecksTest)
+	TEST_CLASS(HardwareChecksTest_ButtonsLoader)
 	{
 	public:
 		

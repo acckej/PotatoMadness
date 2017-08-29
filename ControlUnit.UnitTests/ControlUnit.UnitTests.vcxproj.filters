@@ -29,10 +29,13 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="HwChecksTest.cpp">
+    <ClCompile Include="ArduinoStub.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ArduinoStub.cpp">
+    <ClCompile Include="HwChecksTest_ButtonsLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HwChecksTest_DrivesPower.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

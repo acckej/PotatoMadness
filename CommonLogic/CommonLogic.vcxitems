@@ -69,7 +69,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)LoaderCheck.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)MachineryCheck.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MachineryCheck.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ScreenBase.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>

@@ -11,15 +11,15 @@ class ArduinoStub : public IArduinoWrapper
 public:	
 	ArduinoStub(DigitalReadDelegate digRead = nullptr, DigitalWriteDelegate digWrite = nullptr, AnalogReadDelegate anRead = nullptr);
 
-	int DigitalRead(int port) override;
-	void DigitalWrite(int port, int value) override;
-	int AnalogRead(int port) override;
-	void AnalogWrite(int port, int value) override;
+	int DigitalRead(unsigned int port) override;
+	void DigitalWrite(unsigned int port, int value) override;
+	int AnalogRead(unsigned int port) override;
+	void AnalogWrite(unsigned int port, int value) override;
 	void Delay(unsigned long delay) override;
 	void ClearScreen() override;
 	void SetScreenCursor(char col, char row) override;
 	void Print(const char msg[]) override;
-	void Print(float val, int) override;
+	void Print(double val, int) override;
 	void SerialPrint(char* message) override;
 	void PrintFormat(char* message, ...) override;
 private:
