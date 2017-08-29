@@ -24,9 +24,15 @@ void Context::SetOperationMode(OperationMode mode)
 
 void Context::Halt()
 {
-	_wrapper->DigitalWrite(LOADER_ENABLE_PORT, 0);
-	_wrapper->DigitalWrite(LOADER_FWD_PORT, 0);
-	_wrapper->DigitalWrite(LOADER_REV_PORT, 0);	
+	_wrapper->DigitalWrite(LOADER_ENABLE_PORT, ARDUINO_LOW);
+	_wrapper->DigitalWrite(LOADER_FWD_PORT, ARDUINO_LOW);
+	_wrapper->DigitalWrite(LOADER_REV_PORT, ARDUINO_LOW);
+
+	_wrapper->DigitalWrite(INJECTOR_PORT, ARDUINO_LOW);
+	_wrapper->DigitalWrite(BREACH_CLOSE_PORT, ARDUINO_HIGH);
+	_wrapper->DigitalWrite(BREACH_OPEN_PORT, ARDUINO_LOW);
+	_wrapper->DigitalWrite(FAN_PORT, ARDUINO_LOW);
+
 }
 
 void Context::HandleError(char * message, ErrorCode code)

@@ -2,6 +2,7 @@
 #include "ArduinoStub.h"
 #include <thread>
 #include <chrono>
+#include <cstdarg>
 
 ArduinoStub::ArduinoStub(DigitalReadDelegate digRead, DigitalWriteDelegate digWrite, AnalogReadDelegate anRead)
 {
@@ -59,5 +60,16 @@ void ArduinoStub::Print(float val, int)
 
 void ArduinoStub::SerialPrint(char * message)
 {
+	Microsoft::VisualStudio::CppUnitTestFramework::Logger::WriteMessage(message);
+}
+
+void ArduinoStub::PrintFormat(char * message, ...)
+{
+	char buffer[256];
+	va_list args;
+	va_start(args, message);
+	vsnprintf(buffer, 256, message, args);
+	va_end(args);
+
 	Microsoft::VisualStudio::CppUnitTestFramework::Logger::WriteMessage(message);
 }

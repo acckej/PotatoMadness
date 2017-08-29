@@ -7,7 +7,7 @@ ButtonsCheck::ButtonsCheck(IArduinoWrapper* wrapper, TestScreen* screen): IHwChe
 
 CheckResult ButtonsCheck::Check()
 {
-	_screen->PutTestMessage("Buttons test", 1);
+	_screen->Println("Buttons test", 1);
 
 	auto controller = Context::GetButtonsController();
 
@@ -25,31 +25,31 @@ CheckResult ButtonsCheck::Check()
 	switch (btn)
 	{
 	case Combo:
-		_screen->PutTestMessage("Combo", 2);
+		_screen->Println("Combo", 2);
 		break;
 	case x1:
-		_screen->PutTestMessage("x1", 2);
+		_screen->Println("x1", 2);
 		break;
 	case x2:
-		_screen->PutTestMessage("x2", 2);
+		_screen->Println("x2", 2);
 		break;
 	case x3:
-		_screen->PutTestMessage("x3", 2);
+		_screen->Println("x3", 2);
 		break;
 	case x4:
-		_screen->PutTestMessage("x4", 2);
+		_screen->Println("x4", 2);
 		break;
 	case x5:
-		_screen->PutTestMessage("x5", 2);
+		_screen->Println("x5", 2);
 		break;
 	case x6:
-		_screen->PutTestMessage("x6", 2);
+		_screen->Println("x6", 2);
 		break;
 	case None:
 		break;
 	default:
 	{
-		_screen->PutTestMessage("Error", 2);
+		_screen->Println("Error", 2);
 		return Failed;
 	}
 	}

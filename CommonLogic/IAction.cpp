@@ -6,11 +6,6 @@ IAction::IAction()
 {
 }
 
-
-IAction::~IAction()
-{
-}
-
 bool IAction::IsAsync()
 {
 	return false;
@@ -51,4 +46,9 @@ bool IAction::CheckPostConditions()
 
 void IAction::EndAction()
 {
+}
+
+int IAction::GetActionDuration()
+{
+	return 0;
 }

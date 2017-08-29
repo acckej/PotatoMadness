@@ -1,6 +1,6 @@
 #include "ArduinoWrapper.h"
 #include <Arduino.h>
-
+#include "Constants.h"
 #include <LiquidCrystal_I2C.h>
 
 LiquidCrystal_I2C lcd(0x27, 20, 4); //0x3f
@@ -11,22 +11,22 @@ ArduinoWrapper::ArduinoWrapper()
 	lcd.backlight();
 }
 
-int ArduinoWrapper::DigitalRead(int port)
+int ArduinoWrapper::DigitalRead(unsigned int port)
 {
 	return digitalRead(port);
 }
 
-void ArduinoWrapper::DigitalWrite(int port, int value)
+void ArduinoWrapper::DigitalWrite(unsigned int port, int value)
 {
 	digitalWrite(port, value);
 }
 
-int ArduinoWrapper::AnalogRead(int port)
+int ArduinoWrapper::AnalogRead(unsigned int port)
 {
 	return analogRead(port);
 }
 
-void ArduinoWrapper::AnalogWrite(int port, int value)
+void ArduinoWrapper::AnalogWrite(unsigned int port, int value)
 {
 	analogWrite(port, value);
 }
@@ -51,7 +51,7 @@ void ArduinoWrapper::Print(const char msg[])
 	lcd.print(msg);
 }
 
-void ArduinoWrapper::Print(float val, int dp = 2)
+void ArduinoWrapper::Print(double val, int dp = 2)
 {
 	lcd.print(val, dp);
 }
@@ -59,4 +59,15 @@ void ArduinoWrapper::Print(float val, int dp = 2)
 void ArduinoWrapper::SerialPrint(char * message)
 {
 	Serial.println(message);
+}
+
+void ArduinoWrapper::PrintFormat(char * message, ...)
+{
+	char buffer[SCREEN_BUFFER_SIZE];
+	va_list args = nullptr;
+	va_start(args, message);
+	vsnprintf(buffer, SCREEN_BUFFER_SIZE, message, args);
+	va_end(args);
+
+	lcd.print(message);
 }

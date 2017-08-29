@@ -14,6 +14,7 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)BatteryCheck.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsCheck.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsController.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsMapItem.h" />
@@ -30,10 +31,15 @@
       <DeploymentContent>true</DeploymentContent>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderCheck.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MachineryCheck.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScreenBase.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TestScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)BatteryCheck.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsCheck.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -61,6 +67,10 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)LoaderCheck.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MachineryCheck.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScreenBase.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TestScreen.cpp">

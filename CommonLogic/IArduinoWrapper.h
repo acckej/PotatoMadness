@@ -4,20 +4,22 @@
 class IArduinoWrapper  
 {
 public:
-	virtual ArduinoInt DigitalRead(ArduinoUInt port);
-	virtual void DigitalWrite(ArduinoUInt port, ArduinoInt value);
+	virtual int DigitalRead(unsigned int port);
+	virtual void DigitalWrite(unsigned int port, int value);
 	
-	virtual ArduinoInt AnalogRead(ArduinoUInt port);
-	virtual void AnalogWrite(ArduinoUInt port, ArduinoInt value);
+	virtual int AnalogRead(unsigned int port);
+	virtual void AnalogWrite(unsigned int port, int value);
 
-	virtual void Delay(ArduinoULong delay);
+	virtual void Delay(unsigned long delay);
 
 	virtual void ClearScreen();
 
 	virtual void SetScreenCursor(char col, char row);
 	virtual void Print(const char[]);
 
-	virtual void Print(ArduinoDouble val, ArduinoInt digits);
+	virtual void Print(double val, int digits);
+
+	virtual void PrintFormat(char* message, ...);
 
 	virtual void SerialPrint(char* message);
 };

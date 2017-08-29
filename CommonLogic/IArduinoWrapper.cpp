@@ -1,24 +1,24 @@
 #include "IArduinoWrapper.h"
 
-ArduinoInt IArduinoWrapper::DigitalRead(ArduinoUInt port)
+int IArduinoWrapper::DigitalRead(unsigned int port)
 {
-	return ArduinoInt();
+	return int();
 }
 
-void IArduinoWrapper::DigitalWrite(ArduinoUInt port, ArduinoInt value)
-{
-}
-
-ArduinoInt IArduinoWrapper::AnalogRead(ArduinoUInt port)
-{
-	return ArduinoDouble();
-}
-
-void IArduinoWrapper::AnalogWrite(ArduinoUInt port, ArduinoInt value)
+void IArduinoWrapper::DigitalWrite(unsigned int port, int value)
 {
 }
 
-void IArduinoWrapper::Delay(ArduinoULong delay)
+int IArduinoWrapper::AnalogRead(unsigned int port)
+{
+	return double();
+}
+
+void IArduinoWrapper::AnalogWrite(unsigned int port, int value)
+{
+}
+
+void IArduinoWrapper::Delay(unsigned long delay)
 {
 }
 
@@ -34,8 +34,12 @@ void IArduinoWrapper::Print(const char[])
 {	
 }
 
-void IArduinoWrapper::Print(ArduinoDouble val, ArduinoInt digits)
+void IArduinoWrapper::Print(double val, int digits)
 {	
+}
+
+void IArduinoWrapper::PrintFormat(char * message, ...)
+{
 }
 
 void IArduinoWrapper::SerialPrint(char * message)

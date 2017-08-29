@@ -25,7 +25,7 @@ CheckResult LoaderCheck::Check()
 	{
 		if (_cyclesCounter == 0)
 		{
-			_screen->PutTestMessage("Loader check, test forward", 1);
+			_screen->Println("Loader check, test forward", 1);
 			_wrapper->DigitalWrite(LOADER_FWD_PORT, 1);
 			_wrapper->DigitalWrite(LOADER_REV_PORT, 1);
 			_wrapper->DigitalWrite(LOADER_ENABLE_PORT, 1);
@@ -54,7 +54,7 @@ CheckResult LoaderCheck::Check()
 	{
 		if (_cyclesCounter == 0)
 		{
-			_screen->PutTestMessage("Loader check, test reverse", 3);
+			_screen->Println("Loader check, test reverse", 3);
 			_wrapper->DigitalWrite(LOADER_FWD_PORT, 0);
 			_wrapper->DigitalWrite(LOADER_REV_PORT, 0);
 		}		
@@ -101,7 +101,7 @@ CheckResult LoaderCheck::CheckCurrent(char messageLine) const
 	{
 		Stop();		
 		sprintf(buf, "Overload %i", loaderCurrent);
-		_screen->PutTestMessage(buf, messageLine);
+		_screen->Println(buf, messageLine);
 
 		return Failed;
 	}
@@ -110,13 +110,13 @@ CheckResult LoaderCheck::CheckCurrent(char messageLine) const
 	{
 		Stop();		
 		sprintf(buf, "Low curr %i", loaderCurrent);
-		_screen->PutTestMessage(buf, messageLine);
+		_screen->Println(buf, messageLine);
 
 		return Failed;
 	}
 
 	sprintf(buf, "Current %i", loaderCurrent);
-	_screen->PutTestMessage(buf, messageLine);
+	_screen->Println(buf, messageLine);
 
 	return Passed;
 }

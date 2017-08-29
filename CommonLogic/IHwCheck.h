@@ -14,5 +14,6 @@ public:
 protected:
 	IArduinoWrapper* _wrapper;
 	TestScreen* _screen;
+	int _cyclesCounter;
 };
 

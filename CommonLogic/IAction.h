@@ -2,8 +2,7 @@
 class IAction 
 {
 public:
-	IAction();
-	virtual ~IAction();
+	IAction();	
 
 	virtual bool IsAsync();
 
@@ -22,5 +21,7 @@ public:
 	virtual bool CheckPostConditions();
 
 	virtual void EndAction();
+
+	virtual int GetActionDuration();
 };
 

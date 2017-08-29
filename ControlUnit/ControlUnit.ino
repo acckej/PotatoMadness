@@ -4,6 +4,7 @@
 #include "ButtonsCheck.h"
 
 #define Debug
+#define Arduino
 
 auto _wrapper = ArduinoWrapper();
 auto _buttons = ButtonsController(&_wrapper, nullptr, 0);

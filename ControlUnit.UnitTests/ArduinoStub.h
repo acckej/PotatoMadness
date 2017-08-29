@@ -21,7 +21,7 @@ public:
 	void Print(const char msg[]) override;
 	void Print(float val, int) override;
 	void SerialPrint(char* message) override;
-	
+	void PrintFormat(char* message, ...) override;
 private:
 	DigitalReadDelegate _readDelegate;
 	DigitalWriteDelegate _writeDelegate;
