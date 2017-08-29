@@ -45,3 +45,24 @@ void IArduinoWrapper::PrintFormat(char * message, ...)
 void IArduinoWrapper::SerialPrint(char * message)
 {
 }
+
+void IArduinoWrapper::EngageLoader(bool forward, bool enable)
+{
+}
+
+void IArduinoWrapper::EngageFan(bool enable)
+{
+}
+
+double IArduinoWrapper::GetBatteryVoltage()
+{
+	return 0.0;
+}
+
+void IArduinoWrapper::EngageInjector(bool enable)
+{
+}
+
+void IArduinoWrapper::EngageBreach(bool open, bool enable)
+{
+}

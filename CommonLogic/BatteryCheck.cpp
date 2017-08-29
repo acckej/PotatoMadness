@@ -13,10 +13,9 @@ CheckResult BatteryCheck::Check()
 		Context::Halt();
 		_screen->Refresh();
 		_screen->Println("Power check", 1);
-	}
+	}	
 	
-	auto vlt = _wrapper->AnalogRead(VOLTAGE_PORT);
-	auto calculated = static_cast<double>(vlt) * ANALOG_COEFFICIENT * VOLTAGE_COEFFICIENT;
+	auto calculated = _wrapper->GetBatteryVoltage();
 
 	_screen->Println("Voltage:", 2);
 	_screen->PrintNumber(calculated, 2);

@@ -26,9 +26,7 @@ CheckResult LoaderCheck::Check()
 		if (_cyclesCounter == 0)
 		{
 			_screen->Println("Loader check, test forward", 1);
-			_wrapper->DigitalWrite(LOADER_FWD_PORT, 1);
-			_wrapper->DigitalWrite(LOADER_REV_PORT, 1);
-			_wrapper->DigitalWrite(LOADER_ENABLE_PORT, 1);
+			_wrapper->EngageLoader(true, true);
 		}		
 
 		if (Context::GetButtonsController().IsButtonPressed(TestAbortButton))
@@ -55,8 +53,7 @@ CheckResult LoaderCheck::Check()
 		if (_cyclesCounter == 0)
 		{
 			_screen->Println("Loader check, test reverse", 3);
-			_wrapper->DigitalWrite(LOADER_FWD_PORT, 0);
-			_wrapper->DigitalWrite(LOADER_REV_PORT, 0);
+			_wrapper->EngageLoader(false, true);
 		}		
 
 		if (Context::GetButtonsController().IsButtonPressed(TestAbortButton))
@@ -88,9 +85,7 @@ CheckResult LoaderCheck::Check()
 
 void LoaderCheck::Stop() const
 {
-	_wrapper->DigitalWrite(LOADER_ENABLE_PORT, 0);
-	_wrapper->DigitalWrite(LOADER_FWD_PORT, 0);
-	_wrapper->DigitalWrite(LOADER_REV_PORT, 0);
+	_wrapper->EngageLoader(false, false);
 }
 
 CheckResult LoaderCheck::CheckCurrent(char messageLine) const

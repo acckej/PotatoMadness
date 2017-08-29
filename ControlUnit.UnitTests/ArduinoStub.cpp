@@ -73,3 +73,24 @@ void ArduinoStub::PrintFormat(char * message, ...)
 
 	Microsoft::VisualStudio::CppUnitTestFramework::Logger::WriteMessage(message);
 }
+
+void ArduinoStub::EngageLoader(bool forward, bool enable)
+{
+}
+
+void ArduinoStub::EngageFan(bool enable)
+{
+}
+
+double ArduinoStub::GetBatteryVoltage()
+{
+	return 0.0;
+}
+
+void ArduinoStub::EngageInjector(bool enable)
+{
+}
+
+void ArduinoStub::EngageBreach(bool open, bool enable)
+{
+}

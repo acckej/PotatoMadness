@@ -30,14 +30,14 @@ CheckResult MachineryCheck::Check()
 	{
 		if(_cyclesCounter == 0)
 		{
-			_wrapper->DigitalWrite(BREACH_CLOSE_PORT, ARDUINO_HIGH);
+			_wrapper->EngageBreach(false, true);
 		}
 		_screen->Println("Breach close", 2);
 		if(_cyclesCounter >= 30)
 		{
 			_cyclesCounter = 0;
 			_breachClose = false;
-			_wrapper->DigitalWrite(BREACH_CLOSE_PORT, ARDUINO_LOW);
+			_wrapper->EngageBreach(true, false);
 			_breachOpen = true;
 		}
 	}
@@ -46,14 +46,13 @@ CheckResult MachineryCheck::Check()
 	{
 		if (_cyclesCounter == 0)
 		{
-			_wrapper->DigitalWrite(BREACH_OPEN_PORT, ARDUINO_HIGH);
+			_wrapper->EngageBreach(true, true);
 		}
 		_screen->Println("Breach open", 2);
 		if (_cyclesCounter >= 30)
 		{
 			_cyclesCounter = 0;
-			_breachOpen = false;
-			_wrapper->DigitalWrite(BREACH_OPEN_PORT, ARDUINO_LOW);
+			_breachOpen = false;			
 			_fan = true;
 		}
 	}
@@ -62,14 +61,15 @@ CheckResult MachineryCheck::Check()
 	{
 		if (_cyclesCounter == 0)
 		{
-			_wrapper->DigitalWrite(FAN_PORT, ARDUINO_HIGH);
+			_wrapper->EngageFan(true);
 		}
 		_screen->Println("Fan", 2);
 		if (_cyclesCounter >= 30)
 		{
 			_cyclesCounter = 0;
 			_fan = false;
-			_wrapper->DigitalWrite(FAN_PORT, ARDUINO_LOW);
+			_wrapper->EngageFan(false);
+			_wrapper->EngageBreach(false, true);
 			_injector = true;
 		}
 	}
@@ -78,13 +78,13 @@ CheckResult MachineryCheck::Check()
 	{
 		if (_cyclesCounter == 0)
 		{
-			_wrapper->DigitalWrite(INJECTOR_PORT, ARDUINO_HIGH);
+			_wrapper->EngageInjector(true);
 		}
 		_screen->Println("Injector", 2);
 		if (_cyclesCounter >= 30)
 		{
 			_cyclesCounter = 0;			
-			_wrapper->DigitalWrite(INJECTOR_PORT, ARDUINO_LOW);
+			_wrapper->EngageInjector(false);			
 			_injector = false;
 
 			return Passed;

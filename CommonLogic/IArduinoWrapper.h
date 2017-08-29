@@ -22,5 +22,11 @@ public:
 	virtual void PrintFormat(char* message, ...);
 
 	virtual void SerialPrint(char* message);
+
+	virtual void EngageLoader(bool forward, bool enable);
+	virtual void EngageFan(bool enable);
+	virtual double GetBatteryVoltage();
+	virtual void EngageInjector(bool enable);
+	virtual void EngageBreach(bool open, bool enable);
 };
 

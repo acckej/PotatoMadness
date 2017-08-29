@@ -22,6 +22,11 @@ public:
 	void Print(double val, int) override;
 	void SerialPrint(char* message) override;
 	void PrintFormat(char* message, ...) override;
+	void EngageLoader(bool forward, bool enable) override;
+	void EngageFan(bool enable) override;
+	double GetBatteryVoltage() override;
+	void EngageInjector(bool enable) override;
+	void EngageBreach(bool open, bool enable) override;
 private:
 	DigitalReadDelegate _readDelegate;
 	DigitalWriteDelegate _writeDelegate;
