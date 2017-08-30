@@ -94,3 +94,45 @@ void ArduinoStub::EngageInjector(bool enable)
 void ArduinoStub::EngageBreach(bool open, bool enable)
 {
 }
+
+float ArduinoStub::GetAtmPressure()
+{
+	return 0.0f;
+}
+
+float ArduinoStub::GetInternalTemp()
+{
+	return 0.0f;
+}
+
+float ArduinoStub::GetExternalTemp()
+{
+	return 0.0f;
+}
+
+float ArduinoStub::GetExternalHumidity()
+{
+	return 0.0f;
+}
+
+float ArduinoStub::GetReceiverPressure()
+{
+	return 0.0f;
+}
+
+void ArduinoStub::ResetDebouncingTriggers()
+{
+}
+
+bool ArduinoStub::GetAmmoSensorState()
+{
+	return false;
+}
+
+void ArduinoStub::EngageIngnition(bool enabled)
+{
+}
+
+void ArduinoStub::EngageInjectorDiode(bool enabled)
+{
+}

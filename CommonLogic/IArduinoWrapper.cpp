@@ -66,3 +66,45 @@ void IArduinoWrapper::EngageInjector(bool enable)
 void IArduinoWrapper::EngageBreach(bool open, bool enable)
 {
 }
+
+float IArduinoWrapper::GetAtmPressure()
+{
+	return 0.0f;
+}
+
+float IArduinoWrapper::GetInternalTemp()
+{
+	return 0.0f;
+}
+
+float IArduinoWrapper::GetExternalTemp()
+{
+	return 0.0f;
+}
+
+float IArduinoWrapper::GetExternalHumidity()
+{
+	return 0.0f;
+}
+
+float IArduinoWrapper::GetReceiverPressure()
+{
+	return 0.0f;
+}
+
+void IArduinoWrapper::ResetDebouncingTriggers()
+{
+}
+
+bool IArduinoWrapper::GetAmmoSensorState()
+{
+	return false;
+}
+
+void IArduinoWrapper::EngageIngnition(bool enabled)
+{
+}
+
+void IArduinoWrapper::EngageInjectorDiode(bool enabled)
+{
+}

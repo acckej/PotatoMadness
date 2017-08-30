@@ -27,6 +27,15 @@ public:
 	double GetBatteryVoltage() override;
 	void EngageInjector(bool enable) override;
 	void EngageBreach(bool open, bool enable) override;
+	float GetAtmPressure() override;
+	float GetInternalTemp() override;
+	float GetExternalTemp() override;
+	float GetExternalHumidity() override;
+	float GetReceiverPressure() override;
+	void ResetDebouncingTriggers() override;
+	bool GetAmmoSensorState() override;
+	void EngageIngnition(bool enabled) override;
+	void EngageInjectorDiode(bool enabled) override;
 private:
 	DigitalReadDelegate _readDelegate;
 	DigitalWriteDelegate _writeDelegate;

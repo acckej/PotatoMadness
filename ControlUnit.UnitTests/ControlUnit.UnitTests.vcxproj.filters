@@ -38,5 +38,8 @@
     <ClCompile Include="HwChecksTest_DrivesPower.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HwChecksTest_Sensors.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

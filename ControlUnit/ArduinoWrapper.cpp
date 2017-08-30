@@ -2,8 +2,12 @@
 #include <Arduino.h>
 #include "Constants.h"
 #include <LiquidCrystal_I2C.h>
+#include <DHT.h>
 
 LiquidCrystal_I2C lcd(0x27, 20, 4); //0x3f
+#define DHTTYPE DHT11  
+
+DHT dht(TEMP_HUM_SENSOR_PORT, DHTTYPE);
 
 ArduinoWrapper::ArduinoWrapper()
 {
@@ -118,4 +122,68 @@ void ArduinoWrapper::EngageBreach(bool open, bool enable)
 		DigitalWrite(BREACH_OPEN_PORT, open ? ARDUINO_LOW : ARDUINO_HIGH);
 		DigitalWrite(BREACH_CLOSE_PORT, open ? ARDUINO_HIGH : ARDUINO_LOW);
 	}	
+}
+
+float ArduinoWrapper::GetAtmPressure()
+{
+	return 0.0f;
+}
+
+float ArduinoWrapper::GetInternalTemp()
+{
+	return 0.0f;
+}
+
+float ArduinoWrapper::GetExternalTemp()
+{
+	auto t = dht.readTemperature();
+	return t;
+}
+
+float ArduinoWrapper::GetExternalHumidity()
+{
+	auto h = dht.readHumidity();
+	if(isnan(h))
+	{
+		return 0.0f;
+	}
+	return h;
+}
+
+float ArduinoWrapper::GetReceiverPressure()
+{
+	auto press = AnalogRead(RECEIVER_PRESSURE_PORT);
+	auto val = double(press) * ANALOG_COEFFICIENT;
+
+	if(val < 0.5f)
+	{
+		return -1;
+	}
+
+	return val * PRESSURE_COEFFICIENT;
+}
+
+void ArduinoWrapper::ResetDebouncingTriggers()
+{
+	DigitalWrite(BLAST_TRIGGER_RESET_PORT, ARDUINO_LOW);
+	DigitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_HIGH);
+	Delay(50);
+	DigitalWrite(BLAST_TRIGGER_RESET_PORT, ARDUINO_HIGH);
+	DigitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_LOW);
+}
+
+bool ArduinoWrapper::GetAmmoSensorState()
+{
+	auto result = DigitalRead(AMMO_SENSOR_PORT);
+	return result == ARDUINO_LOW;
+}
+
+void ArduinoWrapper::EngageIngnition(bool enabled)
+{
+	DigitalWrite(IGNITION_PORT, enabled ? ARDUINO_LOW : ARDUINO_HIGH);
+}
+
+void ArduinoWrapper::EngageInjectorDiode(bool enabled)
+{
+	DigitalWrite(IGNITION_PORT, enabled ? ARDUINO_HIGH : ARDUINO_LOW);
 }

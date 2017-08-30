@@ -41,11 +41,14 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)IHwCheck.cpp">
       <Filter>HardwareTest</Filter>
     </ClCompile>
-    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\BatteryCheck.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScreenBase.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)MachineryCheck.cpp">
       <Filter>HardwareTest\Checks</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ScreenBase.cpp" />
-    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\MachineryCheck.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)BatteryCheck.cpp">
+      <Filter>HardwareTest\Checks</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SensorsCheck.cpp">
       <Filter>HardwareTest\Checks</Filter>
     </ClCompile>
   </ItemGroup>
@@ -78,11 +81,14 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)IHwCheck.h">
       <Filter>HardwareTest</Filter>
     </ClInclude>
-    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\BatteryCheck.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScreenBase.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MachineryCheck.h">
       <Filter>HardwareTest\Checks</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ScreenBase.h" />
-    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\MachineryCheck.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)BatteryCheck.h">
+      <Filter>HardwareTest\Checks</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)SensorsCheck.h">
       <Filter>HardwareTest\Checks</Filter>
     </ClInclude>
   </ItemGroup>

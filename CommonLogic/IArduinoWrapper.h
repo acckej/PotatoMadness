@@ -28,5 +28,18 @@ public:
 	virtual double GetBatteryVoltage();
 	virtual void EngageInjector(bool enable);
 	virtual void EngageBreach(bool open, bool enable);
+
+	virtual float GetAtmPressure();
+	virtual float GetInternalTemp();
+	virtual float GetExternalTemp();
+	virtual float GetExternalHumidity();
+	virtual float GetReceiverPressure();
+
+	virtual void ResetDebouncingTriggers();
+
+	virtual bool GetAmmoSensorState();
+
+	virtual void EngageIngnition(bool enabled);
+	virtual void EngageInjectorDiode(bool enabled);
 };
 
