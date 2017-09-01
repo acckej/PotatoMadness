@@ -13,7 +13,14 @@ CheckResult ButtonsCheck::Check()
 
 	if (controller.AreButtonsPressed(x1, x2))
 	{
+		_screen->Println("Interrupted", 3);
 		return Interrupted;
+	}
+
+	if (controller.AreButtonsPressed(x1, x4))
+	{
+		_screen->Println("Passed", 3);
+		return Passed;
 	}
 
 	auto btn = controller.GetPressedButton();

@@ -1,5 +1,7 @@
 #include "LoaderCheck.h"
 #include <stdio.h>
+#include "Constants.h"
+
 
 LoaderCheck::LoaderCheck(IArduinoWrapper * wrapper, TestScreen* screen): IHwCheck(wrapper, screen)
 {

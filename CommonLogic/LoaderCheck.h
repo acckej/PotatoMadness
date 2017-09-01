@@ -2,7 +2,6 @@
 #include "IHwCheck.h"
 #include "IArduinoWrapper.h"
 #include "TestScreen.h"
-#include "Constants.h"
 #include "Context.h"
 
 class LoaderCheck : public IHwCheck

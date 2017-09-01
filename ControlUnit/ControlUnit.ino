@@ -16,11 +16,14 @@ IHwCheck* checks[1];
 auto bc = ButtonsCheck(&_wrapper, &screen);
 auto seq = HwCheckSequence(&_wrapper, checks, 1);
 CheckResult _hwCheckResult = Running;
+bool _high = false;
 
 void setup() 
 {	
+	_wrapper.Init();
 	checks[0] = &bc;
 
+	pinMode(LED_BUILTIN, OUTPUT);
 #ifdef Debug
 	Serial.begin(9600);
 #endif
@@ -28,9 +31,24 @@ void setup()
 
 void loop() 
 {
+	if(_high)
+	{
+		digitalWrite(13, HIGH);
+		_high = false;
+	}
+	else
+	{
+		digitalWrite(13, LOW);
+		_high = true;
+	}	
+
+	//delay(1000);
+
 	if (_hwCheckResult == Running)
 	{
 		_hwCheckResult = seq.Run();
-	}
+	}	
+
+	Serial.println(_hwCheckResult);
 }
 

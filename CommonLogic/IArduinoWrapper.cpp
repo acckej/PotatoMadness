@@ -1,5 +1,9 @@
 #include "IArduinoWrapper.h"
 
+void IArduinoWrapper::Init()
+{
+}
+
 int IArduinoWrapper::DigitalRead(unsigned int port)
 {
 	return int();

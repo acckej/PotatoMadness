@@ -31,5 +31,6 @@ public:
 	bool GetAmmoSensorState() override;
 	void EngageIngnition(bool enabled) override;
 	void EngageInjectorDiode(bool enabled) override;
+	void Init() override;
 };
 

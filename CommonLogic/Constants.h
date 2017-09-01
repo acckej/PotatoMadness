@@ -1,5 +1,11 @@
 #pragma once
 
+//#define PIN_A1   (55)
+//#define PIN_A2   (56)
+//#define PIN_A3   (57)
+//#define PIN_A4   (58)
+//#define PIN_A5   (59)
+
 #define SCREEN_BUFFER_SIZE 20*4
 
 #define HW_CHECKS_COUNT 10
@@ -18,16 +24,16 @@
 #define LOADER_FWD_PORT 3
 #define LOADER_REV_PORT 4
 #define LOADER_ENABLE_PORT 5
-#define LOADER_CURRENT_PORT 1
+#define LOADER_CURRENT_PORT 55//A1
 
-#define VOLTAGE_PORT 2
+#define VOLTAGE_PORT 56//A2
 
 #define FAN_PORT 53
 #define BREACH_OPEN_PORT 51
 #define BREACH_CLOSE_PORT 49
 #define INJECTOR_PORT 47
 
-#define TEMP_HUM_SENSOR_PORT 3
+#define TEMP_HUM_SENSOR_PORT 17
 #define AMMO_SENSOR_PORT 45
 #define FSS_PORT 43
 #define RSS_PORT 41
@@ -38,7 +44,7 @@
 #define SS_TRIGGER_RESET_PORT 42
 #define BLUETOOTH_RX_PORT 19
 #define BLUETOOTH_TX_PORT 18
-#define RECEIVER_PRESSURE_PORT 4
+#define RECEIVER_PRESSURE_PORT 58//A4
 
 #define LOADER_CURRENT_MAX 1024
 #define LOADER_CURRENT_WORKING 512

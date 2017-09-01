@@ -10,9 +10,7 @@ LiquidCrystal_I2C lcd(0x27, 20, 4); //0x3f
 DHT dht(TEMP_HUM_SENSOR_PORT, DHTTYPE);
 
 ArduinoWrapper::ArduinoWrapper()
-{
-	lcd.begin();
-	lcd.backlight();
+{	
 }
 
 int ArduinoWrapper::DigitalRead(unsigned int port)
@@ -80,21 +78,21 @@ void ArduinoWrapper::EngageLoader(bool forward, bool enable)
 {
 	if(!enable)
 	{
-		DigitalWrite(LOADER_ENABLE_PORT, ARDUINO_HIGH);
-		DigitalWrite(LOADER_FWD_PORT, ARDUINO_LOW);
-		DigitalWrite(LOADER_REV_PORT, ARDUINO_LOW);
+		digitalWrite(LOADER_ENABLE_PORT, ARDUINO_HIGH);
+		digitalWrite(LOADER_FWD_PORT, ARDUINO_LOW);
+		digitalWrite(LOADER_REV_PORT, ARDUINO_LOW);
 	}
 	else
 	{
-		DigitalWrite(LOADER_ENABLE_PORT, ARDUINO_LOW);
-		DigitalWrite(LOADER_FWD_PORT, forward ? ARDUINO_LOW : ARDUINO_HIGH);
-		DigitalWrite(LOADER_REV_PORT, forward ? ARDUINO_LOW : ARDUINO_HIGH);
+		digitalWrite(LOADER_ENABLE_PORT, ARDUINO_LOW);
+		digitalWrite(LOADER_FWD_PORT, forward ? ARDUINO_LOW : ARDUINO_HIGH);
+		digitalWrite(LOADER_REV_PORT, forward ? ARDUINO_LOW : ARDUINO_HIGH);
 	}
 }
 
 void ArduinoWrapper::EngageFan(bool enable)
 {
-	DigitalWrite(FAN_PORT, enable ? ARDUINO_LOW : ARDUINO_HIGH);
+	digitalWrite(FAN_PORT, enable ? ARDUINO_LOW : ARDUINO_HIGH);
 }
 
 double ArduinoWrapper::GetBatteryVoltage()
@@ -107,20 +105,20 @@ double ArduinoWrapper::GetBatteryVoltage()
 
 void ArduinoWrapper::EngageInjector(bool enable)
 {
-	DigitalWrite(INJECTOR_PORT, enable ? ARDUINO_HIGH : ARDUINO_LOW);
+	digitalWrite(INJECTOR_PORT, enable ? ARDUINO_HIGH : ARDUINO_LOW);
 }
 
 void ArduinoWrapper::EngageBreach(bool open, bool enable)
 {
 	if(!enable)
 	{
-		DigitalWrite(BREACH_OPEN_PORT, ARDUINO_LOW);
-		DigitalWrite(BREACH_CLOSE_PORT, ARDUINO_LOW);
+		digitalWrite(BREACH_OPEN_PORT, ARDUINO_LOW);
+		digitalWrite(BREACH_CLOSE_PORT, ARDUINO_LOW);
 	}
 	else
 	{
-		DigitalWrite(BREACH_OPEN_PORT, open ? ARDUINO_LOW : ARDUINO_HIGH);
-		DigitalWrite(BREACH_CLOSE_PORT, open ? ARDUINO_HIGH : ARDUINO_LOW);
+		digitalWrite(BREACH_OPEN_PORT, open ? ARDUINO_LOW : ARDUINO_HIGH);
+		digitalWrite(BREACH_CLOSE_PORT, open ? ARDUINO_HIGH : ARDUINO_LOW);
 	}	
 }
 
@@ -152,7 +150,7 @@ float ArduinoWrapper::GetExternalHumidity()
 
 float ArduinoWrapper::GetReceiverPressure()
 {
-	auto press = AnalogRead(RECEIVER_PRESSURE_PORT);
+	auto press = analogRead(RECEIVER_PRESSURE_PORT);
 	auto val = double(press) * ANALOG_COEFFICIENT;
 
 	if(val < 0.5f)
@@ -165,25 +163,61 @@ float ArduinoWrapper::GetReceiverPressure()
 
 void ArduinoWrapper::ResetDebouncingTriggers()
 {
-	DigitalWrite(BLAST_TRIGGER_RESET_PORT, ARDUINO_LOW);
-	DigitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_HIGH);
+	digitalWrite(BLAST_TRIGGER_RESET_PORT, ARDUINO_LOW);
+	digitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_HIGH);
 	Delay(50);
-	DigitalWrite(BLAST_TRIGGER_RESET_PORT, ARDUINO_HIGH);
-	DigitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_LOW);
+	digitalWrite(BLAST_TRIGGER_RESET_PORT, ARDUINO_HIGH);
+	digitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_LOW);
 }
 
 bool ArduinoWrapper::GetAmmoSensorState()
 {
-	auto result = DigitalRead(AMMO_SENSOR_PORT);
+	auto result = digitalRead(AMMO_SENSOR_PORT);
 	return result == ARDUINO_LOW;
 }
 
 void ArduinoWrapper::EngageIngnition(bool enabled)
 {
-	DigitalWrite(IGNITION_PORT, enabled ? ARDUINO_LOW : ARDUINO_HIGH);
+	digitalWrite(IGNITION_PORT, enabled ? ARDUINO_LOW : ARDUINO_HIGH);
 }
 
 void ArduinoWrapper::EngageInjectorDiode(bool enabled)
 {
-	DigitalWrite(IGNITION_PORT, enabled ? ARDUINO_HIGH : ARDUINO_LOW);
+	digitalWrite(IGNITION_PORT, enabled ? ARDUINO_HIGH : ARDUINO_LOW);
+}
+
+void ArduinoWrapper::Init()
+{
+	lcd.begin();
+	lcd.backlight();
+
+	pinMode(LOADER_FWD_PORT, OUTPUT);
+	pinMode(LOADER_REV_PORT, OUTPUT);
+	pinMode(LOADER_ENABLE_PORT, OUTPUT);
+		
+	pinMode(LOADER_CURRENT_PORT, INPUT);
+	pinMode(VOLTAGE_PORT, INPUT);
+	pinMode(FAN_PORT, OUTPUT);
+
+	pinMode(BREACH_OPEN_PORT, OUTPUT);
+	pinMode(BREACH_CLOSE_PORT, OUTPUT);
+	pinMode(INJECTOR_PORT, OUTPUT);
+	
+	pinMode(AMMO_SENSOR_PORT, INPUT);
+	pinMode(FSS_PORT, INPUT);
+	pinMode(RSS_PORT, INPUT);
+	pinMode(INJ_LED_PORT, OUTPUT);
+	pinMode(IGNITION_PORT, OUTPUT);
+	pinMode(BLAST_SENSOR_PORT, INPUT);
+	pinMode(BLAST_TRIGGER_RESET_PORT, OUTPUT);
+	pinMode(SS_TRIGGER_RESET_PORT, OUTPUT);
+
+	pinMode(RECEIVER_PRESSURE_PORT, INPUT);
+
+	pinMode(BTN1_PORT, INPUT);
+	pinMode(BTN2_PORT, INPUT);
+	pinMode(BTN3_PORT, INPUT);
+	pinMode(BTN4_PORT, INPUT);
+	pinMode(BTN5_PORT, INPUT);
+	pinMode(BTN6_PORT, INPUT);
 }

@@ -4,6 +4,8 @@
 class IArduinoWrapper  
 {
 public:
+	virtual void Init();
+
 	virtual int DigitalRead(unsigned int port);
 	virtual void DigitalWrite(unsigned int port, int value);
 	
