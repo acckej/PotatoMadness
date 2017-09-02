@@ -12,14 +12,7 @@ MachineryCheck::MachineryCheck(IArduinoWrapper * wrapper, TestScreen * screen) :
 }
 
 CheckResult MachineryCheck::Check()
-{
-	if (_cyclesCounter == 0)
-	{
-		Context::Halt();
-		_screen->Refresh();
-		_screen->Println("Drives check", 1);	
-	}	
-
+{	
 	if (Context::GetButtonsController().IsButtonPressed(TestAbortButton))
 	{
 		Context::Halt();
@@ -30,6 +23,10 @@ CheckResult MachineryCheck::Check()
 	{
 		if(_cyclesCounter == 0)
 		{
+			Context::Halt();
+			_screen->Refresh();
+			_screen->Println("Drives check", 1);
+
 			_wrapper->EngageBreach(false, true);
 		}
 		_screen->Println("Breach close", 2);
@@ -48,7 +45,7 @@ CheckResult MachineryCheck::Check()
 		{
 			_wrapper->EngageBreach(true, true);
 		}
-		_screen->Println("Breach open", 2);
+		_screen->Println("Breach open", 3);
 		if (_cyclesCounter >= 30)
 		{
 			_cyclesCounter = 0;
@@ -63,7 +60,7 @@ CheckResult MachineryCheck::Check()
 		{
 			_wrapper->EngageFan(true);
 		}
-		_screen->Println("Fan", 2);
+		_screen->Println("Fan", 4);
 		if (_cyclesCounter >= 30)
 		{
 			_cyclesCounter = 0;
@@ -78,13 +75,15 @@ CheckResult MachineryCheck::Check()
 	{
 		if (_cyclesCounter == 0)
 		{
+			_screen->Print(" Injector");
 			_wrapper->EngageInjector(true);
 		}
-		_screen->Println("Injector", 2);
+		
 		if (_cyclesCounter >= 30)
 		{
 			_cyclesCounter = 0;			
 			_wrapper->EngageInjector(false);			
+			_screen->Print(" Injector-> Ok");
 			_injector = false;
 
 			return Passed;

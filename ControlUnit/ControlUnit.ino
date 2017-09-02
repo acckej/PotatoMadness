@@ -1,7 +1,9 @@
 ﻿#include "HwCheckSequence.h"
 #include "ArduinoWrapper.h"
 #include "Context.h"
-#include "LoaderCheck.h"
+
+#include "MachineryCheck.h"
+//#include "LoaderCheck.h"
 //#include "ButtonsCheck.h"
 
 #define Arduino
@@ -12,7 +14,7 @@ auto _context = Context(&_wrapper, &_buttons);
 
 auto screen = TestScreen(&_wrapper);
 IHwCheck* checks[1];
-auto bc = LoaderCheck(&_wrapper, &screen);
+auto bc = MachineryCheck(&_wrapper, &screen);
 auto seq = HwCheckSequence(&_wrapper, checks, 1);
 CheckResult _hwCheckResult = Running;
 bool _high = false;

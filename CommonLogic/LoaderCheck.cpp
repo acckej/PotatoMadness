@@ -24,7 +24,7 @@ CheckResult LoaderCheck::Check()
 			Context::Halt();
 			_screen->Refresh();
 
-			_screen->Println("Ldr check test fwd", 1);
+			_screen->Println("Ldr test fwd", 1);
 			_wrapper->EngageLoader(true, true);
 			_wrapper->Delay(200);
 		}		
@@ -55,7 +55,7 @@ CheckResult LoaderCheck::Check()
 	{
 		if (_cyclesCounter == 0)
 		{
-			_screen->Println("Ldr check test rev", 2);
+			_screen->Println("Ldr test rev", 2);
 			_wrapper->EngageLoader(false, true);
 		}		
 
