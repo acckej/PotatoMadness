@@ -32,5 +32,8 @@ public:
 	void EngageIngnition(bool enabled) override;
 	void EngageInjectorDiode(bool enabled) override;
 	void Init() override;
+	float GetLoaderCurrent() override;
+	void LogFormat(char* message, ...) override;
+	void LogFloatingPoint(double val) override;
 };
 

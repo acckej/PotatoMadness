@@ -46,6 +46,14 @@ void IArduinoWrapper::PrintFormat(char * message, ...)
 {
 }
 
+void IArduinoWrapper::LogFormat(char * message, ...)
+{
+}
+
+void IArduinoWrapper::LogFloatingPoint(double val)
+{
+}
+
 void IArduinoWrapper::SerialPrint(char * message)
 {
 }
@@ -92,6 +100,11 @@ float IArduinoWrapper::GetExternalHumidity()
 }
 
 float IArduinoWrapper::GetReceiverPressure()
+{
+	return 0.0f;
+}
+
+float IArduinoWrapper::GetLoaderCurrent()
 {
 	return 0.0f;
 }

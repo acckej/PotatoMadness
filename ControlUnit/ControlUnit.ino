@@ -1,10 +1,9 @@
 ﻿#include "HwCheckSequence.h"
 #include "ArduinoWrapper.h"
 #include "Context.h"
-#include "ButtonsCheck.h"
+#include "LoaderCheck.h"
+//#include "ButtonsCheck.h"
 
-
-#define Debug
 #define Arduino
 
 auto _wrapper = ArduinoWrapper();
@@ -13,7 +12,7 @@ auto _context = Context(&_wrapper, &_buttons);
 
 auto screen = TestScreen(&_wrapper);
 IHwCheck* checks[1];
-auto bc = ButtonsCheck(&_wrapper, &screen);
+auto bc = LoaderCheck(&_wrapper, &screen);
 auto seq = HwCheckSequence(&_wrapper, checks, 1);
 CheckResult _hwCheckResult = Running;
 bool _high = false;
@@ -30,7 +29,7 @@ void setup()
 }
 
 void loop() 
-{
+{	
 	if(_high)
 	{
 		digitalWrite(13, HIGH);
@@ -40,15 +39,17 @@ void loop()
 	{
 		digitalWrite(13, LOW);
 		_high = true;
-	}	
-
-	//delay(1000);
+	}		
 
 	if (_hwCheckResult == Running)
 	{
 		_hwCheckResult = seq.Run();
 	}	
+	else
+	{
+		delay(1000);
+	}
 
-	Serial.println(_hwCheckResult);
+	//Serial.println(_hwCheckResult);
 }
 

@@ -202,6 +202,7 @@ void ArduinoWrapper::Init()
 	pinMode(BREACH_OPEN_PORT, OUTPUT);
 	pinMode(BREACH_CLOSE_PORT, OUTPUT);
 	pinMode(INJECTOR_PORT, OUTPUT);
+	pinMode(RESERVED_RELAY_PORT, OUTPUT);
 	
 	pinMode(AMMO_SENSOR_PORT, INPUT);
 	pinMode(FSS_PORT, INPUT);
@@ -220,4 +221,30 @@ void ArduinoWrapper::Init()
 	pinMode(BTN4_PORT, INPUT);
 	pinMode(BTN5_PORT, INPUT);
 	pinMode(BTN6_PORT, INPUT);
+}
+
+float ArduinoWrapper::GetLoaderCurrent()
+{
+	auto curr = analogRead(LOADER_CURRENT_PORT);
+	auto voltage = ANALOG_COEFFICIENT * double(curr);
+	auto current = abs(CURRENT_MIDDLE_POINT - voltage) / CURRENT_COEFFICIENT;
+	return current;
+}
+
+void ArduinoWrapper::LogFormat(char * message, ...)
+{
+	char buffer[128];
+	va_list args = nullptr;
+	va_start(args, message);
+	vsnprintf(buffer, SCREEN_BUFFER_SIZE, message, args);
+	va_end(args);
+
+	Serial.println(buffer);
+}
+
+void ArduinoWrapper::LogFloatingPoint(double val)
+{
+	char buf[20];
+	dtostrf(val, 7, 3, buf);
+	Serial.println(buf);
 }

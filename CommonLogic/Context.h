@@ -19,7 +19,7 @@ public:
 
 	static ButtonsController GetButtonsController();
 
-	static void LogMessage(char* message);
+	static void LogMessage(char* message);	
 private:
 	static OperationMode _mode;
 	static IArduinoWrapper* _wrapper;

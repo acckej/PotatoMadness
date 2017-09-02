@@ -25,9 +25,11 @@ void Context::SetOperationMode(OperationMode mode)
 void Context::Halt()
 {
 	_wrapper->EngageLoader(false, false);
-	_wrapper->EngageBreach(false, true);
+	_wrapper->EngageIngnition(false);
 	_wrapper->EngageFan(false);
-	_wrapper->EngageInjector(false);
+	_wrapper->EngageBreach(false, true);
+	_wrapper->EngageInjector(false);	
+	_wrapper->DigitalWrite(RESERVED_RELAY_PORT, ARDUINO_HIGH);
 }
 
 void Context::HandleError(char * message, ErrorCode code)
@@ -60,3 +62,4 @@ void Context::LogMessage(char * message)
 	_wrapper->SerialPrint(message);
 #endif
 }
+
