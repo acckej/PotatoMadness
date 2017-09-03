@@ -183,7 +183,7 @@ void ArduinoWrapper::EngageIngnition(bool enabled)
 
 void ArduinoWrapper::EngageInjectorDiode(bool enabled)
 {
-	digitalWrite(IGNITION_PORT, enabled ? ARDUINO_HIGH : ARDUINO_LOW);
+	digitalWrite(INJ_LED_PORT, enabled ? ARDUINO_HIGH : ARDUINO_LOW);
 }
 
 void ArduinoWrapper::Init()

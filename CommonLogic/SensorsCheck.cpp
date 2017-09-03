@@ -12,16 +12,13 @@ SensorsCheck::SensorsCheck(IArduinoWrapper* wrapper, TestScreen* screen) : IHwCh
 
 CheckResult SensorsCheck::Check()
 {
-	if(_cyclesCounter == 0)
-	{
-		_screen->Refresh();
-		_screen->Println("Sensor check", 1);
-	}
-
 	if(_shotSensors)
 	{
 		if(_cyclesCounter == 0)
 		{
+			_screen->Refresh();
+			_screen->Println("Sensor check", 1);
+			_wrapper->EngageInjectorDiode(true);
 			_wrapper->ResetDebouncingTriggers();
 		}
 		else
@@ -44,12 +41,12 @@ CheckResult SensorsCheck::Check()
 			}
 		}
 
+		_cyclesCounter++;
+
 		if(_cyclesCounter >= 20)
 		{
 			_shotSensors = false;
-			_extEnv = true;
-			_screen->Refresh();
-			_screen->Println("Ext sens check", 1);
+			_extEnv = true;			
 			_cyclesCounter = 0;
 		}
 	}
@@ -57,6 +54,13 @@ CheckResult SensorsCheck::Check()
 	if(_extEnv)
 	{
 		if(_cyclesCounter == 0)
+		{
+			_screen->Refresh();
+			_screen->Println("Ext sens check", 1);	
+			_wrapper->EngageInjectorDiode(false);
+			_cyclesCounter++;
+		}
+		else
 		{
 			auto hum = _wrapper->GetExternalHumidity();
 			auto temp = _wrapper->GetExternalTemp();
@@ -66,20 +70,18 @@ CheckResult SensorsCheck::Check()
 			_screen->Print(" Temp:");
 			_screen->PrintNumber(temp, 2);
 
-			if(hum == 0 || temp == 0)
+			if (hum == 0 || temp == 0)
 			{
 				_screen->Println("Ext sens err", 4);
 				return Failed;
 			}
-		}
-		else
-		{
-			if (_cyclesCounter >= 20)
+
+			_cyclesCounter++;
+
+			if (_cyclesCounter >= 40)
 			{
 				_intEnv = true;
-				_extEnv = false;
-				_screen->Refresh();
-				_screen->Println("Int sens check", 1);
+				_extEnv = false;				
 				_cyclesCounter = 0;
 			}
 		}
@@ -88,6 +90,13 @@ CheckResult SensorsCheck::Check()
 	if (_intEnv)
 	{
 		if (_cyclesCounter == 0)
+		{
+			_screen->Refresh();
+			_screen->Println("Int sens check", 1);
+			_wrapper->EngageInjectorDiode(true);
+			_cyclesCounter++;
+		}
+		else
 		{
 			auto press = _wrapper->GetAtmPressure();
 			auto temp = _wrapper->GetInternalTemp();
@@ -102,15 +111,15 @@ CheckResult SensorsCheck::Check()
 				_screen->Println("Int sens err", 4);
 				return Failed;
 			}
-		}
-		else
-		{
+
+			_cyclesCounter++;
+
 			if (_cyclesCounter >= 20)
 			{
 				_intEnv = false;
 				_receiver = true;
-				_screen->Refresh();
-				_screen->Println("Receiver pressure", 1);
+				
+				
 				_cyclesCounter = 0;
 			}
 		}
@@ -120,21 +129,29 @@ CheckResult SensorsCheck::Check()
 	{
 		if (_cyclesCounter == 0)
 		{
-			auto press = _wrapper->GetReceiverPressure();			
+			_screen->Refresh();
+			_screen->Println("Receiver pressure", 1);	
+			_wrapper->EngageInjectorDiode(false);
+			_cyclesCounter++;
+		}
+		else
+		{
+			auto press = _wrapper->GetReceiverPressure();
 			_screen->Println("Pressure:", 2);
-			_screen->PrintNumber(press, 2);			
+			_screen->PrintNumber(press, 2);
 
 			if (press < 0)
 			{
 				_screen->Println("Rcv sens err", 3);
 				return Failed;
 			}
-		}
-		else
-		{
-			if (_cyclesCounter >= 20)
+
+			_cyclesCounter++;
+
+			if (_cyclesCounter >= 40)
 			{				
 				_cyclesCounter = 0;
+				_screen->Println("Passed", 4);
 				return Passed;
 			}
 		}
