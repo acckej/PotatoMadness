@@ -1,4 +1,5 @@
-﻿#include "HwCheckSequence.h"
+﻿#include <iarduino_DHT.h>
+#include "HwCheckSequence.h"
 #include "ArduinoWrapper.h"
 #include "Context.h"
 #include "SensorsCheck.h"

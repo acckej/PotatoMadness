@@ -40,7 +40,7 @@ void ArduinoWrapper::Delay(unsigned long ms)
 
 void ArduinoWrapper::ClearScreen()
 {
-	lcd.clear();
+	lcd.clear();	
 }
 
 void ArduinoWrapper::SetScreenCursor(char col, char row)
@@ -124,12 +124,12 @@ void ArduinoWrapper::EngageBreach(bool open, bool enable)
 
 float ArduinoWrapper::GetAtmPressure()
 {
-	return 0.0f;
+	return 1.0f;
 }
 
 float ArduinoWrapper::GetInternalTemp()
 {
-	return 0.0f;
+	return 1.0f;
 }
 
 float ArduinoWrapper::GetExternalTemp()
@@ -153,12 +153,12 @@ float ArduinoWrapper::GetReceiverPressure()
 	auto press = analogRead(RECEIVER_PRESSURE_PORT);
 	auto val = double(press) * ANALOG_COEFFICIENT;
 
-	if(val < 0.5f)
+	if(val < 0.45f)
 	{
 		return -1;
 	}
 
-	return val * PRESSURE_COEFFICIENT;
+	return (val - PRESSURE_CONSTANT) * PRESSURE_COEFFICIENT;
 }
 
 void ArduinoWrapper::ResetDebouncingTriggers()

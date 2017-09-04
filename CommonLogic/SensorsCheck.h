@@ -12,5 +12,6 @@ private:
 	bool _extEnv;
 	bool _intEnv;
 	bool _receiver;
+	bool _ammoSensor;
 };
 

@@ -8,6 +8,7 @@ SensorsCheck::SensorsCheck(IArduinoWrapper* wrapper, TestScreen* screen) : IHwCh
 	_extEnv = false;
 	_intEnv = false;
 	_receiver = false;
+	_ammoSensor = false;
 }
 
 CheckResult SensorsCheck::Check()
@@ -43,7 +44,7 @@ CheckResult SensorsCheck::Check()
 
 		_cyclesCounter++;
 
-		if(_cyclesCounter >= 20)
+		if(_cyclesCounter >= 40)
 		{
 			_shotSensors = false;
 			_extEnv = true;			
@@ -118,8 +119,6 @@ CheckResult SensorsCheck::Check()
 			{
 				_intEnv = false;
 				_receiver = true;
-				
-				
 				_cyclesCounter = 0;
 			}
 		}
@@ -149,7 +148,35 @@ CheckResult SensorsCheck::Check()
 			_cyclesCounter++;
 
 			if (_cyclesCounter >= 40)
-			{				
+			{		
+				_receiver = false;
+				_ammoSensor = true;
+				_cyclesCounter = 0;				
+			}
+		}
+	}
+
+	if (_ammoSensor)
+	{
+		if (_cyclesCounter == 0)
+		{
+			_screen->Refresh();
+			_screen->Println("Ammo sensor", 1);
+			_wrapper->EngageInjectorDiode(true);
+			_cyclesCounter++;
+		}
+		else
+		{
+			auto as = _wrapper->GetAmmoSensorState();
+			_screen->Println("Ammo: ", 2);
+			_screen->Print(as ? "1" : "0");						
+
+			_cyclesCounter++;
+
+			if (_cyclesCounter >= 40)
+			{
+				_wrapper->EngageInjectorDiode(false);
+				_ammoSensor = false;
 				_cyclesCounter = 0;
 				_screen->Println("Passed", 4);
 				return Passed;

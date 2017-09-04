@@ -30,6 +30,7 @@ void Context::Halt()
 	_wrapper->EngageBreach(false, true);
 	_wrapper->EngageInjector(false);	
 	_wrapper->DigitalWrite(RESERVED_RELAY_PORT, ARDUINO_HIGH);
+	_wrapper->EngageInjectorDiode(false);
 }
 
 void Context::HandleError(char * message, ErrorCode code)
