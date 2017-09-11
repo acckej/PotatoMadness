@@ -248,3 +248,20 @@ void ArduinoWrapper::LogFloatingPoint(double val)
 	dtostrf(val, 7, 3, buf);
 	Serial.println(buf);
 }
+
+bool ArduinoWrapper::IsRevCheckOn()
+{
+	auto result = DigitalRead(LDR_REV_CHECK_PORT);
+	return result == ARDUINO_HIGH;
+}
+
+bool ArduinoWrapper::IsFwCheckOn()
+{
+	auto result = DigitalRead(LDR_FW_CHECK_PORT);
+	return result == ARDUINO_HIGH;
+}
+
+unsigned long ArduinoWrapper::GetMilliseconds()
+{
+	return millis();
+}

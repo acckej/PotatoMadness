@@ -33,7 +33,7 @@ void Context::Halt()
 	_wrapper->EngageInjectorDiode(false);
 }
 
-void Context::HandleError(char * message, ErrorCode code)
+void Context::HandleError(char * message, ErrorCodes code)
 {
 }
 

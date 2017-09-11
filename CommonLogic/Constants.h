@@ -26,6 +26,12 @@
 #define LOADER_CURRENT_MAX 150.0f
 #define LOADER_CURRENT_WORKING 0.4f
 
+#define RECEIVER_PRESSURE_MAX 6.0f
+#define RECEIVER_PRESSURE_MIN 2.0f
+
+#define LOADER_FORWARD_TIME 50000
+#define LOADER_REVERSE_TIME 50000
+
 #define I2C_SDA_PORT 20
 #define I2C_SCL_PORT 21
 
@@ -59,6 +65,9 @@
 
 #define RESERVED_RELAY_PORT 32
 
+#define LDR_FW_CHECK_PORT 10
+#define LDR_REV_CHECK_PORT 11
+
 /*
  *		x2		x5
  *  x1		x4
@@ -78,4 +87,4 @@ enum Buttons { x1, x2, x3, x4, x5, x6, Combo, None };
 
 enum OperationMode {FiringMode, AfrEditScreen, SettingsMode, TestMode};
 
-enum ErrorCode { Unspecified};
+

@@ -35,5 +35,8 @@ public:
 	float GetLoaderCurrent() override;
 	void LogFormat(char* message, ...) override;
 	void LogFloatingPoint(double val) override;
+	bool IsRevCheckOn() override;
+	bool IsFwCheckOn() override;
+	unsigned long GetMilliseconds() override;
 };
 

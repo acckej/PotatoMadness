@@ -13,6 +13,9 @@
     <Filter Include="HardwareTest\Checks">
       <UniqueIdentifier>{d4db7a31-2669-473a-9ffa-e991b6399346}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Configuration">
+      <UniqueIdentifier>{64894339-3bd4-4358-a56a-a4a80c538f45}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Context.cpp" />
@@ -50,6 +53,18 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SensorsCheck.cpp">
       <Filter>HardwareTest\Checks</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\LoaderForwardAction.cpp">
+      <Filter>Sequences</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\Configuration.cpp">
+      <Filter>Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\LoaderReverseActionForcedMixing.cpp">
+      <Filter>Sequences</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\LoaderReverseAction.cpp">
+      <Filter>Sequences</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +105,18 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)SensorsCheck.h">
       <Filter>HardwareTest\Checks</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\LoaderForwardAction.h">
+      <Filter>Sequences</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\Configuration.h">
+      <Filter>Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\LoaderReverseActionForcedMixing.h">
+      <Filter>Sequences</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\LoaderReverseAction.h">
+      <Filter>Sequences</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

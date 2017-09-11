@@ -47,5 +47,10 @@ public:
 
 	virtual void EngageIngnition(bool enabled);
 	virtual void EngageInjectorDiode(bool enabled);
+
+	virtual unsigned long GetMilliseconds();
+
+	virtual bool IsRevCheckOn();
+	virtual bool IsFwCheckOn();
 };
 

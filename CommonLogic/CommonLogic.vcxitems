@@ -18,6 +18,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsCheck.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsController.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsMapItem.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Configuration.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IArduinoWrapper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h">
@@ -31,6 +32,9 @@
       <DeploymentContent>true</DeploymentContent>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderCheck.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)LoaderForwardAction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)LoaderReverseAction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)LoaderReverseActionForcedMixing.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MachineryCheck.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScreenBase.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SensorsCheck.h" />
@@ -48,6 +52,9 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsMapItem.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Configuration.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)IAction.cpp">
@@ -68,6 +75,15 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)LoaderCheck.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)LoaderForwardAction.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)LoaderReverseAction.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)LoaderReverseActionForcedMixing.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)MachineryCheck.cpp">

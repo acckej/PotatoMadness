@@ -1,23 +1,24 @@
 #include "IAction.h"
 
 
-
-IAction::IAction()
+IAction::IAction(IArduinoWrapper* wrapper)
 {
+	_isCompleted = false;
+	_wrapper = wrapper;
+	_errorCode = NoError;
+	_nextAction = nullptr;
 }
 
-bool IAction::IsAsync()
+bool IAction::IsCompleted() const
 {
-	return false;
-}
-
-bool IAction::IsCompleted()
-{
-	return false;
+	return _isCompleted;
 }
 
 void IAction::Reset()
 {
+	_startTime = 0;
+	_errorCode = NoError;
+	_isCompleted = false;
 }
 
 bool IAction::CheckPreconditions()
@@ -29,12 +30,7 @@ void IAction::StartAction()
 {
 }
 
-bool IAction::IsWaiting()
-{
-	return false;
-}
-
-bool IAction::CheckRunningCondition()
+bool IAction::Execute()
 {
 	return false;
 }
@@ -51,4 +47,24 @@ void IAction::EndAction()
 int IAction::GetActionDuration()
 {
 	return 0;
+}
+
+ErrorCodes IAction::GetErrorCode() const
+{
+	return _errorCode;
+}
+
+bool IAction::IsError() const
+{
+	return _errorCode != NoError;
+}
+
+IAction * IAction::GetNextAction() const
+{
+	return _nextAction;
+}
+
+unsigned long IAction::GetStartTime()
+{
+	return _startTime;
 }

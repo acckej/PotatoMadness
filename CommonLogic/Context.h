@@ -13,7 +13,7 @@ public:
 
 	static void Halt();
 
-	static void HandleError(char* message, ErrorCode code);
+	static void HandleError(char* message, ErrorCodes code);
 
 	static bool WaitForButton(Buttons button, int delay);	
 

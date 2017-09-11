@@ -125,3 +125,18 @@ void IArduinoWrapper::EngageIngnition(bool enabled)
 void IArduinoWrapper::EngageInjectorDiode(bool enabled)
 {
 }
+
+unsigned long IArduinoWrapper::GetMilliseconds()
+{
+	return 0;
+}
+
+bool IArduinoWrapper::IsRevCheckOn()
+{
+	return false;
+}
+
+bool IArduinoWrapper::IsFwCheckOn()
+{
+	return false;
+}

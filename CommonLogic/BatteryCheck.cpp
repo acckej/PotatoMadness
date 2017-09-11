@@ -28,7 +28,7 @@ CheckResult BatteryCheck::Check()
 	
 	_cyclesCounter++;
 
-	if(_cyclesCounter >= 50)
+	if(_cyclesCounter >= 30)
 	{
 		_cyclesCounter = 0;
 		return Passed;
