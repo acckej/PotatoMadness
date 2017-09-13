@@ -31,6 +31,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)HwCheckSequence.h">
       <DeploymentContent>true</DeploymentContent>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Injector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderCheck.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderForwardAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderReverseAction.h" />
@@ -72,6 +73,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)HwCheckSequence.cpp">
       <DeploymentContent>true</DeploymentContent>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Injector.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)LoaderCheck.cpp">

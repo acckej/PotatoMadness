@@ -54,18 +54,19 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SensorsCheck.cpp">
       <Filter>HardwareTest\Checks</Filter>
     </ClCompile>
-    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\LoaderForwardAction.cpp">
-      <Filter>Sequences</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\Configuration.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)Configuration.cpp">
       <Filter>Configuration</Filter>
     </ClCompile>
-    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\LoaderReverseActionForcedMixing.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)LoaderForwardAction.cpp">
       <Filter>Sequences</Filter>
     </ClCompile>
-    <ClCompile Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\LoaderReverseAction.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)LoaderReverseAction.cpp">
       <Filter>Sequences</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)LoaderReverseActionForcedMixing.cpp">
+      <Filter>Sequences</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Injector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h" />
@@ -106,17 +107,18 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)SensorsCheck.h">
       <Filter>HardwareTest\Checks</Filter>
     </ClInclude>
-    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\LoaderForwardAction.h">
-      <Filter>Sequences</Filter>
-    </ClInclude>
-    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\Configuration.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)Configuration.h">
       <Filter>Configuration</Filter>
     </ClInclude>
-    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\LoaderReverseActionForcedMixing.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)LoaderForwardAction.h">
       <Filter>Sequences</Filter>
     </ClInclude>
-    <ClInclude Include="C:\src\PotatoMadness\ControlUnit\CommonLogic\LoaderReverseAction.h">
+    <ClInclude Include="$(MSBuildThisFileDirectory)LoaderReverseAction.h">
       <Filter>Sequences</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)LoaderReverseActionForcedMixing.h">
+      <Filter>Sequences</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Injector.h" />
   </ItemGroup>
 </Project>

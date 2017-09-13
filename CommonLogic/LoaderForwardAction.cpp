@@ -9,11 +9,17 @@ LoaderForwardAction::LoaderForwardAction(IArduinoWrapper* wrapper, Configuration
 
 void LoaderForwardAction::Reset()
 {
-	IAction::Reset();
+	IAction::Reset();	
 }
 
 bool LoaderForwardAction::CheckPreconditions()
 {
+	if(!_wrapper->IsFwCheckOn())
+	{
+		_errorCode = IncorrectLoaderPositionFwd;
+		return false;
+	}
+
 	auto pressure = _wrapper->GetReceiverPressure();
 
 	if(pressure < RECEIVER_PRESSURE_MIN)
@@ -41,7 +47,7 @@ bool LoaderForwardAction::CheckPreconditions()
 
 void LoaderForwardAction::StartAction()
 {
-	_startTime = _wrapper->GetMilliseconds();
+	IAction::StartAction();
 
 	_wrapper->EngageBreach(true, true);
 	_wrapper->EngageFan(true);
@@ -94,11 +100,12 @@ bool LoaderForwardAction::Execute()
 
 bool LoaderForwardAction::CheckPostConditions()
 {
-	return false;
+	return true;
 }
 
 void LoaderForwardAction::EndAction()
 {
+	Stop();	
 }
 
 int LoaderForwardAction::GetActionDuration()

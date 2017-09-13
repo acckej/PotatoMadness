@@ -14,6 +14,13 @@ enum ErrorCodes
 
 	LoaderOverload,
 	LoaderForwardTimeout,
+	IncorrectLoaderPositionRev,
+	IncorrectLoaderPositionFwd,
+	LoaderReverseTimeout,
+
+	NoAmmo,
+
+	IncorrectInjectionTime,
 
 	Unspecified
 };

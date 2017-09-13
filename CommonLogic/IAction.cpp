@@ -28,6 +28,7 @@ bool IAction::CheckPreconditions()
 
 void IAction::StartAction()
 {
+	_startTime = _wrapper->GetMilliseconds();
 }
 
 bool IAction::Execute()
