@@ -109,6 +109,16 @@ CheckResult LoaderCheck::CheckCurrent(char messageLine) const
 
 	if (loaderCurrent < LOADER_CURRENT_WORKING)
 	{
+		if(_wrapper->IsRevCheckOn() || _wrapper->IsFwCheckOn())
+		{
+			_screen->Println("Rchk:", 4);
+			_screen->Print(_wrapper->IsRevCheckOn() ? "1" : "0");
+			_screen->Print(";Fchk:");
+			_screen->Print(_wrapper->IsFwCheckOn() ? "1" : "0");
+
+			return Passed;
+		}
+
 		Stop();		
 		_screen->Println("Low curr: ", messageLine);
 		_screen->PrintNumber(loaderCurrent, 2);

@@ -23,13 +23,14 @@ bool _high = false;
 
 void setup() 
 {	
+#ifdef Debug
+	Serial.begin(9600);
+#endif
+
 	_wrapper.Init();
 	checks[0] = &bc;
 
 	pinMode(LED_BUILTIN, OUTPUT);
-#ifdef Debug
-	Serial.begin(9600);
-#endif
 }
 
 void loop() 
@@ -43,8 +44,8 @@ void loop()
 	{
 		digitalWrite(13, LOW);
 		_high = true;
-	}		
-
+	}	
+	
 	if (_hwCheckResult == Running)
 	{
 		_hwCheckResult = seq.Run();

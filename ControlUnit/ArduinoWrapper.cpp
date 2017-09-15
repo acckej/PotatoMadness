@@ -3,10 +3,14 @@
 #include "Constants.h"
 #include <LiquidCrystal_I2C.h>
 #include <DHT.h>
+//#include <Adafruit_Sensor.h>
+#include <Adafruit_BMP280.h>
+
 
 LiquidCrystal_I2C lcd(0x27, 20, 4); //0x3f
 #define DHTTYPE DHT11  
 
+Adafruit_BMP280 atmPSens;
 DHT dht(TEMP_HUM_SENSOR_PORT, DHTTYPE);
 
 ArduinoWrapper::ArduinoWrapper()
@@ -124,12 +128,12 @@ void ArduinoWrapper::EngageBreach(bool open, bool enable)
 
 float ArduinoWrapper::GetAtmPressure()
 {
-	return 1.0f;
+	return atmPSens.readPressure();
 }
 
 float ArduinoWrapper::GetInternalTemp()
-{
-	return 1.0f;
+{	
+	return atmPSens.readTemperature();
 }
 
 float ArduinoWrapper::GetExternalTemp()
@@ -221,6 +225,8 @@ void ArduinoWrapper::Init()
 	pinMode(BTN4_PORT, INPUT);
 	pinMode(BTN5_PORT, INPUT);
 	pinMode(BTN6_PORT, INPUT);
+
+	atmPSens.begin(BAROMETER_ADDRESS);	
 }
 
 float ArduinoWrapper::GetLoaderCurrent()
