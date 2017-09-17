@@ -43,7 +43,7 @@ void LoaderReverseAction::StartAction()
 	_wrapper->EngageLoader(false, true);
 }
 
-bool LoaderReverseAction::Execute()
+ActionState LoaderReverseAction::Execute()
 {
 	auto time = _wrapper->GetMilliseconds();
 	auto duration = time - _startTime;
@@ -53,7 +53,7 @@ bool LoaderReverseAction::Execute()
 	{
 		_errorCode = LoaderOverload;
 		Stop();
-		return false;
+		return Error;
 	}
 
 	if (duration >= BREACH_ENGAGE_TIME)
@@ -69,26 +69,24 @@ bool LoaderReverseAction::Execute()
 		if(injectionTime <= 0 || injectionTime > MAX_INJECTION_TIME)
 		{
 			_errorCode = IncorrectInjectionTime;
-			return false;
+			return Error;
 		}
 		
 		_wrapper->EngageInjector(true);
 		_wrapper->Delay(injectionTime);
-		_wrapper->EngageInjector(false);
-		_wrapper->EngageIngnition(true);
-		_isCompleted = true;
+		_wrapper->EngageInjector(false);				
 
-		return false;
+		return Completed;
 	}
 
 	if (duration > LOADER_REVERSE_TIME)
 	{
 		Stop();
 		_errorCode = LoaderReverseTimeout;
-		return false;
+		return Error;
 	}	
 
-	return true;
+	return Executing;
 }
 
 bool LoaderReverseAction::CheckPostConditions()
@@ -108,7 +106,6 @@ int LoaderReverseAction::GetActionDuration()
 
 void LoaderReverseAction::Stop() const
 {	
-	_wrapper->EngageLoader(false, false);
-	_wrapper->EngageIngnition(false);
+	_wrapper->EngageLoader(false, false);	
 	_wrapper->EngageInjector(false);
 }

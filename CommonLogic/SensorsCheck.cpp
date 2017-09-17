@@ -24,16 +24,16 @@ CheckResult SensorsCheck::Check()
 		}
 		else
 		{
-			auto blastSens = _wrapper->DigitalRead(BLAST_SENSOR_PORT);
-			auto rss = _wrapper->DigitalRead(RSS_PORT);
-			auto fss = _wrapper->DigitalRead(FSS_PORT);
+			auto blastSens = _wrapper->GetBlastSensorState();
+			auto rss = _wrapper->GetRss();
+			auto fss = _wrapper->GetFss();
 
 			_screen->Println("Blast sens:", 2);
-			_screen->Print(blastSens == ARDUINO_HIGH ? "1" : "0");
+			_screen->Print(blastSens ? "1" : "0");
 			_screen->Println("Rss:", 3);
-			_screen->Print(rss == ARDUINO_HIGH ? "1" : "0");
+			_screen->Print(rss ? "1" : "0");
 			_screen->Print(" Fss:");
-			_screen->Print(fss == ARDUINO_HIGH ? "1" : "0");
+			_screen->Print(fss ? "1" : "0");
 
 			if(blastSens || rss || fss)
 			{

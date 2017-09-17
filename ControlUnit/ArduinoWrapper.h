@@ -38,5 +38,8 @@ public:
 	bool IsRevCheckOn() override;
 	bool IsFwCheckOn() override;
 	unsigned long GetMilliseconds() override;
+	bool GetFss() override;
+	bool GetRss() override;
+	bool GetBlastSensorState() override;
 };
 

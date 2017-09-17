@@ -271,3 +271,21 @@ unsigned long ArduinoWrapper::GetMilliseconds()
 {
 	return millis();
 }
+
+bool ArduinoWrapper::GetFss()
+{
+	auto result = digitalRead(FSS_PORT);
+	return result == ARDUINO_HIGH;
+}
+
+bool ArduinoWrapper::GetRss()
+{
+	auto result = digitalRead(RSS_PORT);
+	return result == ARDUINO_HIGH;
+}
+
+bool ArduinoWrapper::GetBlastSensorState()
+{
+	auto result = digitalRead(BLAST_SENSOR_PORT);
+	return result == ARDUINO_HIGH;
+}

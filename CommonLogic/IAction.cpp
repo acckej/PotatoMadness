@@ -2,23 +2,16 @@
 
 
 IAction::IAction(IArduinoWrapper* wrapper)
-{
-	_isCompleted = false;
+{	
 	_wrapper = wrapper;
 	_errorCode = NoError;
 	_nextAction = nullptr;
 }
 
-bool IAction::IsCompleted() const
-{
-	return _isCompleted;
-}
-
 void IAction::Reset()
 {
 	_startTime = 0;
-	_errorCode = NoError;
-	_isCompleted = false;
+	_errorCode = NoError;	
 }
 
 bool IAction::CheckPreconditions()
@@ -31,9 +24,9 @@ void IAction::StartAction()
 	_startTime = _wrapper->GetMilliseconds();
 }
 
-bool IAction::Execute()
+ActionState IAction::Execute()
 {
-	return false;
+	return Executing;
 }
 
 bool IAction::CheckPostConditions()

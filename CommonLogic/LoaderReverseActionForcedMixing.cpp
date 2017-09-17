@@ -55,7 +55,7 @@ void LoaderReverseActionForcedMixing::StartAction()
 	_wrapper->EngageLoader(false, true);
 }
 
-bool LoaderReverseActionForcedMixing::Execute()
+ActionState LoaderReverseActionForcedMixing::Execute()
 {
 	auto time = _wrapper->GetMilliseconds();
 	auto duration = time - _startTime;
@@ -67,7 +67,7 @@ bool LoaderReverseActionForcedMixing::Execute()
 		{
 			_errorCode = LoaderOverload;
 			Stop();
-			return false;
+			return Error;
 		}
 
 		if (_wrapper->IsFwCheckOn())
@@ -78,14 +78,14 @@ bool LoaderReverseActionForcedMixing::Execute()
 			_isInjection = true;
 			_injectionStart = _wrapper->GetMilliseconds();
 
-			return true;
+			return Executing;
 		}
 
 		if (duration > LOADER_REVERSE_TIME)
 		{
 			Stop();
 			_errorCode = LoaderReverseTimeout;
-			return false;
+			return Error;
 		}
 	}
 	else
@@ -98,16 +98,15 @@ bool LoaderReverseActionForcedMixing::Execute()
 			{
 				_errorCode = IncorrectInjectionTime;
 				_wrapper->EngageFan(false);
-				return false;
+				return Error;
 			}
 
 			_wrapper->EngageInjector(true);
 			_wrapper->Delay(injectionTime);
 			_wrapper->EngageInjector(false);
-			_wrapper->EngageIngnition(true);
-
+			
 			_injected = true;
-			return true;
+			return Executing;
 		}
 		
 		if(!_mixed && time - _injectionStart >= _config->GetLoaderReverseFanTime())
@@ -117,18 +116,16 @@ bool LoaderReverseActionForcedMixing::Execute()
 			_wrapper->EngageBreach(false, true);
 			_breachClosingStart = _wrapper->GetMilliseconds();
 
-			return true;
+			return Executing;
 		}
 
 		if(_mixed && time - _breachClosingStart >= BREACH_ENGAGING_TIME)
-		{
-			_wrapper->EngageIngnition(true);
-			_isCompleted = true;
-			return false;
+		{			
+			return Completed;
 		}
 	}
 
-	return true;
+	return Executing;
 }
 
 bool LoaderReverseActionForcedMixing::CheckPostConditions()
@@ -148,7 +145,6 @@ int LoaderReverseActionForcedMixing::GetActionDuration()
 
 void LoaderReverseActionForcedMixing::Stop() const
 {
-	_wrapper->EngageLoader(false, false);
-	_wrapper->EngageIngnition(false);
+	_wrapper->EngageLoader(false, false);	
 	_wrapper->EngageInjector(false);
 }

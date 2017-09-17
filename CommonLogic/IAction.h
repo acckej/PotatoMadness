@@ -5,9 +5,7 @@
 class IAction 
 {
 public:
-	IAction(IArduinoWrapper* wrapper);		
-
-	bool IsCompleted() const;
+	IAction(IArduinoWrapper* wrapper);			
 
 	virtual void Reset();
 
@@ -15,7 +13,7 @@ public:
 
 	virtual void StartAction();	
 
-	virtual bool Execute();
+	virtual ActionState Execute();
 
 	virtual bool CheckPostConditions();
 
@@ -30,8 +28,7 @@ public:
 	IAction* GetNextAction() const;
 
 	unsigned long GetStartTime();
-protected:
-	bool _isCompleted;
+protected:	
 	IArduinoWrapper* _wrapper;
 	ErrorCodes _errorCode;
 	IAction* _nextAction;

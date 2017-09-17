@@ -14,7 +14,7 @@ void LoaderForwardAction::Reset()
 
 bool LoaderForwardAction::CheckPreconditions()
 {
-	if(!_wrapper->IsFwCheckOn())
+	if(!_wrapper->IsFwCheckOn() || _wrapper->IsRevCheckOn())
 	{
 		_errorCode = IncorrectLoaderPositionFwd;
 		return false;
@@ -60,7 +60,7 @@ void LoaderForwardAction::Stop() const
 	_wrapper->EngageLoader(false, false);
 }
 
-bool LoaderForwardAction::Execute()
+ActionState LoaderForwardAction::Execute()
 {
 	auto current = _wrapper->GetLoaderCurrent();
 
@@ -68,15 +68,14 @@ bool LoaderForwardAction::Execute()
 	{
 		_errorCode = LoaderOverload;
 		Stop();
-		return false;
+		return Error;
 	}
 
 	if(_wrapper->IsRevCheckOn())
-	{
-		_isCompleted = true;
+	{		
 		_wrapper->EngageLoader(false, true);
 
-		return false;
+		return Completed;
 	}
 
 	auto time = _wrapper->GetMilliseconds();
@@ -87,7 +86,7 @@ bool LoaderForwardAction::Execute()
 	{
 		Stop();
 		_errorCode = LoaderForwardTimeout;
-		return false;
+		return Error;
 	}
 
 	if(duration > _config ->GetLoaderForwardFanTime())
@@ -95,7 +94,7 @@ bool LoaderForwardAction::Execute()
 		_wrapper->EngageFan(false);
 	}
 
-	return true;
+	return Executing;
 }
 
 bool LoaderForwardAction::CheckPostConditions()

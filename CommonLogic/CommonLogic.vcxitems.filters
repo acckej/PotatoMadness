@@ -67,6 +67,13 @@
       <Filter>Sequences</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Injector.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)FiringController.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)PrepareForFiringAction.cpp">
+      <Filter>Sequences</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Sequenser.cpp">
+      <Filter>Sequences</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h" />
@@ -120,5 +127,12 @@
       <Filter>Sequences</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Injector.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FiringController.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PrepareForFiringAction.h">
+      <Filter>Sequences</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Sequenser.h">
+      <Filter>Sequences</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

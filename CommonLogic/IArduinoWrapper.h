@@ -52,5 +52,10 @@ public:
 
 	virtual bool IsRevCheckOn();
 	virtual bool IsFwCheckOn();
+
+	virtual bool GetFss();
+	virtual bool GetRss();
+
+	virtual bool GetBlastSensorState();
 };
 

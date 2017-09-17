@@ -140,3 +140,18 @@ bool IArduinoWrapper::IsFwCheckOn()
 {
 	return false;
 }
+
+bool IArduinoWrapper::GetFss()
+{
+	return false;
+}
+
+bool IArduinoWrapper::GetRss()
+{
+	return false;
+}
+
+bool IArduinoWrapper::GetBlastSensorState()
+{
+	return false;
+}

@@ -1,21 +1,20 @@
 #pragma once
 #include "IAction.h"
-#include "Configuration.h"
+#include "FiringController.h"
 
-class LoaderForwardAction : public IAction
+class PrepareForFiringAction : IAction
 {
 public:
-	LoaderForwardAction(IArduinoWrapper* wrapper, Configuration* config);
+	PrepareForFiringAction(IArduinoWrapper* wrapper, FiringController* controller);
+
 	void Reset() override;
 	bool CheckPreconditions() override;
 	void StartAction() override;
 	ActionState Execute() override;
 	bool CheckPostConditions() override;
 	void EndAction() override;
-	int GetActionDuration() override;	
+	int GetActionDuration() override;
 private:
-	void Stop() const;
-
-	Configuration* _config;
+	FiringController* _controller;
 };
 

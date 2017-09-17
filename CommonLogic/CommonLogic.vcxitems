@@ -19,6 +19,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsController.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsMapItem.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Configuration.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FiringController.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IArduinoWrapper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h">
@@ -39,8 +40,10 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MachineryCheck.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScreenBase.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SensorsCheck.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Sequenser.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TestScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeDefinitions.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PrepareForFiringAction.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)BatteryCheck.cpp">
@@ -56,6 +59,9 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Configuration.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FiringController.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)IAction.cpp">
@@ -99,7 +105,13 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SensorsCheck.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Sequenser.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TestScreen.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PrepareForFiringAction.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
   </ItemGroup>
