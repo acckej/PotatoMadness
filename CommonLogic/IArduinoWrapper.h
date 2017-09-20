@@ -26,21 +26,16 @@ public:
 	virtual void LogFloatingPoint(double val);
 
 	virtual void SerialPrint(char* message);
-	virtual void EngageFan(bool enable);
+	
 	virtual double GetBatteryVoltage();
-	virtual void EngageInjector(bool enable);
-	virtual void EngageBreach(bool open, bool enable);
-
+	
 	virtual float GetAtmPressure();
 	virtual float GetInternalTemp();
 	virtual float GetExternalTemp();
 	virtual float GetExternalHumidity();
 	virtual float GetReceiverPressure();
 
-	virtual void ResetDebouncingTriggers();
-
-	virtual void EngageIngnition(bool enabled);
-	virtual void EngageInjectorDiode(bool enabled);
+	virtual void ResetDebouncingTriggers();	
 
 	virtual unsigned long GetMilliseconds();
 

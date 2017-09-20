@@ -2,7 +2,7 @@
 #include "Constants.h"
 
 
-LoaderReverseActionForcedMixing::LoaderReverseActionForcedMixing(IArduinoWrapper* wrapper, Configuration* config, Injector* injector, Loader* loader): IAction(wrapper)
+LoaderReverseActionForcedMixing::LoaderReverseActionForcedMixing(IArduinoWrapper* wrapper, Configuration* config, Injector* injector, Loader* loader, Actuators* actuators): IAction(wrapper)
 {
 	_config = config;
 	_injector = injector;
@@ -12,6 +12,7 @@ LoaderReverseActionForcedMixing::LoaderReverseActionForcedMixing(IArduinoWrapper
 	_mixed = false;
 	_breachClosingStart = 0;
 	_loader = loader;
+	_actuators = actuators;
 }
 
 void LoaderReverseActionForcedMixing::Reset()
@@ -73,7 +74,7 @@ ActionState LoaderReverseActionForcedMixing::Execute()
 		if (_loader->IsFwCheckOn())
 		{
 			_loader->Stop();
-			_wrapper->EngageFan(true);
+			_actuators->TurnFanOn();
 
 			_isInjection = true;
 			_injectionStart = _wrapper->GetMilliseconds();
@@ -97,13 +98,13 @@ ActionState LoaderReverseActionForcedMixing::Execute()
 			if (injectionTime <= 0 || injectionTime > MAX_INJECTION_TIME)
 			{
 				_errorCode = IncorrectInjectionTime;
-				_wrapper->EngageFan(false);
+				_actuators->TurnFanOff();
 				return Error;
 			}
 
-			_wrapper->EngageInjector(true);
+			_actuators->InjectorStart();
 			_wrapper->Delay(injectionTime);
-			_wrapper->EngageInjector(false);
+			_actuators->InjectorStop();
 			
 			_injected = true;
 			return Executing;
@@ -112,8 +113,8 @@ ActionState LoaderReverseActionForcedMixing::Execute()
 		if(!_mixed && time - _injectionStart >= _config->GetLoaderReverseFanTime())
 		{
 			_mixed = true;
-			_wrapper->EngageFan(false);			
-			_wrapper->EngageBreach(false, true);
+			_actuators->TurnFanOff();
+			_actuators->CloseBreach();
 			_breachClosingStart = _wrapper->GetMilliseconds();
 
 			return Executing;
@@ -146,5 +147,7 @@ int LoaderReverseActionForcedMixing::GetActionDuration()
 void LoaderReverseActionForcedMixing::Stop() const
 {
 	_loader->Stop();
-	_wrapper->EngageInjector(false);
+	_actuators->TurnFanOff();
+	_actuators->CloseBreach();
+	_actuators->InjectorStop();
 }

@@ -3,11 +3,12 @@
 #include "IArduinoWrapper.h"
 #include "ButtonsController.h"
 #include "loader.h"
+#include "Actuators.h"
 
 class Context 
 {
 public:
-	Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader);
+	Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader, Actuators* actuators);
 
 	static OperationMode GetOperationMode();
 	static void SetOperationMode(OperationMode mode);
@@ -26,5 +27,6 @@ private:
 	static IArduinoWrapper* _wrapper;
 	static ButtonsController* _buttonsController;
 	static Loader* _loader;
+	static Actuators* _actuators;
 };
 

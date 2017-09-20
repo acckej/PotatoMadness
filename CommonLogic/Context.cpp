@@ -4,13 +4,15 @@ OperationMode Context::_mode;
 IArduinoWrapper* Context::_wrapper;
 ButtonsController* Context::_buttonsController;
 Loader* Context::_loader;
+Actuators* Context::_actuators;
 
-Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader)
+Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader, Actuators* actuators)
 {
 	_mode = FiringMode;
 	_wrapper = wrapper;
 	_buttonsController = buttons;
 	_loader = loader;
+	_actuators = actuators;
 }
 
 
@@ -27,12 +29,11 @@ void Context::SetOperationMode(OperationMode mode)
 void Context::Halt()
 {
 	_loader->Stop();
-	_wrapper->EngageIngnition(false);
-	_wrapper->EngageFan(false);
-	_wrapper->EngageBreach(false, true);
-	_wrapper->EngageInjector(false);	
+	_actuators->TurnFanOff();
+	_actuators->InjectorStop();
+	_actuators->CloseBreach();	
 	_wrapper->DigitalWrite(RESERVED_RELAY_PORT, ARDUINO_HIGH);
-	_wrapper->EngageInjectorDiode(false);
+	_actuators->EngageInjectorDiode(false);
 }
 
 void Context::HandleError(char * message, ErrorCodes code)

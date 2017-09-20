@@ -78,36 +78,12 @@ void ArduinoWrapper::PrintFormat(char * message, ...)
 	lcd.print(message);
 }
 
-void ArduinoWrapper::EngageFan(bool enable)
-{
-	digitalWrite(FAN_PORT, enable ? ARDUINO_LOW : ARDUINO_HIGH);
-}
-
 double ArduinoWrapper::GetBatteryVoltage()
 {
 	auto vlt = AnalogRead(VOLTAGE_PORT);
 	auto calculated = static_cast<double>(vlt) * ANALOG_COEFFICIENT * VOLTAGE_COEFFICIENT;
 
 	return calculated;
-}
-
-void ArduinoWrapper::EngageInjector(bool enable)
-{
-	digitalWrite(INJECTOR_PORT, enable ? ARDUINO_HIGH : ARDUINO_LOW);
-}
-
-void ArduinoWrapper::EngageBreach(bool open, bool enable)
-{
-	if(!enable)
-	{
-		digitalWrite(BREACH_OPEN_PORT, ARDUINO_LOW);
-		digitalWrite(BREACH_CLOSE_PORT, ARDUINO_LOW);
-	}
-	else
-	{
-		digitalWrite(BREACH_OPEN_PORT, open ? ARDUINO_LOW : ARDUINO_HIGH);
-		digitalWrite(BREACH_CLOSE_PORT, open ? ARDUINO_HIGH : ARDUINO_LOW);
-	}	
 }
 
 float ArduinoWrapper::GetAtmPressure()
@@ -156,16 +132,6 @@ void ArduinoWrapper::ResetDebouncingTriggers()
 	Delay(50);
 	digitalWrite(BLAST_TRIGGER_RESET_PORT, ARDUINO_HIGH);
 	digitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_LOW);
-}
-
-void ArduinoWrapper::EngageIngnition(bool enabled)
-{
-	digitalWrite(IGNITION_PORT, enabled ? ARDUINO_LOW : ARDUINO_HIGH);
-}
-
-void ArduinoWrapper::EngageInjectorDiode(bool enabled)
-{
-	digitalWrite(INJ_LED_PORT, enabled ? ARDUINO_HIGH : ARDUINO_LOW);
 }
 
 void ArduinoWrapper::Init()

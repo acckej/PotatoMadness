@@ -1,7 +1,7 @@
 #include "MachineryCheck.h"
 #include "Context.h"
 
-MachineryCheck::MachineryCheck(IArduinoWrapper * wrapper, TestScreen * screen) : IHwCheck(wrapper, screen)
+MachineryCheck::MachineryCheck(IArduinoWrapper * wrapper, TestScreen * screen, Actuators* actuators) : IHwCheck(wrapper, screen)
 {
 	_cyclesCounter = 0;
 
@@ -9,6 +9,7 @@ MachineryCheck::MachineryCheck(IArduinoWrapper * wrapper, TestScreen * screen) :
 	_breachOpen = false;
 	_fan = false;
 	_injector = false;
+	_actuators = actuators;
 }
 
 CheckResult MachineryCheck::Check()
@@ -27,14 +28,14 @@ CheckResult MachineryCheck::Check()
 			_screen->Refresh();
 			_screen->Println("Drives check", 1);
 
-			_wrapper->EngageBreach(false, true);
+			_actuators->CloseBreach();
 		}
 		_screen->Println("Breach close", 2);
 		if(_cyclesCounter >= 30)
 		{
 			_cyclesCounter = 0;
 			_breachClose = false;
-			_wrapper->EngageBreach(true, false);
+			_actuators->DisableBreach();
 			_breachOpen = true;
 		}
 	}
@@ -43,7 +44,7 @@ CheckResult MachineryCheck::Check()
 	{
 		if (_cyclesCounter == 0)
 		{
-			_wrapper->EngageBreach(true, true);
+			_actuators->OpenBreach();
 		}
 		_screen->Println("Breach open", 3);
 		if (_cyclesCounter >= 30)
@@ -58,15 +59,15 @@ CheckResult MachineryCheck::Check()
 	{
 		if (_cyclesCounter == 0)
 		{
-			_wrapper->EngageFan(true);
+			_actuators->TurnFanOn();
 		}
 		_screen->Println("Fan", 4);
 		if (_cyclesCounter >= 30)
 		{
 			_cyclesCounter = 0;
 			_fan = false;
-			_wrapper->EngageFan(false);
-			_wrapper->EngageBreach(false, true);
+			_actuators->TurnFanOff();
+			_actuators->CloseBreach();
 			_injector = true;
 		}
 	}
@@ -76,13 +77,13 @@ CheckResult MachineryCheck::Check()
 		if (_cyclesCounter == 0)
 		{
 			_screen->Print(" Injector");
-			_wrapper->EngageInjector(true);
+			_actuators->InjectorStart();
 		}
 		
 		if (_cyclesCounter >= 30)
 		{
 			_cyclesCounter = 0;			
-			_wrapper->EngageInjector(false);			
+			_actuators->InjectorStop();
 			_screen->Print(" Injector-> Ok");
 			_injector = false;
 

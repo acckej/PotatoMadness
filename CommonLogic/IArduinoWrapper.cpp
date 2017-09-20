@@ -58,22 +58,11 @@ void IArduinoWrapper::SerialPrint(char * message)
 {
 }
 
-void IArduinoWrapper::EngageFan(bool enable)
-{
-}
-
 double IArduinoWrapper::GetBatteryVoltage()
 {
 	return 0.0;
 }
 
-void IArduinoWrapper::EngageInjector(bool enable)
-{
-}
-
-void IArduinoWrapper::EngageBreach(bool open, bool enable)
-{
-}
 
 float IArduinoWrapper::GetAtmPressure()
 {
@@ -101,14 +90,6 @@ float IArduinoWrapper::GetReceiverPressure()
 }
 
 void IArduinoWrapper::ResetDebouncingTriggers()
-{
-}
-
-void IArduinoWrapper::EngageIngnition(bool enabled)
-{
-}
-
-void IArduinoWrapper::EngageInjectorDiode(bool enabled)
 {
 }
 

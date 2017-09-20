@@ -24,11 +24,13 @@ namespace ControlUnitUnitTests
 			auto wrapper = ArduinoStub(DigitalReadButtons, nullptr);
 			auto screen = TestScreen(&wrapper);		
 			auto loader = Loader(&wrapper);
+			auto actuators = Actuators(&wrapper);
+
 			IHwCheck* checks[1];
 			auto bc = new ButtonsCheck(&wrapper, &screen);	
 			checks[0] = bc;
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons, &loader);
+			auto context = Context(&wrapper, &buttons, &loader, &actuators);
 
 			_stopButtonsTest = false;			
 			_buttonsPort = 0;
@@ -71,11 +73,13 @@ namespace ControlUnitUnitTests
 			auto wrapper = ArduinoStub(DigitalReadLoader, DigitalWriteLoader, AnalogReadLoader);
 			auto screen = TestScreen(&wrapper);
 			auto loader = Loader(&wrapper);
+			auto actuators = Actuators(&wrapper);
+
 			IHwCheck* checks[1];
 			auto bc = new LoaderCheck(&wrapper, &screen, &loader);
 			checks[0] = bc;
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons, &loader);
+			auto context = Context(&wrapper, &buttons, &loader, &actuators);
 
 			_currentValue = 600;
 

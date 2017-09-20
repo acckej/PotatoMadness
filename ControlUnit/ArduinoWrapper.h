@@ -18,10 +18,7 @@ public:
 	void SerialPrint(char* message) override;
 	void PrintFormat(char* message, ...) override;
 	
-	void EngageFan(bool enable) override;
-	double GetBatteryVoltage() override;
-	void EngageInjector(bool enable) override;
-	void EngageBreach(bool open, bool enable) override;
+	double GetBatteryVoltage() override;	
 	float GetAtmPressure() override;
 	float GetInternalTemp() override;
 	float GetExternalTemp() override;
@@ -29,8 +26,6 @@ public:
 	float GetReceiverPressure() override;
 	void ResetDebouncingTriggers() override;
 	
-	void EngageIngnition(bool enabled) override;
-	void EngageInjectorDiode(bool enabled) override;
 	void Init() override;
 	
 	void LogFormat(char* message, ...) override;

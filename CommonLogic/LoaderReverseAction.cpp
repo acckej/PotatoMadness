@@ -1,10 +1,11 @@
 #include "LoaderReverseAction.h"
 #include "Constants.h"
 
-LoaderReverseAction::LoaderReverseAction(IArduinoWrapper* wrapper, Injector* injector, Loader* loader): IAction(wrapper)
+LoaderReverseAction::LoaderReverseAction(IArduinoWrapper* wrapper, Injector* injector, Loader* loader, Actuators* actuators): IAction(wrapper)
 {
 	_injector = injector;
 	_loader = loader;
+	_actuators = actuators;
 }
 
 void LoaderReverseAction::Reset()
@@ -57,7 +58,7 @@ ActionState LoaderReverseAction::Execute()
 
 	if (duration >= BREACH_ENGAGE_TIME)
 	{
-		_wrapper->EngageBreach(false, true);
+		_actuators->CloseBreach();
 	}
 
 	if (_loader->IsFwCheckOn())
@@ -71,9 +72,9 @@ ActionState LoaderReverseAction::Execute()
 			return Error;
 		}
 		
-		_wrapper->EngageInjector(true);
+		_actuators->InjectorStart();
 		_wrapper->Delay(injectionTime);
-		_wrapper->EngageInjector(false);				
+		_actuators->InjectorStop();
 
 		return Completed;
 	}
@@ -106,5 +107,5 @@ int LoaderReverseAction::GetActionDuration()
 void LoaderReverseAction::Stop() const
 {	
 	_loader->Stop();
-	_wrapper->EngageInjector(false);
+	_actuators->InjectorStop();
 }

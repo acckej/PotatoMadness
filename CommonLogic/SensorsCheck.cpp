@@ -1,7 +1,7 @@
 #include "SensorsCheck.h"
 
 
-SensorsCheck::SensorsCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader* loader) : IHwCheck(wrapper, screen)
+SensorsCheck::SensorsCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader* loader, Actuators* actuators) : IHwCheck(wrapper, screen)
 {	
 	_shotSensors = true;
 	_extEnv = false;
@@ -9,6 +9,7 @@ SensorsCheck::SensorsCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader*
 	_receiver = false;
 	_ammoSensor = false;
 	_loader = loader;
+	_actuators = actuators;
 }
 
 CheckResult SensorsCheck::Check()
@@ -19,7 +20,7 @@ CheckResult SensorsCheck::Check()
 		{
 			_screen->Refresh();
 			_screen->Println("Sensor check", 1);
-			_wrapper->EngageInjectorDiode(true);
+			_actuators->EngageInjectorDiode(true);
 			_wrapper->ResetDebouncingTriggers();
 		}
 		else
@@ -58,7 +59,7 @@ CheckResult SensorsCheck::Check()
 		{
 			_screen->Refresh();
 			_screen->Println("Ext sens check", 1);	
-			_wrapper->EngageInjectorDiode(false);
+			_actuators->EngageInjectorDiode(false);
 			_cyclesCounter++;
 		}
 		else
@@ -94,7 +95,7 @@ CheckResult SensorsCheck::Check()
 		{
 			_screen->Refresh();
 			_screen->Println("Int sens check", 1);
-			_wrapper->EngageInjectorDiode(true);
+			_actuators->EngageInjectorDiode(true);
 			_cyclesCounter++;
 		}
 		else
@@ -130,7 +131,7 @@ CheckResult SensorsCheck::Check()
 		{
 			_screen->Refresh();
 			_screen->Println("Receiver pressure", 1);	
-			_wrapper->EngageInjectorDiode(false);
+			_actuators->EngageInjectorDiode(false);
 			_cyclesCounter++;
 		}
 		else
@@ -162,7 +163,7 @@ CheckResult SensorsCheck::Check()
 		{
 			_screen->Refresh();
 			_screen->Println("Ammo sensor", 1);
-			_wrapper->EngageInjectorDiode(true);
+			_actuators->EngageInjectorDiode(true);
 			_cyclesCounter++;
 		}
 		else
@@ -175,7 +176,7 @@ CheckResult SensorsCheck::Check()
 
 			if (_cyclesCounter >= 40)
 			{
-				_wrapper->EngageInjectorDiode(false);
+				_actuators->EngageInjectorDiode(false);
 				_ammoSensor = false;
 				_cyclesCounter = 0;
 				_screen->Println("Passed", 4);

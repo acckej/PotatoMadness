@@ -2,10 +2,11 @@
 #include "Constants.h"
 
 
-LoaderForwardAction::LoaderForwardAction(IArduinoWrapper* wrapper, Configuration* config, Loader* loader): IAction(wrapper)
+LoaderForwardAction::LoaderForwardAction(IArduinoWrapper* wrapper, Configuration* config, Loader* loader, Actuators* actuators): IAction(wrapper)
 {
 	_config = config;
 	_loader = loader;
+	_actuators = actuators;
 }
 
 void LoaderForwardAction::Reset()
@@ -50,14 +51,14 @@ void LoaderForwardAction::StartAction()
 {
 	IAction::StartAction();
 
-	_wrapper->EngageBreach(true, true);
-	_wrapper->EngageFan(true);
+	_actuators->OpenBreach();
+	_actuators->TurnFanOn();
 	_loader->Forward();
 }
 
 void LoaderForwardAction::Stop() const
 {
-	_wrapper->EngageFan(false);
+	_actuators->TurnFanOff();
 	_loader->Stop();
 }
 
@@ -88,7 +89,7 @@ ActionState LoaderForwardAction::Execute()
 
 	if(duration > _config ->GetLoaderForwardFanTime())
 	{
-		_wrapper->EngageFan(false);
+		_actuators->TurnFanOff();
 	}
 
 	return Executing;

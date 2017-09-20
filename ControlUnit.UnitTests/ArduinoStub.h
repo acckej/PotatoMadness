@@ -21,19 +21,15 @@ public:
 	void Print(const char msg[]) override;
 	void Print(double val, int) override;
 	void SerialPrint(char* message) override;
-	void PrintFormat(char* message, ...) override;	
-	void EngageFan(bool enable) override;
-	double GetBatteryVoltage() override;
-	void EngageInjector(bool enable) override;
-	void EngageBreach(bool open, bool enable) override;
+	void PrintFormat(char* message, ...) override;		
+	double GetBatteryVoltage() override;	
 	float GetAtmPressure() override;
 	float GetInternalTemp() override;
 	float GetExternalTemp() override;
 	float GetExternalHumidity() override;
 	float GetReceiverPressure() override;
-	void ResetDebouncingTriggers() override;	
-	void EngageIngnition(bool enabled) override;
-	void EngageInjectorDiode(bool enabled) override;
+	void ResetDebouncingTriggers() override;
+	
 private:
 	DigitalReadDelegate _readDelegate;
 	DigitalWriteDelegate _writeDelegate;

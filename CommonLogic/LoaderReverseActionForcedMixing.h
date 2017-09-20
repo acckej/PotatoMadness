@@ -3,13 +3,14 @@
 #include "Configuration.h"
 #include "Injector.h"
 #include "Loader.h"
+#include "Actuators.h"
 
 #define FAN_SPINUP_TIME 1000
 
 class LoaderReverseActionForcedMixing : public IAction
 {
 public:
-	LoaderReverseActionForcedMixing(IArduinoWrapper* wrapper, Configuration* config, Injector* injector, Loader* loader);
+	LoaderReverseActionForcedMixing(IArduinoWrapper* wrapper, Configuration* config, Injector* injector, Loader* loader, Actuators* actuators);
 
 	void Reset() override;
 	bool CheckPreconditions() override;
@@ -22,6 +23,8 @@ private:
 	Configuration* _config;
 	Injector* _injector;
 	Loader* _loader;
+	Actuators* _actuators;
+
 	unsigned long _injectionStart;
 	bool _isInjection;
 	bool _injected;

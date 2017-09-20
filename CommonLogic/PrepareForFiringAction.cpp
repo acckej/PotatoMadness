@@ -2,9 +2,10 @@
 #include "Constants.h"
 
 
-PrepareForFiringAction::PrepareForFiringAction(IArduinoWrapper* wrapper, FiringController* controller): IAction(wrapper)
+PrepareForFiringAction::PrepareForFiringAction(IArduinoWrapper* wrapper, FiringController* controller, Actuators* actuators): IAction(wrapper)
 {
 	_controller = controller;
+	_actuators = actuators;
 }
 
 void PrepareForFiringAction::Reset()
@@ -38,7 +39,7 @@ void PrepareForFiringAction::StartAction()
 	IAction::StartAction();
 	
 	_controller->Reset();
-	_wrapper->EngageIngnition(true);
+	_actuators->IngnitionOn();
 }
 
 ActionState PrepareForFiringAction::Execute()
@@ -74,7 +75,7 @@ bool PrepareForFiringAction::CheckPostConditions()
 
 void PrepareForFiringAction::EndAction()
 {
-	_wrapper->EngageIngnition(false);
+	_actuators->IgnitionOff();
 }
 
 int PrepareForFiringAction::GetActionDuration()

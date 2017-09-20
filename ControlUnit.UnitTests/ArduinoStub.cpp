@@ -74,21 +74,9 @@ void ArduinoStub::PrintFormat(char * message, ...)
 	Microsoft::VisualStudio::CppUnitTestFramework::Logger::WriteMessage(message);
 }
 
-void ArduinoStub::EngageFan(bool enable)
-{
-}
-
 double ArduinoStub::GetBatteryVoltage()
 {
 	return 0.0;
-}
-
-void ArduinoStub::EngageInjector(bool enable)
-{
-}
-
-void ArduinoStub::EngageBreach(bool open, bool enable)
-{
 }
 
 float ArduinoStub::GetAtmPressure()
@@ -118,12 +106,7 @@ float ArduinoStub::GetReceiverPressure()
 
 void ArduinoStub::ResetDebouncingTriggers()
 {
+	
 }
 
-void ArduinoStub::EngageIngnition(bool enabled)
-{
-}
 
-void ArduinoStub::EngageInjectorDiode(bool enabled)
-{
-}
