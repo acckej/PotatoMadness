@@ -1,14 +1,14 @@
 #include "SensorsCheck.h"
-#include "Constants.h"
 
 
-SensorsCheck::SensorsCheck(IArduinoWrapper* wrapper, TestScreen* screen) : IHwCheck(wrapper, screen)
+SensorsCheck::SensorsCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader* loader) : IHwCheck(wrapper, screen)
 {	
 	_shotSensors = true;
 	_extEnv = false;
 	_intEnv = false;
 	_receiver = false;
 	_ammoSensor = false;
+	_loader = loader;
 }
 
 CheckResult SensorsCheck::Check()
@@ -167,7 +167,7 @@ CheckResult SensorsCheck::Check()
 		}
 		else
 		{
-			auto as = _wrapper->GetAmmoSensorState();
+			auto as = _loader->NoAmmo();
 			_screen->Println("Ammo: ", 2);
 			_screen->Print(as ? "1" : "0");						
 

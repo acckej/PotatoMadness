@@ -78,22 +78,6 @@ void ArduinoWrapper::PrintFormat(char * message, ...)
 	lcd.print(message);
 }
 
-void ArduinoWrapper::EngageLoader(bool forward, bool enable)
-{
-	if(!enable)
-	{
-		digitalWrite(LOADER_ENABLE_PORT, ARDUINO_HIGH);
-		digitalWrite(LOADER_FWD_PORT, ARDUINO_LOW);
-		digitalWrite(LOADER_REV_PORT, ARDUINO_LOW);
-	}
-	else
-	{
-		digitalWrite(LOADER_ENABLE_PORT, ARDUINO_LOW);
-		digitalWrite(LOADER_FWD_PORT, forward ? ARDUINO_LOW : ARDUINO_HIGH);
-		digitalWrite(LOADER_REV_PORT, forward ? ARDUINO_LOW : ARDUINO_HIGH);
-	}
-}
-
 void ArduinoWrapper::EngageFan(bool enable)
 {
 	digitalWrite(FAN_PORT, enable ? ARDUINO_LOW : ARDUINO_HIGH);
@@ -174,12 +158,6 @@ void ArduinoWrapper::ResetDebouncingTriggers()
 	digitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_LOW);
 }
 
-bool ArduinoWrapper::GetAmmoSensorState()
-{
-	auto result = digitalRead(AMMO_SENSOR_PORT);
-	return result == ARDUINO_LOW;
-}
-
 void ArduinoWrapper::EngageIngnition(bool enabled)
 {
 	digitalWrite(IGNITION_PORT, enabled ? ARDUINO_LOW : ARDUINO_HIGH);
@@ -197,9 +175,9 @@ void ArduinoWrapper::Init()
 
 	pinMode(LOADER_FWD_PORT, OUTPUT);
 	pinMode(LOADER_REV_PORT, OUTPUT);
-	pinMode(LOADER_ENABLE_PORT, OUTPUT);
-		
+	pinMode(LOADER_ENABLE_PORT, OUTPUT);		
 	pinMode(LOADER_CURRENT_PORT, INPUT);
+
 	pinMode(VOLTAGE_PORT, INPUT);
 	pinMode(FAN_PORT, OUTPUT);
 
@@ -229,14 +207,6 @@ void ArduinoWrapper::Init()
 	atmPSens.begin(BAROMETER_ADDRESS);	
 }
 
-float ArduinoWrapper::GetLoaderCurrent()
-{
-	auto curr = analogRead(LOADER_CURRENT_PORT);
-	auto voltage = ANALOG_COEFFICIENT * double(curr);
-	auto current = abs(CURRENT_MIDDLE_POINT - voltage) / CURRENT_COEFFICIENT;
-	return current;
-}
-
 void ArduinoWrapper::LogFormat(char * message, ...)
 {
 	char buffer[128];
@@ -253,18 +223,6 @@ void ArduinoWrapper::LogFloatingPoint(double val)
 	char buf[20];
 	dtostrf(val, 7, 3, buf);
 	Serial.println(buf);
-}
-
-bool ArduinoWrapper::IsRevCheckOn()
-{
-	auto result = DigitalRead(LDR_REV_CHECK_PORT);
-	return result == ARDUINO_HIGH;
-}
-
-bool ArduinoWrapper::IsFwCheckOn()
-{
-	auto result = DigitalRead(LDR_FW_CHECK_PORT);
-	return result == ARDUINO_HIGH;
 }
 
 unsigned long ArduinoWrapper::GetMilliseconds()

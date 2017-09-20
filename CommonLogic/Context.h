@@ -2,11 +2,12 @@
 #include "Constants.h"
 #include "IArduinoWrapper.h"
 #include "ButtonsController.h"
+#include "loader.h"
 
 class Context 
 {
 public:
-	Context(IArduinoWrapper *wrapper, ButtonsController* buttons);
+	Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader);
 
 	static OperationMode GetOperationMode();
 	static void SetOperationMode(OperationMode mode);
@@ -24,5 +25,6 @@ private:
 	static OperationMode _mode;
 	static IArduinoWrapper* _wrapper;
 	static ButtonsController* _buttonsController;
+	static Loader* _loader;
 };
 

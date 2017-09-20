@@ -17,7 +17,7 @@ public:
 	void Print(double val, int dp = 2) override;
 	void SerialPrint(char* message) override;
 	void PrintFormat(char* message, ...) override;
-	void EngageLoader(bool forward, bool enable) override;
+	
 	void EngageFan(bool enable) override;
 	double GetBatteryVoltage() override;
 	void EngageInjector(bool enable) override;
@@ -28,15 +28,14 @@ public:
 	float GetExternalHumidity() override;
 	float GetReceiverPressure() override;
 	void ResetDebouncingTriggers() override;
-	bool GetAmmoSensorState() override;
+	
 	void EngageIngnition(bool enabled) override;
 	void EngageInjectorDiode(bool enabled) override;
 	void Init() override;
-	float GetLoaderCurrent() override;
+	
 	void LogFormat(char* message, ...) override;
 	void LogFloatingPoint(double val) override;
-	bool IsRevCheckOn() override;
-	bool IsFwCheckOn() override;
+	
 	unsigned long GetMilliseconds() override;
 	bool GetFss() override;
 	bool GetRss() override;

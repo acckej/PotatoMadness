@@ -19,11 +19,12 @@ namespace ControlUnitUnitTests
 		{
 			auto wrapper = ArduinoStub(DigitalReadSensor, DigitalWriteSensor, AnalogReadSensor);
 			auto screen = TestScreen(&wrapper);
+			auto loader = Loader(&wrapper);
 			IHwCheck* checks[1];
-			auto bc = new SensorsCheck(&wrapper, &screen);
+			auto bc = new SensorsCheck(&wrapper, &screen, &loader);
 			checks[0] = bc;
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons);
+			auto context = Context(&wrapper, &buttons, &loader);
 
 			auto seq = HwCheckSequence(&wrapper, checks, 1);
 

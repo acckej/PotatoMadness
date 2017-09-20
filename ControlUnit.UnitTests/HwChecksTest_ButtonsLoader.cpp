@@ -22,12 +22,13 @@ namespace ControlUnitUnitTests
 		TEST_METHOD(HwChecksSequenceTest_Buttons)
 		{
 			auto wrapper = ArduinoStub(DigitalReadButtons, nullptr);
-			auto screen = TestScreen(&wrapper);			
+			auto screen = TestScreen(&wrapper);		
+			auto loader = Loader(&wrapper);
 			IHwCheck* checks[1];
 			auto bc = new ButtonsCheck(&wrapper, &screen);	
 			checks[0] = bc;
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons);
+			auto context = Context(&wrapper, &buttons, &loader);
 
 			_stopButtonsTest = false;			
 			_buttonsPort = 0;
@@ -69,11 +70,12 @@ namespace ControlUnitUnitTests
 		{
 			auto wrapper = ArduinoStub(DigitalReadLoader, DigitalWriteLoader, AnalogReadLoader);
 			auto screen = TestScreen(&wrapper);
+			auto loader = Loader(&wrapper);
 			IHwCheck* checks[1];
-			auto bc = new LoaderCheck(&wrapper, &screen);
+			auto bc = new LoaderCheck(&wrapper, &screen, &loader);
 			checks[0] = bc;
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons);
+			auto context = Context(&wrapper, &buttons, &loader);
 
 			_currentValue = 600;
 

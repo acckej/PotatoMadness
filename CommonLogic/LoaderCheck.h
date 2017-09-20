@@ -7,7 +7,7 @@
 class LoaderCheck : public IHwCheck
 {
 public:
-	LoaderCheck(IArduinoWrapper* wrapper, TestScreen* screen);
+	LoaderCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader* loader);
 
 	CheckResult Check() override;	
 	
@@ -16,5 +16,6 @@ private:
 	CheckResult CheckCurrent(char messageLine) const;	
 	
 	bool _forward;
+	Loader* _loader;
 };
 

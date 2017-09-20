@@ -11,12 +11,14 @@
 #define Arduino
 
 auto _wrapper = ArduinoWrapper();
+
+auto _loader = Loader(&_wrapper);
 auto _buttons = ButtonsController(&_wrapper, nullptr, 0);
-auto _context = Context(&_wrapper, &_buttons);
+auto _context = Context(&_wrapper, &_buttons, &_loader);
 
 auto screen = TestScreen(&_wrapper);
 IHwCheck* checks[1];
-auto bc = SensorsCheck(&_wrapper, &screen);
+auto bc = SensorsCheck(&_wrapper, &screen, &_loader);
 auto seq = HwCheckSequence(&_wrapper, checks, 1);
 CheckResult _hwCheckResult = Running;
 bool _high = false;

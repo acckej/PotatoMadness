@@ -3,10 +3,11 @@
 #include <stdio.h>
 
 
-LoaderCheck::LoaderCheck(IArduinoWrapper * wrapper, TestScreen* screen): IHwCheck(wrapper, screen)
+LoaderCheck::LoaderCheck(IArduinoWrapper * wrapper, TestScreen* screen, Loader* loader): IHwCheck(wrapper, screen)
 {
 	_cyclesCounter = 0;
 	_forward = true;
+	_loader = loader;
 }
 
 CheckResult LoaderCheck::Check()
@@ -25,7 +26,7 @@ CheckResult LoaderCheck::Check()
 			_screen->Refresh();
 
 			_screen->Println("Ldr test fwd", 1);
-			_wrapper->EngageLoader(true, true);
+			_loader->Forward();
 			_wrapper->Delay(200);
 		}		
 
@@ -47,7 +48,7 @@ CheckResult LoaderCheck::Check()
 		if(_cyclesCounter >= 50)
 		{
 			_forward = false;
-			_wrapper->EngageLoader(false, false);
+			_loader->Stop();
 			_cyclesCounter = 0;
 		}
 	}
@@ -56,7 +57,7 @@ CheckResult LoaderCheck::Check()
 		if (_cyclesCounter == 0)
 		{
 			_screen->Println("Ldr test rev", 2);
-			_wrapper->EngageLoader(false, true);
+			_loader->Reverse();
 		}		
 
 		if (Context::GetButtonsController().IsButtonPressed(TestAbortButton))
@@ -90,12 +91,12 @@ CheckResult LoaderCheck::Check()
 
 void LoaderCheck::Stop() const
 {
-	_wrapper->EngageLoader(false, false);
+	_loader->Stop();
 }
 
 CheckResult LoaderCheck::CheckCurrent(char messageLine) const
 {
-	auto loaderCurrent = _wrapper->GetLoaderCurrent();
+	auto loaderCurrent = _loader->GetCurrent();
 	
 	if (loaderCurrent > LOADER_CURRENT_MAX)
 	{
@@ -109,12 +110,12 @@ CheckResult LoaderCheck::CheckCurrent(char messageLine) const
 
 	if (loaderCurrent < LOADER_CURRENT_WORKING)
 	{
-		if(_wrapper->IsRevCheckOn() || _wrapper->IsFwCheckOn())
+		if(_loader->IsRevCheckOn() || _loader->IsFwCheckOn())
 		{
 			_screen->Println("Rchk:", 4);
-			_screen->Print(_wrapper->IsRevCheckOn() ? "1" : "0");
+			_screen->Print(_loader->IsRevCheckOn() ? "1" : "0");
 			_screen->Print(";Fchk:");
-			_screen->Print(_wrapper->IsFwCheckOn() ? "1" : "0");
+			_screen->Print(_loader->IsFwCheckOn() ? "1" : "0");
 
 			return Passed;
 		}

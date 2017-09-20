@@ -2,9 +2,10 @@
 #include "Constants.h"
 
 
-LoaderForwardAction::LoaderForwardAction(IArduinoWrapper* wrapper, Configuration* config): IAction(wrapper)
+LoaderForwardAction::LoaderForwardAction(IArduinoWrapper* wrapper, Configuration* config, Loader* loader): IAction(wrapper)
 {
 	_config = config;
+	_loader = loader;
 }
 
 void LoaderForwardAction::Reset()
@@ -14,7 +15,7 @@ void LoaderForwardAction::Reset()
 
 bool LoaderForwardAction::CheckPreconditions()
 {
-	if(!_wrapper->IsFwCheckOn() || _wrapper->IsRevCheckOn())
+	if(!_loader->IsFwCheckOn() || _loader->IsRevCheckOn())
 	{
 		_errorCode = IncorrectLoaderPositionFwd;
 		return false;
@@ -51,30 +52,26 @@ void LoaderForwardAction::StartAction()
 
 	_wrapper->EngageBreach(true, true);
 	_wrapper->EngageFan(true);
-	_wrapper->EngageLoader(true, true);
+	_loader->Forward();
 }
 
 void LoaderForwardAction::Stop() const
 {
 	_wrapper->EngageFan(false);
-	_wrapper->EngageLoader(false, false);
+	_loader->Stop();
 }
 
 ActionState LoaderForwardAction::Execute()
 {
-	auto current = _wrapper->GetLoaderCurrent();
-
-	if(current > LOADER_CURRENT_MAX)
+	if(_loader->IsOverload())
 	{
 		_errorCode = LoaderOverload;
 		Stop();
 		return Error;
 	}
 
-	if(_wrapper->IsRevCheckOn())
-	{		
-		_wrapper->EngageLoader(false, true);
-
+	if(_loader->IsRevCheckOn())
+	{
 		return Completed;
 	}
 

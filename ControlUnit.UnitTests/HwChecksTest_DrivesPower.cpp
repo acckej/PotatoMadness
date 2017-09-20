@@ -20,11 +20,12 @@ namespace ControlUnitUnitTests
 		{
 			auto wrapper = ArduinoStub(nullptr, nullptr, AnalogReadLoader);
 			auto screen = TestScreen(&wrapper);
+			auto loader = Loader(&wrapper);
 			IHwCheck* checks[1];
 			auto bc = new BatteryCheck(&wrapper, &screen);
 			checks[0] = bc;
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons);
+			auto context = Context(&wrapper, &buttons, &loader);
 			
 			auto seq = HwCheckSequence(&wrapper, checks, 1);
 
@@ -41,11 +42,12 @@ namespace ControlUnitUnitTests
 		{
 			auto wrapper = ArduinoStub(nullptr, DigitalWriteDrives, nullptr);
 			auto screen = TestScreen(&wrapper);
+			auto loader = Loader(&wrapper);
 			IHwCheck* checks[1];
 			auto bc = new MachineryCheck(&wrapper, &screen);
 			checks[0] = bc;
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons);
+			auto context = Context(&wrapper, &buttons, &loader);
 
 			auto seq = HwCheckSequence(&wrapper, checks, 1);
 			bool passed = false;

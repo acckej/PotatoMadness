@@ -3,12 +3,14 @@
 OperationMode Context::_mode;
 IArduinoWrapper* Context::_wrapper;
 ButtonsController* Context::_buttonsController;
+Loader* Context::_loader;
 
-Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons)
+Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader)
 {
 	_mode = FiringMode;
 	_wrapper = wrapper;
 	_buttonsController = buttons;
+	_loader = loader;
 }
 
 
@@ -24,7 +26,7 @@ void Context::SetOperationMode(OperationMode mode)
 
 void Context::Halt()
 {
-	_wrapper->EngageLoader(false, false);
+	_loader->Stop();
 	_wrapper->EngageIngnition(false);
 	_wrapper->EngageFan(false);
 	_wrapper->EngageBreach(false, true);

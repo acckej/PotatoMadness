@@ -1,6 +1,12 @@
 #include "FiringController.h"
 #include "Constants.h"
 
+bool FiringController::_fireFlag;
+unsigned long FiringController::_startTime;
+unsigned long FiringController::_endTime;
+IArduinoWrapper * FiringController::_wrapper;
+bool FiringController::_frontSensorEngaged;
+ErrorCodes FiringController::_errorCode;
 
 FiringController::FiringController(IArduinoWrapper* wrapper)
 {

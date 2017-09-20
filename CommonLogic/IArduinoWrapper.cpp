@@ -58,10 +58,6 @@ void IArduinoWrapper::SerialPrint(char * message)
 {
 }
 
-void IArduinoWrapper::EngageLoader(bool forward, bool enable)
-{
-}
-
 void IArduinoWrapper::EngageFan(bool enable)
 {
 }
@@ -104,18 +100,8 @@ float IArduinoWrapper::GetReceiverPressure()
 	return 0.0f;
 }
 
-float IArduinoWrapper::GetLoaderCurrent()
-{
-	return 0.0f;
-}
-
 void IArduinoWrapper::ResetDebouncingTriggers()
 {
-}
-
-bool IArduinoWrapper::GetAmmoSensorState()
-{
-	return false;
 }
 
 void IArduinoWrapper::EngageIngnition(bool enabled)
@@ -129,16 +115,6 @@ void IArduinoWrapper::EngageInjectorDiode(bool enabled)
 unsigned long IArduinoWrapper::GetMilliseconds()
 {
 	return 0;
-}
-
-bool IArduinoWrapper::IsRevCheckOn()
-{
-	return false;
-}
-
-bool IArduinoWrapper::IsFwCheckOn()
-{
-	return false;
 }
 
 bool IArduinoWrapper::GetFss()

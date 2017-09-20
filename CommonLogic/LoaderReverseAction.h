@@ -1,13 +1,14 @@
 #pragma once
 #include "IAction.h"
 #include "Injector.h"
+#include "Loader.h"
 
 #define BREACH_ENGAGE_TIME 3000
 
 class LoaderReverseAction : public IAction
 {
 public:
-	LoaderReverseAction(IArduinoWrapper* wrapper, Injector* injector);
+	LoaderReverseAction(IArduinoWrapper* wrapper, Injector* injector, Loader* loader);
 
 	void Reset() override;
 	bool CheckPreconditions() override;
@@ -20,5 +21,6 @@ private:
 	void Stop() const;
 
 	Injector* _injector;	
+	Loader* _loader;
 };
 

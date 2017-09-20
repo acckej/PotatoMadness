@@ -26,8 +26,6 @@ public:
 	virtual void LogFloatingPoint(double val);
 
 	virtual void SerialPrint(char* message);
-
-	virtual void EngageLoader(bool forward, bool enable);
 	virtual void EngageFan(bool enable);
 	virtual double GetBatteryVoltage();
 	virtual void EngageInjector(bool enable);
@@ -39,19 +37,12 @@ public:
 	virtual float GetExternalHumidity();
 	virtual float GetReceiverPressure();
 
-	virtual float GetLoaderCurrent();
-
 	virtual void ResetDebouncingTriggers();
-
-	virtual bool GetAmmoSensorState();
 
 	virtual void EngageIngnition(bool enabled);
 	virtual void EngageInjectorDiode(bool enabled);
 
 	virtual unsigned long GetMilliseconds();
-
-	virtual bool IsRevCheckOn();
-	virtual bool IsFwCheckOn();
 
 	virtual bool GetFss();
 	virtual bool GetRss();

@@ -21,8 +21,7 @@ public:
 	void Print(const char msg[]) override;
 	void Print(double val, int) override;
 	void SerialPrint(char* message) override;
-	void PrintFormat(char* message, ...) override;
-	void EngageLoader(bool forward, bool enable) override;
+	void PrintFormat(char* message, ...) override;	
 	void EngageFan(bool enable) override;
 	double GetBatteryVoltage() override;
 	void EngageInjector(bool enable) override;
@@ -32,8 +31,7 @@ public:
 	float GetExternalTemp() override;
 	float GetExternalHumidity() override;
 	float GetReceiverPressure() override;
-	void ResetDebouncingTriggers() override;
-	bool GetAmmoSensorState() override;
+	void ResetDebouncingTriggers() override;	
 	void EngageIngnition(bool enabled) override;
 	void EngageInjectorDiode(bool enabled) override;
 private:

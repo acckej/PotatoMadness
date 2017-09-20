@@ -1,9 +1,10 @@
 #include "LoaderReverseAction.h"
 #include "Constants.h"
 
-LoaderReverseAction::LoaderReverseAction(IArduinoWrapper* wrapper, Injector* injector): IAction(wrapper)
+LoaderReverseAction::LoaderReverseAction(IArduinoWrapper* wrapper, Injector* injector, Loader* loader): IAction(wrapper)
 {
 	_injector = injector;
+	_loader = loader;
 }
 
 void LoaderReverseAction::Reset()
@@ -13,7 +14,7 @@ void LoaderReverseAction::Reset()
 
 bool LoaderReverseAction::CheckPreconditions()
 {
-	if (!_wrapper->IsRevCheckOn())
+	if (!_loader->IsRevCheckOn())
 	{
 		_errorCode = IncorrectLoaderPositionRev;
 		return false;
@@ -27,7 +28,7 @@ bool LoaderReverseAction::CheckPreconditions()
 		return false;
 	}
 
-	if(!_wrapper->GetAmmoSensorState())
+	if(_loader->NoAmmo())
 	{
 		_errorCode = NoAmmo;
 		return false;
@@ -39,17 +40,15 @@ bool LoaderReverseAction::CheckPreconditions()
 void LoaderReverseAction::StartAction()
 {
 	IAction::StartAction();
-
-	_wrapper->EngageLoader(false, true);
+	_loader->Reverse();
 }
 
 ActionState LoaderReverseAction::Execute()
 {
 	auto time = _wrapper->GetMilliseconds();
 	auto duration = time - _startTime;
-
-	auto current = _wrapper->GetLoaderCurrent();
-	if (current > LOADER_CURRENT_MAX)
+	
+	if (_loader->IsOverload())
 	{
 		_errorCode = LoaderOverload;
 		Stop();
@@ -61,9 +60,9 @@ ActionState LoaderReverseAction::Execute()
 		_wrapper->EngageBreach(false, true);
 	}
 
-	if (_wrapper->IsFwCheckOn())
+	if (_loader->IsFwCheckOn())
 	{
-		_wrapper->EngageLoader(false, false);
+		_loader->Stop();
 		auto injectionTime = _injector->CalculateInjectionTime();
 
 		if(injectionTime <= 0 || injectionTime > MAX_INJECTION_TIME)
@@ -106,6 +105,6 @@ int LoaderReverseAction::GetActionDuration()
 
 void LoaderReverseAction::Stop() const
 {	
-	_wrapper->EngageLoader(false, false);	
+	_loader->Stop();
 	_wrapper->EngageInjector(false);
 }

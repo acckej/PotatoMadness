@@ -74,10 +74,6 @@ void ArduinoStub::PrintFormat(char * message, ...)
 	Microsoft::VisualStudio::CppUnitTestFramework::Logger::WriteMessage(message);
 }
 
-void ArduinoStub::EngageLoader(bool forward, bool enable)
-{
-}
-
 void ArduinoStub::EngageFan(bool enable)
 {
 }
@@ -122,11 +118,6 @@ float ArduinoStub::GetReceiverPressure()
 
 void ArduinoStub::ResetDebouncingTriggers()
 {
-}
-
-bool ArduinoStub::GetAmmoSensorState()
-{
-	return false;
 }
 
 void ArduinoStub::EngageIngnition(bool enabled)

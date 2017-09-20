@@ -2,7 +2,7 @@
 #include "Constants.h"
 
 
-LoaderReverseActionForcedMixing::LoaderReverseActionForcedMixing(IArduinoWrapper* wrapper, Configuration* config, Injector* injector): IAction(wrapper)
+LoaderReverseActionForcedMixing::LoaderReverseActionForcedMixing(IArduinoWrapper* wrapper, Configuration* config, Injector* injector, Loader* loader): IAction(wrapper)
 {
 	_config = config;
 	_injector = injector;
@@ -11,6 +11,7 @@ LoaderReverseActionForcedMixing::LoaderReverseActionForcedMixing(IArduinoWrapper
 	_injected = false;
 	_mixed = false;
 	_breachClosingStart = 0;
+	_loader = loader;
 }
 
 void LoaderReverseActionForcedMixing::Reset()
@@ -25,7 +26,7 @@ void LoaderReverseActionForcedMixing::Reset()
 
 bool LoaderReverseActionForcedMixing::CheckPreconditions()
 {
-	if (!_wrapper->IsRevCheckOn())
+	if (!_loader->IsRevCheckOn())
 	{
 		_errorCode = IncorrectLoaderPositionRev;
 		return false;
@@ -39,7 +40,7 @@ bool LoaderReverseActionForcedMixing::CheckPreconditions()
 		return false;
 	}
 
-	if (!_wrapper->GetAmmoSensorState())
+	if (_loader->NoAmmo())
 	{
 		_errorCode = NoAmmo;
 		return false;
@@ -52,7 +53,7 @@ void LoaderReverseActionForcedMixing::StartAction()
 {
 	IAction::StartAction();
 
-	_wrapper->EngageLoader(false, true);
+	_loader->Reverse();
 }
 
 ActionState LoaderReverseActionForcedMixing::Execute()
@@ -61,18 +62,17 @@ ActionState LoaderReverseActionForcedMixing::Execute()
 	auto duration = time - _startTime;
 
 	if (!_isInjection)
-	{
-		auto current = _wrapper->GetLoaderCurrent();
-		if (current > LOADER_CURRENT_MAX)
+	{		
+		if (_loader->IsOverload())
 		{
 			_errorCode = LoaderOverload;
 			Stop();
 			return Error;
 		}
 
-		if (_wrapper->IsFwCheckOn())
+		if (_loader->IsFwCheckOn())
 		{
-			_wrapper->EngageLoader(false, false);
+			_loader->Stop();
 			_wrapper->EngageFan(true);
 
 			_isInjection = true;
@@ -145,6 +145,6 @@ int LoaderReverseActionForcedMixing::GetActionDuration()
 
 void LoaderReverseActionForcedMixing::Stop() const
 {
-	_wrapper->EngageLoader(false, false);	
+	_loader->Stop();
 	_wrapper->EngageInjector(false);
 }
