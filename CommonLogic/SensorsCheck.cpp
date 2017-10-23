@@ -1,7 +1,7 @@
 #include "SensorsCheck.h"
 
 
-SensorsCheck::SensorsCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader* loader, Actuators* actuators) : IHwCheck(wrapper, screen)
+SensorsCheck::SensorsCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader* loader, Actuators* actuators, Sensors* sensors) : IHwCheck(wrapper, screen)
 {	
 	_shotSensors = true;
 	_extEnv = false;
@@ -10,6 +10,7 @@ SensorsCheck::SensorsCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader*
 	_ammoSensor = false;
 	_loader = loader;
 	_actuators = actuators;
+	_sensors = sensors;
 }
 
 CheckResult SensorsCheck::Check()
@@ -21,13 +22,13 @@ CheckResult SensorsCheck::Check()
 			_screen->Refresh();
 			_screen->Println("Sensor check", 1);
 			_actuators->EngageInjectorDiode(true);
-			_wrapper->ResetDebouncingTriggers();
+			_sensors->ResetDebouncingTriggers();
 		}
 		else
 		{
-			auto blastSens = _wrapper->GetBlastSensorState();
-			auto rss = _wrapper->GetRss();
-			auto fss = _wrapper->GetFss();
+			auto blastSens = _sensors->GetBlastSensorState();
+			auto rss = _sensors->GetRss();
+			auto fss = _sensors->GetFss();
 
 			_screen->Println("Blast sens:", 2);
 			_screen->Print(blastSens ? "1" : "0");
@@ -136,7 +137,7 @@ CheckResult SensorsCheck::Check()
 		}
 		else
 		{
-			auto press = _wrapper->GetReceiverPressure();
+			auto press = _sensors->GetReceiverPressure();
 			_screen->Println("Pressure:", 2);
 			_screen->PrintNumber(press, 2);
 

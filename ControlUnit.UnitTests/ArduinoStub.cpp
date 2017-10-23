@@ -74,11 +74,6 @@ void ArduinoStub::PrintFormat(char * message, ...)
 	Microsoft::VisualStudio::CppUnitTestFramework::Logger::WriteMessage(message);
 }
 
-double ArduinoStub::GetBatteryVoltage()
-{
-	return 0.0;
-}
-
 float ArduinoStub::GetAtmPressure()
 {
 	return 0.0f;
@@ -98,15 +93,4 @@ float ArduinoStub::GetExternalHumidity()
 {
 	return 0.0f;
 }
-
-float ArduinoStub::GetReceiverPressure()
-{
-	return 0.0f;
-}
-
-void ArduinoStub::ResetDebouncingTriggers()
-{
-	
-}
-
 

@@ -17,14 +17,11 @@ public:
 	void Print(double val, int dp = 2) override;
 	void SerialPrint(char* message) override;
 	void PrintFormat(char* message, ...) override;
-	
-	double GetBatteryVoltage() override;	
+		
 	float GetAtmPressure() override;
 	float GetInternalTemp() override;
 	float GetExternalTemp() override;
-	float GetExternalHumidity() override;
-	float GetReceiverPressure() override;
-	void ResetDebouncingTriggers() override;
+	float GetExternalHumidity() override;	
 	
 	void Init() override;
 	
@@ -32,8 +29,5 @@ public:
 	void LogFloatingPoint(double val) override;
 	
 	unsigned long GetMilliseconds() override;
-	bool GetFss() override;
-	bool GetRss() override;
-	bool GetBlastSensorState() override;
 };
 

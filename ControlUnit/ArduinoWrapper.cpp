@@ -78,14 +78,6 @@ void ArduinoWrapper::PrintFormat(char * message, ...)
 	lcd.print(message);
 }
 
-double ArduinoWrapper::GetBatteryVoltage()
-{
-	auto vlt = AnalogRead(VOLTAGE_PORT);
-	auto calculated = static_cast<double>(vlt) * ANALOG_COEFFICIENT * VOLTAGE_COEFFICIENT;
-
-	return calculated;
-}
-
 float ArduinoWrapper::GetAtmPressure()
 {
 	return atmPSens.readPressure();
@@ -110,28 +102,6 @@ float ArduinoWrapper::GetExternalHumidity()
 		return 0.0f;
 	}
 	return h;
-}
-
-float ArduinoWrapper::GetReceiverPressure()
-{
-	auto press = analogRead(RECEIVER_PRESSURE_PORT);
-	auto val = double(press) * ANALOG_COEFFICIENT;
-
-	if(val < 0.45f)
-	{
-		return -1;
-	}
-
-	return (val - PRESSURE_CONSTANT) * PRESSURE_COEFFICIENT;
-}
-
-void ArduinoWrapper::ResetDebouncingTriggers()
-{
-	digitalWrite(BLAST_TRIGGER_RESET_PORT, ARDUINO_LOW);
-	digitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_HIGH);
-	Delay(50);
-	digitalWrite(BLAST_TRIGGER_RESET_PORT, ARDUINO_HIGH);
-	digitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_LOW);
 }
 
 void ArduinoWrapper::Init()
@@ -196,20 +166,4 @@ unsigned long ArduinoWrapper::GetMilliseconds()
 	return millis();
 }
 
-bool ArduinoWrapper::GetFss()
-{
-	auto result = digitalRead(FSS_PORT);
-	return result == ARDUINO_HIGH;
-}
 
-bool ArduinoWrapper::GetRss()
-{
-	auto result = digitalRead(RSS_PORT);
-	return result == ARDUINO_HIGH;
-}
-
-bool ArduinoWrapper::GetBlastSensorState()
-{
-	auto result = digitalRead(BLAST_SENSOR_PORT);
-	return result == ARDUINO_HIGH;
-}

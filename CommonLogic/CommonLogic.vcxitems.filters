@@ -76,6 +76,7 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Loader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)Actuators.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)Sensors.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h" />
@@ -138,5 +139,6 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Loader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Actuators.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Sensors.h" />
   </ItemGroup>
 </Project>

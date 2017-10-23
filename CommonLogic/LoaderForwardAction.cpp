@@ -2,11 +2,12 @@
 #include "Constants.h"
 
 
-LoaderForwardAction::LoaderForwardAction(IArduinoWrapper* wrapper, Configuration* config, Loader* loader, Actuators* actuators): IAction(wrapper)
+LoaderForwardAction::LoaderForwardAction(IArduinoWrapper* wrapper, Configuration* config, Loader* loader, Actuators* actuators, Sensors* sensors): IAction(wrapper)
 {
 	_config = config;
 	_loader = loader;
 	_actuators = actuators;
+	_sensors = sensors;
 }
 
 void LoaderForwardAction::Reset()
@@ -22,7 +23,7 @@ bool LoaderForwardAction::CheckPreconditions()
 		return false;
 	}
 
-	auto pressure = _wrapper->GetReceiverPressure();
+	auto pressure = _sensors->GetReceiverPressure();
 
 	if(pressure < RECEIVER_PRESSURE_MIN)
 	{
@@ -36,7 +37,7 @@ bool LoaderForwardAction::CheckPreconditions()
 		return false;
 	}
 
-	auto voltage = _wrapper->GetBatteryVoltage();
+	auto voltage = _sensors->GetBatteryVoltage();
 
 	if(voltage < LOW_VOLTAGE)
 	{

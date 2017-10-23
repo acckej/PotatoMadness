@@ -58,12 +58,6 @@ void IArduinoWrapper::SerialPrint(char * message)
 {
 }
 
-double IArduinoWrapper::GetBatteryVoltage()
-{
-	return 0.0;
-}
-
-
 float IArduinoWrapper::GetAtmPressure()
 {
 	return 0.0f;
@@ -84,31 +78,8 @@ float IArduinoWrapper::GetExternalHumidity()
 	return 0.0f;
 }
 
-float IArduinoWrapper::GetReceiverPressure()
-{
-	return 0.0f;
-}
-
-void IArduinoWrapper::ResetDebouncingTriggers()
-{
-}
-
 unsigned long IArduinoWrapper::GetMilliseconds()
 {
 	return 0;
 }
 
-bool IArduinoWrapper::GetFss()
-{
-	return false;
-}
-
-bool IArduinoWrapper::GetRss()
-{
-	return false;
-}
-
-bool IArduinoWrapper::GetBlastSensorState()
-{
-	return false;
-}

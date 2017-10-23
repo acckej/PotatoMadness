@@ -1,11 +1,12 @@
 #include "LoaderReverseAction.h"
 #include "Constants.h"
 
-LoaderReverseAction::LoaderReverseAction(IArduinoWrapper* wrapper, Injector* injector, Loader* loader, Actuators* actuators): IAction(wrapper)
+LoaderReverseAction::LoaderReverseAction(IArduinoWrapper* wrapper, Injector* injector, Loader* loader, Actuators* actuators, Sensors* sensors): IAction(wrapper)
 {
 	_injector = injector;
 	_loader = loader;
 	_actuators = actuators;
+	_sensors = sensors;
 }
 
 void LoaderReverseAction::Reset()
@@ -21,7 +22,7 @@ bool LoaderReverseAction::CheckPreconditions()
 		return false;
 	}
 
-	auto voltage = _wrapper->GetBatteryVoltage();
+	auto voltage = _sensors->GetBatteryVoltage();
 
 	if (voltage < LOW_VOLTAGE)
 	{

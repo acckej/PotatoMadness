@@ -1,9 +1,10 @@
 #include "BatteryCheck.h"
 #include "Context.h"
 
-BatteryCheck::BatteryCheck(IArduinoWrapper * wrapper, TestScreen * screen) : IHwCheck(wrapper, screen)
+BatteryCheck::BatteryCheck(IArduinoWrapper * wrapper, TestScreen * screen, Sensors* sensors) : IHwCheck(wrapper, screen)
 {
 	_cyclesCounter = 0;
+	_sensors = sensors;
 }
 
 CheckResult BatteryCheck::Check()
@@ -15,7 +16,7 @@ CheckResult BatteryCheck::Check()
 		_screen->Println("Power check", 1);
 	}	
 	
-	auto calculated = _wrapper->GetBatteryVoltage();
+	auto calculated = _sensors->GetBatteryVoltage();
 
 	_screen->Println("Voltage:", 2);
 	_screen->PrintNumber(calculated, 2);

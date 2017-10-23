@@ -2,10 +2,11 @@
 #include "Constants.h"
 
 
-PrepareForFiringAction::PrepareForFiringAction(IArduinoWrapper* wrapper, FiringController* controller, Actuators* actuators): IAction(wrapper)
+PrepareForFiringAction::PrepareForFiringAction(IArduinoWrapper* wrapper, FiringController* controller, Actuators* actuators, Sensors* sensors): IAction(wrapper)
 {
 	_controller = controller;
 	_actuators = actuators;
+	_sensors = sensors;
 }
 
 void PrepareForFiringAction::Reset()
@@ -15,7 +16,7 @@ void PrepareForFiringAction::Reset()
 
 bool PrepareForFiringAction::CheckPreconditions()
 {
-	auto voltage = _wrapper->GetBatteryVoltage();
+	auto voltage = _sensors->GetBatteryVoltage();
 
 	if (voltage < LOW_VOLTAGE)
 	{
@@ -23,9 +24,9 @@ bool PrepareForFiringAction::CheckPreconditions()
 		return false;
 	}
 
-	_wrapper->ResetDebouncingTriggers();
+	_sensors->ResetDebouncingTriggers();
 
-	if (_wrapper->GetRss() || _wrapper->GetFss() || _wrapper->GetBlastSensorState())
+	if (_sensors->GetRss() || _sensors->GetFss() || _sensors->GetBlastSensorState())
 	{
 		_errorCode = IncorrectShotSensorsState;
 		return false;

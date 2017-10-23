@@ -2,11 +2,12 @@
 #include "IAction.h"
 #include "FiringController.h"
 #include "Actuators.h"
+#include "Sensors.h"
 
 class PrepareForFiringAction : IAction
 {
 public:
-	PrepareForFiringAction(IArduinoWrapper* wrapper, FiringController* controller, Actuators* actuators);
+	PrepareForFiringAction(IArduinoWrapper* wrapper, FiringController* controller, Actuators* actuators, Sensors* sensors);
 
 	void Reset() override;
 	bool CheckPreconditions() override;
@@ -18,5 +19,6 @@ public:
 private:
 	FiringController* _controller;
 	Actuators * _actuators;
+	Sensors* _sensors;
 };
 

@@ -27,21 +27,11 @@ public:
 
 	virtual void SerialPrint(char* message);
 	
-	virtual double GetBatteryVoltage();
-	
 	virtual float GetAtmPressure();
 	virtual float GetInternalTemp();
 	virtual float GetExternalTemp();
 	virtual float GetExternalHumidity();
-	virtual float GetReceiverPressure();
 
-	virtual void ResetDebouncingTriggers();	
-
-	virtual unsigned long GetMilliseconds();
-
-	virtual bool GetFss();
-	virtual bool GetRss();
-
-	virtual bool GetBlastSensorState();
+	virtual unsigned long GetMilliseconds();	
 };
 

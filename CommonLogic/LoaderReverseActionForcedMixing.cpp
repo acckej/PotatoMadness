@@ -2,7 +2,7 @@
 #include "Constants.h"
 
 
-LoaderReverseActionForcedMixing::LoaderReverseActionForcedMixing(IArduinoWrapper* wrapper, Configuration* config, Injector* injector, Loader* loader, Actuators* actuators): IAction(wrapper)
+LoaderReverseActionForcedMixing::LoaderReverseActionForcedMixing(IArduinoWrapper* wrapper, Configuration* config, Injector* injector, Loader* loader, Actuators* actuators, Sensors* sensors): IAction(wrapper)
 {
 	_config = config;
 	_injector = injector;
@@ -13,6 +13,7 @@ LoaderReverseActionForcedMixing::LoaderReverseActionForcedMixing(IArduinoWrapper
 	_breachClosingStart = 0;
 	_loader = loader;
 	_actuators = actuators;
+	_sensors = sensors;
 }
 
 void LoaderReverseActionForcedMixing::Reset()
@@ -33,7 +34,7 @@ bool LoaderReverseActionForcedMixing::CheckPreconditions()
 		return false;
 	}
 
-	auto voltage = _wrapper->GetBatteryVoltage();
+	auto voltage = _sensors->GetBatteryVoltage();
 
 	if (voltage < LOW_VOLTAGE)
 	{

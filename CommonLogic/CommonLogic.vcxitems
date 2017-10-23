@@ -41,6 +41,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderReverseActionForcedMixing.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MachineryCheck.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScreenBase.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Sensors.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SensorsCheck.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Sequenser.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TestScreen.h" />
@@ -108,6 +109,9 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ScreenBase.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Sensors.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)SensorsCheck.cpp">

@@ -22,14 +22,11 @@ public:
 	void Print(double val, int) override;
 	void SerialPrint(char* message) override;
 	void PrintFormat(char* message, ...) override;		
-	double GetBatteryVoltage() override;	
+	
 	float GetAtmPressure() override;
 	float GetInternalTemp() override;
 	float GetExternalTemp() override;
 	float GetExternalHumidity() override;
-	float GetReceiverPressure() override;
-	void ResetDebouncingTriggers() override;
-	
 private:
 	DigitalReadDelegate _readDelegate;
 	DigitalWriteDelegate _writeDelegate;

@@ -3,13 +3,14 @@
 #include "Injector.h"
 #include "Loader.h"
 #include "Actuators.h"
+#include "Sensors.h"
 
 #define BREACH_ENGAGE_TIME 3000
 
 class LoaderReverseAction : public IAction
 {
 public:
-	LoaderReverseAction(IArduinoWrapper* wrapper, Injector* injector, Loader* loader, Actuators* actuators);
+	LoaderReverseAction(IArduinoWrapper* wrapper, Injector* injector, Loader* loader, Actuators* actuators, Sensors* sensors);
 
 	void Reset() override;
 	bool CheckPreconditions() override;
@@ -24,5 +25,6 @@ private:
 	Injector* _injector;	
 	Loader* _loader;
 	Actuators* _actuators;
+	Sensors* _sensors;
 };
 
