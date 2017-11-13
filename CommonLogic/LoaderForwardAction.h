@@ -8,7 +8,7 @@
 class LoaderForwardAction : public IAction
 {
 public:
-	LoaderForwardAction(IArduinoWrapper* wrapper, Configuration* config, Loader* loader, Actuators* actuators, Sensors* sensors);
+	LoaderForwardAction(IArduinoWrapper* wrapper, Configuration* config, Loader* loader, Actuators* actuators, Sensors* sensors, IAction* nextAction);
 	void Reset() override;
 	bool CheckPreconditions() override;
 	void StartAction() override;

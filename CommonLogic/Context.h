@@ -21,9 +21,12 @@ public:
 
 	static ButtonsController GetButtonsController();
 
-	static void LogMessage(char* message);	
+	static void LogMessage(char* message);
+	
+	static SystemState GetState();
 private:
 	static OperationMode _mode;
+	static SystemState _state;
 	static IArduinoWrapper* _wrapper;
 	static ButtonsController* _buttonsController;
 	static Loader* _loader;

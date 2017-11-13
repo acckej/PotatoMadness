@@ -1,7 +1,7 @@
 #include "LoaderReverseAction.h"
 #include "Constants.h"
 
-LoaderReverseAction::LoaderReverseAction(IArduinoWrapper* wrapper, Injector* injector, Loader* loader, Actuators* actuators, Sensors* sensors): IAction(wrapper)
+LoaderReverseAction::LoaderReverseAction(IArduinoWrapper* wrapper, Injector* injector, Loader* loader, Actuators* actuators, Sensors* sensors, IAction* nextAction): IAction(wrapper, nextAction)
 {
 	_injector = injector;
 	_loader = loader;
@@ -15,10 +15,24 @@ void LoaderReverseAction::Reset()
 }
 
 bool LoaderReverseAction::CheckPreconditions()
-{
+{	
 	if (!_loader->IsRevCheckOn())
 	{
 		_errorCode = IncorrectLoaderPositionRev;
+		return false;
+	}
+
+	auto pressure = _sensors->GetReceiverPressure();
+
+	if (pressure < RECEIVER_PRESSURE_MIN)
+	{
+		_errorCode = ReceiverPressureLow;
+		return false;
+	}
+
+	if (pressure > RECEIVER_PRESSURE_MAX)
+	{
+		_errorCode = ReceiverPressureHigh;
 		return false;
 	}
 
@@ -43,6 +57,7 @@ void LoaderReverseAction::StartAction()
 {
 	IAction::StartAction();
 	_loader->Reverse();
+	_firingState = FrontRev;
 }
 
 ActionState LoaderReverseAction::Execute()
@@ -59,12 +74,13 @@ ActionState LoaderReverseAction::Execute()
 
 	if (duration >= BREACH_ENGAGE_TIME)
 	{
-		_actuators->CloseBreach();
+		_actuators->CloseBreech();
 	}
 
 	if (_loader->IsFwCheckOn())
 	{
 		_loader->Stop();
+		_firingState = Reversed;
 		auto injectionTime = _injector->CalculateInjectionTime();
 
 		if(injectionTime <= 0 || injectionTime > MAX_INJECTION_TIME)

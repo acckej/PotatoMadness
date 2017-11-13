@@ -90,6 +90,10 @@ enum Buttons { x1, x2, x3, x4, x5, x6, Combo, None };
 
 #define TestAbortButton x1
 
-enum OperationMode {FiringMode, AfrEditScreen, SettingsMode, TestMode};
+enum OperationMode {FiringMode, FiringModeForcedMixing, AfrEditScreen, SettingsMode, TestMode};
+
+enum SystemState {SystemIdle, SystemRunning, SystemError};
+
+enum FiringState {Front, FrontRev, Reversed, Firing, RevFront, Reloading};
 
 

@@ -7,7 +7,7 @@
 class PrepareForFiringAction : IAction
 {
 public:
-	PrepareForFiringAction(IArduinoWrapper* wrapper, FiringController* controller, Actuators* actuators, Sensors* sensors);
+	PrepareForFiringAction(IArduinoWrapper* wrapper, FiringController* controller, Actuators* actuators, Sensors* sensors, IAction* nextAction);
 
 	void Reset() override;
 	bool CheckPreconditions() override;

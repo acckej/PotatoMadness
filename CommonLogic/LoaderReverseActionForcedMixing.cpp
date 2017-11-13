@@ -2,7 +2,8 @@
 #include "Constants.h"
 
 
-LoaderReverseActionForcedMixing::LoaderReverseActionForcedMixing(IArduinoWrapper* wrapper, Configuration* config, Injector* injector, Loader* loader, Actuators* actuators, Sensors* sensors): IAction(wrapper)
+LoaderReverseActionForcedMixing::LoaderReverseActionForcedMixing(
+	IArduinoWrapper* wrapper, Configuration* config, Injector* injector, Loader* loader, Actuators* actuators, Sensors* sensors, IAction* nextAction): IAction(wrapper, nextAction)
 {
 	_config = config;
 	_injector = injector;
@@ -34,6 +35,20 @@ bool LoaderReverseActionForcedMixing::CheckPreconditions()
 		return false;
 	}
 
+	auto pressure = _sensors->GetReceiverPressure();
+
+	if (pressure < RECEIVER_PRESSURE_MIN)
+	{
+		_errorCode = ReceiverPressureLow;
+		return false;
+	}
+
+	if (pressure > RECEIVER_PRESSURE_MAX)
+	{
+		_errorCode = ReceiverPressureHigh;
+		return false;
+	}
+
 	auto voltage = _sensors->GetBatteryVoltage();
 
 	if (voltage < LOW_VOLTAGE)
@@ -54,8 +69,8 @@ bool LoaderReverseActionForcedMixing::CheckPreconditions()
 void LoaderReverseActionForcedMixing::StartAction()
 {
 	IAction::StartAction();
-
 	_loader->Reverse();
+	_firingState = FrontRev;
 }
 
 ActionState LoaderReverseActionForcedMixing::Execute()
@@ -75,6 +90,7 @@ ActionState LoaderReverseActionForcedMixing::Execute()
 		if (_loader->IsFwCheckOn())
 		{
 			_loader->Stop();
+			_firingState = Reversed;
 			_actuators->TurnFanOn();
 
 			_isInjection = true;
@@ -115,7 +131,7 @@ ActionState LoaderReverseActionForcedMixing::Execute()
 		{
 			_mixed = true;
 			_actuators->TurnFanOff();
-			_actuators->CloseBreach();
+			_actuators->CloseBreech();
 			_breachClosingStart = _wrapper->GetMilliseconds();
 
 			return Executing;
@@ -149,6 +165,6 @@ void LoaderReverseActionForcedMixing::Stop() const
 {
 	_loader->Stop();
 	_actuators->TurnFanOff();
-	_actuators->CloseBreach();
+	_actuators->CloseBreech();
 	_actuators->InjectorStop();
 }

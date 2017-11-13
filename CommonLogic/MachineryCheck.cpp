@@ -28,7 +28,7 @@ CheckResult MachineryCheck::Check()
 			_screen->Refresh();
 			_screen->Println("Drives check", 1);
 
-			_actuators->CloseBreach();
+			_actuators->CloseBreech();
 		}
 		_screen->Println("Breach close", 2);
 		if(_cyclesCounter >= 30)
@@ -44,7 +44,7 @@ CheckResult MachineryCheck::Check()
 	{
 		if (_cyclesCounter == 0)
 		{
-			_actuators->OpenBreach();
+			_actuators->OpenBreech();
 		}
 		_screen->Println("Breach open", 3);
 		if (_cyclesCounter >= 30)
@@ -67,7 +67,7 @@ CheckResult MachineryCheck::Check()
 			_cyclesCounter = 0;
 			_fan = false;
 			_actuators->TurnFanOff();
-			_actuators->CloseBreach();
+			_actuators->CloseBreech();
 			_injector = true;
 		}
 	}

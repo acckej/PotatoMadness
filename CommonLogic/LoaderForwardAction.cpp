@@ -2,7 +2,7 @@
 #include "Constants.h"
 
 
-LoaderForwardAction::LoaderForwardAction(IArduinoWrapper* wrapper, Configuration* config, Loader* loader, Actuators* actuators, Sensors* sensors): IAction(wrapper)
+LoaderForwardAction::LoaderForwardAction(IArduinoWrapper* wrapper, Configuration* config, Loader* loader, Actuators* actuators, Sensors* sensors, IAction* nextAction) : IAction(wrapper, nextAction)
 {
 	_config = config;
 	_loader = loader;
@@ -21,21 +21,7 @@ bool LoaderForwardAction::CheckPreconditions()
 	{
 		_errorCode = IncorrectLoaderPositionFwd;
 		return false;
-	}
-
-	auto pressure = _sensors->GetReceiverPressure();
-
-	if(pressure < RECEIVER_PRESSURE_MIN)
-	{
-		_errorCode = ReceiverPressureLow;
-		return false;
-	}
-
-	if (pressure > RECEIVER_PRESSURE_MAX)
-	{
-		_errorCode = ReceiverPressureHigh;
-		return false;
-	}
+	}	
 
 	auto voltage = _sensors->GetBatteryVoltage();
 
@@ -52,9 +38,10 @@ void LoaderForwardAction::StartAction()
 {
 	IAction::StartAction();
 
-	_actuators->OpenBreach();
+	_actuators->OpenBreech();
 	_actuators->TurnFanOn();
 	_loader->Forward();
+	_firingState = Reversed;
 }
 
 void LoaderForwardAction::Stop() const
@@ -72,8 +59,11 @@ ActionState LoaderForwardAction::Execute()
 		return Error;
 	}
 
+	_firingState = RevFront;
+
 	if(_loader->IsRevCheckOn())
 	{
+		_firingState = Front;
 		return Completed;
 	}
 

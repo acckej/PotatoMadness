@@ -1,11 +1,12 @@
 #include "IAction.h"
 
 
-IAction::IAction(IArduinoWrapper* wrapper)
+IAction::IAction(IArduinoWrapper* wrapper, IAction* nextAction)
 {	
 	_wrapper = wrapper;
 	_errorCode = NoError;
-	_nextAction = nullptr;
+	_nextAction = nextAction;
+	_startTime = 0;
 }
 
 void IAction::Reset()
@@ -58,7 +59,12 @@ IAction * IAction::GetNextAction() const
 	return _nextAction;
 }
 
-unsigned long IAction::GetStartTime()
+unsigned long IAction::GetStartTime() const
 {
 	return _startTime;
+}
+
+FiringState IAction::GetFiringState()
+{
+	return _firingState;
 }

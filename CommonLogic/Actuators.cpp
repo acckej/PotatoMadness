@@ -7,13 +7,13 @@ Actuators::Actuators(IArduinoWrapper *wrapper)
 	_wrapper = wrapper;
 }
 
-void Actuators::OpenBreach() const
+void Actuators::OpenBreech() const
 {
 	_wrapper->DigitalWrite(BREACH_OPEN_PORT, ARDUINO_LOW);
 	_wrapper->DigitalWrite(BREACH_CLOSE_PORT, ARDUINO_HIGH);
 }
 
-void Actuators::CloseBreach() const
+void Actuators::CloseBreech() const
 {
 	_wrapper->DigitalWrite(BREACH_OPEN_PORT, ARDUINO_HIGH);
 	_wrapper->DigitalWrite(BREACH_CLOSE_PORT, ARDUINO_LOW);
@@ -53,6 +53,16 @@ void Actuators::InjectorStart() const
 void Actuators::InjectorStop() const
 {
 	_wrapper->DigitalWrite(INJECTOR_PORT, ARDUINO_LOW);
+}
+
+void Actuators::AuxOn() const
+{
+	_wrapper->DigitalWrite(RESERVED_RELAY_PORT, ARDUINO_LOW);
+}
+
+void Actuators::AuxOff() const
+{
+	_wrapper->DigitalWrite(RESERVED_RELAY_PORT, ARDUINO_HIGH);
 }
 
 void Actuators::EngageInjectorDiode(bool on) const

@@ -2,7 +2,8 @@
 #include "Constants.h"
 
 
-PrepareForFiringAction::PrepareForFiringAction(IArduinoWrapper* wrapper, FiringController* controller, Actuators* actuators, Sensors* sensors): IAction(wrapper)
+PrepareForFiringAction::PrepareForFiringAction(
+	IArduinoWrapper* wrapper, FiringController* controller, Actuators* actuators, Sensors* sensors, IAction* nextAction): IAction(wrapper, nextAction)
 {
 	_controller = controller;
 	_actuators = actuators;
@@ -41,6 +42,7 @@ void PrepareForFiringAction::StartAction()
 	
 	_controller->Reset();
 	_actuators->IngnitionOn();
+	_firingState = Firing;
 }
 
 ActionState PrepareForFiringAction::Execute()
@@ -62,6 +64,7 @@ ActionState PrepareForFiringAction::Execute()
 	if(_controller->GetFireFlag())
 	{
 		//update screen
+		_firingState = Reloading;
 		_controller->Reset();
 		return Completed;
 	}

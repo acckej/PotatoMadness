@@ -6,8 +6,8 @@ class Actuators
 public:
 	Actuators(IArduinoWrapper* wrapper);
 	
-	void OpenBreach() const;
-	void CloseBreach() const;
+	void OpenBreech() const;
+	void CloseBreech() const;
 	void DisableBreach() const;
 
 	void TurnFanOn() const;
@@ -18,6 +18,9 @@ public:
 
 	void InjectorStart() const;
 	void InjectorStop() const;
+
+	void AuxOn() const;
+	void AuxOff() const;
 
 	void EngageInjectorDiode(bool on) const;
 

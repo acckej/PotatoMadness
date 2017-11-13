@@ -5,11 +5,14 @@
 class Sequenser
 {
 public:
-	Sequenser(IArduinoWrapper* wrapper);
+	Sequenser(IArduinoWrapper* wrapper, IAction* startActionNormal, IAction* startActionForcedMixing);
 
-
+	void Execute();
 
 private:
 	IArduinoWrapper* _wrapper;
+	IAction* _startActionNormal;
+	IAction* _startActionForcedMixing;
+	IAction* _currentAction;
 };
 

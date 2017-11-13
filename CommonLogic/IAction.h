@@ -1,11 +1,12 @@
 #pragma once
 #include "TypeDefinitions.h"
 #include "IArduinoWrapper.h"
+#include "Constants.h"
 
 class IAction 
 {
 public:
-	IAction(IArduinoWrapper* wrapper);			
+	IAction(IArduinoWrapper* wrapper, IAction* nextAction);			
 
 	virtual void Reset();
 
@@ -27,11 +28,14 @@ public:
 
 	IAction* GetNextAction() const;
 
-	unsigned long GetStartTime();
+	unsigned long GetStartTime() const;
+
+	FiringState GetFiringState();
 protected:	
 	IArduinoWrapper* _wrapper;
 	ErrorCodes _errorCode;
 	IAction* _nextAction;
 	unsigned long _startTime;
+	FiringState _firingState;
 };
 

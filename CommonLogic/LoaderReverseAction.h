@@ -10,7 +10,7 @@
 class LoaderReverseAction : public IAction
 {
 public:
-	LoaderReverseAction(IArduinoWrapper* wrapper, Injector* injector, Loader* loader, Actuators* actuators, Sensors* sensors);
+	LoaderReverseAction(IArduinoWrapper* wrapper, Injector* injector, Loader* loader, Actuators* actuators, Sensors* sensors, IAction* nextAction);
 
 	void Reset() override;
 	bool CheckPreconditions() override;
