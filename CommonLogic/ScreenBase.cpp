@@ -12,7 +12,11 @@ void ScreenBase::Println(char * message, char line) const
 	{
 		ln = 3;
 	}
-	_wrapper->SetScreenCursor(0, ln < 0 ? 0 : ln);
+
+	auto printLine = ln < 0 ? 0 : ln;
+	_wrapper->SetScreenCursor(0, printLine);
+	_wrapper->Print("                    ");
+	_wrapper->SetScreenCursor(0, printLine);
 	_wrapper->Print(message);
 }
 
@@ -24,6 +28,11 @@ void ScreenBase::Print(char * message) const
 void ScreenBase::PrintNumber(double number, int digits) const
 {
 	_wrapper->Print(number, digits);
+}
+
+void ScreenBase::SetCursor(char col, char row) const
+{
+	_wrapper->SetScreenCursor(col, row);
 }
 
 void ScreenBase::Refresh() const

@@ -9,20 +9,23 @@ Sequenser::Sequenser(IArduinoWrapper* wrapper, IAction* startActionNormal, IActi
 
 	_startActionNormal = startActionNormal;
 	_startActionForcedMixing = startActionForcedMixing;
+	_currentAction = nullptr;
 }
 
 void Sequenser::Execute()
 {
 	auto mode = Context::GetOperationMode();
-	if((mode != FiringMode && mode != FiringModeForcedMixing))
+	if(mode != FiringMode && mode != FiringModeForcedMixing)
 	{
 		return;
 	}
 
-	if(_currentAction->GetNextAction() == nullptr)
+	if(_currentAction->GetNextAction() == nullptr || _currentAction == nullptr)
 	{
 		_currentAction = mode == FiringMode ? _startActionNormal : _startActionForcedMixing;
 	}
+
+
 }
 
 

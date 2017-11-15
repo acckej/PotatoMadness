@@ -49,7 +49,7 @@ void ArduinoWrapper::ClearScreen()
 
 void ArduinoWrapper::SetScreenCursor(char col, char row)
 {
-	lcd.setCursor(col, row);
+	lcd.setCursor(col, row);	
 }
 
 void ArduinoWrapper::Print(const char msg[])
