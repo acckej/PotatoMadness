@@ -20,6 +20,7 @@ public:
 	bool CheckPostConditions() override;
 	void EndAction() override;
 	int GetActionDuration() override;
+	const char* GetActionName() override;
 private:
 	Configuration* _config;
 	Injector* _injector;

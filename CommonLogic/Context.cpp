@@ -75,3 +75,8 @@ SystemState Context::GetState()
 	return _state;
 }
 
+void Context::SetState(SystemState state)
+{
+	_state = state;
+}
+

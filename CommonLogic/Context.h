@@ -24,6 +24,9 @@ public:
 	static void LogMessage(char* message);
 	
 	static SystemState GetState();
+
+	static void SetState(SystemState state);
+
 private:
 	static OperationMode _mode;
 	static SystemState _state;

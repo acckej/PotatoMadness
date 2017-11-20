@@ -86,3 +86,8 @@ int PrepareForFiringAction::GetActionDuration()
 {
 	return 0;
 }
+
+const char * PrepareForFiringAction::GetActionName()
+{
+	return "Firing prep.";
+}

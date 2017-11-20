@@ -161,6 +161,11 @@ int LoaderReverseActionForcedMixing::GetActionDuration()
 	return 0;
 }
 
+const char * LoaderReverseActionForcedMixing::GetActionName()
+{
+	return "Ldr. rev. FM";
+}
+
 void LoaderReverseActionForcedMixing::Stop() const
 {
 	_loader->Stop();

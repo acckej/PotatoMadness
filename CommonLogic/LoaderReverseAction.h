@@ -18,7 +18,8 @@ public:
 	ActionState Execute() override;
 	bool CheckPostConditions() override;
 	void EndAction() override;
-	int GetActionDuration() override;	
+	int GetActionDuration() override;
+	const char* GetActionName() override;
 private:
 	void Stop() const;
 

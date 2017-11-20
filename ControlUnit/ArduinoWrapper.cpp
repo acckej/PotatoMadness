@@ -59,7 +59,7 @@ void ArduinoWrapper::Print(const char msg[])
 
 void ArduinoWrapper::Print(double val, int dp = 2)
 {
-	lcd.print(val, dp);
+	lcd.print(val, dp);	
 }
 
 void ArduinoWrapper::SerialPrint(char * message)

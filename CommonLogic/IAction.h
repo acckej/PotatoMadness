@@ -10,6 +10,8 @@ public:
 
 	virtual void Reset();
 
+	virtual const char* GetActionName();
+
 	virtual bool CheckPreconditions();
 
 	virtual void StartAction();	
@@ -22,15 +24,13 @@ public:
 
 	virtual int GetActionDuration();
 
-	ErrorCodes GetErrorCode() const;
-
-	bool IsError() const;
+	ErrorCodes GetErrorCode() const;	
 
 	IAction* GetNextAction() const;
 
 	unsigned long GetStartTime() const;
 
-	FiringState GetFiringState();
+	FiringState GetFiringState() const;
 protected:	
 	IArduinoWrapper* _wrapper;
 	ErrorCodes _errorCode;

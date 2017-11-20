@@ -6,7 +6,7 @@ FiringScreen::FiringScreen(IArduinoWrapper * wrapper) : ScreenBase(wrapper)
 {
 }
 
-void FiringScreen::PrintStatus(char row, char * message) const
+void FiringScreen::PrintStatus(char row, const char * message) const
 {
 	if(row > 1)
 	{

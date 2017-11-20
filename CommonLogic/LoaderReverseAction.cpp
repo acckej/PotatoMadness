@@ -121,6 +121,11 @@ int LoaderReverseAction::GetActionDuration()
 	return 0;
 }
 
+const char * LoaderReverseAction::GetActionName()
+{
+	return "Ldr. rev.";
+}
+
 void LoaderReverseAction::Stop() const
 {	
 	_loader->Stop();

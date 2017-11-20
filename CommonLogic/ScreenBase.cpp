@@ -5,7 +5,7 @@ ScreenBase::ScreenBase(IArduinoWrapper * wrapper)
 	_wrapper = wrapper;
 }
 
-void ScreenBase::Println(char * message, char line) const
+void ScreenBase::Println(const char * message, char line) const
 {
 	auto ln = line - 1;
 	if (ln > 3)
@@ -28,6 +28,11 @@ void ScreenBase::Print(char * message) const
 void ScreenBase::PrintNumber(double number, int digits) const
 {
 	_wrapper->Print(number, digits);
+}
+
+void ScreenBase::PrintNumber(int number) const
+{
+	_wrapper->PrintFormat("%i", number);
 }
 
 void ScreenBase::SetCursor(char col, char row) const

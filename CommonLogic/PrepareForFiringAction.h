@@ -16,6 +16,7 @@ public:
 	bool CheckPostConditions() override;
 	void EndAction() override;
 	int GetActionDuration() override;
+	const char* GetActionName() override;
 private:
 	FiringController* _controller;
 	Actuators * _actuators;

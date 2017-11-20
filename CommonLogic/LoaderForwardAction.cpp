@@ -101,4 +101,9 @@ int LoaderForwardAction::GetActionDuration()
 	return LOADER_FORWARD_TIME;
 }
 
+const char * LoaderForwardAction::GetActionName()
+{
+	return "Ldr. fwd.";
+}
+
 

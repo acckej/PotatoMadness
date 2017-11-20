@@ -15,6 +15,11 @@ void IAction::Reset()
 	_errorCode = NoError;	
 }
 
+const char * IAction::GetActionName()
+{
+	return "Default";
+}
+
 bool IAction::CheckPreconditions()
 {
 	return false;
@@ -49,11 +54,6 @@ ErrorCodes IAction::GetErrorCode() const
 	return _errorCode;
 }
 
-bool IAction::IsError() const
-{
-	return _errorCode != NoError;
-}
-
 IAction * IAction::GetNextAction() const
 {
 	return _nextAction;
@@ -64,7 +64,7 @@ unsigned long IAction::GetStartTime() const
 	return _startTime;
 }
 
-FiringState IAction::GetFiringState()
+FiringState IAction::GetFiringState() const
 {
 	return _firingState;
 }

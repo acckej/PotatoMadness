@@ -13,32 +13,37 @@ enum ActionState
 
 enum ErrorCodes
 {
-	NoError,
+	NoError = 0,
 
-	ReceiverPressureLow,
-	ReceiverPressureHigh,
+	ReceiverPressureLow = 1,
+	ReceiverPressureHigh = 2,
 
-	LowVoltage,
+	LowVoltage = 3,
 
-	LoaderOverload,
-	LoaderForwardTimeout,
-	IncorrectLoaderPositionRev,
-	IncorrectLoaderPositionFwd,
-	LoaderReverseTimeout,
+	LoaderOverload = 4,
+	LoaderForwardTimeout = 5,
+	IncorrectLoaderPositionRev = 6,
+	IncorrectLoaderPositionFwd = 7,
+	LoaderReverseTimeout = 8,
 
-	NoAmmo,
-	FssWithoutBlast,
-	RssWithoutFront,
-	RssWithoutBlast,
-	FssEqualsRss,
-	IncorrectShotSensorsState,
+	NoAmmo = 9,
+	FssWithoutBlast = 10,
+	RssWithoutFront = 11,
+	RssWithoutBlast = 12,
+	FssEqualsRss = 13,
+	IncorrectShotSensorsState = 14,
 
-	FiringTimeout,
+	FiringTimeout = 15,
 
-	IncorrectInjectionTime,
+	IncorrectInjectionTime = 16,
 
-	Unspecified
+	Unspecified = 1000
 };
+
+inline bool IsRecoverableError(ErrorCodes code)
+{
+	return code == NoAmmo || code == LoaderOverload || code == NoError;
+}
 
 
 

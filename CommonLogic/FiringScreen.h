@@ -7,7 +7,7 @@ class FiringScreen : public ScreenBase
 public:
 	FiringScreen(IArduinoWrapper* wrapper);
 
-	void PrintStatus(char row, char* message) const;
+	void PrintStatus(char row, const char* message) const;
 	void PrintVoltage(float voltage) const;
 	void PrintTemperature(float temperature) const;
 	void PrintLoaderCurrent(float current) const;
