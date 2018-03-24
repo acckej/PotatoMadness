@@ -1,18 +1,20 @@
 #pragma once
 #include "IArduinoWrapper.h"
 
+#define BLANK_LINE "                    "
+#define ACTUAL_SCREEN_ROWS 4
 
 class ScreenBase
 {
 public:
 	ScreenBase(IArduinoWrapper* wrapper);	
 
-	void Println(const char* message, char line) const;
-	void Print(char* message) const;
-	void PrintNumber(double number, int digits) const;
-	void PrintNumber(int number) const;
-	void SetCursor(char col, char row) const;
-	void Refresh() const;
+	virtual void Println(const char* message, char line);
+	virtual void Print(char* message);
+	virtual void PrintNumber(double number, int digits);
+	virtual void PrintNumber(int number);
+	virtual void SetCursor(char col, char row);
+	virtual void Refresh();
 
 private:
 	IArduinoWrapper* _wrapper;

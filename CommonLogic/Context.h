@@ -4,11 +4,13 @@
 #include "ButtonsController.h"
 #include "loader.h"
 #include "Actuators.h"
+#include "Sensors.h"
+#include "Configuration.h"
 
 class Context 
 {
 public:
-	Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader, Actuators* actuators);
+	Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader, Actuators* actuators, Sensors* sensors);
 
 	static OperationMode GetOperationMode();
 	static void SetOperationMode(OperationMode mode);
@@ -20,12 +22,17 @@ public:
 	static bool WaitForButton(Buttons button, int delay);	
 
 	static ButtonsController GetButtonsController();
+	static Loader* GetLoader();
+	static Actuators* GetActuators();
+	static Sensors* GetSensors();
 
 	static void LogMessage(char* message);
 	
 	static SystemState GetState();
-
 	static void SetState(SystemState state);
+
+	static void SetFiringSequenceMode(FiringSequenceMode mode);
+	static FiringSequenceMode GetFiringSequenceMode();
 
 private:
 	static OperationMode _mode;
@@ -34,5 +41,8 @@ private:
 	static ButtonsController* _buttonsController;
 	static Loader* _loader;
 	static Actuators* _actuators;
+	static FiringSequenceMode _firingSequenceMode;
+	static Sensors* _sensors;
+	static Configuration* _configuration;
 };
 

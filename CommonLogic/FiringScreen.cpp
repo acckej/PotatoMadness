@@ -6,7 +6,7 @@ FiringScreen::FiringScreen(IArduinoWrapper * wrapper) : ScreenBase(wrapper)
 {
 }
 
-void FiringScreen::PrintStatus(char row, const char * message) const
+void FiringScreen::PrintStatus(char row, const char * message)
 {
 	if(row > 1)
 	{
@@ -21,7 +21,7 @@ void FiringScreen::PrintStatus(char row, const char * message) const
 	Println(message, row);
 }
 
-void FiringScreen::PrintVoltage(float voltage) const
+void FiringScreen::PrintVoltage(float voltage)
 {
 	SetCursor(0, 2);
 	Print("     ");
@@ -31,7 +31,7 @@ void FiringScreen::PrintVoltage(float voltage) const
 	SetCursor(0, 0);
 }
 
-void FiringScreen::PrintTemperature(float temperature) const
+void FiringScreen::PrintTemperature(float temperature)
 {
 	SetCursor(6, 2);
 	Print("   ");
@@ -41,7 +41,7 @@ void FiringScreen::PrintTemperature(float temperature) const
 	SetCursor(0, 0);
 }
 
-void FiringScreen::PrintLoaderCurrent(float current) const
+void FiringScreen::PrintLoaderCurrent(float current)
 {
 	SetCursor(11, 2);
 	Print("Ldr:     ");
@@ -51,7 +51,7 @@ void FiringScreen::PrintLoaderCurrent(float current) const
 	SetCursor(0, 0);
 }
 
-void FiringScreen::PrintSpeed(float speed) const
+void FiringScreen::PrintSpeed(float speed)
 {
 	SetCursor(7, 3);
 	Print("      ");
@@ -61,7 +61,7 @@ void FiringScreen::PrintSpeed(float speed) const
 	SetCursor(0, 0);
 }
 
-void FiringScreen::PrintHumidity(float humidity) const
+void FiringScreen::PrintHumidity(float humidity)
 {
 	SetCursor(16, 3);
 	Print("     ");
@@ -71,7 +71,7 @@ void FiringScreen::PrintHumidity(float humidity) const
 	SetCursor(0, 0);
 }
 
-void FiringScreen::PrintPressure(float pressure) const
+void FiringScreen::PrintPressure(float pressure)
 {
 	SetCursor(0, 3);
 	Print("      ");

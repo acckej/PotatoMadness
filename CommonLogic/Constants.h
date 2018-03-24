@@ -90,7 +90,9 @@ enum Buttons { x1, x2, x3, x4, x5, x6, Combo, None };
 
 #define TestAbortButton x1
 
-enum OperationMode {FiringMode, FiringModeForcedMixing, AfrEditScreen, SettingsMode, TestMode};
+enum FiringSequenceMode {Auto, SemiAuto};
+
+enum OperationMode {FiringMode, FiringModeForcedMixing, ConfigEditScreen, SettingsMode, TestMode};
 
 enum SystemState {SystemIdle, SystemRunning, SystemError};
 

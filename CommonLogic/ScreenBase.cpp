@@ -5,7 +5,7 @@ ScreenBase::ScreenBase(IArduinoWrapper * wrapper)
 	_wrapper = wrapper;
 }
 
-void ScreenBase::Println(const char * message, char line) const
+void ScreenBase::Println(const char * message, char line)
 {
 	auto ln = line - 1;
 	if (ln > 3)
@@ -15,32 +15,32 @@ void ScreenBase::Println(const char * message, char line) const
 
 	auto printLine = ln < 0 ? 0 : ln;
 	_wrapper->SetScreenCursor(0, printLine);
-	_wrapper->Print("                    ");
+	_wrapper->Print(BLANK_LINE);
 	_wrapper->SetScreenCursor(0, printLine);
 	_wrapper->Print(message);
 }
 
-void ScreenBase::Print(char * message) const
+void ScreenBase::Print(char * message)
 {
 	_wrapper->Print(message);
 }
 
-void ScreenBase::PrintNumber(double number, int digits) const
+void ScreenBase::PrintNumber(double number, int digits)
 {
 	_wrapper->Print(number, digits);
 }
 
-void ScreenBase::PrintNumber(int number) const
+void ScreenBase::PrintNumber(int number)
 {
 	_wrapper->PrintFormat("%i", number);
 }
 
-void ScreenBase::SetCursor(char col, char row) const
+void ScreenBase::SetCursor(char col, char row)
 {
 	_wrapper->SetScreenCursor(col, row);
 }
 
-void ScreenBase::Refresh() const
+void ScreenBase::Refresh()
 {
 	_wrapper->ClearScreen();
 }

@@ -19,6 +19,12 @@
     <Filter Include="Hardware">
       <UniqueIdentifier>{2ccfa7ba-35bf-4107-aa97-133704c86efa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ScrollableScreen">
+      <UniqueIdentifier>{6b37ce07-9d0f-4ba8-97db-487c23a2ff29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainSequence">
+      <UniqueIdentifier>{f839b88b-ddb0-4dcd-b5b4-ddb0f5b7086b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Context.cpp" />
@@ -74,9 +80,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)PrepareForFiringAction.cpp">
       <Filter>Sequences</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Sequenser.cpp">
-      <Filter>Sequences</Filter>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)FiringScreen.cpp">
       <Filter>Sequences</Filter>
     </ClCompile>
@@ -88,6 +91,15 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Actuators.cpp">
       <Filter>Hardware</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScrollableScreen.cpp">
+      <Filter>ScrollableScreen</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MainSequence.cpp">
+      <Filter>MainSequence</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FiringSequencer.cpp">
+      <Filter>Sequences</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,9 +158,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)PrepareForFiringAction.h">
       <Filter>Sequences</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Sequenser.h">
-      <Filter>Sequences</Filter>
-    </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)FiringScreen.h">
       <Filter>Sequences</Filter>
     </ClInclude>
@@ -158,6 +167,17 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Actuators.h">
       <Filter>Hardware</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Loader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScrollableScreen.h">
+      <Filter>ScrollableScreen</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Loader.h">
+      <Filter>Hardware</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MainSequence.h">
+      <Filter>MainSequence</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)FiringSequencer.h">
+      <Filter>Sequences</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

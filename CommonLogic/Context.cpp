@@ -1,13 +1,15 @@
 #include "Context.h"
 
 OperationMode Context::_mode;
+FiringSequenceMode Context::_firingSequenceMode;
 IArduinoWrapper* Context::_wrapper;
 ButtonsController* Context::_buttonsController;
 Loader* Context::_loader;
 Actuators* Context::_actuators;
+Sensors* Context::_sensors;
 SystemState Context::_state;
 
-Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader, Actuators* actuators)
+Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader, Actuators* actuators, Sensors* sensors)
 {
 	_mode = FiringMode;
 	_wrapper = wrapper;
@@ -15,6 +17,7 @@ Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* l
 	_loader = loader;
 	_actuators = actuators;
 	_state = SystemIdle;
+	_sensors = sensors;
 }
 
 
@@ -37,6 +40,7 @@ void Context::Halt()
 	_actuators->IgnitionOff();
 	_actuators->AuxOff();
 	_actuators->EngageInjectorDiode(false);	
+	_sensors->ResetDebouncingTriggers();
 }
 
 void Context::HandleError(char * message, ErrorCodes code)
@@ -63,6 +67,21 @@ ButtonsController Context::GetButtonsController()
 	return *_buttonsController;
 }
 
+Loader* Context::GetLoader()
+{
+	return _loader;
+}
+
+Actuators* Context::GetActuators()
+{
+	return _actuators;
+}
+
+Sensors* Context::GetSensors()
+{
+	return _sensors;
+}
+
 void Context::LogMessage(char * message)
 {
 #ifdef Debug
@@ -78,5 +97,15 @@ SystemState Context::GetState()
 void Context::SetState(SystemState state)
 {
 	_state = state;
+}
+
+void Context::SetFiringSequenceMode(FiringSequenceMode mode)
+{
+	_firingSequenceMode = mode;
+}
+
+FiringSequenceMode Context::GetFiringSequenceMode()
+{
+	return _firingSequenceMode;
 }
 

@@ -1,9 +1,9 @@
-#include "Sequenser.h"
+#include "FiringSequencer.h"
 #include "Constants.h"
 #include "Context.h"
 
 
-Sequenser::Sequenser(IArduinoWrapper* wrapper, IAction* startActionNormal, IAction* startActionForcedMixing, FiringScreen* screen)
+FiringSequencer::FiringSequencer(IArduinoWrapper* wrapper, IAction* startActionNormal, IAction* startActionForcedMixing, FiringScreen* screen)
 {
 	_wrapper = wrapper;
 
@@ -13,7 +13,7 @@ Sequenser::Sequenser(IArduinoWrapper* wrapper, IAction* startActionNormal, IActi
 	_screen = screen;
 }
 
-void Sequenser::Execute()
+void FiringSequencer::Execute()
 {
 	auto mode = Context::GetOperationMode();
 	if(mode != FiringMode && mode != FiringModeForcedMixing)
@@ -68,7 +68,7 @@ void Sequenser::Execute()
 	}
 }
 
-void Sequenser::Stop() const
+void FiringSequencer::Stop() const
 {
 	if(_currentAction == nullptr)
 	{
@@ -80,7 +80,7 @@ void Sequenser::Stop() const
 	Context::SetState(SystemIdle);
 }
 
-void Sequenser::Continue()
+void FiringSequencer::Continue()
 {
 	auto mode = Context::GetOperationMode();
 	if (mode != FiringMode && mode != FiringModeForcedMixing)
@@ -107,7 +107,7 @@ void Sequenser::Continue()
 	Context::SetState(SystemRunning);
 }
 
-void Sequenser::HandleError(const char * message) const
+void FiringSequencer::HandleError(const char * message) const
 {
 	auto code = _currentAction->GetErrorCode();
 	_screen->PrintStatus(0, message);

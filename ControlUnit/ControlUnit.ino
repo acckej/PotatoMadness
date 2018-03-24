@@ -4,6 +4,7 @@
 #include "Context.h"
 #include "Actuators.h"
 #include "SensorsCheck.h"
+#include "Sensors.h"
 
 //#include "MachineryCheck.h"
 //#include "LoaderCheck.h"
@@ -17,7 +18,7 @@ auto _sensors = Sensors(&_wrapper);
 auto _loader = Loader(&_wrapper);
 auto _actuators = Actuators(&_wrapper);
 auto _buttons = ButtonsController(&_wrapper, nullptr, 0);
-auto _context = Context(&_wrapper, &_buttons, &_loader, &_actuators);
+auto _context = Context(&_wrapper, &_buttons, &_loader, &_actuators, &_sensors);
 
 auto screen = TestScreen(&_wrapper);
 IHwCheck* checks[1];

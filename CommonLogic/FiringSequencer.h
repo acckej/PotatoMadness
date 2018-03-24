@@ -3,11 +3,12 @@
 #include "IAction.h"
 #include "FiringScreen.h"
 
-class Sequenser
+class FiringSequencer
 {
-public:
-	Sequenser(IArduinoWrapper* wrapper, IAction* startActionNormal, IAction* startActionForcedMixing, FiringScreen* screen);
+public:	
+	FiringSequencer(IArduinoWrapper* wrapper, IAction* startActionNormal, IAction* startActionForcedMixing, FiringScreen* screen);
 
+	// return is end flag ?
 	void Execute();
 
 	void Stop() const;

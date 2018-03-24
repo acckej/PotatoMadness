@@ -41,5 +41,14 @@
     <ClCompile Include="HwChecksTest_Sensors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FiringActionsTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrollableScreenTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainSequenceTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

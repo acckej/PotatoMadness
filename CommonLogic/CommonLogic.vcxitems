@@ -41,10 +41,12 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderReverseAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderReverseActionForcedMixing.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MachineryCheck.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MainSequence.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScreenBase.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScrollableScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Sensors.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)SensorsCheck.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)Sequenser.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FiringSequencer.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TestScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)TypeDefinitions.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PrepareForFiringAction.h" />
@@ -71,7 +73,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)FiringController.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)FiringScreen.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)FiringScreen.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)IAction.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -110,7 +114,13 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MachineryCheck.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MainSequence.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ScreenBase.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScrollableScreen.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Sensors.cpp">
@@ -119,7 +129,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)SensorsCheck.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Sequenser.cpp">
+    <ClCompile Include="$(MSBuildThisFileDirectory)FiringSequencer.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)TestScreen.cpp">
