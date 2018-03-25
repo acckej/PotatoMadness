@@ -46,6 +46,10 @@ void IArduinoWrapper::PrintFormat(char * message, ...)
 {
 }
 
+void IArduinoWrapper::PrintFormatBuffer(char* buffer, char* message, ...)
+{
+}
+
 void IArduinoWrapper::LogFormat(char * message, ...)
 {
 }

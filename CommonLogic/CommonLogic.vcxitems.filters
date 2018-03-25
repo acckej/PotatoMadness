@@ -101,6 +101,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)FiringSequencer.cpp">
       <Filter>Sequences</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MainScreen.cpp">
+      <Filter>MainSequence</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h" />
@@ -178,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)FiringSequencer.h">
       <Filter>Sequences</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)MainScreen.h">
+      <Filter>MainSequence</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

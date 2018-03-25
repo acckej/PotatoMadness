@@ -8,6 +8,7 @@ Loader* Context::_loader;
 Actuators* Context::_actuators;
 Sensors* Context::_sensors;
 SystemState Context::_state;
+Configuration* Context::_configuration;
 
 Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader, Actuators* actuators, Sensors* sensors)
 {
@@ -80,6 +81,11 @@ Actuators* Context::GetActuators()
 Sensors* Context::GetSensors()
 {
 	return _sensors;
+}
+
+Configuration* Context::GetConfiguration()
+{
+	return _configuration;
 }
 
 void Context::LogMessage(char * message)

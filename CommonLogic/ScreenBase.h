@@ -16,7 +16,7 @@ public:
 	virtual void SetCursor(char col, char row);
 	virtual void Refresh();
 
-private:
+protected:
 	IArduinoWrapper* _wrapper;
 };
 

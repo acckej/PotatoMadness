@@ -41,6 +41,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderReverseAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderReverseActionForcedMixing.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MachineryCheck.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MainScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MainSequence.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScreenBase.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScrollableScreen.h" />
@@ -112,6 +113,9 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)MachineryCheck.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MainScreen.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)MainSequence.cpp">

@@ -17,6 +17,7 @@ public:
 	void Print(double val, int dp = 2) override;
 	void SerialPrint(char* message) override;
 	void PrintFormat(char* message, ...) override;
+	void PrintFormatBuffer(char* buffer, char* message, ...) override;
 		
 	float GetAtmPressure() override;
 	float GetInternalTemp() override;

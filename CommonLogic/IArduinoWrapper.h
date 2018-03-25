@@ -22,6 +22,7 @@ public:
 	virtual void Print(double val, int digits);
 
 	virtual void PrintFormat(char* message, ...);
+	virtual void PrintFormatBuffer(char* buffer, char* message, ...);
 	virtual void LogFormat(char * message, ...);
 	virtual void LogFloatingPoint(double val);
 

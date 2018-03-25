@@ -78,6 +78,14 @@ void ArduinoWrapper::PrintFormat(char * message, ...)
 	lcd.print(message);
 }
 
+void ArduinoWrapper::PrintFormatBuffer(char * buffer, char * message, ...)
+{	
+	va_list args = nullptr;
+	va_start(args, message);
+	vsnprintf(buffer, SCREEN_BUFFER_SIZE, message, args);
+	va_end(args);
+}
+
 float ArduinoWrapper::GetAtmPressure()
 {
 	return atmPSens.readPressure();

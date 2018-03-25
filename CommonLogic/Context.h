@@ -22,9 +22,12 @@ public:
 	static bool WaitForButton(Buttons button, int delay);	
 
 	static ButtonsController GetButtonsController();
+		
 	static Loader* GetLoader();
 	static Actuators* GetActuators();
 	static Sensors* GetSensors();
+	
+	static Configuration* GetConfiguration();
 
 	static void LogMessage(char* message);
 	

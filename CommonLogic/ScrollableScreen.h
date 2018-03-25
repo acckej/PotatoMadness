@@ -8,21 +8,24 @@ class ScrollableScreen : public ScreenBase
 {
 public:
 	ScrollableScreen(IArduinoWrapper * wrapper);
-	~ScrollableScreen();
-
+	
 	void Println(const char* message, char line) override;
 	void Print(char* message) override;
 	void PrintNumber(double number, int digits) override;
 	void PrintNumber(int number) override;
 	void SetCursor(char col, char row) override;
 	void Refresh() override;
-
-	void Clear();
-
+	
+	void ScrollUp();
+	void ScrollDown();
 private:
+	void Clear();
+	void Redraw();
+	char* GetCurrentPositionBuffer();
+
 	char _screenBuffer[SCREEN_ROWS][SCREEN_COLUMNS];
-	int _offset;
-	int _row;
-	int _column;
+	char _offset;
+	char _row;
+	char _column;
 };
 

@@ -16,7 +16,7 @@ HwCheckSequence::~HwCheckSequence()
 
 CheckResult HwCheckSequence::Run()
 {
-	if (Context::GetButtonsController().AreButtonsPressed(x1, x3))
+	if (Context::GetButtonsController().AreButtonsPressed(x1A, x3C))
 	{
 		return Interrupted;
 	}

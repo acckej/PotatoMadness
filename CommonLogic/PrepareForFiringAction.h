@@ -4,7 +4,7 @@
 #include "Actuators.h"
 #include "Sensors.h"
 
-class PrepareForFiringAction : IAction
+class PrepareForFiringAction : public IAction
 {
 public:
 	PrepareForFiringAction(IArduinoWrapper* wrapper, FiringController* controller, Actuators* actuators, Sensors* sensors, IAction* nextAction);

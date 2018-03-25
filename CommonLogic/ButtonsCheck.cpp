@@ -11,13 +11,13 @@ CheckResult ButtonsCheck::Check()
 
 	auto controller = Context::GetButtonsController();
 
-	if (controller.AreButtonsPressed(x1, x2))
+	if (controller.AreButtonsPressed(x1A, x2B))
 	{
 		_screen->Println("Interrupted", 3);
 		return Interrupted;
 	}
 
-	if (controller.AreButtonsPressed(x1, x4))
+	if (controller.AreButtonsPressed(x1A, x4D))
 	{
 		_screen->Println("Passed", 3);
 		return Passed;
@@ -34,22 +34,22 @@ CheckResult ButtonsCheck::Check()
 	case Combo:
 		_screen->Println("Combo", 2);
 		break;
-	case x1:
+	case x1A:
 		_screen->Println("x1", 2);
 		break;
-	case x2:
+	case x2B:
 		_screen->Println("x2", 2);
 		break;
-	case x3:
+	case x3C:
 		_screen->Println("x3", 2);
 		break;
-	case x4:
+	case x4D:
 		_screen->Println("x4", 2);
 		break;
-	case x5:
+	case x5E:
 		_screen->Println("x5", 2);
 		break;
-	case x6:
+	case x6F:
 		_screen->Println("x6", 2);
 		break;
 	case None:

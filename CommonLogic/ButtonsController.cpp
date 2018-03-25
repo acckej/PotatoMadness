@@ -57,39 +57,39 @@ void ButtonsController::RaiseButtonsEvent(OperationMode mode) const
 Buttons ButtonsController::GetPressedButton() const
 {
 	auto pressed = 0;
-	auto button = x1;
-	if(_wrapper->DigitalRead(ButtonsMap[x1]) == ARDUINO_HIGH)
+	auto button = x1A;
+	if(_wrapper->DigitalRead(ButtonsMap[x1A]) == ARDUINO_HIGH)
 	{
 		pressed++;
 	}
 
-	if (_wrapper->DigitalRead(ButtonsMap[x2]) == ARDUINO_HIGH)
+	if (_wrapper->DigitalRead(ButtonsMap[x2B]) == ARDUINO_HIGH)
 	{
-		button = x2;
+		button = x2B;
 		pressed++;
 	}
 
-	if (_wrapper->DigitalRead(ButtonsMap[x3]) == ARDUINO_HIGH)
+	if (_wrapper->DigitalRead(ButtonsMap[x3C]) == ARDUINO_HIGH)
 	{
-		button = x3;
+		button = x3C;
 		pressed++;
 	}
 
-	if (_wrapper->DigitalRead(ButtonsMap[x4]) == ARDUINO_HIGH)
+	if (_wrapper->DigitalRead(ButtonsMap[x4D]) == ARDUINO_HIGH)
 	{
-		button = x4;
+		button = x4D;
 		pressed++;
 	}
 
-	if (_wrapper->DigitalRead(ButtonsMap[x5]) == ARDUINO_HIGH)
+	if (_wrapper->DigitalRead(ButtonsMap[x5E]) == ARDUINO_HIGH)
 	{
-		button = x5;
+		button = x5E;
 		pressed++;
 	}
 
-	if (_wrapper->DigitalRead(ButtonsMap[x6]) == ARDUINO_HIGH)
+	if (_wrapper->DigitalRead(ButtonsMap[x6F]) == ARDUINO_HIGH)
 	{
-		button = x6;
+		button = x6F;
 		pressed++;
 	}
 

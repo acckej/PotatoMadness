@@ -86,13 +86,13 @@
 #define BTN5_PORT 31
 #define BTN6_PORT 33
 
-enum Buttons { x1, x2, x3, x4, x5, x6, Combo, None };
+enum Buttons { x1A, x2B, x3C, x4D, x5E, x6F, Combo, None };
 
-#define TestAbortButton x1
+#define TestAbortButton x1A
 
 enum FiringSequenceMode {Auto, SemiAuto};
 
-enum OperationMode {FiringMode, FiringModeForcedMixing, ConfigEditScreen, SettingsMode, TestMode};
+enum OperationMode {MainMenu, FiringMode, FiringModeForcedMixing, ConfigEditScreen, TestMode};
 
 enum SystemState {SystemIdle, SystemRunning, SystemError};
 
