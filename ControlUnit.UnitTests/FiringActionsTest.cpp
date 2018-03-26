@@ -3,6 +3,7 @@
 #include "ArduinoStub.h"
 #include "ButtonsController.h"
 #include "Context.h"
+#include "MainSequence.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -18,9 +19,16 @@ namespace ControlUnitUnitTests
 			auto wrapper = ArduinoStub(DigitalReadButtons, nullptr);			
 			auto loader = Loader(&wrapper);
 			auto actuators = Actuators(&wrapper);
+			auto sensors = Sensors(&wrapper);
+			auto buttons = ButtonsController(&wrapper, nullptr, 0);
+			auto context = Context(&wrapper, &buttons, &loader, &actuators, &sensors);
 
-			
-			
+			auto mainSequence = MainSequence(&wrapper);
+
+			for (auto i = 0; i < 1000; i++)
+			{
+				mainSequence.Run();
+			}
 		}
 
 		TEST_METHOD(LoaderReverseActionTest)

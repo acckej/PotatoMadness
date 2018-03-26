@@ -7,9 +7,9 @@
 class PrepareForFiringAction : public IAction
 {
 public:
-	PrepareForFiringAction(IArduinoWrapper* wrapper, FiringController* controller, Actuators* actuators, Sensors* sensors, IAction* nextAction);
+	PrepareForFiringAction(IArduinoWrapper* wrapper, FiringController* controller, Actuators* actuators, Sensors* sensors, IAction* nextAction);	
 
-	void Reset() override;
+	void Reset() override;	
 	bool CheckPreconditions() override;
 	void StartAction() override;
 	ActionState Execute() override;

@@ -7,13 +7,12 @@ class FiringSequencer
 {
 public:	
 	FiringSequencer(IArduinoWrapper* wrapper, IAction* startActionNormal, IAction* startActionForcedMixing, FiringScreen* screen);
+		
+	ActionState Execute();
 
-	// return is end flag ?
-	void Execute();
+	void Stop();
 
-	void Stop() const;
-
-	void Continue();
+	bool Continue();
 
 private:
 	void HandleError(const char* message) const;

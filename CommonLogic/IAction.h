@@ -8,7 +8,7 @@ class IAction
 public:
 	IAction(IArduinoWrapper* wrapper, IAction* nextAction);			
 
-	virtual void Reset();
+	virtual void Reset();	
 
 	virtual const char* GetActionName();
 

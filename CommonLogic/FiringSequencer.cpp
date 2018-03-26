@@ -13,19 +13,19 @@ FiringSequencer::FiringSequencer(IArduinoWrapper* wrapper, IAction* startActionN
 	_screen = screen;
 }
 
-void FiringSequencer::Execute()
+ActionState FiringSequencer::Execute()
 {
 	auto mode = Context::GetOperationMode();
 	if(mode != FiringMode && mode != FiringModeForcedMixing)
 	{
-		return;
+		return Error;
 	}
 
 	auto status = Context::GetState();
 
 	if(status == SystemError || status == SystemIdle)
 	{
-		return;
+		return Error;
 	}
 
 	if(_currentAction == nullptr || _currentAction->GetNextAction() == nullptr)
@@ -35,7 +35,7 @@ void FiringSequencer::Execute()
 		if(!_currentAction->CheckPreconditions())
 		{
 			HandleError("Precond. fail");
-			return;
+			return Error;
 		}
 	}
 
@@ -48,27 +48,36 @@ void FiringSequencer::Execute()
 	if(result == Error)
 	{
 		HandleError("Exec. fail");
-		return;
+		return Error;
 	}
 
 	if(result == Completed)
 	{
-		if (!_currentAction->CheckPreconditions())
+		if (!_currentAction->CheckPostConditions())
 		{
 			HandleError("Postcond. fail");
-			return;
+			return Error;
 		}
 
 		_currentAction = _currentAction->GetNextAction();
 
 		if (_currentAction != nullptr && !_currentAction->CheckPreconditions())
-		{
-			HandleError("Precond. fail");				
+		{	
+			if(_currentAction->GetErrorCode() == NoAmmo)
+			{
+				_currentAction = nullptr;
+				return Completed;
+			}
+
+			HandleError("Precond. fail");
+			return Error;
 		}
 	}
+
+	return Executing;
 }
 
-void FiringSequencer::Stop() const
+void FiringSequencer::Stop() 
 {
 	if(_currentAction == nullptr)
 	{
@@ -76,21 +85,20 @@ void FiringSequencer::Stop() const
 	}
 
 	_currentAction->EndAction();
-
-	Context::SetState(SystemIdle);
+	_currentAction = nullptr;	
 }
 
-void FiringSequencer::Continue()
+bool FiringSequencer::Continue()
 {
 	auto mode = Context::GetOperationMode();
 	if (mode != FiringMode && mode != FiringModeForcedMixing)
 	{
-		return;
+		return false;
 	}
 
 	if (_currentAction == nullptr)
 	{
-		return;
+		return false;
 	}
 
 	auto err = _currentAction->GetErrorCode();
@@ -101,10 +109,12 @@ void FiringSequencer::Continue()
 	}
 	else
 	{
-		_currentAction = mode == FiringMode ? _startActionNormal : _startActionForcedMixing;
-	}
+		//_currentAction = mode == FiringMode ? _startActionNormal : _startActionForcedMixing;
+		_currentAction = nullptr;				
+		return false;
+	}	
 
-	Context::SetState(SystemRunning);
+	return true;
 }
 
 void FiringSequencer::HandleError(const char * message) const

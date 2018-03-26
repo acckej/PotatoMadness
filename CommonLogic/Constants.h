@@ -86,6 +86,8 @@
 #define BTN5_PORT 31
 #define BTN6_PORT 33
 
+//A continue
+//B stop
 enum Buttons { x1A, x2B, x3C, x4D, x5E, x6F, Combo, None };
 
 #define TestAbortButton x1A

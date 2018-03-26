@@ -45,23 +45,19 @@ SystemState MainSequence::Run()
 		{
 			return RunMainMenu();
 		}
-		break;
 	case ConfigEditScreen:
 		{
 			return RunConfigEdit();
 		}
-		break;
 	case FiringMode:
 		FiringModeForcedMixing:
 		{
 			return RunFiringSequence();
 		}
-		break;
 	case TestMode:
 		{
-		return RunHwChecks();
+			return RunHwChecks();
 		}
-		break;	
 	default: ;
 	}
 
@@ -79,7 +75,7 @@ void MainSequence::InitializeFiringSequence()
 	_firingActions[2] = new PrepareForFiringAction(_wrapper, _firingController, Context::GetActuators(), Context::GetSensors(), nullptr);
 	_firingActions[1] = new LoaderReverseAction(_wrapper, _injector, Context::GetLoader(), Context::GetActuators(), Context::GetSensors(), _firingActions[2]);
 	_firingActions[0] = new LoaderForwardAction(_wrapper, Context::GetConfiguration(), Context::GetLoader(), Context::GetActuators(), Context::GetSensors(), _firingActions[1]);
-
+	
 	_firingActionsForcedMixing[2] = new PrepareForFiringAction(_wrapper, _firingController, Context::GetActuators(), Context::GetSensors(), nullptr);
 	_firingActionsForcedMixing[1] = new LoaderReverseActionForcedMixing(_wrapper, Context::GetConfiguration(), _injector, Context::GetLoader(), Context::GetActuators(), Context::GetSensors(), _firingActionsForcedMixing[2]);
 	_firingActionsForcedMixing[0] = new LoaderForwardAction(_wrapper, Context::GetConfiguration(), Context::GetLoader(), Context::GetActuators(), Context::GetSensors(), _firingActionsForcedMixing[1]);
@@ -111,6 +107,7 @@ void MainSequence::InitializeConfigEdit()
 void MainSequence::InitializeMainMenu()
 {
 	_mainScreen = new MainScreen(_wrapper);
+	_mainScreen->Draw();
 }
 
 void MainSequence::SwitchMode(OperationMode mode)
@@ -257,11 +254,74 @@ void MainSequence::CleanupMainMenu()
 
 SystemState MainSequence::RunHwChecks()
 {
+	if (_hwChecksSequence != nullptr)
+	{
+		auto result = _hwChecksSequence->Run();
+
+		switch (result)
+		{
+		case Failed:
+		case Passed:
+			{
+				if(Context::GetButtonsController().IsButtonPressed(x2B)) //stop
+				{
+					SwitchMode(MainMenu);
+					return SystemIdle;
+				}
+
+				return SystemRunning;
+			}
+		case Interrupted:
+			{
+				SwitchMode(MainMenu);
+				return SystemIdle;
+			}
+		case Running:
+			{
+				return SystemRunning;
+			}		
+		}
+	}
+
 	return SystemIdle;
 }
 
 SystemState MainSequence::RunFiringSequence()
 {
+	if(_firingSequencer != nullptr)
+	{
+		if(Context::GetButtonsController().IsButtonPressed(x2B)) //stop
+		{
+			_firingSequencer->Stop();
+			SwitchMode(MainMenu);
+			return SystemIdle;
+		}
+
+		auto result = _firingSequencer->Execute();
+
+		switch (result)
+		{
+		case Error:
+			{
+				if(Context::GetButtonsController().IsButtonPressed(x1A)) //continue
+				{
+					return _firingSequencer->Continue() ? SystemRunning : SystemError;
+				}
+
+				return SystemError;
+			}
+		case Executing:
+		case Waiting:
+			{
+				return SystemRunning;
+			}
+		case Completed:
+			{
+				return SystemIdle;
+			}
+		}
+	}
+
 	return SystemIdle;
 }
 
@@ -272,6 +332,51 @@ SystemState MainSequence::RunConfigEdit()
 
 SystemState MainSequence::RunMainMenu()
 {
+	if(_mainScreen == nullptr)
+	{
+		return SystemError;
+	}
+
+	auto controller = Context::GetButtonsController();
+
+	if (controller.IsButtonPressed(x1A))
+	{
+		SwitchMode(FiringMode);
+		return SystemRunning;
+	}
+
+	if (controller.IsButtonPressed(x2B))
+	{
+		SwitchMode(FiringModeForcedMixing);
+		return SystemRunning;
+	}
+
+	if (controller.IsButtonPressed(x3C))
+	{
+		SwitchMode(ConfigEditScreen);
+		return SystemRunning;
+	}
+
+	if (controller.IsButtonPressed(x4D))
+	{
+		SwitchMode(TestMode);
+		return SystemRunning;
+	}
+
+	if (controller.IsButtonPressed(x5E))
+	{
+		Context::SetFiringSequenceMode(Auto);
+		_mainScreen->UpdateFiringMode();
+		return SystemIdle;
+	}
+
+	if (controller.IsButtonPressed(x6F))
+	{
+		Context::SetFiringSequenceMode(SemiAuto);
+		_mainScreen->UpdateFiringMode();
+		return SystemIdle;
+	}
+
 	return SystemIdle;
 }
 
