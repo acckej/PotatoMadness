@@ -146,14 +146,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ArduinoStub.h" />
+    <ClInclude Include="Frame.h" />
+    <ClInclude Include="IFrameFactory.h" />
+    <ClInclude Include="LoaderForwardActionTest_Frame.h" />
+    <ClInclude Include="PortValues.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArduinoStub.cpp" />
     <ClCompile Include="FiringActionsTest.cpp" />
+    <ClCompile Include="Frame.cpp" />
     <ClCompile Include="HwChecksTest_DrivesPower.cpp" />
     <ClCompile Include="HwChecksTest_Sensors.cpp" />
+    <ClCompile Include="IFrameFactory.cpp" />
     <ClCompile Include="MainSequenceTest.cpp" />
     <ClCompile Include="ScrollableScreenTest.cpp" />
     <ClCompile Include="stdafx.cpp">

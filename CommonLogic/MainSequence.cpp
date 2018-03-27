@@ -50,7 +50,7 @@ SystemState MainSequence::Run()
 			return RunConfigEdit();
 		}
 	case FiringMode:
-		FiringModeForcedMixing:
+	case FiringModeForcedMixing:
 		{
 			return RunFiringSequence();
 		}

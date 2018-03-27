@@ -4,6 +4,7 @@
 #include "ButtonsController.h"
 #include "Context.h"
 #include "MainSequence.h"
+#include <thread>
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -28,6 +29,7 @@ namespace ControlUnitUnitTests
 			for (auto i = 0; i < 1000; i++)
 			{
 				mainSequence.Run();
+				std::this_thread::sleep_for(std::chrono::microseconds(100));
 			}
 		}
 
