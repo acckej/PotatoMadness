@@ -7,7 +7,8 @@
 #include "Injector.h"
 #include "FiringController.h"
 #include "MainScreen.h"
-
+#include "ConfigurationScreen.h"
+#include "ConfigurationValueStorage.h"
 
 class MainSequence
 {
@@ -49,5 +50,8 @@ private:
 	Injector* _injector;
 
 	MainScreen* _mainScreen;
+
+	ConfigurationScreen* _configScreen;
+	ConfigurationValueStorage* _configStorage;
 };
 

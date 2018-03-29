@@ -44,3 +44,7 @@ void ScreenBase::Refresh()
 {
 	_wrapper->ClearScreen();
 }
+
+void ScreenBase::Draw()
+{
+}

@@ -1,7 +1,7 @@
 #pragma once
 #include "ScreenBase.h"
 
-#define SCREEN_ROWS 10
+#define SCREEN_ROWS 30
 #define SCREEN_COLUMNS 20
 
 class ScrollableScreen : public ScreenBase
@@ -23,9 +23,10 @@ private:
 	void Redraw();
 	char* GetCurrentPositionBuffer();
 
-	char _screenBuffer[SCREEN_ROWS][SCREEN_COLUMNS];
-	char _offset;
+	char _screenBuffer[SCREEN_ROWS][SCREEN_COLUMNS];	
 	char _row;
 	char _column;
+protected:
+	char _offset;
 };
 

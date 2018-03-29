@@ -102,6 +102,8 @@ void MainSequence::InitializeHwTest()
 
 void MainSequence::InitializeConfigEdit()
 {
+	_configStorage = new ConfigurationValueStorage(_wrapper);
+	_configScreen = new ConfigurationScreen(_wrapper, _configStorage);
 }
 
 void MainSequence::InitializeMainMenu()
@@ -242,6 +244,15 @@ void MainSequence::CleanupHwChecks()
 
 void MainSequence::CleanupConfigEdit()
 {	
+	if(_configStorage != nullptr)
+	{
+		delete _configStorage;
+	}
+
+	if(_configScreen != nullptr)
+	{
+		delete _configScreen;
+	}
 }
 
 void MainSequence::CleanupMainMenu()
@@ -327,6 +338,13 @@ SystemState MainSequence::RunFiringSequence()
 
 SystemState MainSequence::RunConfigEdit()
 {
+	if(_configScreen == nullptr)
+	{
+		return SystemError;
+	}
+
+	_configScreen->Draw();
+
 	return SystemIdle;
 }
 

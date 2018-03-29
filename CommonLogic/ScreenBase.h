@@ -15,6 +15,7 @@ public:
 	virtual void PrintNumber(int number);
 	virtual void SetCursor(char col, char row);
 	virtual void Refresh();
+	virtual void Draw();
 
 protected:
 	IArduinoWrapper* _wrapper;

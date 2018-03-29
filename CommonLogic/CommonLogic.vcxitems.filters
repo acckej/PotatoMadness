@@ -104,6 +104,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MainScreen.cpp">
       <Filter>MainSequence</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ConfigurationScreen.cpp">
+      <Filter>Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ConfigurationValueStorage.cpp">
+      <Filter>Configuration</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h" />
@@ -184,6 +190,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)MainScreen.h">
       <Filter>MainSequence</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ConfigurationScreen.h">
+      <Filter>Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ConfigurationValueStorage.h">
+      <Filter>Configuration</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

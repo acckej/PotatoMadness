@@ -6,7 +6,7 @@ class MainScreen :
 public:
 	MainScreen(IArduinoWrapper* wrapper);	
 
-	void Draw();
+	void Draw() override;
 
 	void UpdateFiringMode();
 };
