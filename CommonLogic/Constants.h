@@ -8,7 +8,8 @@
 
 #define Debug
 
-#define SCREEN_BUFFER_SIZE 20*4
+#define SCREEN_ROWS 4
+#define SCREEN_BUFFER_SIZE 20*SCREEN_ROWS
 
 #define HW_CHECKS_COUNT 10
 

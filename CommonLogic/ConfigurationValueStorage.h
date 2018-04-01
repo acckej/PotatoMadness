@@ -22,6 +22,7 @@ public:
 
 	ConfigurationValue GetConfigurationValue(char index);
 	char GetValuesCount();
+	void Save();
 private:
 	IArduinoWrapper * _wrapper;
 	ConfigurationValue* _values;

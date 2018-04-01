@@ -24,3 +24,7 @@ char ConfigurationValueStorage::GetValuesCount()
 	return  _valuesCount;
 }
 
+void ConfigurationValueStorage::Save()
+{
+}
+
