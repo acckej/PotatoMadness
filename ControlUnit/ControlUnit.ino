@@ -5,6 +5,7 @@
 #include "Actuators.h"
 #include "SensorsCheck.h"
 #include "Sensors.h"
+#include "MainSequence.h"
 
 //#include "MachineryCheck.h"
 //#include "LoaderCheck.h"

@@ -19,6 +19,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsCheck.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsController.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsMapItem.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CalculationConstants.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Configuration.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ConfigurationScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ConfigurationValueStorage.h" />

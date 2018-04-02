@@ -70,7 +70,7 @@ void MainSequence::InitializeFiringSequence()
 	_firingActionsForcedMixing = new IAction*[3];
 
 	_firingController = new FiringController(_wrapper);
-	_injector = new Injector(Context::GetConfiguration(), _wrapper);
+	_injector = new Injector(Context::GetConfiguration(), _wrapper, Context::GetSensors());
 
 	_firingActions[2] = new PrepareForFiringAction(_wrapper, _firingController, Context::GetActuators(), Context::GetSensors(), nullptr);
 	_firingActions[1] = new LoaderReverseAction(_wrapper, _injector, Context::GetLoader(), Context::GetActuators(), Context::GetSensors(), _firingActions[2]);
@@ -101,9 +101,8 @@ void MainSequence::InitializeHwTest()
 }
 
 void MainSequence::InitializeConfigEdit()
-{
-	_configStorage = new ConfigurationValueStorage(_wrapper);
-	_configScreen = new ConfigurationScreen(_wrapper, _configStorage);
+{	
+	_configScreen = new ConfigurationScreen(_wrapper, Context::GetConfiguration());
 }
 
 void MainSequence::InitializeMainMenu()
@@ -243,12 +242,7 @@ void MainSequence::CleanupHwChecks()
 }
 
 void MainSequence::CleanupConfigEdit()
-{	
-	if(_configStorage != nullptr)
-	{
-		delete _configStorage;
-	}
-
+{		
 	if(_configScreen != nullptr)
 	{
 		delete _configScreen;

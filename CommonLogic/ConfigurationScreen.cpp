@@ -2,7 +2,7 @@
 
 
 
-ConfigurationScreen::ConfigurationScreen(IArduinoWrapper * wrapper, ConfigurationValueStorage* storage): ScrollableScreen(wrapper)
+ConfigurationScreen::ConfigurationScreen(IArduinoWrapper * wrapper, IConfiguration* storage): ScrollableScreen(wrapper)
 {
 	_storage = storage;
 	_rowIndex = 0;

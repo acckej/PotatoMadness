@@ -27,7 +27,7 @@ public:
 	static Actuators* GetActuators();
 	static Sensors* GetSensors();
 	
-	static Configuration* GetConfiguration();
+	static IConfiguration* GetConfiguration();
 
 	static void LogMessage(char* message);
 	
@@ -46,6 +46,6 @@ private:
 	static Actuators* _actuators;
 	static FiringSequenceMode _firingSequenceMode;
 	static Sensors* _sensors;
-	static Configuration* _configuration;
+	static IConfiguration* _configuration;
 };
 

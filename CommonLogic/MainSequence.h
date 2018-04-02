@@ -8,7 +8,7 @@
 #include "FiringController.h"
 #include "MainScreen.h"
 #include "ConfigurationScreen.h"
-#include "ConfigurationValueStorage.h"
+
 
 class MainSequence
 {
@@ -51,7 +51,6 @@ private:
 
 	MainScreen* _mainScreen;
 
-	ConfigurationScreen* _configScreen;
-	ConfigurationValueStorage* _configStorage;
+	ConfigurationScreen* _configScreen;	
 };
 

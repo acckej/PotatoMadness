@@ -25,6 +25,9 @@
     <Filter Include="MainSequence">
       <UniqueIdentifier>{f839b88b-ddb0-4dcd-b5b4-ddb0f5b7086b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Calculation">
+      <UniqueIdentifier>{4a8b5eec-c5de-4eca-b7fc-88316c22f6af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Context.cpp" />
@@ -75,7 +78,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)LoaderReverseActionForcedMixing.cpp">
       <Filter>Sequences</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)Injector.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FiringController.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PrepareForFiringAction.cpp">
       <Filter>Sequences</Filter>
@@ -109,6 +111,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ConfigurationValueStorage.cpp">
       <Filter>Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Injector.cpp">
+      <Filter>Calculation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +167,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderReverseActionForcedMixing.h">
       <Filter>Sequences</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)Injector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FiringController.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PrepareForFiringAction.h">
       <Filter>Sequences</Filter>
@@ -196,6 +200,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ConfigurationValueStorage.h">
       <Filter>Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Injector.h">
+      <Filter>Calculation</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)CalculationConstants.h">
+      <Filter>Calculation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

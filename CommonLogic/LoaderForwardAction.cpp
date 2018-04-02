@@ -2,7 +2,7 @@
 #include "Constants.h"
 
 
-LoaderForwardAction::LoaderForwardAction(IArduinoWrapper* wrapper, Configuration* config, Loader* loader, Actuators* actuators, Sensors* sensors, IAction* nextAction) : IAction(wrapper, nextAction)
+LoaderForwardAction::LoaderForwardAction(IArduinoWrapper* wrapper, IConfiguration* config, Loader* loader, Actuators* actuators, Sensors* sensors, IAction* nextAction) : IAction(wrapper, nextAction)
 {
 	_config = config;
 	_loader = loader;

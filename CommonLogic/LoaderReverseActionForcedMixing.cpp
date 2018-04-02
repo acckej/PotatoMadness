@@ -3,7 +3,7 @@
 
 
 LoaderReverseActionForcedMixing::LoaderReverseActionForcedMixing(
-	IArduinoWrapper* wrapper, Configuration* config, Injector* injector, Loader* loader, Actuators* actuators, Sensors* sensors, IAction* nextAction): IAction(wrapper, nextAction)
+	IArduinoWrapper* wrapper, IConfiguration* config, Injector* injector, Loader* loader, Actuators* actuators, Sensors* sensors, IAction* nextAction) : IAction(wrapper, nextAction)
 {
 	_config = config;
 	_injector = injector;

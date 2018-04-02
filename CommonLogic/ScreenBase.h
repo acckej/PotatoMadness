@@ -7,6 +7,7 @@
 class ScreenBase
 {
 public:
+	virtual ~ScreenBase() = default;
 	ScreenBase(IArduinoWrapper* wrapper);	
 
 	virtual void Println(const char* message, char line);

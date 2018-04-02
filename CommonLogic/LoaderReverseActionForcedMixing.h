@@ -11,7 +11,7 @@
 class LoaderReverseActionForcedMixing : public IAction
 {
 public:
-	LoaderReverseActionForcedMixing(IArduinoWrapper* wrapper, Configuration* config, Injector* injector, Loader* loader, Actuators* actuators, Sensors* sensors, IAction* nextAction);
+	LoaderReverseActionForcedMixing(IArduinoWrapper* wrapper, IConfiguration* config, Injector* injector, Loader* loader, Actuators* actuators, Sensors* sensors, IAction* nextAction);
 
 	void Reset() override;
 	bool CheckPreconditions() override;
@@ -22,7 +22,7 @@ public:
 	int GetActionDuration() override;
 	const char* GetActionName() override;
 private:
-	Configuration* _config;
+	IConfiguration* _config;
 	Injector* _injector;
 	Loader* _loader;
 	Actuators* _actuators;
