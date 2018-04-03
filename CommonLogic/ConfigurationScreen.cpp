@@ -123,12 +123,12 @@ void ConfigurationScreen::CursorDown()
 	Print(">");
 }
 
-void ConfigurationScreen::IncreaseValue()
+void ConfigurationScreen::IncreaseValue() const
 {
 	_storage->IncrementValue(_rowIndex);
 }
 
-void ConfigurationScreen::DecreaseValue()
+void ConfigurationScreen::DecreaseValue() const
 {
 	_storage->DecrementValue(_rowIndex);
 }

@@ -34,92 +34,92 @@ double ConfigurationValueStorage::GetSsPpA()
 
 double ConfigurationValueStorage::GetSsPpB()
 {
-	return 0;
+	return _values[SSPPB_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetSsPpC()
 {
-	return 0;
+	return _values[SSPPC_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetSsPpD()
 {
-	return 0;
+	return _values[SSPPD_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetMoistAirDensityA()
 {
-	return 0;
+	return _values[MOIST_AIR_DENSITYA_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetMoistAirDensityB()
 {
-	return 0;
+	return _values[MOIST_AIR_DENSITYB_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetChamberVolume()
 {
-	return 0;
+	return _values[CHAMBER_VOLUME_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetValveDiameter()
 {
-	return 0;
+	return _values[VALVE_DIAMETER_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetOutflowCoefficient()
 {
-	return 0;
+	return _values[OUTFLOW_COEF_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetMolarMass()
 {
-	return 0;
+	return _values[MOLAR_MASS_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetNormalCondDensity()
 {
-	return 0;
+	return _values[NORMAL_COND_DENSITY_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetNormalCondDryDensity()
 {
-	return 0;
+	return _values[NORMAL_COND_DRY_DENSITY_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetUpMaxConcA()
 {
-	return 0;
+	return _values[UP_MAX_CONCA_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetUpMaxConcB()
 {
-	return 0;
+	return _values[UP_MAX_CONCB_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetUpMaxConcC()
 {
-	return 0;
+	return _values[UP_MAX_CONCC_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetValveBoreArea()
 {
-	return 0;
+	return _values[VALVE_BORE_AREA_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetCorrectionalCoef()
 {
-	return 0;
+	return _values[CORRECTIONAL_COEF_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetGasFlowSpeedA()
 {
-	return 0;
+	return _values[GAS_FLOW_SPEEDA_INDEX].Value;
 }
 
 double ConfigurationValueStorage::GetGasFlowSpeedB()
 {
-	return 0;
+	return _values[GAS_FLOW_SPEEDB_INDEX].Value;
 }
 
 void ConfigurationValueStorage::IncrementValue(char index)
@@ -142,12 +142,12 @@ void ConfigurationValueStorage::DecrementValue(char index)
 	_values[index].Value -= _values[index].Step;
 }
 
-ConfigurationValue ConfigurationValueStorage::GetConfigurationValue(char index)
+ConfigurationValue ConfigurationValueStorage::GetConfigurationValue(char index) const
 {
 	return _values[index];
 }
 
-char ConfigurationValueStorage::GetValuesCount()
+char ConfigurationValueStorage::GetValuesCount() const
 {
 	return  _valuesCount;
 }

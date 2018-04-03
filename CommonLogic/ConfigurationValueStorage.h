@@ -7,6 +7,24 @@
 #define LOADER_FORWARD_TIME_INDEX 16
 #define LOADER_REVERSE_TIME_INDEX 17
 #define SSPPA_INDEX 0
+#define SSPPB_INDEX 1
+#define SSPPC_INDEX 2
+#define SSPPD_INDEX 3
+#define MOIST_AIR_DENSITYA_INDEX 4
+#define MOIST_AIR_DENSITYB_INDEX 5
+#define CHAMBER_VOLUME_INDEX 6
+#define VALVE_DIAMETER_INDEX 7
+#define OUTFLOW_COEF_INDEX 8
+#define MOLAR_MASS_INDEX 9
+#define NORMAL_COND_DENSITY_INDEX 10
+#define NORMAL_COND_DRY_DENSITY_INDEX 11
+#define UP_MAX_CONCA_INDEX 12
+#define UP_MAX_CONCB_INDEX 13
+#define UP_MAX_CONCC_INDEX 14
+#define VALVE_BORE_AREA_INDEX 15
+#define CORRECTIONAL_COEF_INDEX 16
+#define GAS_FLOW_SPEEDA_INDEX 17
+#define GAS_FLOW_SPEEDB_INDEX 18
 
 struct ConfigurationValue
 {
@@ -56,8 +74,8 @@ public:
 	void IncrementValue(char index) override;
 	void DecrementValue(char index) override;
 
-	ConfigurationValue GetConfigurationValue(char index);
-	char GetValuesCount();
+	ConfigurationValue GetConfigurationValue(char index) const;
+	char GetValuesCount() const;
 	void Save() override;
 	void Load();
 private:

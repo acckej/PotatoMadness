@@ -16,8 +16,8 @@ public:
 private:
 	void CursorUp();
 	void CursorDown();
-	void IncreaseValue();
-	void DecreaseValue();
+	void IncreaseValue() const;
+	void DecreaseValue() const;
 
 	bool KeyDown(Buttons btn);
 	void KeyUp();
