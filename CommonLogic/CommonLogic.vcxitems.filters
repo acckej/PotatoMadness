@@ -115,6 +115,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Injector.cpp">
       <Filter>Calculation</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)InjectorTestScreen.cpp">
+      <Filter>Calculation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h" />
@@ -205,6 +208,9 @@
       <Filter>Calculation</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)CalculationConstants.h">
+      <Filter>Calculation</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)InjectorTestScreen.h">
       <Filter>Calculation</Filter>
     </ClInclude>
   </ItemGroup>

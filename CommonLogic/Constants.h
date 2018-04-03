@@ -95,7 +95,7 @@ enum Buttons { x1A, x2B, x3C, x4D, x5E, x6F, Combo, None };
 
 enum FiringSequenceMode {Auto, SemiAuto};
 
-enum OperationMode {MainMenu, FiringMode, FiringModeForcedMixing, ConfigEditScreen, TestMode};
+enum OperationMode {MainMenu, FiringMode, FiringModeForcedMixing, ConfigEditScreen, TestMode, InjectorTestMode};
 
 enum SystemState {SystemIdle, SystemRunning, SystemError};
 

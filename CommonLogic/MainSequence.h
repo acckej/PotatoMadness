@@ -8,6 +8,7 @@
 #include "FiringController.h"
 #include "MainScreen.h"
 #include "ConfigurationScreen.h"
+#include "InjectorTestScreen.h"
 
 
 class MainSequence
@@ -21,6 +22,7 @@ public:
 private:
 	void InitializeFiringSequence();
 	void InitializeHwTest();
+	void InitializeInjectorTest();
 	void InitializeConfigEdit();
 	void InitializeMainMenu();
 
@@ -28,12 +30,14 @@ private:
 
 	void CleanupFiringSequences();
 	void CleanupHwChecks();
-	void CleanupConfigEdit();
-	void CleanupMainMenu();
+	void CleanupInjectorTest() const;
+	void CleanupConfigEdit() const;
+	void CleanupMainMenu() const;
 
 	SystemState RunHwChecks();
+	SystemState RunInjectorTest();
 	SystemState RunFiringSequence();
-	SystemState RunConfigEdit();
+	SystemState RunConfigEdit() const;
 	SystemState RunMainMenu();
 
 	IArduinoWrapper* _wrapper;
@@ -52,5 +56,7 @@ private:
 	MainScreen* _mainScreen;
 
 	ConfigurationScreen* _configScreen;	
+
+	InjectorTestScreen* _injectorTestScreen;
 };
 

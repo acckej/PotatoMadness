@@ -7,8 +7,8 @@ MainScreen::MainScreen(IArduinoWrapper* wrapper): ScreenBase(wrapper)
 }
 
 void MainScreen::Draw()
-{
-	//{MainScreen, FiringMode, FiringModeForcedMixing, ConfigEditScreen, TestMode};
+{	
+	//{ MainMenu, FiringMode, FiringModeForcedMixing, ConfigEditScreen, TestMode, InjectorTestMode }
 	Refresh();
 
 	SetCursor(0, 0);
@@ -24,6 +24,9 @@ void MainScreen::Draw()
 	Print("Auto");
 	SetCursor(13, 1);
 	Print("Semi");
+
+	SetCursor(13, 3);
+	Print("E.Inj.tst");
 }
 
 void MainScreen::UpdateFiringMode()

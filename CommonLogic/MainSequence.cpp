@@ -100,6 +100,12 @@ void MainSequence::InitializeHwTest()
 	_hwChecksSequence = new HwCheckSequence(_wrapper, _checks, 5);
 }
 
+void MainSequence::InitializeInjectorTest()
+{
+	_injector = new Injector(Context::GetConfiguration(), _wrapper, Context::GetSensors());
+	_injectorTestScreen = new InjectorTestScreen(_wrapper, Context::GetSensors(), _injector);
+}
+
 void MainSequence::InitializeConfigEdit()
 {	
 	_configScreen = new ConfigurationScreen(_wrapper, Context::GetConfiguration());
@@ -241,7 +247,20 @@ void MainSequence::CleanupHwChecks()
 	}
 }
 
-void MainSequence::CleanupConfigEdit()
+void MainSequence::CleanupInjectorTest() const
+{
+	if(_injector != nullptr)
+	{
+		delete _injector;
+	}
+
+	if(_injectorTestScreen != nullptr)
+	{
+		delete _injectorTestScreen;
+	}
+}
+
+void MainSequence::CleanupConfigEdit() const
 {		
 	if(_configScreen != nullptr)
 	{
@@ -249,7 +268,7 @@ void MainSequence::CleanupConfigEdit()
 	}
 }
 
-void MainSequence::CleanupMainMenu()
+void MainSequence::CleanupMainMenu() const
 {
 	if (_mainScreen != nullptr)
 	{
@@ -286,6 +305,24 @@ SystemState MainSequence::RunHwChecks()
 				return SystemRunning;
 			}		
 		}
+	}
+
+	return SystemIdle;
+}
+
+SystemState MainSequence::RunInjectorTest()
+{
+	if (_injectorTestScreen != nullptr)
+	{
+		if (Context::GetButtonsController().IsButtonPressed(x2B)) //stop
+		{
+			SwitchMode(MainMenu);
+			return SystemIdle;
+		}
+
+		_injectorTestScreen->Draw();
+
+		return SystemRunning;	
 	}
 
 	return SystemIdle;
@@ -330,7 +367,7 @@ SystemState MainSequence::RunFiringSequence()
 	return SystemIdle;
 }
 
-SystemState MainSequence::RunConfigEdit()
+SystemState MainSequence::RunConfigEdit() const
 {
 	if(_configScreen == nullptr)
 	{
