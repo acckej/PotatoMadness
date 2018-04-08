@@ -2,36 +2,37 @@
 #include "Frame.h"
 
 
-Frame::Frame(): _currentFrame(0)
+Frame::Frame(int frameDelay): _currentFrame(0)
 {
+	_frameDelay = frameDelay;
 }
 
-int Frame::AnalogRead(int port)
+int Frame::AnalogRead(int port) const
 {
 	return ReadPort(port, _analogReadPorts);
 }
 
-int Frame::DigitalRead(int port)
+int Frame::DigitalRead(int port) const
 {
 	return ReadPort(port, _digitalReadPorts);
 }
 
-float Frame::GetAtmPressure()
+float Frame::GetAtmPressure() const
 {
 	return ReadSensor(_atmPressure);
 }
 
-float Frame::GetInternalTemp()
+float Frame::GetInternalTemp() const
 {
 	return ReadSensor(_internalTemp);
 }
 
-float Frame::GetExternalTemp()
+float Frame::GetExternalTemp() const
 {
 	return ReadSensor(_externalTemp);
 }
 
-float Frame::GetExternalHumidity()
+float Frame::GetExternalHumidity() const
 {
 	return ReadSensor(_externalHumidity);
 }
@@ -52,7 +53,7 @@ void Frame::WritePort(int port, int value)
 	vals.push_back({ _currentFrame, value });
 }
 
-float Frame::ReadSensor(vector<SensorValue> mapping)
+float Frame::ReadSensor(vector<SensorValue> mapping) const
 {
 	float result = 0;
 
@@ -68,11 +69,6 @@ float Frame::ReadSensor(vector<SensorValue> mapping)
 	return result;
 }
 
-void Frame::AddPortMapping(int port, vector<PortValue> vals, map<int, vector<PortValue>> mapping)
-{
-	_writtenValues.insert(std::make_pair(port, vals));
-}
-
 void Frame::AddSensorValue(SensorValue val, vector<SensorValue> vals)
 {
 	vals.push_back(val);
@@ -85,35 +81,40 @@ void Frame::IncrementFrame()
 
 void Frame::AddAnalogPortMapping(int port, vector<PortValue> vals)
 {
-	AddPortMapping(port, vals, _analogReadPorts);
+	_analogReadPorts.insert(std::make_pair(port, vals));
 }
 
 void Frame::AddDigitalPortMapping(int port, vector<PortValue> vals)
 {
-	AddPortMapping(port, vals, _digitalReadPorts);
+	_digitalReadPorts.insert(std::make_pair(port, vals));
 }
 
-void Frame::AddAtmPressure(SensorValue val)
+void Frame::AddAtmPressure(SensorValue val) const
 {
 	AddSensorValue(val, _atmPressure);
 }
 
-void Frame::AddInternalTemp(SensorValue val)
+void Frame::AddInternalTemp(SensorValue val) const
 {
 	AddSensorValue(val, _internalTemp);
 }
 
-void Frame::AddExternalTemp(SensorValue val)
+void Frame::AddExternalTemp(SensorValue val) const
 {
 	AddSensorValue(val, _externalTemp);
 }
 
-void Frame::AddExternalHumidity(SensorValue val)
+void Frame::AddExternalHumidity(SensorValue val) const
 {
 	AddSensorValue(val, _externalHumidity);
 }
 
-int Frame::ReadPort(int port, map<int, vector<PortValue>> portValues)
+long Frame::GetMilliseconds() const
+{
+	return _currentFrame * _frameDelay;
+}
+
+int Frame::ReadPort(int port, map<int, vector<PortValue>> portValues) const
 {
 	auto found = portValues.find(port);
 

@@ -2,8 +2,9 @@
 #include "IFrameFactory.h"
 
 
-IFrameFactory::IFrameFactory()
+IFrameFactory::IFrameFactory(int frameDelay)
 {
+	_frameDelay = frameDelay;
 }
 
 Frame* IFrameFactory::GetTestFrame()

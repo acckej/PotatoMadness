@@ -4,9 +4,15 @@
 
 class LoaderForwardActionTest_Frame : public IFrameFactory
 {
+public:
+	explicit LoaderForwardActionTest_Frame(int frameDelay)
+		: IFrameFactory(frameDelay)
+	{
+	}
+
 	Frame* GetTestFrame() override
 	{
-		auto result = new Frame;
+		auto result = new Frame(_frameDelay);
 
 		vector<PortValue> btn1 = {
 			{0, 0},

@@ -5,8 +5,10 @@ class IFrameFactory
 {
 public:
 	virtual ~IFrameFactory() = default;
-	IFrameFactory();
+	IFrameFactory(int frameDelay);
 	
-	virtual Frame* GetTestFrame();	
+	virtual Frame* GetTestFrame();
+protected:
+	int _frameDelay;
 };
 

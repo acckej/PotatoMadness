@@ -66,8 +66,8 @@ SystemState MainSequence::Run()
 
 void MainSequence::InitializeFiringSequence()
 {
-	_firingActions = new IAction*[3];
-	_firingActionsForcedMixing = new IAction*[3];
+	_firingActions = new IAction*[FIRING_ACTIONS_COUNT];
+	_firingActionsForcedMixing = new IAction*[FIRING_ACTIONS_COUNT];
 
 	_firingController = new FiringController(_wrapper);
 	_injector = new Injector(Context::GetConfiguration(), _wrapper, Context::GetSensors());
@@ -87,7 +87,7 @@ void MainSequence::InitializeFiringSequence()
 
 void MainSequence::InitializeHwTest()
 {
-	_checks = new IHwCheck*[5];
+	_checks = new IHwCheck*[HW_CHECKS_COUNT];
 
 	_testScreen = new TestScreen(_wrapper);
 
@@ -97,7 +97,7 @@ void MainSequence::InitializeHwTest()
 	_checks[3] = new MachineryCheck(_wrapper, _testScreen, Context::GetActuators());
 	_checks[4] = new SensorsCheck(_wrapper, _testScreen, Context::GetLoader(), Context::GetActuators(), Context::GetSensors());
 
-	_hwChecksSequence = new HwCheckSequence(_wrapper, _checks, 5);
+	_hwChecksSequence = new HwCheckSequence(_wrapper, _checks, HW_CHECKS_COUNT);
 }
 
 void MainSequence::InitializeInjectorTest()
@@ -120,6 +120,11 @@ void MainSequence::InitializeMainMenu()
 void MainSequence::SwitchMode(OperationMode mode)
 {
 	auto current = Context::GetOperationMode();
+
+	if(current == mode)
+	{
+		return;
+	}
 
 	switch (current)
 	{
@@ -191,7 +196,7 @@ void MainSequence::CleanupFiringSequences()
 
 	if(_firingActionsForcedMixing != nullptr)
 	{
-		for (auto i = 0; i < 3; i++)
+		for (auto i = 0; i < FIRING_ACTIONS_COUNT; i++)
 		{
 			delete _firingActionsForcedMixing[i];
 		}
@@ -201,7 +206,7 @@ void MainSequence::CleanupFiringSequences()
 
 	if (_firingActions != nullptr)
 	{
-		for (auto i = 0; i < 3; i++)
+		for (auto i = 0; i < FIRING_ACTIONS_COUNT; i++)
 		{
 			delete _firingActions[i];
 		}
@@ -226,7 +231,7 @@ void MainSequence::CleanupHwChecks()
 {
 	if(_checks != nullptr)
 	{
-		for (auto i = 0; i < 5; i++)
+		for (auto i = 0; i < HW_CHECKS_COUNT; i++)
 		{
 			delete _checks[i];
 		}

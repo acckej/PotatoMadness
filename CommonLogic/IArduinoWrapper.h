@@ -4,6 +4,7 @@
 class IArduinoWrapper  
 {
 public:
+	virtual ~IArduinoWrapper() = default;
 	virtual void Init();
 
 	virtual int DigitalRead(unsigned int port);

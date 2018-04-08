@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ArduinoFrameStub.h" />
     <ClInclude Include="ArduinoStub.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="IFrameFactory.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ArduinoFrameStub.cpp" />
     <ClCompile Include="ArduinoStub.cpp" />
     <ClCompile Include="FiringActionsTest.cpp" />
     <ClCompile Include="Frame.cpp" />

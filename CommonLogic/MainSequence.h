@@ -10,6 +10,8 @@
 #include "ConfigurationScreen.h"
 #include "InjectorTestScreen.h"
 
+#define FIRING_ACTIONS_COUNT 3
+#define HW_CHECKS_COUNT 5
 
 class MainSequence
 {

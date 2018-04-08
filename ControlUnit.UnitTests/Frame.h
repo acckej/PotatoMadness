@@ -9,15 +9,15 @@ using namespace std;
 class Frame
 {
 public:
-	Frame();
+	Frame(int frameDelay);
 
-	int AnalogRead(int port);
-	int DigitalRead(int port);
+	int AnalogRead(int port) const;
+	int DigitalRead(int port) const;
 
-	float GetAtmPressure();
-	float GetInternalTemp();
-	float GetExternalTemp();
-	float GetExternalHumidity();
+	float GetAtmPressure() const;
+	float GetInternalTemp() const;
+	float GetExternalTemp() const;
+	float GetExternalHumidity() const;
 
 	void WritePort(int port, int value);
 
@@ -26,16 +26,18 @@ public:
 	void AddAnalogPortMapping(int, vector<PortValue> vals);
 	void AddDigitalPortMapping(int, vector<PortValue> vals);
 
-	void AddAtmPressure(SensorValue val);
-	void AddInternalTemp(SensorValue val);
-	void AddExternalTemp(SensorValue val);
-	void AddExternalHumidity(SensorValue val);
-private:
-	int ReadPort(int port, map<int, vector<PortValue>> portValues);
-	float ReadSensor(vector<SensorValue> mapping);
-	void AddPortMapping(int port, vector<PortValue> vals, map<int, vector<PortValue>> mapping);
-	void AddSensorValue(SensorValue val, vector<SensorValue> vals);
+	void AddAtmPressure(SensorValue val) const;
+	void AddInternalTemp(SensorValue val) const;
+	void AddExternalTemp(SensorValue val) const;
+	void AddExternalHumidity(SensorValue val) const;
 
+	long GetMilliseconds() const;
+private:
+	int ReadPort(int port, map<int, vector<PortValue>> portValues) const;
+	float ReadSensor(vector<SensorValue> mapping) const;	
+	static void AddSensorValue(SensorValue val, vector<SensorValue> vals);
+
+	int _frameDelay;
 	int _currentFrame;
 
 	map<int, vector<PortValue>> _analogReadPorts;

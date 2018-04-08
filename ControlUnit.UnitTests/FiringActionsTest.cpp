@@ -5,6 +5,8 @@
 #include "Context.h"
 #include "MainSequence.h"
 #include <thread>
+#include "ArduinoFrameStub.h"
+#include "LoaderForwardActionTest_Frame.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -17,7 +19,10 @@ namespace ControlUnitUnitTests
 
 		TEST_METHOD(LoaderForwardActionTest)
 		{
-			auto wrapper = ArduinoStub(DigitalReadButtons, nullptr);			
+			auto frameFactory = LoaderForwardActionTest_Frame(100);
+			auto frame = frameFactory.GetTestFrame();
+
+			auto wrapper = ArduinoFrameStub(frame);			
 			auto loader = Loader(&wrapper);
 			auto actuators = Actuators(&wrapper);
 			auto sensors = Sensors(&wrapper);
@@ -30,6 +35,7 @@ namespace ControlUnitUnitTests
 			{
 				mainSequence.Run();
 				std::this_thread::sleep_for(std::chrono::microseconds(100));
+				frame->IncrementFrame();
 			}
 		}
 
