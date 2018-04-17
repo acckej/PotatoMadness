@@ -26,17 +26,6 @@
 #define GAS_FLOW_SPEEDA_INDEX 17
 #define GAS_FLOW_SPEEDB_INDEX 18
 
-struct ConfigurationValue
-{
-	double Value;
-
-	double Step;
-
-	char* Name;
-
-	char Index;
-};
-
 
 class ConfigurationValueStorage : public IConfiguration
 {
@@ -74,8 +63,8 @@ public:
 	void IncrementValue(char index) override;
 	void DecrementValue(char index) override;
 
-	ConfigurationValue GetConfigurationValue(char index) const;
-	char GetValuesCount() const;
+	ConfigurationValue GetConfigurationValue(char index) const override;
+	char GetValuesCount() const override;
 	void Save() override;
 	void Load();
 private:

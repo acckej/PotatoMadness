@@ -1,5 +1,6 @@
 #include "ScrollableScreen.h"
 #include <stdio.h>
+#include <string.h>
 
 
 ScrollableScreen::ScrollableScreen(IArduinoWrapper * wrapper): ScreenBase(wrapper)
@@ -32,6 +33,13 @@ void ScrollableScreen::Println(const char* message, char line)
 
 	sprintf(lineBuf, "%.*s", SCREEN_COLUMNS, message);
 
+	_row++;
+	if(_row >= SCREEN_ROWS - 1)
+	{
+		_row = SCREEN_ROWS - 1;
+	}
+	_column = 0;
+
 	ScreenBase::Println(message, line);
 }
 
@@ -39,6 +47,7 @@ void ScrollableScreen::Print(char* message)
 {
 	auto lineBuf = GetCurrentPositionBuffer();
 	sprintf(lineBuf, "%s", message);
+	IncrementColumn(strlen(lineBuf));
 	ScreenBase::Print(message);
 }
 
@@ -46,6 +55,7 @@ void ScrollableScreen::PrintNumber(double number, int digits)
 {
 	auto lineBuf = GetCurrentPositionBuffer();
 	_wrapper->PrintFormatBuffer(lineBuf, "%.*f", digits, number);	
+	IncrementColumn(strlen(lineBuf));
 	ScreenBase::PrintNumber(number, digits);
 }
 
@@ -58,6 +68,7 @@ void ScrollableScreen::PrintNumber(int number)
 {
 	auto lineBuf = GetCurrentPositionBuffer();
 	sprintf(lineBuf, "%i", number);
+	IncrementColumn(strlen(lineBuf));
 	ScreenBase::PrintNumber(number);
 }
 
@@ -94,6 +105,11 @@ void ScrollableScreen::ScrollDown()
 	Redraw();
 }
 
+void ScrollableScreen::Draw()
+{
+	Redraw();
+}
+
 void ScrollableScreen::Redraw()
 {
 	ScreenBase::Refresh();
@@ -114,6 +130,15 @@ void ScrollableScreen::Clear()
 		{
 			_screenBuffer[i][j] = ' ';
 		}
+		_screenBuffer[i][SCREEN_COLUMNS] = 0;
 	}	
 }
 
+void ScrollableScreen::IncrementColumn(char length)
+{
+	_column += length;
+	if(_column >= SCREEN_COLUMNS - 1)
+	{
+		_column = SCREEN_COLUMNS - 1;
+	}
+}

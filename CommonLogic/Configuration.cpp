@@ -123,4 +123,14 @@ void IConfiguration::Save()
 {
 }
 
+ConfigurationValue IConfiguration::GetConfigurationValue(char index) const
+{
+	return ConfigurationValue{};
+}
+
+char IConfiguration::GetValuesCount() const
+{
+	return 0;
+}
+
 

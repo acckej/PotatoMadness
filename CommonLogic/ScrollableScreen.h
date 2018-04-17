@@ -18,12 +18,14 @@ public:
 	
 	void ScrollUp();
 	void ScrollDown();
+	void Draw() override;
 private:
 	void Clear();
 	void Redraw();
 	char* GetCurrentPositionBuffer();
+	void IncrementColumn(char length);
 
-	char _screenBuffer[SCREEN_ROWS][SCREEN_COLUMNS];	
+	char _screenBuffer[SCREEN_ROWS][SCREEN_COLUMNS + 1];	
 	char _row;
 	char _column;
 protected:

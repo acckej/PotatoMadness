@@ -3,6 +3,7 @@
 #include "ArduinoStub.h"
 #include "ButtonsController.h"
 #include "Context.h"
+#include "ScrollableScreen.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -16,10 +17,13 @@ namespace ControlUnitUnitTests
 		TEST_METHOD(ScrollScreenTest)
 		{
 			auto wrapper = ArduinoStub(DigitalReadButtons, nullptr);
+			auto screen = ScrollableScreen(&wrapper);
 			
-
-
-
+			for(auto i = 0; i < SCREEN_ROWS; i++)
+			{
+				screen.Print("message");
+				screen.PrintNumber(i);
+			}
 		}		
 
 	private:

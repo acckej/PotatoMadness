@@ -13,6 +13,20 @@ ConfigurationScreen::ConfigurationScreen(IArduinoWrapper * wrapper, IConfigurati
 	_screenRow = 0;
 }
 
+void ConfigurationScreen::Refresh()
+{
+	auto count = _storage->GetValuesCount();
+
+	for(auto i = 0; i < count; i++)
+	{
+		auto val = _storage->GetConfigurationValue(i);
+		SetCursor(0, i);
+		Print(" ");
+		Print(val.Name);
+		PrintNumber(val.Value, VALUE_PRECISION);
+	}
+}
+
 /*
 *		x2		x5
 *  x1		x4
@@ -69,6 +83,8 @@ void ConfigurationScreen::Draw()
 	{
 		KeyUp();
 	}
+
+	ScrollableScreen::Draw();
 }
 
 void ConfigurationScreen::CursorUp()
@@ -123,14 +139,22 @@ void ConfigurationScreen::CursorDown()
 	Print(">");
 }
 
-void ConfigurationScreen::IncreaseValue() const
+void ConfigurationScreen::IncreaseValue() 
 {
+	SetCursor(VALUE_INDEX, _screenRow);
+	Print(VALUE_MASK);	
 	_storage->IncrementValue(_rowIndex);
+	auto val = _storage->GetConfigurationValue(_rowIndex);
+	PrintNumber(val.Value, VALUE_PRECISION);
 }
 
-void ConfigurationScreen::DecreaseValue() const
+void ConfigurationScreen::DecreaseValue()
 {
+	SetCursor(VALUE_INDEX, _screenRow);
+	Print(VALUE_MASK);
 	_storage->DecrementValue(_rowIndex);
+	auto val = _storage->GetConfigurationValue(_rowIndex);
+	PrintNumber(val.Value, VALUE_PRECISION);
 }
 
 bool ConfigurationScreen::KeyDown(Buttons btn)

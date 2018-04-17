@@ -1,4 +1,13 @@
 #pragma once
+struct ConfigurationValue
+{
+	double Value;
+
+	double Step;
+
+	char* Name;	
+};
+
 class IConfiguration
 {
 public:
@@ -36,5 +45,8 @@ public:
 	virtual void DecrementValue(char index);
 
 	virtual void Save();
+
+	virtual ConfigurationValue GetConfigurationValue(char index) const;
+	virtual char GetValuesCount() const;
 };
 
