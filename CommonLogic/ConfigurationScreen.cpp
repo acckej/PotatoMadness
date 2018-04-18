@@ -16,15 +16,24 @@ ConfigurationScreen::ConfigurationScreen(IArduinoWrapper * wrapper, IConfigurati
 void ConfigurationScreen::Refresh()
 {
 	auto count = _storage->GetValuesCount();
-
-	for(auto i = 0; i < count; i++)
+	for(auto i = 0; i < ACTUAL_SCREEN_ROWS; i++)
 	{
-		auto val = _storage->GetConfigurationValue(i);
-		SetCursor(0, i);
-		Print(" ");
-		Print(val.Name);
-		PrintNumber(val.Value, VALUE_PRECISION);
+		if(i + _offset >= count)
+		{
+			Println(BLANK_LINE, i + 1);
+		}
+		else
+		{
+			auto val = _storage->GetConfigurationValue(i + _offset);
+			SetCursor(0, i);
+			Print(" ");
+			Print(val.Name);
+			PrintNumber(val.Value, VALUE_PRECISION);
+		}		
 	}
+
+	SetCursor(0, _screenRow);
+	Print(">");
 }
 
 /*

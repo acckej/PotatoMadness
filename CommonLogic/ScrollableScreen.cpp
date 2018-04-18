@@ -14,7 +14,7 @@ ScrollableScreen::ScrollableScreen(IArduinoWrapper * wrapper): ScreenBase(wrappe
 
 void ScrollableScreen::Println(const char* message, char line)
 {
-	auto lineNum = line + _offset;
+	auto lineNum = line - 1 + _offset;
 	if(lineNum > SCREEN_ROWS - ACTUAL_SCREEN_ROWS + 1)
 	{
 		lineNum = SCREEN_ROWS - ACTUAL_SCREEN_ROWS + 1;
@@ -25,26 +25,23 @@ void ScrollableScreen::Println(const char* message, char line)
 		lineNum = 0;
 	}
 
+	_row = lineNum;
+	_column = 0;
+
 	auto lineBuf = _screenBuffer[lineNum];
 	for(auto i = 0; i < SCREEN_COLUMNS; i++)
 	{
 		lineBuf[i] = ' ';
 	}
 
-	sprintf(lineBuf, "%.*s", SCREEN_COLUMNS, message);
-
-	_row++;
-	if(_row >= SCREEN_ROWS - 1)
-	{
-		_row = SCREEN_ROWS - 1;
-	}
-	_column = 0;
+	sprintf(lineBuf, "%.*s", SCREEN_COLUMNS, message);	
 
 	ScreenBase::Println(message, line);
 }
 
 void ScrollableScreen::Print(char* message)
 {
+	RestoreCursor();
 	auto lineBuf = GetCurrentPositionBuffer();
 	sprintf(lineBuf, "%s", message);
 	IncrementColumn(strlen(lineBuf));
@@ -53,6 +50,7 @@ void ScrollableScreen::Print(char* message)
 
 void ScrollableScreen::PrintNumber(double number, int digits)
 {
+	RestoreCursor();
 	auto lineBuf = GetCurrentPositionBuffer();
 	_wrapper->PrintFormatBuffer(lineBuf, "%.*f", digits, number);	
 	IncrementColumn(strlen(lineBuf));
@@ -61,11 +59,17 @@ void ScrollableScreen::PrintNumber(double number, int digits)
 
 char* ScrollableScreen::GetCurrentPositionBuffer()
 {
-	return _screenBuffer[_row] + _column;	
+	return _screenBuffer[_row + _offset] + _column;	
+}
+
+void ScrollableScreen::RestoreCursor()
+{
+	ScreenBase::SetCursor(_column, _row);
 }
 
 void ScrollableScreen::PrintNumber(int number)
 {
+	RestoreCursor();
 	auto lineBuf = GetCurrentPositionBuffer();
 	sprintf(lineBuf, "%i", number);
 	IncrementColumn(strlen(lineBuf));
@@ -75,7 +79,29 @@ void ScrollableScreen::PrintNumber(int number)
 void ScrollableScreen::SetCursor(char col, char row)
 {
 	_column = col;
-	_row = row + _offset;
+
+	if(_column < 0)
+	{
+		_column = 0;
+	}
+
+	if(_column >= SCREEN_COLUMNS)
+	{
+		_column = SCREEN_COLUMNS - 1;
+	}
+
+	_row = row;
+
+	if(_row < 0)
+	{
+		_row = 0;
+	}
+
+	if(_row >= ACTUAL_SCREEN_ROWS)
+	{
+		_row = ACTUAL_SCREEN_ROWS - 1;
+	}
+
 	ScreenBase::SetCursor(col, row);
 }
 
@@ -113,13 +139,16 @@ void ScrollableScreen::Draw()
 void ScrollableScreen::Redraw()
 {
 	ScreenBase::Refresh();
-	for (auto i = 0; i < SCREEN_ROWS; i++)
+	for (auto i = 0; i < ACTUAL_SCREEN_ROWS; i++)
 	{
-		ScreenBase:SetCursor(0, i);
-		ScreenBase::Print(_screenBuffer[_row]);
-	}
-
-	ScreenBase::SetCursor(_column, _row - _offset);
+		auto index = _offset + i;
+		if (index >= SCREEN_ROWS)
+		{
+			break;
+		}
+		
+		ScreenBase::Println(_screenBuffer[index], i + 1);	
+	}	
 }
 
 void ScrollableScreen::Clear()

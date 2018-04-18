@@ -12,9 +12,9 @@ public:
 	void Println(const char* message, char line) override;
 	void Print(char* message) override;
 	void PrintNumber(double number, int digits) override;
-	void PrintNumber(int number) override;
-	void SetCursor(char col, char row) override;
+	void PrintNumber(int number) override;	
 	void Refresh() override;
+	void SetCursor(char col, char row) override;
 	
 	void ScrollUp();
 	void ScrollDown();
@@ -23,6 +23,7 @@ private:
 	void Clear();
 	void Redraw();
 	char* GetCurrentPositionBuffer();
+	void RestoreCursor();
 	void IncrementColumn(char length);
 
 	char _screenBuffer[SCREEN_ROWS][SCREEN_COLUMNS + 1];	
