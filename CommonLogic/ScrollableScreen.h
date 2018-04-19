@@ -18,9 +18,9 @@ public:
 	
 	void ScrollUp();
 	void ScrollDown();
-	void Draw() override;
-private:
-	void Clear();
+	
+	void SetChar(char col, char row, char chr);
+private:	
 	void Redraw();
 	char* GetCurrentPositionBuffer();
 	void RestoreCursor();
@@ -30,6 +30,7 @@ private:
 	char _row;
 	char _column;
 protected:
+	void Clear();
 	char _offset;
 };
 

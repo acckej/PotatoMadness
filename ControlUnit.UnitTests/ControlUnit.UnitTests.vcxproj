@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="ArduinoFrameStub.cpp" />
     <ClCompile Include="ArduinoStub.cpp" />
+    <ClCompile Include="ConfigurationScreenTest.cpp" />
     <ClCompile Include="FiringActionsTest.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="HwChecksTest_DrivesPower.cpp" />

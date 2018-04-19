@@ -15,9 +15,9 @@ ScrollableScreen::ScrollableScreen(IArduinoWrapper * wrapper): ScreenBase(wrappe
 void ScrollableScreen::Println(const char* message, char line)
 {
 	auto lineNum = line - 1 + _offset;
-	if(lineNum > SCREEN_ROWS - ACTUAL_SCREEN_ROWS + 1)
+	if(lineNum > SCREEN_ROWS - 1)
 	{
-		lineNum = SCREEN_ROWS - ACTUAL_SCREEN_ROWS + 1;
+		lineNum = SCREEN_ROWS - 1;
 	}
 
 	if(lineNum < 0)
@@ -131,11 +131,6 @@ void ScrollableScreen::ScrollDown()
 	Redraw();
 }
 
-void ScrollableScreen::Draw()
-{
-	Redraw();
-}
-
 void ScrollableScreen::Redraw()
 {
 	ScreenBase::Refresh();
@@ -144,10 +139,12 @@ void ScrollableScreen::Redraw()
 		auto index = _offset + i;
 		if (index >= SCREEN_ROWS)
 		{
-			break;
+			ScreenBase::Println(BLANK_LINE, i + 1);
 		}
-		
-		ScreenBase::Println(_screenBuffer[index], i + 1);	
+		else
+		{
+			ScreenBase::Println(_screenBuffer[index], i + 1);
+		}
 	}	
 }
 
@@ -170,4 +167,13 @@ void ScrollableScreen::IncrementColumn(char length)
 	{
 		_column = SCREEN_COLUMNS - 1;
 	}
+}
+
+void ScrollableScreen::SetChar(char col, char row, char chr)
+{
+	RestoreCursor();
+	auto lineBuf = GetCurrentPositionBuffer();
+	lineBuf[col] = chr;
+	IncrementColumn(1);
+	ScreenBase::Print(&chr);
 }

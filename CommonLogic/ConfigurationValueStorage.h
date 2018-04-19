@@ -2,7 +2,7 @@
 #include "IArduinoWrapper.h"
 #include "Configuration.h"
 
-#define CONFIG_VALUES_COUNT 19
+#define CONFIG_VALUES_COUNT 21
 
 #define LOADER_FORWARD_TIME_INDEX 16
 #define LOADER_REVERSE_TIME_INDEX 17

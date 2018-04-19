@@ -1,5 +1,6 @@
 #include "IArduinoWrapper.h"
 
+
 void IArduinoWrapper::Init()
 {
 }
@@ -34,8 +35,8 @@ void IArduinoWrapper::SetScreenCursor(char col, char row)
 {
 }
 
-void IArduinoWrapper::Print(const char[])
-{	
+void IArduinoWrapper::Print(const char* message)
+{		
 }
 
 void IArduinoWrapper::Print(double val, int digits)
@@ -47,7 +48,7 @@ void IArduinoWrapper::PrintFormat(char * message, ...)
 }
 
 void IArduinoWrapper::PrintFormatBuffer(char* buffer, char* message, ...)
-{
+{	
 }
 
 void IArduinoWrapper::LogFormat(char * message, ...)

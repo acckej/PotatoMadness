@@ -32,8 +32,7 @@ void ConfigurationScreen::Refresh()
 		}		
 	}
 
-	SetCursor(0, _screenRow);
-	Print(">");
+	SetChar(0, _rowIndex, '>');
 }
 
 /*
@@ -93,7 +92,7 @@ void ConfigurationScreen::Draw()
 		KeyUp();
 	}
 
-	ScrollableScreen::Draw();
+	Refresh();
 }
 
 void ConfigurationScreen::CursorUp()

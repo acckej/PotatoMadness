@@ -158,32 +158,33 @@ void ConfigurationValueStorage::Save()
 
 void ConfigurationValueStorage::Load()
 {
+	InitConfiguration();
 }
 
 void ConfigurationValueStorage::InitConfiguration()
 {
 	_values = new ConfigurationValue[CONFIG_VALUES_COUNT];
 	_valuesCount = CONFIG_VALUES_COUNT;
-	_values[0] = { 0.61078f, 0.001f, "ssppA" }; // saturated steam partial pressure
-	_values[1] = { 7.5f, 0.1f, "ssppB" }; 
-	_values[2] = { 2048.625f, 0.01f, "ssppC" };
-	_values[3] = { 35.85f, 0.01f, "ssppD" };
-	_values[4] = {287.058f, 0.01f, "mo ai de A" }; // moist air density
-	_values[5] = { 461.495f, 0.01f, "mo ai de B" };
-	_values[6] = { 1.5f, 0.1f, "chamber vol" }; // combustion chamber volume
-	_values[7] = { 6.0f, 0.1f, "valve diam" }; // valve diameter
-	_values[8] = { 0.4f, 0.01f, "outflow coef" }; // outflow coefficient
-	_values[9] = { 58.123f, 0.01f, "molar mass" }; // molar mass
-	_values[10] = { 2.51f, 0.01f, "20c 101kpa dens" }; // 20c 101.325kpa density
-	_values[11] = { 1.2041f, 0.001f, "20c 101kpa Ddens" }; // 20c 101.325kpa dry air density
-	_values[12] = { 44.62f, 0.01f, "Up max concA" }; // Up max concentration
-	_values[13] = { 0.00367f, 0.0001f, "Up max concB" };
-	_values[14] = { 32.46f, 0.01f, "Up max concC" };
-	_values[15] = { 0.25f, 0.01f, "valve bore area" }; // valve bore area
-	_values[16] = { 0.5f, 0.01f, "corr coef" }; // correctional coefficient
-	_values[17] = { 2000.0f, 1.0f, "ldr fw fan" }; // loader forward fan time
-	_values[18] = { 2000.0f, 1.0f, "ldr rev fan" }; // loader reverse fan time
-	_values[19] = { 91.5f, 0.1f, "gas flow A" }; // gas flow speed 
-	_values[20] = { 1.03f, 0.01f, "gas flow B" };
+	_values[0] = { 0.61078f, 0.001f, "ssppA " }; // saturated steam partial pressure
+	_values[1] = { 7.5f, 0.1f, "ssppB " }; 
+	_values[2] = { 2048.625f, 0.01f, "ssppC " };
+	_values[3] = { 35.85f, 0.01f, "ssppD " };
+	_values[4] = {287.058f, 0.01f, "madA  " }; // moist air density
+	_values[5] = { 461.495f, 0.01f, "madB " };
+	_values[6] = { 1.5f, 0.1f, "chaV  " }; // combustion chamber volume
+	_values[7] = { 6.0f, 0.1f, "valD  " }; // valve diameter
+	_values[8] = { 0.4f, 0.01f, "ouCo  " }; // outflow coefficient
+	_values[9] = { 58.123f, 0.01f, "moMa  " }; // molar mass
+	_values[10] = { 2.51f, 0.01f, "20cDn " }; // 20c 101.325kpa density
+	_values[11] = { 1.2041f, 0.001f, "20cDD " }; // 20c 101.325kpa dry air density
+	_values[12] = { 44.62f, 0.01f, "UpMxA " }; // Up max concentration
+	_values[13] = { 0.00367f, 0.0001f, "UpMxB " };
+	_values[14] = { 32.46f, 0.01f, "UpMxC " };
+	_values[15] = { 0.25f, 0.01f, "vlvBA " }; // valve bore area
+	_values[16] = { 0.5f, 0.01f, "coCo  " }; // correctional coefficient
+	_values[17] = { 2000.0f, 1.0f, "lFwFa " }; // loader forward fan time
+	_values[18] = { 2000.0f, 1.0f, "lReFa " }; // loader reverse fan time
+	_values[19] = { 91.5f, 0.1f, "gasFA " }; // gas flow speed 
+	_values[20] = { 1.03f, 0.01f, "gasFB " };
 }
 

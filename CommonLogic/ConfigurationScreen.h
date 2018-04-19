@@ -5,9 +5,9 @@
 
 #define AUTOREPEAT_DELAY 2000
 #define AUTOREPEAT_INTERVAL 200
-#define VALUE_INDEX 13
-#define VALUE_MASK "       "
-#define NAME_LENGTH 12
+#define VALUE_INDEX 8
+#define VALUE_MASK "             "
+#define NAME_LENGTH 6
 #define VALUE_PRECISION 5
 
 
@@ -23,7 +23,7 @@ private:
 	void CursorUp();
 	void CursorDown();
 	void IncreaseValue();
-	void DecreaseValue();	
+	void DecreaseValue();		
 
 	bool KeyDown(Buttons btn);
 	void KeyUp();

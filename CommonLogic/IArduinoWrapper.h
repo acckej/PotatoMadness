@@ -18,7 +18,7 @@ public:
 	virtual void ClearScreen();
 
 	virtual void SetScreenCursor(char col, char row);
-	virtual void Print(const char[]);
+	virtual void Print(const char* message);
 
 	virtual void Print(double val, int digits);
 
@@ -36,4 +36,5 @@ public:
 
 	virtual unsigned long GetMilliseconds();	
 };
+	
 

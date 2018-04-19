@@ -1,5 +1,6 @@
 #include "Actuators.h"
 #include "Constants.h"
+#include "TypeDefinitions.h"
 
 
 Actuators::Actuators(IArduinoWrapper *wrapper)

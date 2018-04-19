@@ -26,6 +26,11 @@ namespace ControlUnitUnitTests
 
 			screen.Draw();
 
+			for (auto i = 0; i < SCREEN_ROWS - ACTUAL_SCREEN_ROWS; i++)
+			{
+				screen.ScrollDown();
+			}
+
 			//screen.Refresh();
 
 			char buf[SCREEN_COLUMNS];
@@ -33,16 +38,11 @@ namespace ControlUnitUnitTests
 			for (auto i = 0; i < ACTUAL_SCREEN_ROWS; i++)
 			{
 				sprintf_s(buf, "Message%i", i);
-				screen.Println(buf, i);
+				screen.Println(buf, i + 1);
 			}
 
 			screen.Draw();
 			
-			for (auto i = 0; i < SCREEN_ROWS; i++)
-			{
-				screen.ScrollDown();
-			}
-
 			for (auto i = 0; i < SCREEN_ROWS; i++)
 			{
 				screen.ScrollUp();

@@ -94,3 +94,11 @@ float ArduinoStub::GetExternalHumidity()
 	return 0.0f;
 }
 
+void ArduinoStub::PrintFormatBuffer(char* buffer, char* message, ...)
+{	
+	va_list args;
+	va_start(args, message);
+	vsnprintf(buffer, 256, message, args);
+	va_end(args);
+}
+
