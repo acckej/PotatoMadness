@@ -29,6 +29,10 @@ namespace ControlUnitUnitTests
 			for (auto i = 0; i < SCREEN_ROWS; i++)
 			{
 				confScreen.Draw();
+
+				confScreen.ScrollDown();
+
+				confScreen.Draw();
 			}
 		}
 

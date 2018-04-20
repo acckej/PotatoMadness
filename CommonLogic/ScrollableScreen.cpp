@@ -170,10 +170,33 @@ void ScrollableScreen::IncrementColumn(char length)
 }
 
 void ScrollableScreen::SetChar(char col, char row, char chr)
-{
+{	
+	_row = row;
+	_column = col;
+
+	if(_column < 0)
+	{
+		_column = 0;
+	}
+
+	if(_row < 0)
+	{
+		_row = 0;
+	}
+
+	if(_row >= ACTUAL_SCREEN_ROWS)
+	{
+		_row = ACTUAL_SCREEN_ROWS - 1;
+	}
+
+	if(_column >= SCREEN_COLUMNS)
+	{
+		_column = SCREEN_COLUMNS - 1;
+	}
+	
+	_screenBuffer[_row + _offset][_column] = chr;
+
 	RestoreCursor();
-	auto lineBuf = GetCurrentPositionBuffer();
-	lineBuf[col] = chr;
-	IncrementColumn(1);
+	IncrementColumn(1);	
 	ScreenBase::Print(&chr);
 }

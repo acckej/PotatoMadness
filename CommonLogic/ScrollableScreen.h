@@ -1,7 +1,7 @@
 #pragma once
 #include "ScreenBase.h"
 
-#define SCREEN_ROWS 30
+#define SCREEN_ROWS 21
 #define SCREEN_COLUMNS 20
 
 class ScrollableScreen : public ScreenBase

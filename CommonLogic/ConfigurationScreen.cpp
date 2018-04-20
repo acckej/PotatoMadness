@@ -36,9 +36,9 @@ void ConfigurationScreen::Refresh()
 }
 
 /*
-*		x2		x5
+*		x2		x5 -- quit
 *  x1		x4
-*		x3		x6
+*		x3		x6 -- save
 */
 
 void ConfigurationScreen::Draw()
@@ -83,7 +83,10 @@ void ConfigurationScreen::Draw()
 
 	if(cont.IsButtonPressed(x6F))
 	{
-		_storage->Save();
+		if (KeyDown(x6F))
+		{
+			_storage->Save();
+		}
 		return;
 	}
 
@@ -98,8 +101,7 @@ void ConfigurationScreen::Draw()
 void ConfigurationScreen::CursorUp()
 {
 	_screenRow = _rowIndex - _offset;
-	SetCursor(0, _screenRow);
-	Print(" ");
+	SetChar(0, _screenRow, ' ');
 
 	_rowIndex--;
 
@@ -113,19 +115,16 @@ void ConfigurationScreen::CursorUp()
 	if (_screenRow < 0)
 	{
 		_screenRow = 0;
-	}
+		ScrollUp();
+	}	
 
-	ScrollDown();
-
-	SetCursor(0, _screenRow);
-	Print(">");
+	SetChar(0, _screenRow, '>');
 }
 
 void ConfigurationScreen::CursorDown()
 {
 	_screenRow = _rowIndex - _offset;
-	SetCursor(0, _screenRow);
-	Print(" ");
+	SetChar(0, _screenRow, ' ');	
 
 	_rowIndex++;
 
@@ -139,12 +138,10 @@ void ConfigurationScreen::CursorDown()
 	if(_screenRow >= SCREEN_ROWS)
 	{
 		_screenRow = SCREEN_ROWS - 1;
+		ScrollDown();
 	}
-	
-	ScrollUp();
 
-	SetCursor(0, _screenRow);
-	Print(">");
+	SetChar(0, _screenRow, '>');
 }
 
 void ConfigurationScreen::IncreaseValue() 
