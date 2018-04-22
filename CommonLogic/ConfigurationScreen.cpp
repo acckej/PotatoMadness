@@ -152,20 +152,23 @@ void ConfigurationScreen::CursorDown()
 }
 
 void ConfigurationScreen::IncreaseValue() 
-{
-	SetCursor(VALUE_INDEX, _screenRow);
-	Print(VALUE_MASK);	
+{	
 	_storage->IncrementValue(_rowIndex);
-	auto val = _storage->GetConfigurationValue(_rowIndex);
-	PrintNumber(val.Value, VALUE_PRECISION);
+	UpdateCurrentValue();
 }
 
 void ConfigurationScreen::DecreaseValue()
+{	
+	_storage->DecrementValue(_rowIndex);
+	UpdateCurrentValue();
+}
+
+void ConfigurationScreen::UpdateCurrentValue()
 {
 	SetCursor(VALUE_INDEX, _screenRow);
-	Print(VALUE_MASK);
-	_storage->DecrementValue(_rowIndex);
+	Print(VALUE_MASK);	
 	auto val = _storage->GetConfigurationValue(_rowIndex);
+	SetCursor(VALUE_INDEX, _screenRow);
 	PrintNumber(val.Value, VALUE_PRECISION);
 }
 

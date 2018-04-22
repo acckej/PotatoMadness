@@ -129,7 +129,7 @@ void ConfigurationValueStorage::IncrementValue(char index)
 		return;
 	}
 
-	_values[index].Value += _values[index].Step;	
+	_values[index].Value += _values[index].Step;		
 }
 
 void ConfigurationValueStorage::DecrementValue(char index)
@@ -140,6 +140,11 @@ void ConfigurationValueStorage::DecrementValue(char index)
 	}
 
 	_values[index].Value -= _values[index].Step;
+
+	if(_values[index].Value < 0)
+	{
+		_values[index].Value = 0;
+	}
 }
 
 ConfigurationValue ConfigurationValueStorage::GetConfigurationValue(char index) const
