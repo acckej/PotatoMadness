@@ -3,6 +3,7 @@
 
 #define BLANK_LINE "                    "
 #define ACTUAL_SCREEN_ROWS 4
+#define REFRESH_DELAY 100
 
 class ScreenBase
 {
@@ -20,5 +21,10 @@ public:
 
 protected:
 	IArduinoWrapper* _wrapper;
+
+	void ResetRefreshCounter();
+	bool UpdateRefreshCounter();
+private: 
+	long _refreshCounter;
 };
 

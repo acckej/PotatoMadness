@@ -102,3 +102,10 @@ void ArduinoStub::PrintFormatBuffer(char* buffer, char* message, ...)
 	va_end(args);
 }
 
+unsigned long ArduinoStub::GetMilliseconds()
+{
+	auto now = std::chrono::system_clock::now();
+
+	return now.time_since_epoch().count() / 10000;
+}
+

@@ -3,8 +3,8 @@
 #include "Context.h"
 
 
-#define AUTOREPEAT_DELAY 2000
-#define AUTOREPEAT_INTERVAL 200
+#define AUTOREPEAT_DELAY 200
+#define AUTOREPEAT_INTERVAL 2000
 #define VALUE_INDEX 8
 #define VALUE_MASK "             "
 #define NAME_LENGTH 6

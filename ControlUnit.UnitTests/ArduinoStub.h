@@ -28,6 +28,7 @@ public:
 	float GetExternalTemp() override;
 	float GetExternalHumidity() override;
 	void PrintFormatBuffer(char* buffer, char* message, ...) override;
+	unsigned long GetMilliseconds() override;
 private:
 	DigitalReadDelegate _readDelegate;
 	DigitalWriteDelegate _writeDelegate;

@@ -3,6 +3,7 @@
 ScreenBase::ScreenBase(IArduinoWrapper * wrapper)
 {
 	_wrapper = wrapper;
+	_refreshCounter = 0;
 }
 
 void ScreenBase::Println(const char * message, char line)
@@ -41,10 +42,28 @@ void ScreenBase::SetCursor(char col, char row)
 }
 
 void ScreenBase::Refresh()
-{
+{	
 	_wrapper->ClearScreen();
 }
 
 void ScreenBase::Draw()
 {
+}
+
+void ScreenBase::ResetRefreshCounter()
+{
+	_refreshCounter += REFRESH_DELAY;
+}
+
+bool ScreenBase::UpdateRefreshCounter()
+{
+	auto current = _wrapper->GetMilliseconds();
+
+	if(current - _refreshCounter >= REFRESH_DELAY)
+	{
+		_refreshCounter = current;
+		return true;
+	}
+
+	return false;
 }

@@ -15,6 +15,11 @@ ConfigurationScreen::ConfigurationScreen(IArduinoWrapper * wrapper, IConfigurati
 
 void ConfigurationScreen::Refresh()
 {
+	if(!UpdateRefreshCounter())
+	{
+		return;
+	}
+
 	auto count = _storage->GetValuesCount();
 	for(auto i = 0; i < ACTUAL_SCREEN_ROWS; i++)
 	{
@@ -68,6 +73,7 @@ void ConfigurationScreen::Draw()
 		if (KeyDown(x2B))
 		{
 			CursorUp();
+			Refresh();
 		}
 		return;
 	}
@@ -77,6 +83,7 @@ void ConfigurationScreen::Draw()
 		if (KeyDown(x3C))
 		{
 			CursorDown();
+			Refresh();
 		}
 		return;
 	}
@@ -135,9 +142,9 @@ void ConfigurationScreen::CursorDown()
 
 	_screenRow = _rowIndex - _offset;
 
-	if(_screenRow >= SCREEN_ROWS)
+	if(_screenRow >= ACTUAL_SCREEN_ROWS)
 	{
-		_screenRow = SCREEN_ROWS - 1;
+		_screenRow = ACTUAL_SCREEN_ROWS - 1;
 		ScrollDown();
 	}
 
