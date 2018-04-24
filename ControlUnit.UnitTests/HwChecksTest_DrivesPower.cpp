@@ -28,7 +28,7 @@ namespace ControlUnitUnitTests
 			auto bc = new BatteryCheck(&wrapper, &screen, &sensors);
 			checks[0] = bc;
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons, &loader, &actuators, &sensors);
+			auto context = Context(&wrapper, &buttons, &loader, &actuators, &sensors, nullptr);
 			
 			auto seq = HwCheckSequence(&wrapper, checks, 1);
 
@@ -53,7 +53,7 @@ namespace ControlUnitUnitTests
 			auto bc = new MachineryCheck(&wrapper, &screen, &actuators);
 			checks[0] = bc;
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons, &loader, &actuators, &sensors);
+			auto context = Context(&wrapper, &buttons, &loader, &actuators, &sensors, nullptr);
 
 			auto seq = HwCheckSequence(&wrapper, checks, 1);
 			bool passed = false;

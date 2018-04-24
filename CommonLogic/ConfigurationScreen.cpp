@@ -37,7 +37,7 @@ void ConfigurationScreen::Refresh()
 		}		
 	}
 
-	SetChar(0, _rowIndex, '>');
+	SetChar(0, _screenRow, '>');
 }
 
 /*

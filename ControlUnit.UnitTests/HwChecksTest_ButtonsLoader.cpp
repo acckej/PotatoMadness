@@ -31,7 +31,7 @@ namespace ControlUnitUnitTests
 			auto bc = new ButtonsCheck(&wrapper, &screen);	
 			checks[0] = bc;
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons, &loader, &actuators, &sensors);
+			auto context = Context(&wrapper, &buttons, &loader, &actuators, &sensors, nullptr);
 
 			_stopButtonsTest = false;			
 			_buttonsPort = 0;
@@ -81,7 +81,7 @@ namespace ControlUnitUnitTests
 			auto bc = new LoaderCheck(&wrapper, &screen, &loader);
 			checks[0] = bc;
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons, &loader, &actuators, &sensors);
+			auto context = Context(&wrapper, &buttons, &loader, &actuators, &sensors, nullptr);
 
 			_currentValue = 600;
 

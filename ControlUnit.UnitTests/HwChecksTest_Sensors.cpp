@@ -26,7 +26,7 @@ namespace ControlUnitUnitTests
 			auto bc = new SensorsCheck(&wrapper, &screen, &loader, &actuators, &sensors);
 			checks[0] = bc;
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons, &loader, &actuators, &sensors);
+			auto context = Context(&wrapper, &buttons, &loader, &actuators, &sensors, nullptr);
 
 			auto seq = HwCheckSequence(&wrapper, checks, 1);
 

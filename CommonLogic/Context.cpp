@@ -10,7 +10,7 @@ Sensors* Context::_sensors;
 SystemState Context::_state;
 IConfiguration* Context::_configuration;
 
-Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader, Actuators* actuators, Sensors* sensors)
+Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader, Actuators* actuators, Sensors* sensors, IConfiguration* configuration)
 {
 	_mode = FiringMode;
 	_wrapper = wrapper;
@@ -19,6 +19,7 @@ Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* l
 	_actuators = actuators;
 	_state = SystemIdle;
 	_sensors = sensors;
+	_configuration = configuration;
 }
 
 

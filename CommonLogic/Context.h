@@ -10,7 +10,7 @@
 class Context 
 {
 public:
-	Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader, Actuators* actuators, Sensors* sensors);
+	Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader, Actuators* actuators, Sensors* sensors, IConfiguration* configuration);
 
 	static OperationMode GetOperationMode();
 	static void SetOperationMode(OperationMode mode);

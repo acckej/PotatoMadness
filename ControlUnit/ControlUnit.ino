@@ -6,6 +6,7 @@
 #include "SensorsCheck.h"
 #include "Sensors.h"
 #include "MainSequence.h"
+#include "ConfigurationValueStorage.h"
 
 //#include "MachineryCheck.h"
 //#include "LoaderCheck.h"
@@ -16,10 +17,11 @@
 auto _wrapper = ArduinoWrapper();
 
 auto _sensors = Sensors(&_wrapper);
+auto config = ConfigurationValueStorage(&_wrapper);
 auto _loader = Loader(&_wrapper);
 auto _actuators = Actuators(&_wrapper);
 auto _buttons = ButtonsController(&_wrapper, nullptr, 0);
-auto _context = Context(&_wrapper, &_buttons, &_loader, &_actuators, &_sensors);
+auto _context = Context(&_wrapper, &_buttons, &_loader, &_actuators, &_sensors, &config);
 
 auto screen = TestScreen(&_wrapper);
 IHwCheck* checks[1];

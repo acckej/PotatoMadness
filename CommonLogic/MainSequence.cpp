@@ -80,8 +80,9 @@ void MainSequence::InitializeFiringSequence()
 	_firingActionsForcedMixing[1] = new LoaderReverseActionForcedMixing(_wrapper, Context::GetConfiguration(), _injector, Context::GetLoader(), Context::GetActuators(), Context::GetSensors(), _firingActionsForcedMixing[2]);
 	_firingActionsForcedMixing[0] = new LoaderForwardAction(_wrapper, Context::GetConfiguration(), Context::GetLoader(), Context::GetActuators(), Context::GetSensors(), _firingActionsForcedMixing[1]);
 
-	_firingScreen = new FiringScreen(_wrapper);
-	
+	_firingScreen = new FiringScreen(_wrapper);	
+	_firingScreen->Refresh();
+
 	_firingSequencer = new FiringSequencer(_wrapper, _firingActions[0], _firingActionsForcedMixing[0], _firingScreen);
 }
 
@@ -90,6 +91,7 @@ void MainSequence::InitializeHwTest()
 	_checks = new IHwCheck*[HW_CHECKS_COUNT];
 
 	_testScreen = new TestScreen(_wrapper);
+	_testScreen->Refresh();
 
 	_checks[0] = new BatteryCheck(_wrapper, _testScreen, Context::GetSensors());
 	_checks[1] = new ButtonsCheck(_wrapper, _testScreen);
@@ -104,6 +106,7 @@ void MainSequence::InitializeInjectorTest()
 {
 	_injector = new Injector(Context::GetConfiguration(), _wrapper, Context::GetSensors());
 	_injectorTestScreen = new InjectorTestScreen(_wrapper, Context::GetSensors(), _injector);
+	_injectorTestScreen->Refresh();
 }
 
 void MainSequence::InitializeConfigEdit()

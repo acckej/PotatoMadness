@@ -12,6 +12,7 @@ namespace ControlUnitUnitTests
 {
 	static bool _increaseValueTestGo;
 	static bool _decreaseValueTestGo;
+	static bool _scrollUp;
 
 	TEST_CLASS(ConfigurationScreenTest)
 	{
@@ -25,7 +26,7 @@ namespace ControlUnitUnitTests
 			auto storage = ConfigurationValueStorage(&wrapper);
 			auto confScreen = ConfigurationScreen(&wrapper, &storage);
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons, nullptr, nullptr, nullptr);
+			auto context = Context(&wrapper, &buttons, nullptr, nullptr, nullptr, &storage);
 
 			storage.Load();
 			_increaseValueTestGo = false;
@@ -47,7 +48,7 @@ namespace ControlUnitUnitTests
 			auto storage = ConfigurationValueStorage(&wrapper);
 			auto confScreen = ConfigurationScreen(&wrapper, &storage);
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons, nullptr, nullptr, nullptr);
+			auto context = Context(&wrapper, &buttons, nullptr, nullptr, nullptr, &storage);
 
 			storage.Load();			
 
@@ -66,7 +67,7 @@ namespace ControlUnitUnitTests
 			auto storage = ConfigurationValueStorage(&wrapper);
 			auto confScreen = ConfigurationScreen(&wrapper, &storage);
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons, nullptr, nullptr, nullptr);
+			auto context = Context(&wrapper, &buttons, nullptr, nullptr, nullptr, &storage);
 
 			storage.Load();
 			_increaseValueTestGo = false;
@@ -88,7 +89,7 @@ namespace ControlUnitUnitTests
 			auto storage = ConfigurationValueStorage(&wrapper);
 			auto confScreen = ConfigurationScreen(&wrapper, &storage);
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons, nullptr, nullptr, nullptr);
+			auto context = Context(&wrapper, &buttons, nullptr, nullptr, nullptr, &storage);
 
 			storage.Load();
 			_decreaseValueTestGo = false;
@@ -96,6 +97,35 @@ namespace ControlUnitUnitTests
 			_decreaseValueTestGo = true;
 
 			for (auto i = 0; i < 100; i++)
+			{
+				confScreen.Draw();
+
+				wrapper.Delay(100);
+			}
+		}
+
+		TEST_METHOD(ScrollScreenUpDownTest)
+		{
+			auto wrapper = ArduinoStub(DigitalReadButtonsScrollUpDown, nullptr);
+			auto screen = ScrollableScreen(&wrapper);
+			auto storage = ConfigurationValueStorage(&wrapper);
+			auto confScreen = ConfigurationScreen(&wrapper, &storage);
+			auto buttons = ButtonsController(&wrapper, nullptr, 0);
+			auto context = Context(&wrapper, &buttons, nullptr, nullptr, nullptr, &storage);
+
+			storage.Load();
+			_scrollUp = false;
+
+			for (auto i = 0; i < 400; i++)
+			{
+				confScreen.Draw();
+
+				wrapper.Delay(100);
+			}
+
+			_scrollUp = true;
+
+			for (auto i = 0; i < 400; i++)
 			{
 				confScreen.Draw();
 
@@ -112,6 +142,21 @@ namespace ControlUnitUnitTests
 		static int DigitalReadButtonsScrollDown(int port)
 		{
 			if(port == BTN3_PORT)
+			{
+				return ARDUINO_HIGH;
+			}
+
+			return  ARDUINO_LOW;
+		}
+
+		static int DigitalReadButtonsScrollUpDown(int port)
+		{
+			if (port == BTN3_PORT && !_scrollUp)
+			{
+				return ARDUINO_HIGH;
+			}
+
+			if (port == BTN2_PORT && _scrollUp)
 			{
 				return ARDUINO_HIGH;
 			}

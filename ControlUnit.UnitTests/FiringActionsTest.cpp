@@ -7,6 +7,7 @@
 #include <thread>
 #include "ArduinoFrameStub.h"
 #include "LoaderForwardActionTest_Frame.h"
+#include "ConfigurationValueStorage.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -22,19 +23,21 @@ namespace ControlUnitUnitTests
 			auto frameFactory = LoaderForwardActionTest_Frame(100);
 			auto frame = frameFactory.GetTestFrame();
 
-			auto wrapper = ArduinoFrameStub(frame);			
+			auto wrapper = ArduinoFrameStub(frame);
+			auto storage = ConfigurationValueStorage(&wrapper);
 			auto loader = Loader(&wrapper);
 			auto actuators = Actuators(&wrapper);
 			auto sensors = Sensors(&wrapper);
 			auto buttons = ButtonsController(&wrapper, nullptr, 0);
-			auto context = Context(&wrapper, &buttons, &loader, &actuators, &sensors);
+			auto context = Context(&wrapper, &buttons, &loader, &actuators, &sensors, &storage);
 
 			auto mainSequence = MainSequence(&wrapper);
 
 			for (auto i = 0; i < 1000; i++)
 			{
-				mainSequence.Run();
-				std::this_thread::sleep_for(std::chrono::microseconds(100));
+				auto systemState = mainSequence.Run();
+				context.SetState(systemState);
+				wrapper.Delay(100);
 				frame->IncrementFrame();
 			}
 		}
