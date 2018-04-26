@@ -99,6 +99,6 @@ enum OperationMode {MainMenu, FiringMode, FiringModeForcedMixing, ConfigEditScre
 
 enum SystemState {SystemIdle, SystemRunning, SystemError};
 
-enum FiringState {Front, FrontRev, Reversed, Firing, RevFront, Reloading};
+enum FiringState {Undefined, Front, FrontRev, Reversed, Firing, RevFront, Reloading};
 
 

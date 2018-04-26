@@ -6,6 +6,7 @@
 class IAction 
 {
 public:
+	virtual ~IAction() = default;
 	IAction(IArduinoWrapper* wrapper, IAction* nextAction);			
 
 	virtual void Reset();	

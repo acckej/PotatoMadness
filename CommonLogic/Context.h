@@ -37,6 +37,8 @@ public:
 	static void SetFiringSequenceMode(FiringSequenceMode mode);
 	static FiringSequenceMode GetFiringSequenceMode();
 
+	static void SetErrorCode(ErrorCodes code);
+	static ErrorCodes GetErrorCode();
 private:
 	static OperationMode _mode;
 	static SystemState _state;
@@ -47,5 +49,6 @@ private:
 	static FiringSequenceMode _firingSequenceMode;
 	static Sensors* _sensors;
 	static IConfiguration* _configuration;
+	static ErrorCodes _errorCode;
 };
 

@@ -3,13 +3,15 @@
 #include <map>
 #include "PortValues.h"
 #include <vector>
+#include "Configuration.h"
 
 using namespace std;
 
 class Frame
 {
 public:
-	Frame(int frameDelay);
+	Frame(int frameDelay, IConfiguration* config);
+	~Frame();
 
 	int AnalogRead(int port) const;
 	int DigitalRead(int port) const;
@@ -32,6 +34,8 @@ public:
 	void AddExternalHumidity(SensorValue val) const;
 
 	long GetMilliseconds() const;
+
+	IConfiguration* GetConfiguration() const;
 private:
 	int ReadPort(int port, map<int, vector<PortValue>> portValues) const;
 	float ReadSensor(vector<SensorValue> mapping) const;	
@@ -49,5 +53,7 @@ private:
 	vector<SensorValue> _externalHumidity;
 
 	map<int, vector<PortValue>> _writtenValues;
+
+	IConfiguration* _configuration;
 };
 

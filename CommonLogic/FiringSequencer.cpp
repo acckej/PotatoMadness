@@ -37,6 +37,8 @@ ActionState FiringSequencer::Execute()
 			HandleError("Precond. fail");
 			return Error;
 		}
+
+		_currentAction->StartAction();
 	}
 
 	auto result = _currentAction->Execute();
@@ -120,11 +122,12 @@ bool FiringSequencer::Continue()
 void FiringSequencer::HandleError(const char * message) const
 {
 	auto code = _currentAction->GetErrorCode();
+	_screen->Refresh();
 	_screen->PrintStatus(0, message);
 	_screen->PrintStatus(1, "err. code:");
-	_screen->PrintNumber(code);
+	_screen->PrintNumber(code);	
 
-	Context::SetState(SystemError);
+	Context::SetErrorCode(code);
 }
 
 

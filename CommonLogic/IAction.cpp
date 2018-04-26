@@ -7,6 +7,7 @@ IAction::IAction(IArduinoWrapper* wrapper, IAction* nextAction)
 	_errorCode = NoError;
 	_nextAction = nextAction;
 	_startTime = 0;
+	_firingState = Undefined;
 }
 
 void IAction::Reset()

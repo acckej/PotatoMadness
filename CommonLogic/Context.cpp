@@ -9,6 +9,7 @@ Actuators* Context::_actuators;
 Sensors* Context::_sensors;
 SystemState Context::_state;
 IConfiguration* Context::_configuration;
+ErrorCodes Context::_errorCode;
 
 Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader, Actuators* actuators, Sensors* sensors, IConfiguration* configuration)
 {
@@ -114,5 +115,15 @@ void Context::SetFiringSequenceMode(FiringSequenceMode mode)
 FiringSequenceMode Context::GetFiringSequenceMode()
 {
 	return _firingSequenceMode;
+}
+
+void Context::SetErrorCode(ErrorCodes code)
+{
+	_errorCode = code;
+}
+
+ErrorCodes Context::GetErrorCode()
+{
+	return _errorCode;
 }
 

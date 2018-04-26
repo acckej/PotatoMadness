@@ -2,9 +2,18 @@
 #include "Frame.h"
 
 
-Frame::Frame(int frameDelay): _currentFrame(0)
+Frame::Frame(int frameDelay, IConfiguration* config): _currentFrame(0)
 {
 	_frameDelay = frameDelay;
+	_configuration = config;
+}
+
+Frame::~Frame()
+{
+	if(_configuration != nullptr)
+	{
+		delete _configuration;
+	}
 }
 
 int Frame::AnalogRead(int port) const
@@ -112,6 +121,11 @@ void Frame::AddExternalHumidity(SensorValue val) const
 long Frame::GetMilliseconds() const
 {
 	return _currentFrame * _frameDelay;
+}
+
+IConfiguration * Frame::GetConfiguration() const
+{
+	return _configuration;
 }
 
 int Frame::ReadPort(int port, map<int, vector<PortValue>> portValues) const
