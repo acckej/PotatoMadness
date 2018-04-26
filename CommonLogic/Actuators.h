@@ -6,25 +6,35 @@ class Actuators
 public:
 	Actuators(IArduinoWrapper* wrapper);
 	
-	void OpenBreech() const;
-	void CloseBreech() const;
-	void DisableBreach() const;
+	void OpenBreech();
+	void CloseBreech();
+	void DisableBreech() const;
 
-	void TurnFanOn() const;
-	void TurnFanOff() const;
+	void TurnFanOn();
+	void TurnFanOff();
 
-	void IngnitionOn() const;
-	void IgnitionOff() const;
+	void IngnitionOn();
+	void IgnitionOff();
 
-	void InjectorStart() const;
-	void InjectorStop() const;
+	void InjectorStart();
+	void InjectorStop();
 
-	void AuxOn() const;
-	void AuxOff() const;
+	void AuxOn();
+	void AuxOff();
 
 	void EngageInjectorDiode(bool on) const;
 
+	bool FanOn() const;
+	bool IgnitionOn() const;
+	bool InjectorStarted() const;
+	bool AuxEnabled() const;
+	bool BreechOpened() const;
 private:
 	IArduinoWrapper* _wrapper;
+	bool _fanOn;
+	bool _ignitionOn;
+	bool _injectorStarted;
+	bool _auxOn;
+	bool _breechOpened;
 };
 

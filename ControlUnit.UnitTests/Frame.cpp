@@ -141,12 +141,12 @@ int Frame::ReadPort(int port, map<int, vector<PortValue>> portValues) const
 	int result = 0;
 
 	for (auto curr = vals.begin(); curr != vals.end(); ++curr)
-	{
-		result = curr->Value;
-		if (curr->TimeFrame >= _currentFrame)
+	{		
+		if (curr->TimeFrame > _currentFrame)
 		{
 			break;
 		}
+		result = curr->Value;
 	}
 
 	return result;

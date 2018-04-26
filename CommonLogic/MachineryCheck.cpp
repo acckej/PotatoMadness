@@ -35,7 +35,7 @@ CheckResult MachineryCheck::Check()
 		{
 			_cyclesCounter = 0;
 			_breachClose = false;
-			_actuators->DisableBreach();
+			_actuators->DisableBreech();
 			_breachOpen = true;
 		}
 	}

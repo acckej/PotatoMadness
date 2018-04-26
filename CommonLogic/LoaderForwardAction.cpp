@@ -7,7 +7,7 @@ LoaderForwardAction::LoaderForwardAction(IArduinoWrapper* wrapper, IConfiguratio
 	_config = config;
 	_loader = loader;
 	_actuators = actuators;
-	_sensors = sensors;
+	_sensors = sensors;	
 }
 
 void LoaderForwardAction::Reset()
@@ -78,7 +78,7 @@ ActionState LoaderForwardAction::Execute()
 		return Error;
 	}
 
-	if(duration > _config ->GetLoaderForwardFanTime())
+	if(duration > _config ->GetLoaderForwardFanTime() && _actuators->FanOn())
 	{
 		_actuators->TurnFanOff();
 	}

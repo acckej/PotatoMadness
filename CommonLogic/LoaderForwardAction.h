@@ -19,7 +19,7 @@ public:
 	const char* GetActionName() override;
 private:
 	void Stop() const;
-
+		
 	IConfiguration* _config;
 	Loader* _loader;
 	Actuators* _actuators;
