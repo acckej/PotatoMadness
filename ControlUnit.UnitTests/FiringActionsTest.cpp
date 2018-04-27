@@ -6,6 +6,7 @@
 #include <thread>
 #include "ArduinoFrameStub.h"
 #include "LoaderForwardActionTest_Frame.h"
+#include "ConfigurationValueStorage.h"
 
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -21,8 +22,7 @@ namespace ControlUnitUnitTests
 			auto frameFactory = LoaderForwardActionTest_Frame(100);
 			auto frame = frameFactory.GetTestFrame();
 			
-			auto wrapper = ArduinoFrameStub(frame);
-			//auto storage = ConfigurationValueStorage(&wrapper);
+			auto wrapper = ArduinoFrameStub(frame);			
 			auto loader = Loader(&wrapper);
 			auto actuators = Actuators(&wrapper);
 			auto sensors = Sensors(&wrapper);
@@ -31,7 +31,7 @@ namespace ControlUnitUnitTests
 
 			auto mainSequence = MainSequence(&wrapper);
 
-			for (auto i = 0; i < 6000; i++)
+			for (auto i = 0; i < 70; i++)
 			{
 				auto systemState = mainSequence.Run();
 				context.SetState(systemState);
@@ -41,9 +41,28 @@ namespace ControlUnitUnitTests
 		}
 
 		TEST_METHOD(LoaderReverseActionTest)
-		{
-			
-			
+		{	
+			auto frameFactory = LoaderForwardActionTest_Frame(100);
+			auto frame = frameFactory.GetTestFrame();
+
+			auto wrapper = ArduinoFrameStub(frame);
+			auto storage = ConfigurationValueStorage(&wrapper);
+			storage.Load();
+			auto loader = Loader(&wrapper);
+			auto actuators = Actuators(&wrapper);
+			auto sensors = Sensors(&wrapper);
+			auto buttons = ButtonsController(&wrapper, nullptr, 0);
+			auto context = Context(&wrapper, &buttons, &loader, &actuators, &sensors, &storage);
+
+			auto mainSequence = MainSequence(&wrapper);
+
+			for (auto i = 0; i < 200; i++)
+			{
+				auto systemState = mainSequence.Run();
+				context.SetState(systemState);
+				wrapper.Delay(100);
+				frame->IncrementFrame();
+			}
 		}	
 	};
 }

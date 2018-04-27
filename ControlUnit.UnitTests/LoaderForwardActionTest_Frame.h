@@ -37,7 +37,8 @@ public:
 			{ 1, 1 },
 			{ 2, 1 },
 			{ 3, 1 },
-			{ 4, 1 }
+			{ 4, 0 },
+			{ 80, 1}
 		};
 		result->AddDigitalPortMapping(LDR_FW_CHECK_PORT, fwCheck);
 
@@ -59,6 +60,17 @@ public:
 			{ 4, 878 }
 		};
 		result->AddAnalogPortMapping(VOLTAGE_PORT, voltage);
+
+		vector<PortValue> pressure = {
+			{ 0, 0 },			
+			{ 40, 403 }
+		};
+		result->AddAnalogPortMapping(RECEIVER_PRESSURE_PORT, pressure);
+
+		vector<PortValue> ammo = {
+			{ 0, 1 }		
+		};
+		result->AddDigitalPortMapping(AMMO_SENSOR_PORT, ammo);
 
 		return result;
 	}

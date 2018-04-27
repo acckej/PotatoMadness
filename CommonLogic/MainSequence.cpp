@@ -25,6 +25,8 @@ MainSequence::MainSequence(IArduinoWrapper* wrapper)
 	_injector = nullptr;
 	_testScreen = nullptr;
 	_mainScreen = nullptr;
+	_injectorTestScreen = nullptr;
+	_configScreen = nullptr;
 
 	SwitchMode(MainMenu);
 }
@@ -255,32 +257,36 @@ void MainSequence::CleanupHwChecks()
 	}
 }
 
-void MainSequence::CleanupInjectorTest() const
+void MainSequence::CleanupInjectorTest()
 {
 	if(_injector != nullptr)
 	{
 		delete _injector;
+		_injector = nullptr;
 	}
 
 	if(_injectorTestScreen != nullptr)
 	{
 		delete _injectorTestScreen;
+		_injectorTestScreen = nullptr;
 	}
 }
 
-void MainSequence::CleanupConfigEdit() const
+void MainSequence::CleanupConfigEdit()
 {		
 	if(_configScreen != nullptr)
 	{
 		delete _configScreen;
+		_configScreen = nullptr;
 	}
 }
 
-void MainSequence::CleanupMainMenu() const
+void MainSequence::CleanupMainMenu() 
 {
 	if (_mainScreen != nullptr)
 	{
 		delete _mainScreen;
+		_mainScreen = nullptr;
 	}
 }
 

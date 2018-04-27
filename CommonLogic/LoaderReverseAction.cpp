@@ -16,7 +16,7 @@ void LoaderReverseAction::Reset()
 
 bool LoaderReverseAction::CheckPreconditions()
 {	
-	if (!_loader->IsRevCheckOn())
+	if (!_loader->IsRevCheckOn() || _loader->IsFwCheckOn())
 	{
 		_errorCode = IncorrectLoaderPositionRev;
 		return false;

@@ -63,16 +63,21 @@ ActionState FiringSequencer::Execute()
 
 		_currentAction = _currentAction->GetNextAction();
 
-		if (_currentAction != nullptr && !_currentAction->CheckPreconditions())
+		if (_currentAction != nullptr)
 		{	
-			if(_currentAction->GetErrorCode() == NoAmmo)
+			if (!_currentAction->CheckPreconditions())
 			{
-				_currentAction = nullptr;
-				return Completed;
-			}
+				if (_currentAction->GetErrorCode() == NoAmmo)
+				{
+					_currentAction = nullptr;
+					return Completed;
+				}
 
-			HandleError("Precond. fail");
-			return Error;
+				HandleError("Precond. fail");
+				return Error;
+			}
+			
+			_currentAction->StartAction();			
 		}
 	}
 

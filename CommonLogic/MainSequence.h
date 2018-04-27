@@ -31,9 +31,9 @@ private:
 
 	void CleanupFiringSequences();
 	void CleanupHwChecks();
-	void CleanupInjectorTest() const;
-	void CleanupConfigEdit() const;
-	void CleanupMainMenu() const;
+	void CleanupInjectorTest();
+	void CleanupConfigEdit();
+	void CleanupMainMenu();
 
 	SystemState RunHwChecks();
 	SystemState RunInjectorTest();
