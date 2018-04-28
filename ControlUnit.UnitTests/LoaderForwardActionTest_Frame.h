@@ -72,6 +72,15 @@ public:
 		};
 		result->AddDigitalPortMapping(AMMO_SENSOR_PORT, ammo);
 
+		result->AddAtmPressure({ 0, 0 });
+		result->AddAtmPressure({ 40, 101.325f });
+
+		result->AddExternalHumidity({ 0, 0 });
+		result->AddExternalHumidity({ 40, 0.65f });
+
+		result->AddExternalTemp({ 0, 0 });
+		result->AddExternalTemp({ 40, 25.0f });
+
 		return result;
 	}
 };

@@ -13,8 +13,8 @@ public:
 	Frame(int frameDelay, IConfiguration* config);
 	~Frame();
 
-	int AnalogRead(int port) const;
-	int DigitalRead(int port) const;
+	int AnalogRead(int port);
+	int DigitalRead(int port);
 
 	float GetAtmPressure() const;
 	float GetInternalTemp() const;
@@ -28,18 +28,18 @@ public:
 	void AddAnalogPortMapping(int, vector<PortValue> vals);
 	void AddDigitalPortMapping(int, vector<PortValue> vals);
 
-	void AddAtmPressure(SensorValue val) const;
-	void AddInternalTemp(SensorValue val) const;
-	void AddExternalTemp(SensorValue val) const;
-	void AddExternalHumidity(SensorValue val) const;
+	void AddAtmPressure(SensorValue val);
+	void AddInternalTemp(SensorValue val);
+	void AddExternalTemp(SensorValue val);
+	void AddExternalHumidity(SensorValue val);
 
 	long GetMilliseconds() const;
 
 	IConfiguration* GetConfiguration() const;
 private:
-	int ReadPort(int port, map<int, vector<PortValue>> portValues) const;
+	int ReadPort(int port, map<int, vector<PortValue>>* portValues) const;
 	float ReadSensor(vector<SensorValue> mapping) const;	
-	static void AddSensorValue(SensorValue val, vector<SensorValue> vals);
+	static void AddSensorValue(SensorValue val, vector<SensorValue>* vals);
 
 	int _frameDelay;
 	int _currentFrame;

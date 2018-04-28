@@ -16,14 +16,14 @@ Frame::~Frame()
 	}
 }
 
-int Frame::AnalogRead(int port) const
+int Frame::AnalogRead(int port)
 {
-	return ReadPort(port, _analogReadPorts);
+	return ReadPort(port, &_analogReadPorts);
 }
 
-int Frame::DigitalRead(int port) const
+int Frame::DigitalRead(int port)
 {
-	return ReadPort(port, _digitalReadPorts);
+	return ReadPort(port, &_digitalReadPorts);
 }
 
 float Frame::GetAtmPressure() const
@@ -67,20 +67,20 @@ float Frame::ReadSensor(vector<SensorValue> mapping) const
 	float result = 0;
 
 	for (auto curr = mapping.begin(); curr != mapping.end(); ++curr)
-	{
-		result = curr->Value;
-		if (curr->TimeFrame >= _currentFrame)
+	{		
+		if (curr->TimeFrame > _currentFrame)
 		{
 			break;
 		}
-	}
+		result = curr->Value;
+	}	
 
 	return result;
 }
 
-void Frame::AddSensorValue(SensorValue val, vector<SensorValue> vals)
+void Frame::AddSensorValue(SensorValue val, vector<SensorValue>* vals)
 {
-	vals.push_back(val);
+	vals->push_back(val);
 }
 
 void Frame::IncrementFrame()
@@ -98,24 +98,24 @@ void Frame::AddDigitalPortMapping(int port, vector<PortValue> vals)
 	_digitalReadPorts.insert(std::make_pair(port, vals));
 }
 
-void Frame::AddAtmPressure(SensorValue val) const
+void Frame::AddAtmPressure(SensorValue val) 
 {
-	AddSensorValue(val, _atmPressure);
+	AddSensorValue(val, &_atmPressure);
 }
 
-void Frame::AddInternalTemp(SensorValue val) const
+void Frame::AddInternalTemp(SensorValue val) 
 {
-	AddSensorValue(val, _internalTemp);
+	AddSensorValue(val, &_internalTemp);
 }
 
-void Frame::AddExternalTemp(SensorValue val) const
+void Frame::AddExternalTemp(SensorValue val) 
 {
-	AddSensorValue(val, _externalTemp);
+	AddSensorValue(val, &_externalTemp);
 }
 
-void Frame::AddExternalHumidity(SensorValue val) const
+void Frame::AddExternalHumidity(SensorValue val) 
 {
-	AddSensorValue(val, _externalHumidity);
+	AddSensorValue(val, &_externalHumidity);
 }
 
 long Frame::GetMilliseconds() const
@@ -128,11 +128,11 @@ IConfiguration * Frame::GetConfiguration() const
 	return _configuration;
 }
 
-int Frame::ReadPort(int port, map<int, vector<PortValue>> portValues) const
+int Frame::ReadPort(int port, map<int, vector<PortValue>>* portValues) const
 {
-	auto found = portValues.find(port);
+	auto found = portValues->find(port);
 
-	if (found == portValues.end())
+	if (found == portValues->end())
 	{
 		return 0;
 	}

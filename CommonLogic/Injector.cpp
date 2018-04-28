@@ -2,7 +2,7 @@
 #include <math.h>
 #include "CalculationConstants.h"
 
-#define M_PI 3.1415926535897932384626433832795
+#define M_PI 3.1415926535897932384626433832795f
 
 Injector::Injector(IConfiguration* config, IArduinoWrapper* wrapper, Sensors* sensors)
 {
@@ -13,7 +13,8 @@ Injector::Injector(IConfiguration* config, IArduinoWrapper* wrapper, Sensors* se
 
 unsigned long Injector::CalculateInjectionTime() const
 {
-	auto time = KILO * GetInjectedPortion() * GetGasFlow();	
+	auto gasFlow = GetGasFlow();
+	auto time = KILO * GetInjectedPortion() / (gasFlow == 0 ? 1 : gasFlow);	
 	return time;
 }
 
@@ -62,7 +63,7 @@ double Injector::GetGasDensity() const
 	//
 	//????
 	//
-	auto result = _configuration->GetNormalCondDensity() * (_sensors->GetReceiverPressure() * KILO / _wrapper->GetAtmPressure())*(KELVIN / (_wrapper->GetExternalTemp() + KELVIN));
+	auto result = _configuration->GetNormalCondDensity() * (_sensors->GetReceiverPressure() / _wrapper->GetAtmPressure()) * ((KELVIN + NORMAL_TEMP_C) / (_wrapper->GetExternalTemp() + KELVIN));
 
 	return result;
 }
