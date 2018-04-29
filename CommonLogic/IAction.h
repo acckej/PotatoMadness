@@ -17,13 +17,9 @@ public:
 
 	virtual void StartAction();	
 
-	virtual ActionState Execute();
+	virtual ActionState Execute();	
 
-	virtual bool CheckPostConditions();
-
-	virtual void EndAction();
-
-	virtual int GetActionDuration();
+	virtual void EndAction();	
 
 	ErrorCodes GetErrorCode() const;	
 

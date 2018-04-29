@@ -26,5 +26,6 @@ private:
 	static IArduinoWrapper * _wrapper;
 	static bool _frontSensorEngaged;	
 	static ErrorCodes _errorCode;
+	static bool _rearSensorEngaged;
 };
 

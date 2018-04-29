@@ -1,11 +1,13 @@
 #include "FiringController.h"
 #include "Constants.h"
+#include "Context.h"
 
 bool FiringController::_fireFlag;
 unsigned long FiringController::_startTime;
 unsigned long FiringController::_endTime;
 IArduinoWrapper * FiringController::_wrapper;
 bool FiringController::_frontSensorEngaged;
+bool FiringController::_rearSensorEngaged;
 ErrorCodes FiringController::_errorCode;
 
 FiringController::FiringController(IArduinoWrapper* wrapper)
@@ -45,12 +47,15 @@ void FiringController::RearSpeedSensorHandler()
 		return;
 	}
 
+	_rearSensorEngaged = true;
 	_endTime = _wrapper->GetMilliseconds();
+	Context::SetState(SystemRunning);
 }
 
 void FiringController::BlastSensorHandler()
 {
 	_fireFlag = true;
+	Context::SetState(IdleCycle);
 }
 
 float FiringController::GetProjectileSpeed()
@@ -83,6 +88,7 @@ void FiringController::Reset()
 	_fireFlag = false;
 	_startTime = 0;
 	_frontSensorEngaged = false;	
+	_rearSensorEngaged = false;
 	_errorCode = NoError;
 	_startTime = 0;
 }

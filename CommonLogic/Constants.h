@@ -97,7 +97,7 @@ enum FiringSequenceMode {Auto, SemiAuto};
 
 enum OperationMode {MainMenu, FiringMode, FiringModeForcedMixing, ConfigEditScreen, TestMode, InjectorTestMode};
 
-enum SystemState {SystemIdle, SystemRunning, SystemError};
+enum SystemState {SystemIdle, SystemRunning, SystemError, IdleCycle};
 
 enum FiringState {Undefined, Front, FrontRev, Reversed, Firing, RevFront, Reloading};
 

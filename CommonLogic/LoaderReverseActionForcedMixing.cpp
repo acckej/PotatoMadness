@@ -146,19 +146,9 @@ ActionState LoaderReverseActionForcedMixing::Execute()
 	return Executing;
 }
 
-bool LoaderReverseActionForcedMixing::CheckPostConditions()
-{
-	return false;
-}
-
 void LoaderReverseActionForcedMixing::EndAction()
 {
 	Stop();
-}
-
-int LoaderReverseActionForcedMixing::GetActionDuration()
-{
-	return 0;
 }
 
 const char * LoaderReverseActionForcedMixing::GetActionName()

@@ -39,6 +39,8 @@ public:
 
 	static void SetErrorCode(ErrorCodes code);
 	static ErrorCodes GetErrorCode();
+
+	static bool IncrementIdleCycleCounter();
 private:
 	static OperationMode _mode;
 	static SystemState _state;
@@ -50,5 +52,7 @@ private:
 	static Sensors* _sensors;
 	static IConfiguration* _configuration;
 	static ErrorCodes _errorCode;
+	static int _idleCyclesCount;
+	static int _idleCyclesCounter;
 };
 

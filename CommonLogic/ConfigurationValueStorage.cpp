@@ -122,6 +122,11 @@ double ConfigurationValueStorage::GetGasFlowSpeedB()
 	return _values[GAS_FLOW_SPEEDB_INDEX].Value;
 }
 
+int ConfigurationValueStorage::GetFiringIdleCyclesCount()
+{
+	return _values[FIRING_IDLE_CYCLES_INDEX].Value;
+}
+
 void ConfigurationValueStorage::IncrementValue(char index)
 {
 	if(index < 0 || index >= CONFIG_VALUES_COUNT)
@@ -191,5 +196,6 @@ void ConfigurationValueStorage::InitConfiguration()
 	_values[18] = { 2000.0f, 1.0f, "lReFa " }; // loader reverse fan time
 	_values[19] = { 91.5f, 0.1f, "gasFA " }; // gas flow speed 
 	_values[20] = { 1.03f, 0.01f, "gasFB " };
+	_values[21] = { 10.0f, 1.0f, "ficc  " }; // firing idle cycles count
 }
 

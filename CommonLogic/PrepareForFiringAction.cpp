@@ -3,11 +3,12 @@
 
 
 PrepareForFiringAction::PrepareForFiringAction(
-	IArduinoWrapper* wrapper, FiringController* controller, Actuators* actuators, Sensors* sensors, IAction* nextAction): IAction(wrapper, nextAction)
+	IArduinoWrapper* wrapper, FiringController* controller, Actuators* actuators, Sensors* sensors, IAction* nextAction, FiringScreen* screen): IAction(wrapper, nextAction)
 {
 	_controller = controller;
 	_actuators = actuators;
-	_sensors = sensors;
+	_sensors = sensors;	
+	_screen = screen;
 }
 
 void PrepareForFiringAction::Reset()
@@ -63,7 +64,8 @@ ActionState PrepareForFiringAction::Execute()
 
 	if(_controller->GetFireFlag())
 	{
-		//update screen
+		auto speed = _controller->GetProjectileSpeed();
+		_screen->PrintSpeed(speed);
 		_firingState = Reloading;
 		_controller->Reset();
 		return Completed;
@@ -72,19 +74,9 @@ ActionState PrepareForFiringAction::Execute()
 	return Waiting;
 }
 
-bool PrepareForFiringAction::CheckPostConditions()
-{
-	return false;
-}
-
 void PrepareForFiringAction::EndAction()
 {
 	_actuators->IgnitionOff();
-}
-
-int PrepareForFiringAction::GetActionDuration()
-{
-	return 0;
 }
 
 const char * PrepareForFiringAction::GetActionName()

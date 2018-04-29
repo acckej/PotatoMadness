@@ -28,7 +28,7 @@ ActionState FiringSequencer::Execute()
 		return Error;
 	}
 
-	if(_currentAction == nullptr || _currentAction->GetNextAction() == nullptr)
+	if(_currentAction == nullptr)
 	{
 		_currentAction = mode == FiringMode ? _startActionNormal : _startActionForcedMixing;
 
@@ -55,12 +55,6 @@ ActionState FiringSequencer::Execute()
 
 	if(result == Completed)
 	{
-		if (!_currentAction->CheckPostConditions())
-		{
-			HandleError("Postcond. fail");
-			return Error;
-		}
-
 		_currentAction = _currentAction->GetNextAction();
 
 		if (_currentAction != nullptr)

@@ -106,19 +106,9 @@ ActionState LoaderReverseAction::Execute()
 	return Executing;
 }
 
-bool LoaderReverseAction::CheckPostConditions()
-{
-	return true;
-}
-
 void LoaderReverseAction::EndAction()
 {
 	Stop();
-}
-
-int LoaderReverseAction::GetActionDuration()
-{
-	return 0;
 }
 
 const char * LoaderReverseAction::GetActionName()

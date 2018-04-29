@@ -33,7 +33,9 @@ public:
 	void AddExternalTemp(SensorValue val);
 	void AddExternalHumidity(SensorValue val);
 
-	long GetMilliseconds() const;
+	long GetMilliseconds();
+
+	void AddMilliseconds(int millis);
 
 	IConfiguration* GetConfiguration() const;
 private:
@@ -43,6 +45,8 @@ private:
 
 	int _frameDelay;
 	int _currentFrame;
+
+	int _millis;
 
 	map<int, vector<PortValue>> _analogReadPorts;
 	map<int, vector<PortValue>> _digitalReadPorts;

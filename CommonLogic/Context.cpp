@@ -10,6 +10,8 @@ Sensors* Context::_sensors;
 SystemState Context::_state;
 IConfiguration* Context::_configuration;
 ErrorCodes Context::_errorCode;
+int Context::_idleCyclesCount;
+int Context::_idleCyclesCounter;
 
 Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader, Actuators* actuators, Sensors* sensors, IConfiguration* configuration)
 {
@@ -21,6 +23,8 @@ Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* l
 	_state = SystemIdle;
 	_sensors = sensors;
 	_configuration = configuration;
+	_idleCyclesCount = _configuration->GetFiringIdleCyclesCount();
+	_idleCyclesCounter = 0;
 }
 
 
@@ -44,10 +48,12 @@ void Context::Halt()
 	_actuators->AuxOff();
 	_actuators->EngageInjectorDiode(false);	
 	_sensors->ResetDebouncingTriggers();
+	_idleCyclesCounter = 0;
 }
 
 void Context::HandleError(char * message, ErrorCodes code)
 {
+	_idleCyclesCounter = 0;
 }
 
 bool Context::WaitForButton(Buttons button, int delay)
@@ -105,6 +111,11 @@ SystemState Context::GetState()
 void Context::SetState(SystemState state)
 {
 	_state = state;
+
+	if(state == IdleCycle)
+	{
+		_idleCyclesCounter = 0;
+	}
 }
 
 void Context::SetFiringSequenceMode(FiringSequenceMode mode)
@@ -125,5 +136,11 @@ void Context::SetErrorCode(ErrorCodes code)
 ErrorCodes Context::GetErrorCode()
 {
 	return _errorCode;
+}
+
+bool Context::IncrementIdleCycleCounter()
+{
+	_idleCyclesCounter++;
+	return _idleCyclesCounter < _idleCyclesCount;
 }
 

@@ -74,16 +74,16 @@ void MainSequence::InitializeFiringSequence()
 	_firingController = new FiringController(_wrapper);
 	_injector = new Injector(Context::GetConfiguration(), _wrapper, Context::GetSensors());
 
-	_firingActions[2] = new PrepareForFiringAction(_wrapper, _firingController, Context::GetActuators(), Context::GetSensors(), nullptr);
+	_firingScreen = new FiringScreen(_wrapper);
+	_firingScreen->Refresh();
+
+	_firingActions[2] = new PrepareForFiringAction(_wrapper, _firingController, Context::GetActuators(), Context::GetSensors(), nullptr, _firingScreen);
 	_firingActions[1] = new LoaderReverseAction(_wrapper, _injector, Context::GetLoader(), Context::GetActuators(), Context::GetSensors(), _firingActions[2]);
 	_firingActions[0] = new LoaderForwardAction(_wrapper, Context::GetConfiguration(), Context::GetLoader(), Context::GetActuators(), Context::GetSensors(), _firingActions[1]);
 	
-	_firingActionsForcedMixing[2] = new PrepareForFiringAction(_wrapper, _firingController, Context::GetActuators(), Context::GetSensors(), nullptr);
+	_firingActionsForcedMixing[2] = new PrepareForFiringAction(_wrapper, _firingController, Context::GetActuators(), Context::GetSensors(), nullptr, _firingScreen);
 	_firingActionsForcedMixing[1] = new LoaderReverseActionForcedMixing(_wrapper, Context::GetConfiguration(), _injector, Context::GetLoader(), Context::GetActuators(), Context::GetSensors(), _firingActionsForcedMixing[2]);
 	_firingActionsForcedMixing[0] = new LoaderForwardAction(_wrapper, Context::GetConfiguration(), Context::GetLoader(), Context::GetActuators(), Context::GetSensors(), _firingActionsForcedMixing[1]);
-
-	_firingScreen = new FiringScreen(_wrapper);	
-	_firingScreen->Refresh();
 
 	_firingSequencer = new FiringSequencer(_wrapper, _firingActions[0], _firingActionsForcedMixing[0], _firingScreen);
 }

@@ -25,6 +25,7 @@
 #define LOADER_REVERSE_TIME_INDEX 18
 #define GAS_FLOW_SPEEDA_INDEX 19
 #define GAS_FLOW_SPEEDB_INDEX 20
+#define FIRING_IDLE_CYCLES_INDEX 21
 
 
 class ConfigurationValueStorage : public IConfiguration
@@ -59,6 +60,8 @@ public:
 
 	double GetGasFlowSpeedA() override;
 	double GetGasFlowSpeedB() override;
+
+	int GetFiringIdleCyclesCount() override;
 	
 	void IncrementValue(char index) override;
 	void DecrementValue(char index) override;

@@ -38,6 +38,8 @@ public:
 	virtual double GetValveBoreArea();
 	virtual double GetCorrectionalCoef();
 
+	virtual int GetFiringIdleCyclesCount();
+
 	virtual double GetGasFlowSpeedA();
 	virtual double GetGasFlowSpeedB();
 

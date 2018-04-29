@@ -15,6 +15,7 @@ unsigned long Injector::CalculateInjectionTime() const
 {
 	auto gasFlow = GetGasFlow();
 	auto time = KILO * GetInjectedPortion() / (gasFlow == 0 ? 1 : gasFlow);	
+	time = ceil(time / _configuration->GetCorrectionalCoef());
 	return time;
 }
 

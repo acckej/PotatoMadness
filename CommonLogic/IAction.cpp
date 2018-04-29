@@ -36,18 +36,8 @@ ActionState IAction::Execute()
 	return Executing;
 }
 
-bool IAction::CheckPostConditions()
-{
-	return false;
-}
-
 void IAction::EndAction()
 {
-}
-
-int IAction::GetActionDuration()
-{
-	return 0;
 }
 
 ErrorCodes IAction::GetErrorCode() const

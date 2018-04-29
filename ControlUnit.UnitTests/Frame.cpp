@@ -6,6 +6,7 @@ Frame::Frame(int frameDelay, IConfiguration* config): _currentFrame(0)
 {
 	_frameDelay = frameDelay;
 	_configuration = config;
+	_millis = 0;
 }
 
 Frame::~Frame()
@@ -118,9 +119,21 @@ void Frame::AddExternalHumidity(SensorValue val)
 	AddSensorValue(val, &_externalHumidity);
 }
 
-long Frame::GetMilliseconds() const
+long Frame::GetMilliseconds() 
 {
-	return _currentFrame * _frameDelay;
+	auto result = _currentFrame * _frameDelay + _millis;
+
+	if(_millis != 0)
+	{
+		_millis = 0;
+	}
+
+	return result;
+}
+
+void Frame::AddMilliseconds(int millis)
+{
+	_millis = millis;
 }
 
 IConfiguration * Frame::GetConfiguration() const

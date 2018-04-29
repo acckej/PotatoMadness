@@ -12,10 +12,8 @@ public:
 	void Reset() override;
 	bool CheckPreconditions() override;
 	void StartAction() override;
-	ActionState Execute() override;
-	bool CheckPostConditions() override;
-	void EndAction() override;
-	int GetActionDuration() override;
+	ActionState Execute() override;	
+	void EndAction() override;	
 	const char* GetActionName() override;
 private:
 	void Stop() const;

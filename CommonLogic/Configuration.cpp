@@ -101,6 +101,11 @@ double IConfiguration::GetCorrectionalCoef()
 	return 0;
 }
 
+int IConfiguration::GetFiringIdleCyclesCount()
+{
+	return 0;
+}
+
 double IConfiguration::GetGasFlowSpeedA()
 {
 	return 0;
