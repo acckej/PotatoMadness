@@ -123,7 +123,7 @@ namespace ControlUnitUnitTests
 				wrapper.Delay(100);
 				frame->IncrementFrame();
 
-				if (i == 90)
+				if (i == 130)
 				{
 					FiringController::BlastSensorHandler();
 					frame->AddMilliseconds(5);
