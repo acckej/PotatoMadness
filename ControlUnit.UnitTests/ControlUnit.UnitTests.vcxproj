@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClInclude Include="ArduinoFrameStub.h" />
     <ClInclude Include="ArduinoStub.h" />
+    <ClInclude Include="FiringActionForcedMixing_Frame.h" />
     <ClInclude Include="Frame.h" />
     <ClInclude Include="IFrameFactory.h" />
     <ClInclude Include="LoaderForwardActionTest_Frame.h" />

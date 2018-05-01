@@ -1,8 +1,9 @@
 #pragma once
+#pragma once
 #include "IFrameFactory.h"
 #include "Constants.h"
 
-class LoaderForwardActionTest_Config : public IConfiguration
+class FiringActionForcedMixing_Config : public IConfiguration
 {
 public:
 	int GetLoaderForwardFanTime() override
@@ -11,65 +12,65 @@ public:
 	};
 };
 
-class LoaderForwardActionTest_Frame : public IFrameFactory
+class FiringActionForcedMixing_Frame : public IFrameFactory
 {
 public:
-	explicit LoaderForwardActionTest_Frame(int frameDelay)
+	explicit FiringActionForcedMixing_Frame(int frameDelay)
 		: IFrameFactory(frameDelay)
 	{
 	}
 
 	Frame* GetTestFrame() override
 	{
-		auto result = new Frame(_frameDelay, new LoaderForwardActionTest_Config());
+		auto result = new Frame(_frameDelay, new FiringActionForcedMixing_Config());
 
 		vector<PortValue> btn1 = {
-			{0, 0},
-			{1, 1},
-			{2, 1},
-			{3, 0},
-			{4, 0}
+			{ 0, 0 },
+		{ 1, 1 },
+		{ 2, 1 },
+		{ 3, 0 },
+		{ 4, 0 }
 		};
-		result->AddDigitalPortMapping(BTN1_PORT, btn1);
+		result->AddDigitalPortMapping(BTN2_PORT, btn1);
 
 		vector<PortValue> fwCheck = {
 			{ 0, 0 },
-			{ 1, 1 },
-			{ 2, 1 },
-			{ 3, 1 },
-			{ 4, 0 },
-			{ 80, 1 }			
+		{ 1, 1 },
+		{ 2, 1 },
+		{ 3, 1 },
+		{ 4, 0 },
+		{ 80, 1 }
 		};
 		result->AddDigitalPortMapping(LDR_FW_CHECK_PORT, fwCheck);
 
 		vector<PortValue> revCheck = {
 			{ 0, 0 },
-			{ 1, 0 },
-			{ 2, 0 },
-			{ 3, 0 },
-			{ 4, 0 },
-			{ 40, 1 },
-			{ 90, 0 }
+		{ 1, 0 },
+		{ 2, 0 },
+		{ 3, 0 },
+		{ 4, 0 },
+		{ 40, 1 },
+		{ 90, 0 }
 		};
 		result->AddDigitalPortMapping(LDR_REV_CHECK_PORT, revCheck);
 
 		vector<PortValue> voltage = {
 			{ 0, 878 },
-			{ 1, 878 },
-			{ 2, 878 },
-			{ 3, 878 },
-			{ 4, 878 }
+		{ 1, 878 },
+		{ 2, 878 },
+		{ 3, 878 },
+		{ 4, 878 }
 		};
 		result->AddAnalogPortMapping(VOLTAGE_PORT, voltage);
 
 		vector<PortValue> pressure = {
-			{ 0, 0 },			
-			{ 40, 403 }
+			{ 0, 0 },
+		{ 40, 403 }
 		};
 		result->AddAnalogPortMapping(RECEIVER_PRESSURE_PORT, pressure);
 
 		vector<PortValue> ammo = {
-			{ 0, 1 }		
+			{ 0, 1 }
 		};
 		result->AddDigitalPortMapping(AMMO_SENSOR_PORT, ammo);
 
@@ -85,3 +86,4 @@ public:
 		return result;
 	}
 };
+

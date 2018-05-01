@@ -39,6 +39,9 @@
     <ClInclude Include="ArduinoFrameStub.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FiringActionForcedMixing_Frame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
