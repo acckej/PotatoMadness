@@ -2,8 +2,6 @@
 #include "IArduinoWrapper.h"
 #include "Configuration.h"
 
-#define CONFIG_VALUES_COUNT 21
-
 #define SSPPA_INDEX 0
 #define SSPPB_INDEX 1
 #define SSPPC_INDEX 2
@@ -26,6 +24,8 @@
 #define GAS_FLOW_SPEEDA_INDEX 19
 #define GAS_FLOW_SPEEDB_INDEX 20
 #define FIRING_IDLE_CYCLES_INDEX 21
+
+#define CONFIG_VALUES_COUNT 22
 
 
 class ConfigurationValueStorage : public IConfiguration
