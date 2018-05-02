@@ -27,6 +27,7 @@ MainSequence::MainSequence(IArduinoWrapper* wrapper)
 	_mainScreen = nullptr;
 	_injectorTestScreen = nullptr;
 	_configScreen = nullptr;
+	_waitingForInput = false;
 
 	SwitchMode(MainMenu);
 }
@@ -294,11 +295,27 @@ SystemState MainSequence::RunHwChecks()
 {
 	if (_hwChecksSequence != nullptr)
 	{
+		if(_waitingForInput)
+		{
+			if (Context::GetButtonsController().IsButtonPressed(x1A)) //continue
+			{
+				_waitingForInput = false;
+			}
+			else
+			{
+				return SystemIdle;
+			}			
+		}
+
 		auto result = _hwChecksSequence->Run();
 
 		switch (result)
 		{
 		case Failed:
+			{
+				_waitingForInput = true;
+				return SystemIdle;
+			}
 		case Passed:
 			{
 				if(Context::GetButtonsController().IsButtonPressed(x2B)) //stop
