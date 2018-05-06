@@ -363,7 +363,7 @@ SystemState MainSequence::RunFiringSequence()
 {
 	if(_firingSequencer != nullptr)
 	{
-		if(Context::GetButtonsController().IsButtonPressed(x2B)) //stop
+		if(Context::GetButtonsController().IsButtonPressed(x4D)) //stop
 		{
 			_firingSequencer->Stop();
 			SwitchMode(MainMenu);

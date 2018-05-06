@@ -17,6 +17,8 @@ public:
 	const char* GetActionName() override;
 private:
 	void Stop() const;
+
+	bool _openStart;
 		
 	IConfiguration* _config;
 	Loader* _loader;

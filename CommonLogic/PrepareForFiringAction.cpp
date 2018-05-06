@@ -1,5 +1,6 @@
 #include "PrepareForFiringAction.h"
 #include "Constants.h"
+#include "Context.h"
 
 
 PrepareForFiringAction::PrepareForFiringAction(
@@ -48,26 +49,37 @@ void PrepareForFiringAction::StartAction()
 
 ActionState PrepareForFiringAction::Execute()
 {
-	auto time = _wrapper->GetMilliseconds();
-
-	if(time - _startTime > FIRING_TIMEOUT)
-	{
-		_errorCode = FiringTimeout;
-		return Error;
-	}
-
-	if(_controller->GetErrorCode() != NoError)
+	if (_controller->GetErrorCode() != NoError)
 	{
 		_errorCode = _controller->GetErrorCode();
 		return Error;
 	}
 
-	if(_controller->GetFireFlag())
+	if (!_controller->GetFireFlag())
 	{
-		auto speed = _controller->GetProjectileSpeed();
-		_screen->PrintSpeed(speed);
-		_firingState = Reloading;
-		_controller->Reset();
+		auto time = _wrapper->GetMilliseconds();
+
+		if (time - _startTime > FIRING_TIMEOUT)
+		{
+			_errorCode = FiringTimeout;
+			return Error;
+		}
+	}
+	else
+	{
+		if (_firingState != Reloading)
+		{
+			auto speed = _controller->GetProjectileSpeed();
+			_screen->PrintSpeed(speed);
+			_firingState = Reloading;
+			_controller->Reset();
+		}
+
+		if(Context::GetFiringSequenceMode() == SemiAuto)
+		{
+			return Context::GetButtonsController().IsButtonPressed(x3C) ? Completed : Waiting;
+		}
+
 		return Completed;
 	}
 
@@ -77,6 +89,7 @@ ActionState PrepareForFiringAction::Execute()
 void PrepareForFiringAction::EndAction()
 {
 	_actuators->IgnitionOff();
+	_controller->Reset();	
 }
 
 const char * PrepareForFiringAction::GetActionName()
