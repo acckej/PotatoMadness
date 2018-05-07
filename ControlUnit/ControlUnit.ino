@@ -8,10 +8,6 @@
 #include "MainSequence.h"
 #include "ConfigurationValueStorage.h"
 
-//#include "MachineryCheck.h"
-//#include "LoaderCheck.h"
-//#include "ButtonsCheck.h"
-
 #define Arduino
 
 auto _wrapper = ArduinoWrapper();
@@ -22,12 +18,8 @@ auto _loader = Loader(&_wrapper);
 auto _actuators = Actuators(&_wrapper);
 auto _buttons = ButtonsController(&_wrapper, nullptr, 0);
 auto _context = Context(&_wrapper, &_buttons, &_loader, &_actuators, &_sensors, &config);
+auto _mainSequence = MainSequence(&_wrapper);
 
-auto screen = TestScreen(&_wrapper);
-IHwCheck* checks[1];
-auto bc = SensorsCheck(&_wrapper, &screen, &_loader, &_actuators, &_sensors);
-auto seq = HwCheckSequence(&_wrapper, checks, 1);
-CheckResult _hwCheckResult = Running;
 bool _high = false;
 
 void setup() 
@@ -37,7 +29,6 @@ void setup()
 #endif
 
 	_wrapper.Init();
-	checks[0] = &bc;
 
 	pinMode(LED_BUILTIN, OUTPUT);
 }
@@ -54,14 +45,11 @@ void loop()
 		digitalWrite(13, LOW);
 		_high = true;
 	}	
-	
-	if (_hwCheckResult == Running)
+
+	if (Context::GetState() != IdleCycle)
 	{
-		_hwCheckResult = seq.Run();
-	}	
-	else
-	{
-		delay(1000);
+		auto state = _mainSequence.Run();
+		Context::SetState(state);
 	}
 
 	//Serial.println(_hwCheckResult);
