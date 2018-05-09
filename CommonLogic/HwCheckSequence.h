@@ -9,6 +9,8 @@ public:
 	~HwCheckSequence();
 
 	CheckResult Run();
+
+	void Skip();
 private:
 	IHwCheck** _checks;
 	IArduinoWrapper* _wrapper;

@@ -27,9 +27,9 @@ MainSequence::MainSequence(IArduinoWrapper* wrapper)
 	_mainScreen = nullptr;
 	_injectorTestScreen = nullptr;
 	_configScreen = nullptr;
-	_waitingForInput = false;
+	_waitingForInput = false;	
 
-	SwitchMode(MainMenu);
+	SwitchMode(MainMenu);	
 }
 
 MainSequence::~MainSequence()
@@ -179,10 +179,11 @@ void MainSequence::SwitchMode(OperationMode mode)
 	case MainMenu:
 		{
 			InitializeMainMenu();
-		};
+		}
 	default: ;
 	}
 
+	_readyToSwitch = false;
 	Context::SetOperationMode(mode);
 }
 
@@ -300,6 +301,7 @@ SystemState MainSequence::RunHwChecks()
 			if (Context::GetButtonsController().IsButtonPressed(x1A)) //continue
 			{
 				_waitingForInput = false;
+				_hwChecksSequence->Skip();
 			}
 			else
 			{
@@ -322,7 +324,7 @@ SystemState MainSequence::RunHwChecks()
 				{
 					SwitchMode(MainMenu);
 					return SystemIdle;
-				}
+				}		
 
 				return SystemRunning;
 			}
@@ -418,6 +420,21 @@ SystemState MainSequence::RunMainMenu()
 	}
 
 	auto controller = Context::GetButtonsController();
+	
+	if (!_readyToSwitch)
+	{
+		if (controller.IsButtonPressed(x1A) || 
+			controller.IsButtonPressed(x2B) || 
+			controller.IsButtonPressed(x3C) || 
+			controller.IsButtonPressed(x4D) || 
+			controller.IsButtonPressed(x5E) || 
+			controller.IsButtonPressed(x6F))
+		{
+			return SystemIdle;
+		}
+
+		_readyToSwitch = true;
+	}
 
 	if (controller.IsButtonPressed(x1A))
 	{

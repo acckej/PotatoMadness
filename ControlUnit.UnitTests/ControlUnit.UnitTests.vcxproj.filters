@@ -42,6 +42,12 @@
     <ClInclude Include="FiringActionForcedMixing_Frame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HwChecksTest_Frame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HwChecksHoldButtons_Frame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -78,6 +84,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ConfigurationScreenTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HwChecksFrameTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

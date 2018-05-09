@@ -45,10 +45,11 @@ CheckResult HwCheckSequence::Run()
 		_checkIndex++;
 		if (_checkIndex >= _checksCount)
 		{
-			_checkIndex = 0;
-			return Passed;
-		}
-	}
+			_checkIndex = 0;			
+		}		
+
+		return Passed;
+	}	
 	default:
 	{
 		Context::LogMessage("Unexpected hw check result code");
@@ -56,4 +57,14 @@ CheckResult HwCheckSequence::Run()
 		return Failed;
 	}
 	}	
+}
+
+void HwCheckSequence::Skip()
+{
+	_checkIndex++;
+
+	if(_checkIndex >= HW_CHECKS_COUNT - 1)
+	{
+		_checkIndex = 0;
+	}
 }

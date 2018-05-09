@@ -1,8 +1,9 @@
 #pragma once
+
 #include "IFrameFactory.h"
 #include "Constants.h"
 
-class FiringActionForcedMixing_Config : public IConfiguration
+class HwTest_Config : public IConfiguration
 {
 public:
 	int GetLoaderForwardFanTime() override
@@ -11,27 +12,38 @@ public:
 	};
 };
 
-class FiringActionForcedMixing_Frame : public IFrameFactory
+class HwChecksTest_Frame : public IFrameFactory
 {
 public:
-	explicit FiringActionForcedMixing_Frame(int frameDelay)
+	explicit HwChecksTest_Frame(int frameDelay)
 		: IFrameFactory(frameDelay)
 	{
 	}
 
 	Frame* GetTestFrame() override
 	{
-		auto result = new Frame(_frameDelay, new FiringActionForcedMixing_Config());
+		auto result = new Frame(_frameDelay, new HwTest_Config());
 
 		vector<PortValue> btn1 = {
 			{ 0, 0 },
-		{ 1, 1 },		
-		{ 2, 0 },
-		{ 3, 0 }
+			{ 1, 1 },
+			{ 2, 0 },
+			{ 3, 0 },
+			{ 20, 1 },
+			{ 21, 0 }
 		};
-		result->AddDigitalPortMapping(BTN2_PORT, btn1);
+		result->AddDigitalPortMapping(BTN4_PORT, btn1);
 
-		vector<PortValue> fwCheck = {
+		vector<PortValue> btn2 = {
+			{ 0, 0 },
+			{ 10, 1 },
+			{ 11, 0 },
+			{ 20, 1 },
+			{ 21, 0 }
+		};
+		result->AddDigitalPortMapping(BTN1_PORT, btn2);		
+
+		/*vector<PortValue> fwCheck = {
 			{ 0, 0 },
 		{ 1, 1 },
 		{ 2, 1 },
@@ -79,9 +91,10 @@ public:
 		result->AddExternalHumidity({ 40, 0.65f });
 
 		result->AddExternalTemp({ 0, 0 });
-		result->AddExternalTemp({ 40, 25.0f });
+		result->AddExternalTemp({ 40, 25.0f });*/
 
 		return result;
 	}
 };
+
 

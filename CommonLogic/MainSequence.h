@@ -47,6 +47,7 @@ private:
 	TestScreen* _testScreen;
 	HwCheckSequence* _hwChecksSequence;
 	bool _waitingForInput;
+	bool _readyToSwitch;
 
 	FiringScreen* _firingScreen;
 	FiringSequencer* _firingSequencer;

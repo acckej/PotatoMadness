@@ -149,6 +149,8 @@
     <ClInclude Include="ArduinoStub.h" />
     <ClInclude Include="FiringActionForcedMixing_Frame.h" />
     <ClInclude Include="Frame.h" />
+    <ClInclude Include="HwChecksHoldButtons_Frame.h" />
+    <ClInclude Include="HwChecksTest_Frame.h" />
     <ClInclude Include="IFrameFactory.h" />
     <ClInclude Include="LoaderForwardActionTest_Frame.h" />
     <ClInclude Include="PortValues.h" />
@@ -161,6 +163,7 @@
     <ClCompile Include="ConfigurationScreenTest.cpp" />
     <ClCompile Include="FiringActionsTest.cpp" />
     <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="HwChecksFrameTest.cpp" />
     <ClCompile Include="HwChecksTest_DrivesPower.cpp" />
     <ClCompile Include="HwChecksTest_Sensors.cpp" />
     <ClCompile Include="IFrameFactory.cpp" />
