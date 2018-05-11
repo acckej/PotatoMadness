@@ -84,7 +84,7 @@ CheckResult LoaderCheck::Check()
 		}
 	}
 
-	_wrapper->Delay(100);
+	//_wrapper->Delay(100);
 
 	return Running;
 }

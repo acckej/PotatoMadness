@@ -15,7 +15,7 @@ int Context::_idleCyclesCounter;
 
 Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader, Actuators* actuators, Sensors* sensors, IConfiguration* configuration)
 {
-	_mode = FiringMode;
+	_mode = MainMenu;
 	_wrapper = wrapper;
 	_buttonsController = buttons;
 	_loader = loader;

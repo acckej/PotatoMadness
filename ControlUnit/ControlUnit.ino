@@ -8,29 +8,43 @@
 #include "MainSequence.h"
 #include "ConfigurationValueStorage.h"
 
+#include "ButtonsCheck.h"
+
 #define Arduino
 
 auto _wrapper = ArduinoWrapper();
 
 auto _sensors = Sensors(&_wrapper);
-auto config = ConfigurationValueStorage(&_wrapper);
+auto _config = ConfigurationValueStorage(&_wrapper);
 auto _loader = Loader(&_wrapper);
 auto _actuators = Actuators(&_wrapper);
 auto _buttons = ButtonsController(&_wrapper, nullptr, 0);
-auto _context = Context(&_wrapper, &_buttons, &_loader, &_actuators, &_sensors, &config);
+auto _context = Context(&_wrapper, &_buttons, &_loader, &_actuators, &_sensors, &_config);
 auto _mainSequence = MainSequence(&_wrapper);
 
 bool _high = false;
+
+////
+auto screen = TestScreen(&_wrapper);
+IHwCheck* checks[1];
+auto bc = ButtonsCheck(&_wrapper, &screen);
+auto seq = HwCheckSequence(&_wrapper, checks, 1);
+CheckResult _hwCheckResult = Running;
+////
 
 void setup() 
 {	
 #ifdef Debug
 	Serial.begin(9600);
-#endif
+#endif	
 
 	_wrapper.Init();
 
+	checks[0] = &bc;
+
 	pinMode(LED_BUILTIN, OUTPUT);
+
+	_context.Halt();
 }
 
 void loop() 
@@ -44,13 +58,27 @@ void loop()
 	{
 		digitalWrite(13, LOW);
 		_high = true;
-	}	
+	}		
 
-	if (Context::GetState() != IdleCycle)
+	/*screen.SetCursor(0, 0);
+	screen.Print("test");
+
+	delay(1000);	*/
+
+	if (_hwCheckResult == Running)
+	{
+		_hwCheckResult = seq.Run();
+	}
+	else
+	{
+		delay(1000);
+	}
+
+	/*if (Context::GetState() != IdleCycle)
 	{
 		auto state = _mainSequence.Run();
 		Context::SetState(state);
-	}
+	}*/
 
 	//Serial.println(_hwCheckResult);
 }

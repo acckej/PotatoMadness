@@ -156,7 +156,7 @@ void ArduinoWrapper::LogFormat(char * message, ...)
 	char buffer[128];
 	va_list args = nullptr;
 	va_start(args, message);
-	vsnprintf(buffer, SCREEN_BUFFER_SIZE, message, args);
+	vsnprintf(buffer, 128, message, args);
 	va_end(args);
 
 	Serial.println(buffer);

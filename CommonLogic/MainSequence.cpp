@@ -156,7 +156,7 @@ void MainSequence::SwitchMode(OperationMode mode)
 		}
 		break;
 	default: ;
-	}
+	}	
 
 	switch(mode)
 	{

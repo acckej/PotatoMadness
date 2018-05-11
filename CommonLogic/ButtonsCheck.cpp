@@ -7,7 +7,15 @@ ButtonsCheck::ButtonsCheck(IArduinoWrapper* wrapper, TestScreen* screen): IHwChe
 
 CheckResult ButtonsCheck::Check()
 {
-	_screen->Println("Buttons test", 1);
+	if(IsIdleCycle(CYCLE_DURATION))
+	{
+		return Running;
+	}
+
+	if (_cyclesCounter == 0)
+	{
+		_screen->Println("Buttons test", 1);
+	}
 
 	auto controller = Context::GetButtonsController();
 
@@ -61,7 +69,8 @@ CheckResult ButtonsCheck::Check()
 	}
 	}
 
-	_wrapper->Delay(100);
+	_cyclesCounter++;
+	//_wrapper->Delay(100);
 
 	return Running;
 }
