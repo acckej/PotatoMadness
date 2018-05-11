@@ -49,6 +49,14 @@ void setup()
 
 void loop() 
 {	
+	if (_context.GetState() == SystemIdle)
+	{
+		if (!_context.IncrementIdleCycleCounter())
+		{
+			return;
+		}
+	}
+
 	if(_high)
 	{
 		digitalWrite(13, HIGH);

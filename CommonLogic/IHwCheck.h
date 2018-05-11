@@ -20,6 +20,6 @@ protected:
 	int _cyclesCounter;
 	long _lastCycle;
 
-	bool IsIdleCycle(int duration) const;
+	bool IsIdleCycle(int duration);
 };
 

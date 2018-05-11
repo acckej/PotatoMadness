@@ -21,8 +21,15 @@ CheckResult IHwCheck::Check()
 	return CheckResult();
 }
 
-bool IHwCheck::IsIdleCycle(int duration) const
+bool IHwCheck::IsIdleCycle(int duration)
 {
 	auto current = _wrapper->GetMilliseconds();
-	return current - _lastCycle <= duration;
+
+	if(current - _lastCycle > duration)
+	{
+		_lastCycle = current;
+		return false;
+	}
+
+	return true;
 }

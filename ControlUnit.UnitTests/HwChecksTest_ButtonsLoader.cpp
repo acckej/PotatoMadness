@@ -6,6 +6,7 @@
 #include "ButtonsController.h"
 #include "Context.h"
 #include "LoaderCheck.h"
+#include "ConfigurationValueStorage.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -18,6 +19,31 @@ namespace ControlUnitUnitTests
 	TEST_CLASS(HardwareChecksTest_ButtonsLoader)
 	{
 	public:
+		TEST_METHOD(HwChecksSequenceTest_ButtonsUnpressed)
+		{
+			auto wrapper = ArduinoStub(DigitalReadButtons, nullptr);
+			auto screen = TestScreen(&wrapper);
+			auto loader = Loader(&wrapper);
+			auto actuators = Actuators(&wrapper);
+			auto sensors = Sensors(&wrapper);
+			auto storage = ConfigurationValueStorage(&wrapper);
+
+			IHwCheck* checks[1];
+			auto bc = new ButtonsCheck(&wrapper, &screen);
+			checks[0] = bc;
+			auto buttons = ButtonsController(&wrapper, nullptr, 0);
+			auto context = Context(&wrapper, &buttons, &loader, &actuators, &sensors, &storage);			
+
+			auto seq = HwCheckSequence(&wrapper, checks, 1);
+
+			for (auto i = 0; i < 100; i++)
+			{
+				seq.Run();				
+			}			
+
+			delete bc;
+		}
+
 		
 		TEST_METHOD(HwChecksSequenceTest_Buttons)
 		{
