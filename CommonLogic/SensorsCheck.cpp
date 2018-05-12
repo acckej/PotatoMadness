@@ -1,5 +1,6 @@
 #include "SensorsCheck.h"
 
+#define REFRESH_CYCLE 500
 
 SensorsCheck::SensorsCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader* loader, Actuators* actuators, Sensors* sensors) : IHwCheck(wrapper, screen)
 {	
@@ -15,6 +16,11 @@ SensorsCheck::SensorsCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader*
 
 CheckResult SensorsCheck::Check()
 {
+	if(IsIdleCycle(CYCLE_DURATION))
+	{
+		return Running;
+	}
+
 	if(_shotSensors)
 	{
 		if(_cyclesCounter == 0)
@@ -30,12 +36,15 @@ CheckResult SensorsCheck::Check()
 			auto rss = _sensors->GetRss();
 			auto fss = _sensors->GetFss();
 
-			_screen->Println("Blast sens:", 2);
-			_screen->Print(blastSens ? "1" : "0");
-			_screen->Println("Rss:", 3);
-			_screen->Print(rss ? "1" : "0");
-			_screen->Print(" Fss:");
-			_screen->Print(fss ? "1" : "0");
+			if (IsRefreshCycle(REFRESH_CYCLE))
+			{
+				_screen->Println("Blast sens:", 2);
+				_screen->Print(blastSens ? "1" : "0");
+				_screen->Println("Rss:", 3);
+				_screen->Print(rss ? "1" : "0");
+				_screen->Print(" Fss:");
+				_screen->Print(fss ? "1" : "0");
+			}
 
 			if(blastSens || rss || fss)
 			{
@@ -68,10 +77,13 @@ CheckResult SensorsCheck::Check()
 			auto hum = _wrapper->GetExternalHumidity();
 			auto temp = _wrapper->GetExternalTemp();
 
-			_screen->Println("Hum:", 2);
-			_screen->PrintNumber(hum, 2);
-			_screen->Print(" Temp:");
-			_screen->PrintNumber(temp, 2);
+			if (IsRefreshCycle(REFRESH_CYCLE))
+			{
+				_screen->Println("Hum:", 2);
+				_screen->PrintNumber(hum, 2);
+				_screen->Print(" Temp:");
+				_screen->PrintNumber(temp, 2);
+			}
 
 			if (hum == 0 || temp == 0)
 			{
@@ -104,10 +116,13 @@ CheckResult SensorsCheck::Check()
 			auto press = _wrapper->GetAtmPressure();
 			auto temp = _wrapper->GetInternalTemp();
 
-			_screen->Println("Prsr:", 2);
-			_screen->PrintNumber(press, 2);
-			_screen->Print(" Temp:");
-			_screen->PrintNumber(temp, 2);
+			if (IsRefreshCycle(REFRESH_CYCLE))
+			{
+				_screen->Println("Prsr:", 2);
+				_screen->PrintNumber(press, 2);
+				_screen->Print(" Temp:");
+				_screen->PrintNumber(temp, 2);
+			}
 
 			if (press == 0 || temp == 0)
 			{
@@ -117,7 +132,7 @@ CheckResult SensorsCheck::Check()
 
 			_cyclesCounter++;
 
-			if (_cyclesCounter >= 20)
+			if (_cyclesCounter >= 40)
 			{
 				_intEnv = false;
 				_receiver = true;
@@ -138,8 +153,11 @@ CheckResult SensorsCheck::Check()
 		else
 		{
 			auto press = _sensors->GetReceiverPressure();
-			_screen->Println("Pressure:", 2);
-			_screen->PrintNumber(press, 2);
+			if (IsRefreshCycle(REFRESH_CYCLE))
+			{
+				_screen->Println("Pressure:", 2);
+				_screen->PrintNumber(press, 2);
+			}
 
 			if (press < 0)
 			{
@@ -170,8 +188,11 @@ CheckResult SensorsCheck::Check()
 		else
 		{
 			auto as = _loader->NoAmmo();
-			_screen->Println("Ammo: ", 2);
-			_screen->Print(as ? "1" : "0");						
+			if (IsRefreshCycle(REFRESH_CYCLE))
+			{
+				_screen->Println("Ammo: ", 2);
+				_screen->Print(as ? "1" : "0");
+			}
 
 			_cyclesCounter++;
 

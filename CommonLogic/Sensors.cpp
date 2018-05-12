@@ -1,6 +1,6 @@
 #include "Sensors.h"
 #include "Constants.h"
-
+#include <stdlib.h>
 
 Sensors::Sensors(IArduinoWrapper* wrapper)
 {
@@ -26,7 +26,7 @@ float Sensors::GetReceiverPressure() const
 		return -1;
 	}
 
-	return (val - PRESSURE_CONSTANT) * PRESSURE_COEFFICIENT;
+	return abs((val - PRESSURE_CONSTANT) * PRESSURE_COEFFICIENT);
 }
 
 void Sensors::ResetDebouncingTriggers() const

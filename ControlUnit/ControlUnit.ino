@@ -8,7 +8,7 @@
 #include "MainSequence.h"
 #include "ConfigurationValueStorage.h"
 
-#include "ButtonsCheck.h"
+#include "SensorsCheck.h"
 
 #define Arduino
 
@@ -25,12 +25,17 @@ auto _mainSequence = MainSequence(&_wrapper);
 bool _high = false;
 
 ////
+//auto screen = TestScreen(&_wrapper);
+//IHwCheck* checks[1];
+//auto bc = ButtonsCheck(&_wrapper, &screen);
+//auto seq = HwCheckSequence(&_wrapper, checks, 1);
+//CheckResult _hwCheckResult = Running;
+////
 auto screen = TestScreen(&_wrapper);
 IHwCheck* checks[1];
-auto bc = ButtonsCheck(&_wrapper, &screen);
+auto bc = SensorsCheck(&_wrapper, &screen, &_loader, &_actuators, &_sensors);
 auto seq = HwCheckSequence(&_wrapper, checks, 1);
 CheckResult _hwCheckResult = Running;
-////
 
 void setup() 
 {	

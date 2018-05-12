@@ -6,6 +6,7 @@ IHwCheck::IHwCheck()
 	_screen = nullptr;
 	_cyclesCounter = 0;
 	_lastCycle = 0;
+	_refreshCycle = 0;
 }
 
 IHwCheck::IHwCheck(IArduinoWrapper* wrapper, TestScreen* screen)
@@ -14,6 +15,7 @@ IHwCheck::IHwCheck(IArduinoWrapper* wrapper, TestScreen* screen)
 	_screen = screen;
 	_cyclesCounter = 0;
 	_lastCycle = 0;
+	_refreshCycle = 0;
 }
 
 CheckResult IHwCheck::Check()
@@ -33,3 +35,18 @@ bool IHwCheck::IsIdleCycle(int duration)
 
 	return true;
 }
+
+bool IHwCheck::IsRefreshCycle(int duration)
+{
+	auto current = _wrapper->GetMilliseconds();
+
+	if (current - _refreshCycle > duration)
+	{
+		_refreshCycle = current;
+		return true;
+	}
+
+	return false;
+}
+
+

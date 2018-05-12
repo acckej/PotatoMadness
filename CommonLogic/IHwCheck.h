@@ -19,7 +19,9 @@ protected:
 	TestScreen* _screen;
 	int _cyclesCounter;
 	long _lastCycle;
+	long _refreshCycle;
 
 	bool IsIdleCycle(int duration);
+	bool IsRefreshCycle(int duration);
 };
 
