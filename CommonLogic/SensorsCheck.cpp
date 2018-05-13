@@ -35,8 +35,15 @@ CheckResult SensorsCheck::Check()
 			auto blastSens = _sensors->GetBlastSensorState();
 			auto rss = _sensors->GetRss();
 			auto fss = _sensors->GetFss();
+			auto fail = false;
 
-			if (IsRefreshCycle(REFRESH_CYCLE))
+			if(blastSens || rss || fss)
+			{
+				_screen->Println("Incorrect state", 4);
+				fail = true;
+			}
+
+			if (IsRefreshCycle(REFRESH_CYCLE) || fail)
 			{
 				_screen->Println("Blast sens:", 2);
 				_screen->Print(blastSens ? "1" : "0");
@@ -46,9 +53,8 @@ CheckResult SensorsCheck::Check()
 				_screen->Print(fss ? "1" : "0");
 			}
 
-			if(blastSens || rss || fss)
+			if(fail)
 			{
-				_screen->Println("Incorrect state", 4);
 				return Failed;
 			}
 		}

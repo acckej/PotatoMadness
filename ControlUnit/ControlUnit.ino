@@ -8,7 +8,7 @@
 #include "MainSequence.h"
 #include "ConfigurationValueStorage.h"
 
-#include "MachineryCheck.h"
+#include "LoaderCheck.h"
 
 #define Arduino
 
@@ -33,7 +33,7 @@ bool _high = false;
 ////
 auto screen = TestScreen(&_wrapper);
 IHwCheck* checks[1];
-auto bc = MachineryCheck(&_wrapper, &screen, &_actuators);
+auto bc = LoaderCheck(&_wrapper, &screen, &_loader);
 auto seq = HwCheckSequence(&_wrapper, checks, 1);
 CheckResult _hwCheckResult = Running;
 
