@@ -1,6 +1,8 @@
 #include "MachineryCheck.h"
 #include "Context.h"
 
+#define REFRESH_CYCLE 500
+
 MachineryCheck::MachineryCheck(IArduinoWrapper * wrapper, TestScreen * screen, Actuators* actuators) : IHwCheck(wrapper, screen)
 {
 	_cyclesCounter = 0;
@@ -20,6 +22,11 @@ CheckResult MachineryCheck::Check()
 		return Interrupted;
 	}
 
+	if(IsIdleCycle(CYCLE_DURATION))
+	{
+		return Running;
+	}
+
 	if(_breachClose)
 	{
 		if(_cyclesCounter == 0)
@@ -30,7 +37,11 @@ CheckResult MachineryCheck::Check()
 
 			_actuators->CloseBreech();
 		}
-		_screen->Println("Breach close", 2);
+
+		if (IsRefreshCycle(REFRESH_CYCLE))
+		{
+			_screen->Println("Breach close", 2);
+		}
 		if(_cyclesCounter >= 30)
 		{
 			_cyclesCounter = 0;
@@ -46,7 +57,10 @@ CheckResult MachineryCheck::Check()
 		{
 			_actuators->OpenBreech();
 		}
-		_screen->Println("Breach open", 3);
+		if (IsRefreshCycle(REFRESH_CYCLE))
+		{
+			_screen->Println("Breach open", 3);
+		}
 		if (_cyclesCounter >= 30)
 		{
 			_cyclesCounter = 0;
@@ -61,7 +75,10 @@ CheckResult MachineryCheck::Check()
 		{
 			_actuators->TurnFanOn();
 		}
-		_screen->Println("Fan", 4);
+		if (IsRefreshCycle(REFRESH_CYCLE))
+		{
+			_screen->Println("Fan", 4);
+		}
 		if (_cyclesCounter >= 30)
 		{
 			_cyclesCounter = 0;

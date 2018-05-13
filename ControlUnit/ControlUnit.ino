@@ -8,7 +8,7 @@
 #include "MainSequence.h"
 #include "ConfigurationValueStorage.h"
 
-#include "SensorsCheck.h"
+#include "MachineryCheck.h"
 
 #define Arduino
 
@@ -33,7 +33,7 @@ bool _high = false;
 ////
 auto screen = TestScreen(&_wrapper);
 IHwCheck* checks[1];
-auto bc = SensorsCheck(&_wrapper, &screen, &_loader, &_actuators, &_sensors);
+auto bc = MachineryCheck(&_wrapper, &screen, &_actuators);
 auto seq = HwCheckSequence(&_wrapper, checks, 1);
 CheckResult _hwCheckResult = Running;
 
@@ -71,12 +71,7 @@ void loop()
 	{
 		digitalWrite(13, LOW);
 		_high = true;
-	}		
-
-	/*screen.SetCursor(0, 0);
-	screen.Print("test");
-
-	delay(1000);	*/
+	}			
 
 	if (_hwCheckResult == Running)
 	{

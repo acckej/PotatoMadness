@@ -88,7 +88,7 @@ void ArduinoWrapper::PrintFormatBuffer(char * buffer, char * message, ...)
 
 float ArduinoWrapper::GetAtmPressure()
 {
-	return atmPSens.readPressure();
+	return atmPSens.readPressure() / ATM_PRESSURE_COEF;
 }
 
 float ArduinoWrapper::GetInternalTemp()
