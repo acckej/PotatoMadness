@@ -64,23 +64,45 @@ void loop()
 
 	if(_high)
 	{
-		digitalWrite(13, HIGH);
+		digitalWrite(13, HIGH);		
 		_high = false;
 	}
 	else
 	{
-		digitalWrite(13, LOW);
+		digitalWrite(13, LOW);		
 		_high = true;
-	}			
+	}	
 
-	if (_hwCheckResult == Running)
+	screen.SetCursor(0, 0);
+	if (_loader.IsFwCheckOn())
+	{
+		screen.Print("fcon ");
+	}
+	else
+	{
+		screen.Print("fcoff");
+	}
+
+	screen.SetCursor(0, 1);
+	if (_loader.IsRevCheckOn())
+	{
+		screen.Print("rcon ");
+	}
+	else
+	{
+		screen.Print("rcoff");
+	}
+
+	delay(200);
+	
+	/*if (_hwCheckResult == Running)
 	{
 		_hwCheckResult = seq.Run();
 	}
 	else
 	{
 		delay(1000);
-	}
+	}*/
 
 	/*if (Context::GetState() != IdleCycle)
 	{

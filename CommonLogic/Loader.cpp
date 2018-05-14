@@ -49,14 +49,16 @@ bool Loader::NoAmmo() const
 
 bool Loader::IsRevCheckOn() const
 {
-	auto result = _wrapper->DigitalRead(LDR_REV_CHECK_PORT);
-	return result == ARDUINO_HIGH;
+	auto result = _wrapper->AnalogRead(LDR_REV_CHECK_PORT);
+	auto volt = ANALOG_COEFFICIENT * double(result);
+	return volt <= LOADER_CHECKS_THRESHOLD;
 }
 
 bool Loader::IsFwCheckOn() const
 {
-	auto result = _wrapper->DigitalRead(LDR_FW_CHECK_PORT);
-	return result == ARDUINO_HIGH;
+	auto result = _wrapper->AnalogRead(LDR_FW_CHECK_PORT);
+	auto volt = ANALOG_COEFFICIENT * double(result);
+	return volt <= LOADER_CHECKS_THRESHOLD;
 }
 
 

@@ -147,6 +147,8 @@ void ArduinoWrapper::Init()
 	pinMode(BTN4_PORT, INPUT);
 	pinMode(BTN5_PORT, INPUT);
 	pinMode(BTN6_PORT, INPUT);
+	pinMode(LDR_FW_CHECK_PORT, INPUT);
+	pinMode(LDR_REV_CHECK_PORT, INPUT);
 
 	atmPSens.begin(BAROMETER_ADDRESS);	
 }

@@ -51,7 +51,7 @@ CheckResult LoaderCheck::Check()
 		
 		_cyclesCounter++;
 
-		if(_cyclesCounter >= 50)
+		if(_cyclesCounter >= 100)
 		{
 			_forward = false;
 			_loader->Stop();
@@ -80,7 +80,7 @@ CheckResult LoaderCheck::Check()
 
 		_cyclesCounter++;
 
-		if (_cyclesCounter >= 50)
+		if (_cyclesCounter >= 100)
 		{
 			Stop();
 			_forward = true;
@@ -114,32 +114,32 @@ CheckResult LoaderCheck::CheckCurrent(char messageLine)
 		return Failed;
 	}
 
-	if (loaderCurrent < LOADER_CURRENT_WORKING)
-	{
-		if(_loader->IsRevCheckOn() || _loader->IsFwCheckOn())
-		{
-			_screen->Println("Rchk:", 4);
-			_screen->Print(_loader->IsRevCheckOn() ? "1" : "0");
-			_screen->Print(";Fchk:");
-			_screen->Print(_loader->IsFwCheckOn() ? "1" : "0");
+	//if (loaderCurrent < LOADER_CURRENT_WORKING)
+	//{
+	//	if(_loader->IsRevCheckOn() || _loader->IsFwCheckOn())
+	//	{
+	//		_screen->Println("Rchk:", 4);
+	//		_screen->Print(_loader->IsRevCheckOn() ? "1" : "0");
+	//		_screen->Print(";Fchk:");
+	//		_screen->Print(_loader->IsFwCheckOn() ? "1" : "0");
 
-			return Passed;
-		}
+	//		return Passed;
+	//	}
 
-		Stop();		
-		_screen->Println("Low curr: ", messageLine);
-		_screen->PrintNumber(loaderCurrent, 2);
-		_screen->Print("a");		
+	//	/*Stop();		
+	//	_screen->Println("Low curr: ", messageLine);
+	//	_screen->PrintNumber(loaderCurrent, 2);
+	//	_screen->Print("a");		
 
-		return Failed;
-	}
+	//	return Failed;*/
+	//}
 
 	if (IsRefreshCycle(REFRESH_CYCLE))
 	{
 		_screen->Println("Current: ", messageLine);
 		_screen->PrintNumber(loaderCurrent, 2);
-		_screen->Print("a fc");
-		_screen->Print(_loader->IsFwCheckOn() ? "1 rc" : "0 rc");
+		_screen->Print("a");
+		_screen->Println(_loader->IsFwCheckOn() ? "fc1 rc" : "fc0 rc", 3);
 		_screen->Print(_loader->IsRevCheckOn() ? "1" : "0");
 	}
 
