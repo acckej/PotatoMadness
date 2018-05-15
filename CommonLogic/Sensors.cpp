@@ -31,11 +31,11 @@ float Sensors::GetReceiverPressure() const
 
 void Sensors::ResetDebouncingTriggers() const
 {
-	_wrapper->DigitalWrite(BLAST_TRIGGER_RESET_PORT, ARDUINO_LOW);
-	_wrapper->DigitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_HIGH);
-	_wrapper->Delay(50);
 	_wrapper->DigitalWrite(BLAST_TRIGGER_RESET_PORT, ARDUINO_HIGH);
 	_wrapper->DigitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_LOW);
+	_wrapper->Delay(50);
+	_wrapper->DigitalWrite(BLAST_TRIGGER_RESET_PORT, ARDUINO_LOW);
+	_wrapper->DigitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_HIGH);
 }
 
 bool Sensors::GetFss() const

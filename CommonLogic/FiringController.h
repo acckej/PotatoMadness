@@ -19,6 +19,10 @@ public:
 	static ErrorCodes GetErrorCode();
 
 	static void Reset();
+
+	static int r;
+	static int f;
+	static int b;
 private:
 	static bool _fireFlag;
 	unsigned static long _startTime;
@@ -26,6 +30,6 @@ private:
 	static IArduinoWrapper * _wrapper;
 	static bool _frontSensorEngaged;	
 	static ErrorCodes _errorCode;
-	static bool _rearSensorEngaged;
+	static bool _rearSensorEngaged;	
 };
 

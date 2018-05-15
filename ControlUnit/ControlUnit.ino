@@ -50,17 +50,21 @@ void setup()
 	pinMode(LED_BUILTIN, OUTPUT);
 
 	_context.Halt();
+
+	attachInterrupt(digitalPinToInterrupt(BLAST_SENSOR_PORT), FiringController::BlastSensorHandler, HIGH);
+	//attachInterrupt(FSS_PORT, FiringController::FrontSpeedsensorHandler, HIGH);
+	//attachInterrupt(RSS_PORT, FiringController::RearSpeedSensorHandler, HIGH);
 }
 
 void loop() 
 {	
-	if (_context.GetState() == SystemIdle)
+	/*if (_context.GetState() == SystemIdle)
 	{
 		if (!_context.IncrementIdleCycleCounter())
 		{
 			return;
 		}
-	}
+	}*/
 
 	if(_high)
 	{
@@ -72,29 +76,13 @@ void loop()
 		digitalWrite(13, LOW);		
 		_high = true;
 	}	
-
-	screen.SetCursor(0, 0);
-	if (_loader.IsFwCheckOn())
-	{
-		screen.Print("fcon ");
-	}
-	else
-	{
-		screen.Print("fcoff");
-	}
-
-	screen.SetCursor(0, 1);
-	if (_loader.IsRevCheckOn())
-	{
-		screen.Print("rcon ");
-	}
-	else
-	{
-		screen.Print("rcoff");
-	}
-
-	delay(200);
 	
+	_wrapper.SetScreenCursor(0, 0);
+	_wrapper.Print(FiringController::b);
+	Serial.println(FiringController::b);
+		
+	
+	delay(500);
 	/*if (_hwCheckResult == Running)
 	{
 		_hwCheckResult = seq.Run();
