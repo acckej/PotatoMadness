@@ -82,12 +82,12 @@
  *		x3		x6
  */
 
-#define BTN1_PORT 27
-#define BTN2_PORT 33
-#define BTN3_PORT 31
+#define BTN1_PORT 33
+#define BTN2_PORT 31
+#define BTN3_PORT 23
 #define BTN4_PORT 29
-#define BTN5_PORT 25
-#define BTN6_PORT 23
+#define BTN5_PORT 27
+#define BTN6_PORT 25
 
 //A continue
 //B stop

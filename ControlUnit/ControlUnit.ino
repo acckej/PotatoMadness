@@ -8,7 +8,7 @@
 #include "MainSequence.h"
 #include "ConfigurationValueStorage.h"
 
-#include "LoaderCheck.h"
+#include "ButtonsCheck.h"
 
 #define Arduino
 
@@ -33,7 +33,7 @@ bool _high = false;
 ////
 auto screen = TestScreen(&_wrapper);
 IHwCheck* checks[1];
-auto bc = LoaderCheck(&_wrapper, &screen, &_loader);
+auto bc = ButtonsCheck(&_wrapper, &screen);
 auto seq = HwCheckSequence(&_wrapper, checks, 1);
 CheckResult _hwCheckResult = Running;
 
@@ -52,8 +52,8 @@ void setup()
 	_context.Halt();
 
 	attachInterrupt(digitalPinToInterrupt(BLAST_SENSOR_PORT), FiringController::BlastSensorHandler, HIGH);
-	//attachInterrupt(FSS_PORT, FiringController::FrontSpeedsensorHandler, HIGH);
-	//attachInterrupt(RSS_PORT, FiringController::RearSpeedSensorHandler, HIGH);
+	attachInterrupt(digitalPinToInterrupt(FSS_PORT), FiringController::FrontSpeedsensorHandler, HIGH);
+	attachInterrupt(digitalPinToInterrupt(RSS_PORT), FiringController::RearSpeedSensorHandler, HIGH);
 }
 
 void loop() 
@@ -79,10 +79,36 @@ void loop()
 	
 	_wrapper.SetScreenCursor(0, 0);
 	_wrapper.Print(FiringController::b);
-	Serial.println(FiringController::b);
-		
+	_wrapper.SetScreenCursor(0, 1);
+	_wrapper.Print(FiringController::f);
+	_wrapper.SetScreenCursor(0, 2);
+	_wrapper.Print(FiringController::r);
+
+	if (_buttons.IsButtonPressed(x1A))
+	{
+		_sensors.ResetDebouncingTriggers();
+		FiringController::b = 0;
+		FiringController::f = 0;
+		FiringController::r = 0;
+	}
+
+	if (_buttons.IsButtonPressed(x2B))
+	{
+		_loader.Forward();
+	}
+
+	if (_buttons.IsButtonPressed(x3C))
+	{
+		_loader.Reverse();
+	}
+
+	if (_buttons.IsButtonPressed(x4D))
+	{
+		_loader.Stop();
+	}
 	
-	delay(500);
+	delay(200);
+
 	/*if (_hwCheckResult == Running)
 	{
 		_hwCheckResult = seq.Run();
