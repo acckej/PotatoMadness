@@ -45,13 +45,13 @@ void Actuators::TurnFanOff()
 	_fanOn = false;
 }
 
-void Actuators::IngnitionOn() 
+void Actuators::TurnIngnitionOn() 
 {
 	_wrapper->DigitalWrite(IGNITION_PORT, ARDUINO_LOW );
 	_ignitionOn = true;
 }
 
-void Actuators::IgnitionOff() 
+void Actuators::TurnIgnitionOff() 
 {
 	_wrapper->DigitalWrite(IGNITION_PORT, ARDUINO_HIGH);
 	_ignitionOn = false;

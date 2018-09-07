@@ -13,8 +13,8 @@ public:
 	void TurnFanOn();
 	void TurnFanOff();
 
-	void IngnitionOn();
-	void IgnitionOff();
+	void TurnIngnitionOn();
+	void TurnIgnitionOff();
 
 	void InjectorStart();
 	void InjectorStop();

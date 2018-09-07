@@ -44,7 +44,7 @@ void Context::Halt()
 	_actuators->TurnFanOff();
 	_actuators->InjectorStop();
 	_actuators->CloseBreech();	
-	_actuators->IgnitionOff();
+	_actuators->TurnIgnitionOff();
 	_actuators->AuxOff();
 	_actuators->EngageInjectorDiode(false);	
 	_sensors->ResetDebouncingTriggers();

@@ -75,7 +75,7 @@ void ArduinoWrapper::PrintFormat(char * message, ...)
 	vsnprintf(buffer, SCREEN_BUFFER_SIZE, message, args);
 	va_end(args);
 
-	lcd.print(message);
+	lcd.print(buffer);
 }
 
 void ArduinoWrapper::PrintFormatBuffer(char * buffer, char * message, ...)

@@ -10,9 +10,9 @@ bool FiringController::_frontSensorEngaged;
 bool FiringController::_rearSensorEngaged;
 ErrorCodes FiringController::_errorCode;
 
-int FiringController::b;
-int FiringController::r;
-int FiringController::f;
+volatile int FiringController::b;
+volatile int FiringController::r;
+volatile int FiringController::f;
 
 FiringController::FiringController(IArduinoWrapper* wrapper)
 {
@@ -33,21 +33,21 @@ void FiringController::FrontSpeedsensorHandler()
 {
 	f++;
 
-	if(!_fireFlag)
+	/*if(!_fireFlag)
 	{
 		_errorCode = FssWithoutBlast;
 		return;
 	}
 
 	_startTime = _wrapper->GetMilliseconds();
-	_frontSensorEngaged = true;	
+	_frontSensorEngaged = true;	*/
 }
 
 void FiringController::RearSpeedSensorHandler()
 {
 	r++;
 
-	if(!_fireFlag)
+	/*if(!_fireFlag)
 	{
 		_errorCode = RssWithoutBlast;
 		return;
@@ -61,15 +61,15 @@ void FiringController::RearSpeedSensorHandler()
 
 	_rearSensorEngaged = true;
 	_endTime = _wrapper->GetMilliseconds();
-	Context::SetState(SystemRunning);	
+	Context::SetState(SystemRunning);	*/
 }
 
 void FiringController::BlastSensorHandler()
 {
 	b++;
 
-	_fireFlag = true;
-	Context::SetState(IdleCycle);	
+	/*_fireFlag = true;
+	Context::SetState(IdleCycle);	*/
 }
 
 float FiringController::GetProjectileSpeed()

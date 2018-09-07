@@ -43,7 +43,7 @@ void PrepareForFiringAction::StartAction()
 	IAction::StartAction();
 	
 	_controller->Reset();
-	_actuators->IngnitionOn();
+	_actuators->TurnIngnitionOn();
 	_firingState = Firing;
 }
 
@@ -88,7 +88,7 @@ ActionState PrepareForFiringAction::Execute()
 
 void PrepareForFiringAction::EndAction()
 {
-	_actuators->IgnitionOff();
+	_actuators->TurnIgnitionOff();
 	_controller->Reset();	
 }
 

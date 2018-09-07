@@ -1,6 +1,5 @@
 #include "Sensors.h"
 #include "Constants.h"
-#include <stdlib.h>
 
 Sensors::Sensors(IArduinoWrapper* wrapper)
 {
@@ -19,21 +18,23 @@ double Sensors::GetBatteryVoltage() const
 float Sensors::GetReceiverPressure() const
 {
 	auto press = _wrapper->AnalogRead(RECEIVER_PRESSURE_PORT);
-	auto val = double(press) * ANALOG_COEFFICIENT;
+	auto val = float(press) * ANALOG_COEFFICIENT;
 
 	if (val < 0.45f)
 	{
 		return -1;
 	}
 
-	return abs((val - PRESSURE_CONSTANT) * PRESSURE_COEFFICIENT);
+	val = float(val - PRESSURE_CONSTANT) * PRESSURE_COEFFICIENT;
+
+	return val < 0 ? val * -1 : val;
 }
 
 void Sensors::ResetDebouncingTriggers() const
 {
 	_wrapper->DigitalWrite(BLAST_TRIGGER_RESET_PORT, ARDUINO_HIGH);
 	_wrapper->DigitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_LOW);
-	_wrapper->Delay(50);
+	_wrapper->Delay(100);
 	_wrapper->DigitalWrite(BLAST_TRIGGER_RESET_PORT, ARDUINO_LOW);
 	_wrapper->DigitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_HIGH);
 }

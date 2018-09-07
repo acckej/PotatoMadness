@@ -20,9 +20,9 @@ public:
 
 	static void Reset();
 
-	static int r;
-	static int f;
-	static int b;
+	static volatile int r;
+	static volatile int f;
+	static volatile int b;
 private:
 	static bool _fireFlag;
 	unsigned static long _startTime;
