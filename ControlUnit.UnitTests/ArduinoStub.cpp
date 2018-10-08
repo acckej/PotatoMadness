@@ -109,3 +109,13 @@ unsigned long ArduinoStub::GetMilliseconds()
 	return now.time_since_epoch().count() / 10000;
 }
 
+unsigned char ArduinoStub::ReadFromEeprom(short index)
+{
+	return _buffer[index];
+}
+
+void ArduinoStub::WriteToEeprom(short index, unsigned char value)
+{
+	_buffer[index] = value;
+}
+

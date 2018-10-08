@@ -199,3 +199,27 @@ void ConfigurationValueStorage::InitConfiguration()
 	_values[21] = { 10.0f, 1.0f, "ficc  " }; // firing idle cycles count
 }
 
+double ConfigurationValueStorage::GetDoubleFromEeeprom(short address) const
+{
+	long two = _wrapper->ReadFromEeprom(address);
+	long one = _wrapper->ReadFromEeprom(address + 1);
+	long three = _wrapper->ReadFromEeprom(address + 2);
+	long four = _wrapper->ReadFromEeprom(address + 3);
+	
+	return (two << 0 & 0xFF) + (one << 8 & 0xFFFF) + (three << 16 & 0xFFFFFF) + (four << 24 & 0xFFFFFFFF);
+}
+
+void ConfigurationValueStorage::SaveDoubleToEeprom(double val, short address) const
+{
+	auto value = long(val);
+	unsigned char two = value & 0xFF;
+	unsigned char one = value >> 8 & 0xFF;
+	unsigned char three = value >> 16 & 0xFFFF;
+	unsigned char four = value >> 24 & 0xFFFFFF;
+
+	_wrapper->WriteToEeprom(address, four);
+	_wrapper->WriteToEeprom(address + 1, three);
+	_wrapper->WriteToEeprom(address + 2, two);
+	_wrapper->WriteToEeprom(address + 3, one);
+}
+

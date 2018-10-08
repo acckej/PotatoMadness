@@ -88,3 +88,12 @@ unsigned long IArduinoWrapper::GetMilliseconds()
 	return 0;
 }
 
+void IArduinoWrapper::WriteToEeprom(short index, unsigned char value)
+{
+}
+
+unsigned char IArduinoWrapper::ReadFromEeprom(short index)
+{
+	return 0;
+}
+

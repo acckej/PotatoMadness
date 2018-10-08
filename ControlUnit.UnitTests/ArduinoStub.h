@@ -6,6 +6,8 @@ typedef int(*DigitalReadDelegate)(int port);
 typedef void(*DigitalWriteDelegate)(int port, int value);
 typedef int(*AnalogReadDelegate)(int port);
 
+static unsigned char _buffer[1024];
+
 class ArduinoStub : public IArduinoWrapper 
 {
 public:	
@@ -29,6 +31,9 @@ public:
 	float GetExternalHumidity() override;
 	void PrintFormatBuffer(char* buffer, char* message, ...) override;
 	unsigned long GetMilliseconds() override;
+
+	unsigned char ReadFromEeprom(short index) override;
+	void WriteToEeprom(short index, unsigned char value) override;
 private:
 	DigitalReadDelegate _readDelegate;
 	DigitalWriteDelegate _writeDelegate;

@@ -3,12 +3,16 @@
 #include "ArduinoWrapper.h"
 #include "Context.h"
 #include "Actuators.h"
+
 #include "SensorsCheck.h"
+#include "MachineryCheck.h"
+#include "ButtonsCheck.h"
+#include "LoaderCheck.h"
+#include "BatteryCheck.h"
+
 #include "Sensors.h"
 #include "MainSequence.h"
 #include "ConfigurationValueStorage.h"
-
-#include "ButtonsCheck.h"
 
 #define Arduino
 
@@ -26,7 +30,11 @@ bool _high = false;
 
 auto screen = TestScreen(&_wrapper);
 IHwCheck* checks[1];
-auto bc = SensorsCheck(&_wrapper, &screen, &_loader, &_actuators, &_sensors);
+//auto bc = SensorsCheck(&_wrapper, &screen, &_loader, &_actuators, &_sensors);
+auto bc = MachineryCheck(&_wrapper, &screen, &_actuators);
+//auto bc = LoaderCheck(&_wrapper, &screen, &_loader);
+//auto bc = BatteryCheck(&_wrapper, &screen, &_sensors);
+
 auto seq = HwCheckSequence(&_wrapper, checks, 1);
 CheckResult _hwCheckResult = Running;
 

@@ -73,6 +73,10 @@ public:
 private:
 	void InitConfiguration();
 
+	double GetDoubleFromEeeprom(short address) const;
+	void SaveDoubleToEeprom(double val, short address) const;
+
+
 	IArduinoWrapper * _wrapper;
 	ConfigurationValue* _values;
 	char _valuesCount;

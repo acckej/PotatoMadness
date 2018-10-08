@@ -24,7 +24,7 @@ CheckResult BatteryCheck::Check()
 	}
 	
 	auto calculated = _sensors->GetBatteryVoltage();
-
+		
 	_screen->Println("Voltage:", 2);
 	_screen->PrintNumber(calculated, 2);
 
@@ -36,7 +36,7 @@ CheckResult BatteryCheck::Check()
 	
 	_cyclesCounter++;
 
-	if(_cyclesCounter >= 10)
+	if(_cyclesCounter >= 100)
 	{
 		_cyclesCounter = 0;
 		return Passed;

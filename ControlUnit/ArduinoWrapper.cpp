@@ -5,6 +5,7 @@
 #include <DHT.h>
 //#include <Adafruit_Sensor.h>
 #include <Adafruit_BMP280.h>
+#include "EEPROM.h"
 
 
 LiquidCrystal_I2C lcd(0x27, 20, 4); //0x3f
@@ -157,10 +158,10 @@ void ArduinoWrapper::Init()
 
 void ArduinoWrapper::LogFormat(char * message, ...)
 {
-	char buffer[128];
+	char buffer[LOG_BUFSIZE];
 	va_list args = nullptr;
 	va_start(args, message);
-	vsnprintf(buffer, 128, message, args);
+	vsnprintf(buffer, LOG_BUFSIZE, message, args);
 	va_end(args);
 
 	Serial.println(buffer);
@@ -168,7 +169,7 @@ void ArduinoWrapper::LogFormat(char * message, ...)
 
 void ArduinoWrapper::LogFloatingPoint(double val)
 {
-	char buf[20];
+	char buf[FLOATING_POINT_BUFSIZE];
 	dtostrf(val, 7, 3, buf);
 	Serial.println(buf);
 }
@@ -176,6 +177,16 @@ void ArduinoWrapper::LogFloatingPoint(double val)
 unsigned long ArduinoWrapper::GetMilliseconds()
 {
 	return millis();
+}
+
+unsigned char ArduinoWrapper::ReadFromEeprom(short index)
+{
+	return EEPROM.read(index);
+}
+
+void ArduinoWrapper::WriteToEeprom(short index, unsigned char value)
+{
+	EEPROM.write(index, value);
 }
 
 
