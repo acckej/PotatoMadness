@@ -164,11 +164,30 @@ char ConfigurationValueStorage::GetValuesCount() const
 
 void ConfigurationValueStorage::Save()
 {
+	if(_values == nullptr)
+	{
+		return;
+	}
+
+	for (auto i = 0; i < CONFIG_VALUES_COUNT; i++)
+	{
+		SaveDoubleToEeprom(_values[i].Value, i * sizeof(double));
+	}
+
+	_wrapper->WriteToEeprom(CONFIG_VALUES_COUNT * sizeof(double) + 1, CONFIG_UPDATED_FLAG);
 }
 
 void ConfigurationValueStorage::Load()
 {
 	InitConfiguration();
+	if(_wrapper->ReadFromEeprom(CONFIG_VALUES_COUNT * sizeof(double) + 1) == CONFIG_UPDATED_FLAG)
+	{
+		for (auto i = 0; i < CONFIG_VALUES_COUNT; i++)
+		{
+			auto val = GetDoubleFromEeeprom(i * sizeof(double));
+			_values[i].Value = val;
+		}
+	}
 }
 
 void ConfigurationValueStorage::InitConfiguration()
@@ -199,27 +218,26 @@ void ConfigurationValueStorage::InitConfiguration()
 	_values[21] = { 10.0f, 1.0f, "ficc  " }; // firing idle cycles count
 }
 
-double ConfigurationValueStorage::GetDoubleFromEeeprom(short address) const
+ArduinoDouble ConfigurationValueStorage::GetDoubleFromEeeprom(short address) const
 {
-	long two = _wrapper->ReadFromEeprom(address);
-	long one = _wrapper->ReadFromEeprom(address + 1);
-	long three = _wrapper->ReadFromEeprom(address + 2);
-	long four = _wrapper->ReadFromEeprom(address + 3);
-	
-	return (two << 0 & 0xFF) + (one << 8 & 0xFFFF) + (three << 16 & 0xFFFFFF) + (four << 24 & 0xFFFFFFFF);
+	unsigned char temp[4];
+
+	temp[0] = _wrapper->ReadFromEeprom(address);
+	temp[1] = _wrapper->ReadFromEeprom(address + 1);
+	temp[2] = _wrapper->ReadFromEeprom(address + 2);
+	temp[3] = _wrapper->ReadFromEeprom(address + 3);
+
+	auto result = *reinterpret_cast<ArduinoDouble*>(temp);
+	return result;
 }
 
-void ConfigurationValueStorage::SaveDoubleToEeprom(double val, short address) const
+void ConfigurationValueStorage::SaveDoubleToEeprom(ArduinoDouble val, short address) const
 {
-	auto value = long(val);
-	unsigned char two = value & 0xFF;
-	unsigned char one = value >> 8 & 0xFF;
-	unsigned char three = value >> 16 & 0xFFFF;
-	unsigned char four = value >> 24 & 0xFFFFFF;
+	auto value = reinterpret_cast<unsigned char*>(&val);
 
-	_wrapper->WriteToEeprom(address, four);
-	_wrapper->WriteToEeprom(address + 1, three);
-	_wrapper->WriteToEeprom(address + 2, two);
-	_wrapper->WriteToEeprom(address + 3, one);
+	_wrapper->WriteToEeprom(address, value[0]);
+	_wrapper->WriteToEeprom(address + 1, value[1]);
+	_wrapper->WriteToEeprom(address + 2, value[2]);
+	_wrapper->WriteToEeprom(address + 3, value[3]);
 }
 

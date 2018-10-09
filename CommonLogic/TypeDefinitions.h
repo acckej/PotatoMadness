@@ -45,6 +45,16 @@ inline bool IsRecoverableError(ErrorCodes code)
 	return code == NoAmmo || code == LoaderOverload || code == NoError;
 }
 
+#ifdef WIN32
+
+typedef float ArduinoDouble;
+
+#else
+
+typedef double ArduinoDouble;
+
+#endif
+
 
 
 

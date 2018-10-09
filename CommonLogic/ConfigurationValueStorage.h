@@ -1,6 +1,7 @@
 #pragma once
 #include "IArduinoWrapper.h"
 #include "Configuration.h"
+#include "TypeDefinitions.h"
 
 #define SSPPA_INDEX 0
 #define SSPPB_INDEX 1
@@ -26,6 +27,7 @@
 #define FIRING_IDLE_CYCLES_INDEX 21
 
 #define CONFIG_VALUES_COUNT 22
+#define CONFIG_UPDATED_FLAG 99
 
 
 class ConfigurationValueStorage : public IConfiguration
@@ -73,8 +75,8 @@ public:
 private:
 	void InitConfiguration();
 
-	double GetDoubleFromEeeprom(short address) const;
-	void SaveDoubleToEeprom(double val, short address) const;
+	ArduinoDouble GetDoubleFromEeeprom(short address) const;
+	void SaveDoubleToEeprom(ArduinoDouble val, short address) const;
 
 
 	IArduinoWrapper * _wrapper;

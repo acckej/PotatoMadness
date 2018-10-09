@@ -12,6 +12,7 @@ namespace ControlUnitUnitTests
 {
 	static bool _increaseValueTestGo;
 	static bool _decreaseValueTestGo;
+	static bool _saveValueTestGo;
 	static bool _scrollUp;
 
 	TEST_CLASS(ConfigurationScreenTest)
@@ -104,6 +105,69 @@ namespace ControlUnitUnitTests
 			}
 		}
 
+		TEST_METHOD(SaveValueTest)
+		{
+			auto wrapper = ArduinoStub(DigitalReadButtonsSaveValue, nullptr);
+			auto screen = ScrollableScreen(&wrapper);
+			auto storage = ConfigurationValueStorage(&wrapper);
+			auto confScreen = ConfigurationScreen(&wrapper, &storage);
+			auto buttons = ButtonsController(&wrapper, nullptr, 0);
+			auto context = Context(&wrapper, &buttons, nullptr, nullptr, nullptr, &storage);
+
+			storage.Load();
+			_decreaseValueTestGo = false;
+			confScreen.Draw();
+			_decreaseValueTestGo = true;
+
+			for (auto i = 0; i < 100; i++)
+			{
+				confScreen.Draw();
+				wrapper.Delay(100);
+			}
+
+			_decreaseValueTestGo = false;
+			_saveValueTestGo = true;
+
+			for (auto i = 0; i < 100; i++)
+			{
+				confScreen.Draw();
+				wrapper.Delay(100);
+			}
+		}
+
+		TEST_METHOD(SaveLoadValueTest)
+		{
+			auto wrapper = ArduinoStub(DigitalReadButtonsSaveValue, nullptr);
+			auto screen = ScrollableScreen(&wrapper);
+			auto storage = ConfigurationValueStorage(&wrapper);
+			auto confScreen = ConfigurationScreen(&wrapper, &storage);
+			auto buttons = ButtonsController(&wrapper, nullptr, 0);
+			auto context = Context(&wrapper, &buttons, nullptr, nullptr, nullptr, &storage);
+
+			storage.Load();
+			_decreaseValueTestGo = false;
+			confScreen.Draw();
+			_decreaseValueTestGo = true;
+
+			for (auto i = 0; i < 100; i++)
+			{
+				confScreen.Draw();
+				wrapper.Delay(100);
+			}
+
+			_decreaseValueTestGo = false;
+			_saveValueTestGo = true;
+
+			for (auto i = 0; i < 20; i++)
+			{
+				confScreen.Draw();
+				wrapper.Delay(100);
+			}
+
+			storage.Load();
+			
+		}
+
 		TEST_METHOD(ScrollScreenUpDownTest)
 		{
 			auto wrapper = ArduinoStub(DigitalReadButtonsScrollUpDown, nullptr);
@@ -179,6 +243,21 @@ namespace ControlUnitUnitTests
 			if (port == BTN1_PORT)
 			{
 				return _decreaseValueTestGo ? ARDUINO_HIGH : ARDUINO_LOW;
+			}
+
+			return  ARDUINO_LOW;
+		}
+
+		static int DigitalReadButtonsSaveValue(int port)
+		{
+			if (port == BTN1_PORT)
+			{
+				return _decreaseValueTestGo ? ARDUINO_HIGH : ARDUINO_LOW;
+			}
+
+			if (port == BTN6_PORT)
+			{
+				return _saveValueTestGo ? ARDUINO_HIGH : ARDUINO_LOW;
 			}
 
 			return  ARDUINO_LOW;
