@@ -4,11 +4,11 @@
 #include "Context.h"
 #include "Actuators.h"
 
-#include "SensorsCheck.h"
-#include "MachineryCheck.h"
-#include "ButtonsCheck.h"
-#include "LoaderCheck.h"
-#include "BatteryCheck.h"
+//#include "SensorsCheck.h"
+//#include "MachineryCheck.h"
+//#include "ButtonsCheck.h"
+//#include "LoaderCheck.h"
+//#include "BatteryCheck.h"
 
 #include "Sensors.h"
 #include "MainSequence.h"
@@ -31,12 +31,13 @@ bool _high = false;
 auto screen = TestScreen(&_wrapper);
 IHwCheck* checks[1];
 //auto bc = SensorsCheck(&_wrapper, &screen, &_loader, &_actuators, &_sensors);
-auto bc = MachineryCheck(&_wrapper, &screen, &_actuators);
+//auto bc = MachineryCheck(&_wrapper, &screen, &_actuators);
 //auto bc = LoaderCheck(&_wrapper, &screen, &_loader);
 //auto bc = BatteryCheck(&_wrapper, &screen, &_sensors);
+//auto bc = ButtonsCheck(&_wrapper, &screen);
 
-auto seq = HwCheckSequence(&_wrapper, checks, 1);
-CheckResult _hwCheckResult = Running;
+//auto seq = HwCheckSequence(&_wrapper, checks, 1);
+//CheckResult _hwCheckResult = Running;
 
 void setup() 
 {	
@@ -46,7 +47,7 @@ void setup()
 
 	_wrapper.Init();
 
-	checks[0] = &bc;
+	//checks[0] = &bc;
 
 	pinMode(LED_BUILTIN, OUTPUT);
 
@@ -59,13 +60,19 @@ void setup()
 
 void loop() 
 {	
-	/*if (_context.GetState() == SystemIdle)
+	if (_context.GetState() == SystemIdle)
 	{
 		if (!_context.IncrementIdleCycleCounter())
 		{
 			return;
 		}
-	}*/
+	}
+
+	if (Context::GetState() != IdleCycle)
+	{
+		auto state = _mainSequence.Run();
+		Context::SetState(state);
+	}
 
 	if(_high)
 	{
@@ -78,11 +85,11 @@ void loop()
 		_high = true;
 	}	
 
-	delay(200);
+	/*delay(200);*/
 	
-	if (_hwCheckResult == Running)
+	/*if (_hwCheckResult == Running)
 	{
 		_hwCheckResult = seq.Run();
-	}
+	}*/
 }
 

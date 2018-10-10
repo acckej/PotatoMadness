@@ -33,7 +33,7 @@ private:
 	void CleanupHwChecks();
 	void CleanupInjectorTest();
 	void CleanupConfigEdit();
-	void CleanupMainMenu();
+	void CleanupMainMenu();	
 
 	SystemState RunHwChecks();
 	SystemState RunInjectorTest();

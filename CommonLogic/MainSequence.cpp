@@ -155,6 +155,11 @@ void MainSequence::SwitchMode(OperationMode mode)
 			CleanupMainMenu();
 		}
 		break;
+	case InjectorTestMode:
+		{
+			CleanupInjectorTest();
+		}
+	break;
 	default: ;
 	}	
 
@@ -176,6 +181,11 @@ void MainSequence::SwitchMode(OperationMode mode)
 			InitializeHwTest();
 		}
 		break;
+	case InjectorTestMode:
+		{
+			InitializeInjectorTest();
+		}
+	break;
 	case MainMenu:
 		{
 			InitializeMainMenu();
@@ -428,12 +438,20 @@ SystemState MainSequence::RunMainMenu()
 			controller.IsButtonPressed(x3C) || 
 			controller.IsButtonPressed(x4D) || 
 			controller.IsButtonPressed(x5E) || 
-			controller.IsButtonPressed(x6F))
+			controller.IsButtonPressed(x6F) ||
+			controller.AreButtonsPressed(x2B, x3C))
 		{
+			_wrapper->Delay(1000);
 			return SystemIdle;
 		}
 
 		_readyToSwitch = true;
+	}
+
+	if(controller.AreButtonsPressed(x2B, x3C))
+	{
+		SwitchMode(InjectorTestMode);
+		return SystemRunning;
 	}
 
 	if (controller.IsButtonPressed(x1A))
