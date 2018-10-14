@@ -1,7 +1,5 @@
 #include "ConfigurationScreen.h"
 
-
-
 ConfigurationScreen::ConfigurationScreen(IArduinoWrapper * wrapper, IConfiguration* storage): ScrollableScreen(wrapper)
 {
 	_storage = storage;
@@ -10,16 +8,11 @@ ConfigurationScreen::ConfigurationScreen(IArduinoWrapper * wrapper, IConfigurati
 	_delayStart = 0;
 	_autoRepeat = false;
 	_lastButton = x5E;
-	_screenRow = 0;
+	_screenRow = 0;	
 }
 
 void ConfigurationScreen::Refresh()
 {
-	if(!UpdateRefreshCounter())
-	{
-		return;
-	}
-
 	auto count = _storage->GetValuesCount();
 	for(auto i = 0; i < ACTUAL_SCREEN_ROWS; i++)
 	{
@@ -33,9 +26,10 @@ void ConfigurationScreen::Refresh()
 			SetCursor(0, i);
 			Print(" ");
 			Print(val.Name);
+			
 			PrintNumber(val.Value, VALUE_PRECISION);
 		}		
-	}
+	}	
 
 	SetChar(0, _screenRow, '>');
 }
@@ -100,9 +94,7 @@ void ConfigurationScreen::Draw()
 	if(_keyPressed)
 	{
 		KeyUp();
-	}
-
-	Refresh();
+	}	
 }
 
 void ConfigurationScreen::CursorUp()
@@ -183,7 +175,7 @@ bool ConfigurationScreen::KeyDown(Buttons btn)
 		{
 			if(delay > AUTOREPEAT_INTERVAL)
 			{
-				_delayStart = current;
+				_delayStart = current;				
 				return true;
 			}
 

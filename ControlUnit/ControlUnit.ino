@@ -55,8 +55,12 @@ void setup()
 
 	//attachInterrupt(digitalPinToInterrupt(BLAST_SENSOR_PORT), FiringController::BlastSensorHandler, RISING);
 	//attachInterrupt(digitalPinToInterrupt(FSS_PORT), FiringController::FrontSpeedsensorHandler, RISING);
-	//attachInterrupt(digitalPinToInterrupt(RSS_PORT), FiringController::RearSpeedSensorHandler, RISING);
+	//attachInterrupt(digitalPinToInterrupt(RSS_PORT), FiringController::RearSpeedSensorHandler, RISING);	
+
+	_mainSequence.Init();
 }
+
+auto i = 0;
 
 void loop() 
 {	
@@ -73,6 +77,10 @@ void loop()
 		auto state = _mainSequence.Run();
 		Context::SetState(state);
 	}
+
+	/*_wrapper.SetScreenCursor(0, 0);
+	_wrapper.Print(i);
+	i++;*/
 
 	if(_high)
 	{

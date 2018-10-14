@@ -34,7 +34,7 @@ void ScrollableScreen::Println(const char* message, char line)
 		lineBuf[i] = ' ';
 	}
 
-	sprintf(lineBuf, "%.*s", SCREEN_COLUMNS, message);	
+	sprintf(lineBuf, "%.*s", SCREEN_COLUMNS, message);		
 
 	ScreenBase::Println(message, line);
 }
@@ -44,6 +44,9 @@ void ScrollableScreen::Print(char* message)
 	RestoreCursor();
 	auto lineBuf = GetCurrentPositionBuffer();
 	sprintf(lineBuf, "%s", message);
+
+	//_wrapper->LogFormat(lineBuf);
+
 	IncrementColumn(strlen(lineBuf));
 	ScreenBase::Print(message);
 }
@@ -54,6 +57,9 @@ void ScrollableScreen::PrintNumber(double number, int digits)
 	auto lineBuf = GetCurrentPositionBuffer();
 	_wrapper->PrintFormatBuffer(lineBuf, "%.*f", digits, number);	
 	IncrementColumn(strlen(lineBuf));
+
+	//_wrapper->LogFormat("%i", (int)(number * 1000));
+
 	ScreenBase::PrintNumber(number, digits);
 }
 
@@ -139,10 +145,12 @@ void ScrollableScreen::Redraw()
 		auto index = _offset + i;
 		if (index >= SCREEN_ROWS)
 		{
+			//_wrapper->LogFormat("%i", i + 1);
 			ScreenBase::Println(BLANK_LINE, i + 1);
 		}
 		else
 		{
+			//_wrapper->LogFormat(_screenBuffer[index]);
 			ScreenBase::Println(_screenBuffer[index], i + 1);
 		}
 	}	
@@ -196,7 +204,9 @@ void ScrollableScreen::SetChar(char col, char row, char chr)
 	
 	_screenBuffer[_row + _offset][_column] = chr;
 
+	char tmp[2] = { chr, 0 };
+
 	RestoreCursor();
 	IncrementColumn(1);	
-	ScreenBase::Print(&chr);
+	ScreenBase::Print(tmp);
 }

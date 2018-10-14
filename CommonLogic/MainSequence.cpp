@@ -27,9 +27,9 @@ MainSequence::MainSequence(IArduinoWrapper* wrapper)
 	_mainScreen = nullptr;
 	_injectorTestScreen = nullptr;
 	_configScreen = nullptr;
-	_waitingForInput = false;	
-
-	SwitchMode(MainMenu);	
+	_waitingForInput = false;		
+	_readyToSwitch = false;
+	
 }
 
 MainSequence::~MainSequence()
@@ -65,6 +65,19 @@ SystemState MainSequence::Run()
 	}
 
 	return SystemRunning;
+}
+
+void MainSequence::Init()
+{
+	auto curr = Context::GetOperationMode();
+	if(curr != MainMenu)
+	{
+		SwitchMode(MainMenu);
+	}
+	else
+	{
+		InitializeMainMenu();
+	}
 }
 
 void MainSequence::InitializeFiringSequence()
@@ -120,7 +133,8 @@ void MainSequence::InitializeConfigEdit()
 void MainSequence::InitializeMainMenu()
 {
 	_mainScreen = new MainScreen(_wrapper);
-	_mainScreen->Draw();
+	_mainScreen->Draw();	
+	_mainScreen->UpdateFiringMode();
 }
 
 void MainSequence::SwitchMode(OperationMode mode)
@@ -131,6 +145,8 @@ void MainSequence::SwitchMode(OperationMode mode)
 	{
 		return;
 	}
+
+	_wrapper->ClearScreen();
 
 	switch (current)
 	{
@@ -425,11 +441,13 @@ SystemState MainSequence::RunConfigEdit() const
 SystemState MainSequence::RunMainMenu()
 {
 	if(_mainScreen == nullptr)
-	{
+	{			
 		return SystemError;
 	}
-
+	
 	auto controller = Context::GetButtonsController();
+
+	//_wrapper->LogFormat("xx");
 	
 	if (!_readyToSwitch)
 	{
@@ -491,6 +509,8 @@ SystemState MainSequence::RunMainMenu()
 		_mainScreen->UpdateFiringMode();
 		return SystemIdle;
 	}
+
+	//_wrapper->LogFormat("cc");
 
 	return SystemIdle;
 }

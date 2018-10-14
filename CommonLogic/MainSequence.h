@@ -20,6 +20,8 @@ public:
 	~MainSequence();
 	
 	SystemState Run();
+
+	void Init();
 private:
 	void InitializeFiringSequence();
 	void InitializeHwTest();
@@ -47,7 +49,7 @@ private:
 	TestScreen* _testScreen;
 	HwCheckSequence* _hwChecksSequence;
 	bool _waitingForInput;
-	bool _readyToSwitch;
+	bool _readyToSwitch;	
 
 	FiringScreen* _firingScreen;
 	FiringSequencer* _firingSequencer;

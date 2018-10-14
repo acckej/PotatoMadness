@@ -25,8 +25,8 @@ void MainScreen::Draw()
 	SetCursor(13, 1);
 	Print("Semi");
 
-	SetCursor(13, 3);
-	Print("E.Inj.tst");
+	SetCursor(11, 3);
+	Print("B+C.Inj.T");
 }
 
 void MainScreen::UpdateFiringMode()

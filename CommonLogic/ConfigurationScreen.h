@@ -3,8 +3,8 @@
 #include "Context.h"
 
 
-#define AUTOREPEAT_DELAY 200
-#define AUTOREPEAT_INTERVAL 2000
+#define AUTOREPEAT_DELAY 2000
+#define AUTOREPEAT_INTERVAL 200
 #define VALUE_INDEX 7
 #define VALUE_MASK "             "
 #define NAME_LENGTH 6
@@ -35,6 +35,6 @@ private:
 	bool _keyPressed;
 	long _delayStart;
 	bool _autoRepeat;
-	Buttons _lastButton;
+	Buttons _lastButton;	
 };
 
