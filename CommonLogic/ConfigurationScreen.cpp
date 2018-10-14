@@ -1,13 +1,9 @@
 #include "ConfigurationScreen.h"
 
-ConfigurationScreen::ConfigurationScreen(IArduinoWrapper * wrapper, IConfiguration* storage): ScrollableScreen(wrapper)
+ConfigurationScreen::ConfigurationScreen(IArduinoWrapper * wrapper, IConfiguration* storage): ScrollableScreen(wrapper), KeyHandler(wrapper)
 {
 	_storage = storage;
-	_rowIndex = 0;
-	_keyPressed = false;
-	_delayStart = 0;
-	_autoRepeat = false;
-	_lastButton = x5E;
+	_rowIndex = 0;	
 	_screenRow = 0;	
 }
 
@@ -91,7 +87,7 @@ void ConfigurationScreen::Draw()
 		return;
 	}
 
-	if(_keyPressed)
+	if(KeyPressed())
 	{
 		KeyUp();
 	}	
@@ -164,51 +160,3 @@ void ConfigurationScreen::UpdateCurrentValue()
 	PrintNumber(val.Value, VALUE_PRECISION);
 }
 
-bool ConfigurationScreen::KeyDown(Buttons btn)
-{
-	if(btn == _lastButton)
-	{	
-		auto current = _wrapper->GetMilliseconds();
-		auto delay = current - _delayStart;
-
-		if(_autoRepeat)
-		{
-			if(delay > AUTOREPEAT_INTERVAL)
-			{
-				_delayStart = current;				
-				return true;
-			}
-
-			return false;
-		}		
-		
-		if(delay > AUTOREPEAT_DELAY)
-		{
-			_autoRepeat = true;
-			_delayStart = current;
-			return true;
-		}
-
-		return false;
-	}
-
-	if(!_keyPressed)
-	{
-		_delayStart = _wrapper->GetMilliseconds();
-		_lastButton = btn;
-		_keyPressed = true;
-
-		return true;
-	}
-
-	KeyUp();
-	return false;
-}
-
-void ConfigurationScreen::KeyUp()
-{	
-	_autoRepeat = false;
-	_keyPressed = false;
-	_delayStart = 0;
-	_lastButton = x5E; //exit button
-}

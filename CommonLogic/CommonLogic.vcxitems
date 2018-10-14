@@ -39,6 +39,7 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Injector.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)InjectorTestScreen.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)KeyHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Loader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderCheck.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderForwardAction.h" />
@@ -108,6 +109,9 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)InjectorTestScreen.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)KeyHandler.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)Loader.cpp">

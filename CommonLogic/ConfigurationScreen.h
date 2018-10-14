@@ -1,10 +1,8 @@
 #pragma once
 #include "ScrollableScreen.h"
 #include "Context.h"
+#include "KeyHandler.h"
 
-
-#define AUTOREPEAT_DELAY 2000
-#define AUTOREPEAT_INTERVAL 200
 #define VALUE_INDEX 7
 #define VALUE_MASK "             "
 #define NAME_LENGTH 6
@@ -12,7 +10,8 @@
 
 
 class ConfigurationScreen :
-	public ScrollableScreen
+	public ScrollableScreen,
+	public KeyHandler
 {
 public:
 	ConfigurationScreen(IArduinoWrapper * wrapper, IConfiguration* storage);
@@ -24,17 +23,10 @@ private:
 	void CursorDown();
 	void IncreaseValue();
 	void DecreaseValue();		
-	void UpdateCurrentValue();
-
-	bool KeyDown(Buttons btn);
-	void KeyUp();
+	void UpdateCurrentValue();	
 
 	IConfiguration* _storage;
 	char _rowIndex;	
-	char _screenRow;
-	bool _keyPressed;
-	long _delayStart;
-	bool _autoRepeat;
-	Buttons _lastButton;	
+	char _screenRow;	
 };
 
