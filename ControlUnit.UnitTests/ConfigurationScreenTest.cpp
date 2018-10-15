@@ -13,7 +13,7 @@ namespace ControlUnitUnitTests
 	static bool _increaseValueTestGo;
 	static bool _decreaseValueTestGo;
 	static bool _saveValueTestGo;
-	static bool _scrollUp;
+	static bool _scrollUp;	
 
 	TEST_CLASS(ConfigurationScreenTest)
 	{
@@ -81,7 +81,7 @@ namespace ControlUnitUnitTests
 
 				wrapper.Delay(100);
 			}
-		}
+		}		
 
 		TEST_METHOD(DecreaseValueTest)
 		{
@@ -211,7 +211,7 @@ namespace ControlUnitUnitTests
 			}
 
 			return  ARDUINO_LOW;
-		}
+		}		
 
 		static int DigitalReadButtonsScrollUpDown(int port)
 		{

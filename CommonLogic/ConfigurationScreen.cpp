@@ -40,6 +40,12 @@ void ConfigurationScreen::Draw()
 {
 	auto cont = Context::GetButtonsController();
 
+	if (cont.IsButtonPressed(x5E))
+	{
+		Context::BackToMainScreen();
+		return;
+	}
+
 	if(cont.IsButtonPressed(x1A))
 	{
 		if (KeyDown(x1A))
@@ -85,7 +91,7 @@ void ConfigurationScreen::Draw()
 			_storage->Save();
 		}
 		return;
-	}
+	}	
 
 	if(KeyPressed())
 	{

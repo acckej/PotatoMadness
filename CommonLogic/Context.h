@@ -40,6 +40,9 @@ public:
 	static void SetErrorCode(ErrorCodes code);
 	static ErrorCodes GetErrorCode();
 
+	static void BackToMainScreen();
+	static bool IsMainScreenRequested();
+
 	static bool IncrementIdleCycleCounter();
 private:
 	static OperationMode _mode;
@@ -54,5 +57,6 @@ private:
 	static ErrorCodes _errorCode;
 	static int _idleCyclesCount;
 	static int _idleCyclesCounter;
+	static bool _backToMainScreen;
 };
 

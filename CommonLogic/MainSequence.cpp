@@ -42,6 +42,13 @@ MainSequence::~MainSequence()
 
 SystemState MainSequence::Run()
 {
+	if(Context::IsMainScreenRequested())
+	{
+		SwitchMode(MainMenu);
+		_wrapper->LogFormat("ddd");
+		return SystemIdle;
+	}
+
 	switch (Context::GetOperationMode())
 	{
 	case MainMenu:
