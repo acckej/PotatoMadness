@@ -72,7 +72,7 @@ CheckResult LoaderCheck::Check()
 			return Interrupted;
 		}
 
-		if (CheckCurrent(3) == Failed)
+		if (CheckCurrent(4) == Failed)
 		{
 			_screen->Println("Failed", 4);
 			return Failed;

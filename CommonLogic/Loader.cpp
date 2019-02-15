@@ -11,15 +11,19 @@ Loader::Loader(IArduinoWrapper* wrapper)
 void Loader::Forward() const
 {
 	_wrapper->DigitalWrite(LOADER_ENABLE_PORT, ARDUINO_LOW);
-	_wrapper->DigitalWrite(LOADER_FWD_PORT, ARDUINO_LOW);
-	_wrapper->DigitalWrite(LOADER_REV_PORT, ARDUINO_LOW);
+	/*_wrapper->DigitalWrite(LOADER_FWD_PORT, ARDUINO_LOW);
+	_wrapper->DigitalWrite(LOADER_REV_PORT, ARDUINO_LOW);*/
+	_wrapper->DigitalWrite(LOADER_FWD_PORT, ARDUINO_HIGH);
+	_wrapper->DigitalWrite(LOADER_REV_PORT, ARDUINO_HIGH);
 }
 
 void Loader::Reverse() const
 {
 	_wrapper->DigitalWrite(LOADER_ENABLE_PORT, ARDUINO_LOW);
-	_wrapper->DigitalWrite(LOADER_FWD_PORT, ARDUINO_HIGH);
-	_wrapper->DigitalWrite(LOADER_REV_PORT, ARDUINO_HIGH);
+	/*_wrapper->DigitalWrite(LOADER_FWD_PORT, ARDUINO_HIGH);
+	_wrapper->DigitalWrite(LOADER_REV_PORT, ARDUINO_HIGH);*/
+	_wrapper->DigitalWrite(LOADER_FWD_PORT, ARDUINO_LOW);
+	_wrapper->DigitalWrite(LOADER_REV_PORT, ARDUINO_LOW);
 }
 
 void Loader::Stop() const

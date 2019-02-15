@@ -7,7 +7,7 @@
 //#include "SensorsCheck.h"
 //#include "MachineryCheck.h"
 //#include "ButtonsCheck.h"
-//#include "LoaderCheck.h"
+#include "LoaderCheck.h"
 //#include "BatteryCheck.h"
 
 #include "Sensors.h"
@@ -26,18 +26,18 @@ auto _buttons = ButtonsController(&_wrapper, nullptr, 0);
 auto _context = Context(&_wrapper, &_buttons, &_loader, &_actuators, &_sensors, &_config);
 auto _mainSequence = MainSequence(&_wrapper);
 
-bool _high = false;
+bool _high = false;///
 
-auto screen = TestScreen(&_wrapper);
-IHwCheck* checks[1];
-//auto bc = SensorsCheck(&_wrapper, &screen, &_loader, &_actuators, &_sensors);
-//auto bc = MachineryCheck(&_wrapper, &screen, &_actuators);
-//auto bc = LoaderCheck(&_wrapper, &screen, &_loader);
-//auto bc = BatteryCheck(&_wrapper, &screen, &_sensors);
-//auto bc = ButtonsCheck(&_wrapper, &screen);
+auto screen = TestScreen(&_wrapper);///
+IHwCheck* checks[1];///
+//auto bc = SensorsCheck(&_wrapper, &screen, &_loader, &_actuators, &_sensors);///
+//auto bc = MachineryCheck(&_wrapper, &screen, &_actuators);///
+auto bc = LoaderCheck(&_wrapper, &screen, &_loader);///
+//auto bc = BatteryCheck(&_wrapper, &screen, &_sensors);///
+//auto bc = ButtonsCheck(&_wrapper, &screen);///
 
-//auto seq = HwCheckSequence(&_wrapper, checks, 1);
-//CheckResult _hwCheckResult = Running;
+auto seq = HwCheckSequence(&_wrapper, checks, 1);///
+CheckResult _hwCheckResult = Running;///
 
 void setup() 
 {	
@@ -47,24 +47,24 @@ void setup()
 
 	_wrapper.Init();
 
-	//checks[0] = &bc;
+	checks[0] = &bc;//////
 
 	pinMode(LED_BUILTIN, OUTPUT);
 
 	_context.Halt();
 
-	//attachInterrupt(digitalPinToInterrupt(BLAST_SENSOR_PORT), FiringController::BlastSensorHandler, RISING);
-	//attachInterrupt(digitalPinToInterrupt(FSS_PORT), FiringController::FrontSpeedsensorHandler, RISING);
-	//attachInterrupt(digitalPinToInterrupt(RSS_PORT), FiringController::RearSpeedSensorHandler, RISING);	
+	//attachInterrupt(digitalPinToInterrupt(BLAST_SENSOR_PORT), FiringController::BlastSensorHandler, RISING);///
+	//attachInterrupt(digitalPinToInterrupt(FSS_PORT), FiringController::FrontSpeedsensorHandler, RISING);///
+	//attachInterrupt(digitalPinToInterrupt(RSS_PORT), FiringController::RearSpeedSensorHandler, RISING);///	
 
-	_mainSequence.Init();
+	//_mainSequence.Init();
 }
 
 auto i = 0;
 
 void loop() 
 {	
-	if (_context.GetState() == SystemIdle)
+	/*if (_context.GetState() == SystemIdle)
 	{
 		if (!_context.IncrementIdleCycleCounter())
 		{
@@ -76,13 +76,13 @@ void loop()
 	{
 		auto state = _mainSequence.Run();
 		Context::SetState(state);
-	}
+	}*/
 
 	/*_wrapper.SetScreenCursor(0, 0);
 	_wrapper.Print(i);
 	i++;*/
 
-	if(_high)
+	if(_high)///
 	{
 		digitalWrite(13, HIGH);		
 		_high = false;
@@ -93,11 +93,11 @@ void loop()
 		_high = true;
 	}	
 
-	/*delay(200);*/
+	delay(200);///
 	
-	/*if (_hwCheckResult == Running)
+	if (_hwCheckResult == Running)//
 	{
-		_hwCheckResult = seq.Run();
-	}*/
+		_hwCheckResult = seq.Run();///
+	}
 }
 

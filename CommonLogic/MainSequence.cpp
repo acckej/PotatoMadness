@@ -44,8 +44,7 @@ SystemState MainSequence::Run()
 {
 	if(Context::IsMainScreenRequested())
 	{
-		SwitchMode(MainMenu);
-		_wrapper->LogFormat("ddd");
+		SwitchMode(MainMenu);		
 		return SystemIdle;
 	}
 
@@ -452,9 +451,7 @@ SystemState MainSequence::RunMainMenu()
 		return SystemError;
 	}
 	
-	auto controller = Context::GetButtonsController();
-
-	//_wrapper->LogFormat("xx");
+	auto controller = Context::GetButtonsController();	
 	
 	if (!_readyToSwitch)
 	{
@@ -515,9 +512,7 @@ SystemState MainSequence::RunMainMenu()
 		Context::SetFiringSequenceMode(SemiAuto);
 		_mainScreen->UpdateFiringMode();
 		return SystemIdle;
-	}
-
-	//_wrapper->LogFormat("cc");
+	}	
 
 	return SystemIdle;
 }
