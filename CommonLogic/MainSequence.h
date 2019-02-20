@@ -9,6 +9,7 @@
 #include "MainScreen.h"
 #include "ConfigurationScreen.h"
 #include "InjectorTestScreen.h"
+#include "ManualScreen.h"
 
 #define FIRING_ACTIONS_COUNT 3
 
@@ -28,6 +29,7 @@ private:
 	void InitializeInjectorTest();
 	void InitializeConfigEdit();
 	void InitializeMainMenu();
+	void InitializeManualMode();
 
 	void SwitchMode(OperationMode mode);
 
@@ -36,6 +38,7 @@ private:
 	void CleanupInjectorTest();
 	void CleanupConfigEdit();
 	void CleanupMainMenu();	
+	void CleanupManualMode();
 
 	SystemState RunHwChecks();
 	SystemState RunInjectorTest();
@@ -58,10 +61,11 @@ private:
 	IAction** _firingActionsForcedMixing;
 	Injector* _injector;
 
+	IAction* _manualAction;
+
 	MainScreen* _mainScreen;
-
 	ConfigurationScreen* _configScreen;	
-
 	InjectorTestScreen* _injectorTestScreen;
+	ManualScreen* _manualScreen;
 };
 

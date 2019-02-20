@@ -31,7 +31,7 @@
 
 #define SPEED_CONSTANT 0.7f
 
-#define LOADER_CURRENT_MAX 150.0f
+#define LOADER_CURRENT_MAX 15.0f
 #define LOADER_CURRENT_WORKING 0.1f
 
 #define RECEIVER_PRESSURE_MAX 607.950f //kpa //6.0f 
@@ -101,7 +101,7 @@ enum Buttons { x1A, x2B, x3C, x4D, x5E, x6F, Combo, None };
 
 enum FiringSequenceMode {Auto, SemiAuto};
 
-enum OperationMode {MainMenu, FiringMode, FiringModeForcedMixing, ConfigEditScreen, TestMode, InjectorTestMode};
+enum OperationMode {MainMenu, FiringMode, FiringModeForcedMixing, ConfigEditScreen, TestMode, InjectorTestMode, ManualMode};
 
 enum SystemState {SystemIdle, SystemRunning, SystemError, IdleCycle};
 

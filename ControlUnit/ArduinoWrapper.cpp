@@ -9,7 +9,7 @@
 
 
 LiquidCrystal_I2C lcd(0x27, 20, 4); //0x3f
-#define DHTTYPE DHT11  
+#define DHTTYPE DHT22//DHT11  
 
 Adafruit_BMP280 atmPSens;
 DHT dht(TEMP_HUM_SENSOR_PORT, DHTTYPE);

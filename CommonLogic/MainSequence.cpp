@@ -9,9 +9,10 @@
 #include "LoaderCheck.h"
 #include "MachineryCheck.h"
 #include "SensorsCheck.h"
+#include "ManualAction.h"
 
 
-MainSequence::MainSequence(IArduinoWrapper* wrapper)
+MainSequence::MainSequence(IArduinoWrapper* wrapper): _manualAction(nullptr), _manualScreen(nullptr)
 {
 	_wrapper = wrapper;
 
@@ -27,9 +28,8 @@ MainSequence::MainSequence(IArduinoWrapper* wrapper)
 	_mainScreen = nullptr;
 	_injectorTestScreen = nullptr;
 	_configScreen = nullptr;
-	_waitingForInput = false;		
+	_waitingForInput = false;
 	_readyToSwitch = false;
-	
 }
 
 MainSequence::~MainSequence()
@@ -143,6 +143,14 @@ void MainSequence::InitializeMainMenu()
 	_mainScreen->UpdateFiringMode();
 }
 
+void MainSequence::InitializeManualMode()
+{
+	_manualScreen = new ManualScreen(_wrapper);
+	_manualScreen->Draw();
+
+	_manualAction = new ManualAction(_wrapper, Context::GetLoader(), Context::GetActuators(), Context::GetSensors(), _manualScreen);
+}
+
 void MainSequence::SwitchMode(OperationMode mode)
 {
 	auto current = Context::GetOperationMode();
@@ -181,7 +189,12 @@ void MainSequence::SwitchMode(OperationMode mode)
 		{
 			CleanupInjectorTest();
 		}
-	break;
+		break;
+	case ManualMode:
+		{
+			CleanupManualMode();
+		}
+		break;;
 	default: ;
 	}	
 
@@ -207,7 +220,12 @@ void MainSequence::SwitchMode(OperationMode mode)
 		{
 			InitializeInjectorTest();
 		}
-	break;
+		break;
+	case ManualMode:
+		{
+			InitializeManualMode();
+		}
+		break;
 	case MainMenu:
 		{
 			InitializeMainMenu();
@@ -321,6 +339,21 @@ void MainSequence::CleanupMainMenu()
 	{
 		delete _mainScreen;
 		_mainScreen = nullptr;
+	}
+}
+
+void MainSequence::CleanupManualMode()
+{
+	if(_manualAction != nullptr)
+	{
+		delete _manualAction;
+		_manualAction = nullptr;
+	}
+
+	if(_manualScreen != nullptr)
+	{
+		delete _manualScreen;
+		_manualScreen = nullptr;
 	}
 }
 

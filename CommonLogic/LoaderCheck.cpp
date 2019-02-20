@@ -51,7 +51,7 @@ CheckResult LoaderCheck::Check()
 		
 		_cyclesCounter++;
 
-		if(_cyclesCounter >= 100)
+		if(_cyclesCounter >= 30)
 		{
 			_forward = false;
 			_loader->Stop();
@@ -80,7 +80,7 @@ CheckResult LoaderCheck::Check()
 
 		_cyclesCounter++;
 
-		if (_cyclesCounter >= 100)
+		if (_cyclesCounter >= 30)
 		{
 			Stop();
 			_forward = true;

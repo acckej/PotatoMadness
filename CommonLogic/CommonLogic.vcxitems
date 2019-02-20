@@ -48,6 +48,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)MachineryCheck.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MainScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MainSequence.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ManualAction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ManualScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScreenBase.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ScrollableScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Sensors.h" />
@@ -138,6 +140,8 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)MainSequence.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ManualAction.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ManualScreen.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)ScreenBase.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>

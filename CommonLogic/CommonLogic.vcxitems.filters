@@ -28,6 +28,9 @@
     <Filter Include="Calculation">
       <UniqueIdentifier>{4a8b5eec-c5de-4eca-b7fc-88316c22f6af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ManualSequence">
+      <UniqueIdentifier>{9ad3dd65-29a1-42fd-b8cd-fbd361254ca2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="$(MSBuildThisFileDirectory)Context.cpp" />
@@ -120,6 +123,12 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)KeyHandler.cpp">
       <Filter>Buttons</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ManualAction.cpp">
+      <Filter>ManualSequence</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ManualScreen.cpp">
+      <Filter>ManualSequence</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,6 +227,12 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)KeyHandler.h">
       <Filter>Buttons</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ManualAction.h">
+      <Filter>ManualSequence</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ManualScreen.h">
+      <Filter>ManualSequence</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
