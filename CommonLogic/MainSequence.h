@@ -12,6 +12,7 @@
 #include "ManualScreen.h"
 
 #define FIRING_ACTIONS_COUNT 3
+#define SWITCH_DELAY 1000
 
 class MainSequence
 {
@@ -40,6 +41,8 @@ private:
 	void CleanupMainMenu();	
 	void CleanupManualMode();
 
+	bool IsSwitchDelay();
+
 	SystemState RunHwChecks();
 	SystemState RunInjectorTest();
 	SystemState RunFiringSequence();
@@ -54,6 +57,9 @@ private:
 	bool _waitingForInput;
 	bool _readyToSwitch;	
 
+	long _switchDelayStart;
+	bool _switchDelay;
+
 	FiringScreen* _firingScreen;
 	FiringSequencer* _firingSequencer;
 	FiringController* _firingController;
@@ -66,6 +72,6 @@ private:
 	MainScreen* _mainScreen;
 	ConfigurationScreen* _configScreen;	
 	InjectorTestScreen* _injectorTestScreen;
-	ManualScreen* _manualScreen;
+	ManualScreen* _manualScreen;	
 };
 

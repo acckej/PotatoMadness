@@ -30,6 +30,8 @@ MainSequence::MainSequence(IArduinoWrapper* wrapper): _manualAction(nullptr), _m
 	_configScreen = nullptr;
 	_waitingForInput = false;
 	_readyToSwitch = false;
+	_switchDelayStart = 0;
+	_switchDelay = false;
 }
 
 MainSequence::~MainSequence()
@@ -66,6 +68,10 @@ SystemState MainSequence::Run()
 	case TestMode:
 		{
 			return RunHwChecks();
+		}
+	case InjectorTestMode:
+		{
+			return RunInjectorTest();
 		}
 	default: ;
 	}
@@ -357,6 +363,31 @@ void MainSequence::CleanupManualMode()
 	}
 }
 
+bool MainSequence::IsSwitchDelay()
+{
+	if(_switchDelayStart == 0)
+	{
+		_switchDelayStart = _wrapper->GetMilliseconds();
+		_switchDelay = true;
+		return true;
+	}
+
+	if(_wrapper->GetMilliseconds() - _switchDelayStart > SWITCH_DELAY)
+	{
+		_switchDelayStart = 0;
+
+		if (_switchDelay)
+		{			
+			_switchDelay = false;
+			return false;
+		}
+
+		return true;
+	}
+
+	return true;
+}
+
 SystemState MainSequence::RunHwChecks()
 {
 	if (_hwChecksSequence != nullptr)
@@ -513,19 +544,7 @@ SystemState MainSequence::RunMainMenu()
 	{
 		SwitchMode(FiringMode);
 		return SystemRunning;
-	}
-
-	if (controller.IsButtonPressed(x2B))
-	{
-		SwitchMode(FiringModeForcedMixing);
-		return SystemRunning;
-	}
-
-	if (controller.IsButtonPressed(x3C))
-	{
-		SwitchMode(ConfigEditScreen);
-		return SystemRunning;
-	}
+	}	
 
 	if (controller.IsButtonPressed(x4D))
 	{
@@ -538,6 +557,28 @@ SystemState MainSequence::RunMainMenu()
 		Context::SetFiringSequenceMode(Auto);
 		_mainScreen->UpdateFiringMode();
 		return SystemIdle;
+	}
+
+	if (controller.IsButtonPressed(x2B))
+	{
+		if(IsSwitchDelay())
+		{
+			return SystemIdle;
+		}
+
+		SwitchMode(FiringModeForcedMixing);
+		return SystemRunning;
+	}
+
+	if (controller.IsButtonPressed(x3C))
+	{
+		if (IsSwitchDelay())
+		{
+			return SystemIdle;
+		}
+
+		SwitchMode(ConfigEditScreen);
+		return SystemRunning;
 	}
 
 	if (controller.IsButtonPressed(x6F))

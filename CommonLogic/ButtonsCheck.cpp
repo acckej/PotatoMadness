@@ -15,6 +15,7 @@ CheckResult ButtonsCheck::Check()
 	if (_cyclesCounter == 0)
 	{
 		_screen->Println("Buttons test", 1);
+		_screen->Println("A+B-intrpt, A+D-end", 4);
 	}
 
 	auto controller = Context::GetButtonsController();
