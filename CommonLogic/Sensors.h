@@ -8,7 +8,7 @@ public:
 	Sensors(IArduinoWrapper* wrapper);
 
 	double GetBatteryVoltage() const;	
-	float GetReceiverPressure() const;
+	double GetReceiverPressure() const;
 	void ResetDebouncingTriggers() const;
 
 	bool GetFss() const;

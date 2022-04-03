@@ -15,19 +15,19 @@ double Sensors::GetBatteryVoltage() const
 }
 
 
-float Sensors::GetReceiverPressure() const
+double Sensors::GetReceiverPressure() const
 {
 	auto press = _wrapper->AnalogRead(RECEIVER_PRESSURE_PORT);
-	auto val = float(press) * ANALOG_COEFFICIENT;
+	auto val = static_cast<double>(press) * ANALOG_COEFFICIENT;
 
-	if (val < 0.45f)
+	if (val < 0.45l)
 	{
 		return -1;
 	}
 
-	val = float(val - PRESSURE_CONSTANT) * PRESSURE_COEFFICIENT;
+	val = static_cast<double>(val - PRESSURE_CONSTANT) * PRESSURE_COEFFICIENT;
 
-	return val < 0 ? val * -1 : val;
+	return val < 0l ? val * -1l : val;
 }
 
 void Sensors::ResetDebouncingTriggers() const
@@ -41,7 +41,7 @@ void Sensors::ResetDebouncingTriggers() const
 
 bool Sensors::GetFss() const
 {
-	auto result = _wrapper->DigitalRead(FSS_PORT);
+	const auto result = _wrapper->DigitalRead(FSS_PORT);
 	return result == ARDUINO_HIGH;
 }
 

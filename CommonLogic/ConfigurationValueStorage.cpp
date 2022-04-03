@@ -227,7 +227,7 @@ ArduinoDouble ConfigurationValueStorage::GetDoubleFromEeeprom(short address) con
 	temp[2] = _wrapper->ReadFromEeprom(address + 2);
 	temp[3] = _wrapper->ReadFromEeprom(address + 3);
 
-	auto result = *reinterpret_cast<ArduinoDouble*>(temp);
+	const auto result = *reinterpret_cast<ArduinoDouble*>(temp);
 	return result;
 }
 

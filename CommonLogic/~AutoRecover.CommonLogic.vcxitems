@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{426a2709-7dde-494c-a587-40ea8127c15a}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Actuators.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)BatteryCheck.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsCheck.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsController.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ButtonsMapItem.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)CalculationConstants.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Configuration.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ConfigurationScreen.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ConfigurationValueStorage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FiringController.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FiringScreen.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IAction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IArduinoWrapper.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h">
+      <DeploymentContent>true</DeploymentContent>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Context.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IHwCheck.h">
+      <DeploymentContent>true</DeploymentContent>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)HwCheckSequence.h">
+      <DeploymentContent>true</DeploymentContent>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)Injector.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)InjectorTestScreen.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)KeyHandler.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Loader.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)LoaderCheck.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)LoaderForwardAction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)LoaderReverseAction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)LoaderReverseActionForcedMixing.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MachineryCheck.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MainScreen.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)MainSequence.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ManualAction.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ManualScreen.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScreenBase.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ScrollableScreen.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)Sensors.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)SensorsCheck.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FiringSequencer.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TestScreen.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)TypeDefinitions.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)PrepareForFiringAction.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Actuators.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)BatteryCheck.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsCheck.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsController.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ButtonsMapItem.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Configuration.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ConfigurationScreen.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ConfigurationValueStorage.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FiringController.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FiringScreen.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)IAction.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)IArduinoWrapper.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Context.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)IHwCheck.cpp">
+      <DeploymentContent>true</DeploymentContent>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)HwCheckSequence.cpp">
+      <DeploymentContent>true</DeploymentContent>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Injector.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)InjectorTestScreen.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)KeyHandler.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Loader.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)LoaderCheck.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)LoaderForwardAction.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)LoaderReverseAction.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)LoaderReverseActionForcedMixing.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MachineryCheck.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MainScreen.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)MainSequence.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ManualAction.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ManualScreen.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScreenBase.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ScrollableScreen.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)Sensors.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)SensorsCheck.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FiringSequencer.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)TestScreen.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)PrepareForFiringAction.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+</Project>

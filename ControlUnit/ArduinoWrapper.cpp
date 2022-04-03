@@ -15,8 +15,7 @@ Adafruit_BMP280 atmPSens;
 DHT dht(TEMP_HUM_SENSOR_PORT, DHTTYPE);
 
 ArduinoWrapper::ArduinoWrapper()
-{	
-}
+= default;
 
 int ArduinoWrapper::DigitalRead(unsigned int port)
 {
@@ -58,7 +57,7 @@ void ArduinoWrapper::Print(const char msg[])
 	lcd.print(msg);
 }
 
-void ArduinoWrapper::Print(double val, int dp = 2)
+void ArduinoWrapper::Print(double val, int dp)
 {
 	lcd.print(val, dp);	
 }
