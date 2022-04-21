@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Configuration.h"
 #include "IArduinoWrapper.h"
 #include "Sensors.h"

@@ -2,9 +2,8 @@
 #include "Context.h"
 
 
-HwCheckSequence::HwCheckSequence(IArduinoWrapper * wrapper, IHwCheck ** checks, int checksCount)
+HwCheckSequence::HwCheckSequence(IArduinoWrapper * wrapper, IHwCheck ** checks, int checksCount) : _wrapper(wrapper)
 {
-	_wrapper = wrapper;
 	_checks = checks;
 	_checksCount = checksCount;
 	_checkIndex = 0;

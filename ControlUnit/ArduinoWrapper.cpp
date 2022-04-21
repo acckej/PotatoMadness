@@ -98,7 +98,7 @@ float ArduinoWrapper::GetInternalTemp()
 
 float ArduinoWrapper::GetExternalTemp()
 {
-	auto t = dht.readTemperature();
+	const auto t = dht.readTemperature();
 	return t;
 }
 
@@ -152,6 +152,7 @@ void ArduinoWrapper::Init()
 	pinMode(LDR_FW_CHECK_PORT, INPUT);
 	pinMode(LDR_REV_CHECK_PORT, INPUT);
 
+	dht.begin();	
 	atmPSens.begin(BAROMETER_ADDRESS);	
 }
 

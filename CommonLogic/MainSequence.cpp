@@ -50,6 +50,7 @@ SystemState MainSequence::Run()
 		return SystemIdle;
 	}
 
+	//TODO: manual mode
 	switch (Context::GetOperationMode())
 	{
 	case MainMenu:
@@ -200,8 +201,7 @@ void MainSequence::SwitchMode(OperationMode mode)
 		{
 			CleanupManualMode();
 		}
-		break;;
-	default: ;
+		break;	
 	}	
 
 	switch(mode)
@@ -236,7 +236,7 @@ void MainSequence::SwitchMode(OperationMode mode)
 		{
 			InitializeMainMenu();
 		}
-	default: ;
+		break;	
 	}
 
 	_readyToSwitch = false;
@@ -405,7 +405,7 @@ SystemState MainSequence::RunHwChecks()
 			}			
 		}
 
-		auto result = _hwChecksSequence->Run();
+		const auto result = _hwChecksSequence->Run();
 
 		switch (result)
 		{
@@ -468,7 +468,7 @@ SystemState MainSequence::RunFiringSequence()
 			return SystemIdle;
 		}
 
-		auto result = _firingSequencer->Execute();
+		const auto result = _firingSequencer->Execute();
 
 		switch (result)
 		{

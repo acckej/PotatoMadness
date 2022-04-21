@@ -130,6 +130,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ManualScreen.cpp">
       <Filter>ManualSequence</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)IgnitionCheck.cpp">
+      <Filter>HardwareTest\Checks</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FireCheck.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h" />
@@ -234,5 +238,9 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ManualScreen.h">
       <Filter>ManualSequence</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)IgnitionCheck.h">
+      <Filter>HardwareTest\Checks</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)FireCheck.h" />
   </ItemGroup>
 </Project>

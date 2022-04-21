@@ -14,20 +14,19 @@
     <ProjectGuid>{C5F80730-F44F-4478-BDAE-6634EFC2CA88}</ProjectGuid>
     <RootNamespace>ControlUnit</RootNamespace>
     <ProjectName>ControlUnit</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>
-    </PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>
-    </PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -50,10 +49,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\ControlUnit;$(ProjectDir)..\CommonLogic;C:\Users\acckej\Documents\Arduino\libraries\iarduino_DHT\src;C:\Users\acckej\Documents\Arduino\libraries\Arduino-LiquidCrystal-I2C-library-master;C:\Users\acckej\Documents\Arduino\libraries\DHT_sensor_library;C:\Users\acckej\Documents\Arduino\libraries\Adafruit_BMP280_Library;$(ProjectDir)..\..\arduino\hardware\arduino\avr\libraries\Wire\src;$(ProjectDir)..\..\arduino\hardware\arduino\avr\libraries\SPI\src;$(ProjectDir)..\..\arduino\hardware\arduino\avr\libraries\EEPROM\src;C:\Users\acckej\Documents\Arduino\libraries\Adafruit_Sensor-master;$(ProjectDir)..\..\arduino\hardware\arduino\avr\cores\arduino;$(ProjectDir)..\..\arduino\hardware\arduino\avr\variants\mega;C:\Users\acckej\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino5\\lib\gcc\avr\7.3.0\include;C:\Users\acckej\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino5\avr\include;C:\Users\acckej\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino5\\lib\gcc\avr\7.3.0\include;C:\Users\acckej\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino5\avr\include-fixed;C:\Users\acckej\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino5\avr\include\avr;C:\Users\acckej\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino5\lib\gcc\avr\4.9.2\include;C:\Users\acckej\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino5\lib\gcc\avr\4.9.2\include;C:\Users\acckej\AppData\Local\arduino15\packages\arduino\tools\avr-gcc\7.3.0-atmel3.6.1-arduino5\lib\gcc\avr\4.9.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\ControlUnit;$(ProjectDir)..\CommonLogic;$(ProjectDir)..\..\..\..\..\OneDrive\Documents\Arduino\libraries\iarduino_DHT\src;$(ProjectDir)..\..\..\..\..\OneDrive\Documents\Arduino\libraries\DHT_sensor_library;$(ProjectDir)..\..\..\..\..\OneDrive\Documents\Arduino\libraries\Adafruit_BMP280_Library;$(ProjectDir)..\..\..\..\..\..\..\arduino\arduino-1.8.19\hardware\arduino\avr\libraries\Wire\src;$(ProjectDir)..\..\..\..\..\..\..\arduino\arduino-1.8.19\hardware\arduino\avr\libraries\SPI\src;$(ProjectDir)..\..\..\..\..\..\..\arduino\arduino-1.8.19\hardware\arduino\avr\libraries\EEPROM\src;$(ProjectDir)..\..\..\..\..\OneDrive\Documents\Arduino\libraries\Arduino-LiquidCrystal-I2C-library-master;$(ProjectDir)..\..\..\..\..\OneDrive\Documents\Arduino\libraries\Adafruit_Sensor-master;$(ProjectDir)..\..\..\..\..\..\..\arduino\arduino-1.8.19\hardware\arduino\avr\cores\arduino;$(ProjectDir)..\..\..\..\..\..\..\arduino\arduino-1.8.19\hardware\arduino\avr\variants\mega;$(ProjectDir)..\..\..\..\..\..\..\arduino\arduino-1.8.19\hardware\tools\avr\\lib\gcc\avr\7.3.0\include;$(ProjectDir)..\..\..\..\..\..\..\arduino\arduino-1.8.19\hardware\tools\avr\avr\include;$(ProjectDir)..\..\..\..\..\..\..\arduino\arduino-1.8.19\hardware\tools\avr\\lib\gcc\avr\7.3.0\include;$(ProjectDir)..\..\..\..\..\..\..\arduino\arduino-1.8.19\hardware\tools\avr\avr\include-fixed;$(ProjectDir)..\..\..\..\..\..\..\arduino\arduino-1.8.19\hardware\tools\avr\avr\include\avr;$(ProjectDir)..\..\..\..\..\..\..\arduino\arduino-1.8.19\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\..\..\..\arduino\arduino-1.8.19\hardware\tools\avr\lib\gcc\avr\4.9.2\include;$(ProjectDir)..\..\..\..\..\..\..\arduino\arduino-1.8.19\hardware\tools\avr\lib\gcc\avr\4.9.3\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ProjectDir)__vm\.ControlUnit.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>false</IgnoreStandardIncludePath>
-      <PreprocessorDefinitions>__AVR_atmega2560__;__AVR_ATmega2560__;_VMDEBUG=1;F_CPU=16000000L;ARDUINO=108010;ARDUINO_AVR_MEGA2560;ARDUINO_ARCH_AVR;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__AVR_atmega2560__;__AVR_ATmega2560__;_VMDEBUG=1;F_CPU=16000000L;ARDUINO=108019;ARDUINO_AVR_MEGA2560;ARDUINO_ARCH_AVR;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

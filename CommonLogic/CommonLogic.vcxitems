@@ -23,6 +23,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)Configuration.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ConfigurationScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ConfigurationValueStorage.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FireCheck.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FiringController.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FiringScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IAction.h" />
@@ -31,6 +32,7 @@
       <DeploymentContent>true</DeploymentContent>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Context.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)IgnitionCheck.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IHwCheck.h">
       <DeploymentContent>true</DeploymentContent>
     </ClInclude>
@@ -84,6 +86,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)ConfigurationValueStorage.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)FireCheck.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)FiringController.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -99,6 +102,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Context.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)IgnitionCheck.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)IHwCheck.cpp">
       <DeploymentContent>true</DeploymentContent>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>

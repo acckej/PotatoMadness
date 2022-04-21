@@ -36,6 +36,11 @@ void ScreenBase::PrintNumber(int number)
 	_wrapper->PrintFormat("%i", number);
 }
 
+void ScreenBase::PrintNumber(unsigned long number)
+{
+	_wrapper->PrintFormat("%lu", number);
+}
+
 void ScreenBase::SetCursor(char col, char row)
 {
 	_wrapper->SetScreenCursor(col, row);

@@ -15,6 +15,7 @@ public:
 	virtual void Print(char* message);
 	virtual void PrintNumber(double number, int digits);
 	virtual void PrintNumber(int number);
+	virtual void PrintNumber(unsigned long number);
 	virtual void SetCursor(char col, char row);
 	virtual void Refresh();
 	virtual void Draw();
