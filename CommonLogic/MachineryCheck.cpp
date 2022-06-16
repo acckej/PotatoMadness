@@ -1,8 +1,6 @@
 #include "MachineryCheck.h"
 #include "Context.h"
 
-#define REFRESH_CYCLE 500
-
 MachineryCheck::MachineryCheck(IArduinoWrapper * wrapper, TestScreen * screen, Actuators* actuators) : IHwCheck(wrapper, screen)
 {
 	_cyclesCounter = 0;

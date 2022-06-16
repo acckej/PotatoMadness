@@ -1,29 +1,30 @@
 ﻿#include <iarduino_DHT.h>
 #include "HwCheckSequence.h"
 #include "ArduinoWrapper.h"
-//#include "Context.h"
+#include "Context.h"
 #include "Actuators.h"
 
 //#include "SensorsCheck.h"
 //#include "MachineryCheck.h"
 //#include "ButtonsCheck.h"
 #include "LoaderCheck.h"
+////#include "BatteryCheck.h"
+//
 //#include "BatteryCheck.h"
-
-#include "BatteryCheck.h"
-#include "ButtonsCheck.h"
-//#include "Sensors.h"
+//#include "ButtonsCheck.h"
+////#include "Sensors.h"
+////#include "CalculationConstants.h"
 #include "MainSequence.h"
 #include "ConfigurationValueStorage.h"
 #include "FireCheck.h"
-#include "IgnitionCheck.h"
-#include "MachineryCheck.h"
-#include "SensorsCheck.h"
-
-#define Arduino
-
+//#include "IgnitionCheck.h"
+//#include "MachineryCheck.h"
+//#include "SensorsCheck.h"
+//
+//#define Arduino
+//
 auto g_wrapper = ArduinoWrapper();
-
+//
 auto g_sensors = Sensors(&g_wrapper);
 auto g_config = ConfigurationValueStorage(&g_wrapper);
 auto g_loader = Loader(&g_wrapper);
@@ -33,14 +34,13 @@ auto g_context = Context(&g_wrapper, &g_buttons, &g_loader, &g_actuators, &g_sen
 auto main_sequence = MainSequence(&g_wrapper);
 auto g_injector = Injector(&g_config, &g_wrapper, &g_sensors);
 
-
 bool g_high = false;///
 
 auto g_screen = TestScreen(&g_wrapper);///
 IHwCheck* checks[1];///
-//auto bc = SensorsCheck(&wrapper, &screen, &loader, &actuators, &sensors);///
+//auto g_bc = SensorsCheck(&g_wrapper, &g_screen, &g_loader, &g_actuators, &g_sensors);///
 //auto bc = MachineryCheck(&wrapper, &screen, &actuators);///
-//auto bc = LoaderCheck(&wrapper, &screen, &loader);///
+//auto g_bc = LoaderCheck(&g_wrapper, &g_screen, &g_loader);///
 //auto bc = BatteryCheck(&wrapper, &screen, &sensors);///
 //auto bc = ButtonsCheck(&wrapper, &screen);///
 //auto bc = IgnitionCheck(& wrapper, & screen, &loader, &actuators);///
@@ -49,10 +49,10 @@ auto g_bc = FireCheck(&g_wrapper, &g_screen, &g_loader, &g_actuators, &g_sensors
 auto g_seq = HwCheckSequence(&g_wrapper, checks, 1);///
 CheckResult hw_check_result = Running;///
 
-void setup() 
-{	
+void setup()
+{
 #ifdef Debug
-	Serial.begin(9600);
+	Serial.begin(115200);
 #endif	
 
 	g_wrapper.Init();
@@ -63,16 +63,25 @@ void setup()
 
 	g_context.Halt();
 
-	//attachInterrupt(digitalPinToInterrupt(BLAST_SENSOR_PORT), FiringController::BlastSensorHandler, RISING);///
-	//attachInterrupt(digitalPinToInterrupt(FSS_PORT), FiringController::FrontSpeedsensorHandler, RISING);///
-	//attachInterrupt(digitalPinToInterrupt(RSS_PORT), FiringController::RearSpeedSensorHandler, RISING);///	
+	/*
+	attachInterrupt(digitalPinToInterrupt(BLAST_SENSOR_PORT), FiringController::BlastSensorHandler, RISING);///
+	attachInterrupt(digitalPinToInterrupt(FSS_PORT), FiringController::FrontSpeedsensorHandler, RISING);///
+	attachInterrupt(digitalPinToInterrupt(RSS_PORT), FiringController::RearSpeedSensorHandler, RISING);///	
+	//*/
+	attachInterrupt(digitalPinToInterrupt(BLAST_SENSOR_PORT), FireCheck::BlastOn, RISING);///
+	attachInterrupt(digitalPinToInterrupt(FSS_PORT), FireCheck::FssOn, RISING);///
+	attachInterrupt(digitalPinToInterrupt(RSS_PORT), FireCheck::RssOn, RISING);///	
 
-	//_mainSequence.Init();
+	//main_sequence.Init();
+
+	g_config.Load();
+	g_config.Save();
 }
 
-void loop() 
-{	
-	/*if (_context.GetState() == SystemIdle)
+void loop()
+{
+	/*
+	 if (_context.GetState() == SystemIdle)
 	{
 		if (!_context.IncrementIdleCycleCounter())
 		{
@@ -86,26 +95,49 @@ void loop()
 		Context::SetState(state);
 	}*/
 
-	/*_wrapper.SetScreenCursor(0, 0);
-	_wrapper.Print(i);
-	i++;*/
-
-	if(g_high)///
+	if (g_high)///
 	{
-		digitalWrite(13, HIGH);		
+		digitalWrite(13, HIGH);
 		g_high = false;
 	}
 	else
 	{
-		digitalWrite(13, LOW);		
+		digitalWrite(13, LOW);
 		g_high = true;
-	}	
+	}
 
-	delay(200);///
-	
+	//delay(200);///
+
+	//Serial.println("_____");
+	//Serial.println(g_injector.CalculateInjectionTime());
+	//Serial.println(g_injector.GetInjectedPortion(), 7);
+	//Serial.println(g_injector.GetGasFlow(), 10);
+	////GetGasConcentration() * GetCorrectionCoefficient() * GetChamberAirMass()
+	//Serial.println(g_injector.GetGasConcentration());
+	//Serial.println(">>>>>>");
+
+	//Serial.println(g_injector.GetGasDensity());
+	//Serial.println(g_injector.GetGasFlowSpeed());
+	//Serial.println(g_injector.GetValveArea(), 10);
+
+	//Serial.println("++++++");
+	//Serial.println(g_injector.GetChamberAirMass(), 10);
+	//Serial.println(g_injector.GetDryAirMass(), 10);
+	//
+	//Serial.println(g_injector.GetCorrectionCoefficient());
+	//Serial.println(g_config.GetChamberVolume());
+
+	//Serial.println(g_injector.GetMoistAirDensity());
+
+	//Serial.println(g_injector.GetChamberAirMass(), 10);
+
+	//Serial.println("||||");
+	//Serial.println(g_injector.GetDryAirPressure());
+	//Serial.println(g_wrapper.GetAtmPressure());
+
 	if (hw_check_result == Running)//
 	{
 		hw_check_result = g_seq.Run();///
-	}
+	}	
 }
 

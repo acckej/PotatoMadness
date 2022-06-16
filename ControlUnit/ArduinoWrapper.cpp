@@ -5,6 +5,8 @@
 #include <DHT.h>
 //#include <Adafruit_Sensor.h>
 #include <Adafruit_BMP280.h>
+
+#include "CalculationConstants.h"
 #include "EEPROM.h"
 
 
@@ -88,7 +90,7 @@ void ArduinoWrapper::PrintFormatBuffer(char * buffer, char * message, ...)
 
 float ArduinoWrapper::GetAtmPressure()
 {
-	return atmPSens.readPressure() / ATM_PRESSURE_COEF;
+	return atmPSens.readPressure() / ATM_PRESSURE_COEF * KILO;	
 }
 
 float ArduinoWrapper::GetInternalTemp()
@@ -99,7 +101,7 @@ float ArduinoWrapper::GetInternalTemp()
 float ArduinoWrapper::GetExternalTemp()
 {
 	const auto t = dht.readTemperature();
-	return t;
+	return t;	
 }
 
 float ArduinoWrapper::GetExternalHumidity()
@@ -109,7 +111,7 @@ float ArduinoWrapper::GetExternalHumidity()
 	{
 		return 0.0f;
 	}
-	return h;
+	return h;	
 }
 
 void ArduinoWrapper::Init()
@@ -128,7 +130,8 @@ void ArduinoWrapper::Init()
 	pinMode(BREACH_OPEN_PORT, OUTPUT);
 	pinMode(BREACH_CLOSE_PORT, OUTPUT);
 	pinMode(INJECTOR_PORT, OUTPUT);
-	pinMode(RESERVED_RELAY_PORT, OUTPUT);
+	pinMode(HEATER_PORT, OUTPUT);
+	pinMode(HEATER_SENSOR_PORT, INPUT);
 		
 	pinMode(FSS_PORT, INPUT);
 	pinMode(RSS_PORT, INPUT);

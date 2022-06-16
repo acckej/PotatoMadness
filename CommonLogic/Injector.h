@@ -10,7 +10,7 @@ public:
 	Injector(IConfiguration* config, IArduinoWrapper* wrapper, Sensors* sensors);
 
 	unsigned long CalculateInjectionTime() const;
-private:
+//private:
 	double GetSaturatedSteamPartialPressure() const;
 	double GetSteamPressure() const;
 	double GetDryAirPressure() const;

@@ -19,12 +19,12 @@ ConfigurationValueStorage::~ConfigurationValueStorage()
 
 int ConfigurationValueStorage::GetLoaderForwardFanTime()
 {
-	return _values[LOADER_FORWARD_TIME_INDEX].Value;
+	return static_cast<int>(_values[LOADER_FORWARD_TIME_INDEX].Value);
 }
 
 int ConfigurationValueStorage::GetLoaderReverseFanTime()
 {
-	return _values[LOADER_REVERSE_TIME_INDEX].Value;
+	return static_cast<int>(_values[LOADER_REVERSE_TIME_INDEX].Value);
 }
 
 double ConfigurationValueStorage::GetSsPpA()
@@ -124,7 +124,7 @@ double ConfigurationValueStorage::GetGasFlowSpeedB()
 
 int ConfigurationValueStorage::GetFiringIdleCyclesCount()
 {
-	return _values[FIRING_IDLE_CYCLES_INDEX].Value;
+	return static_cast<int>(_values[FIRING_IDLE_CYCLES_INDEX].Value);
 }
 
 void ConfigurationValueStorage::IncrementValue(char index)
@@ -194,28 +194,28 @@ void ConfigurationValueStorage::InitConfiguration()
 {
 	_values = new ConfigurationValue[CONFIG_VALUES_COUNT];
 	_valuesCount = CONFIG_VALUES_COUNT;
-	_values[0] = { 0.61078f, 0.001f, "ssppA " }; // saturated steam partial pressure
-	_values[1] = { 7.5f, 0.1f, "ssppB " }; 
-	_values[2] = { 2048.625f, 0.01f, "ssppC " };
-	_values[3] = { 35.85f, 0.01f, "ssppD " };
-	_values[4] = {287.058f, 0.01f, "madA  " }; // moist air density
-	_values[5] = { 461.495f, 0.01f, "madB " };
-	_values[6] = { 1.5f, 0.1f, "chaV  " }; // combustion chamber volume
-	_values[7] = { 6.0f, 0.1f, "valD  " }; // valve diameter
-	_values[8] = { 0.4f, 0.01f, "ouCo  " }; // outflow coefficient
-	_values[9] = { 58.123f, 0.01f, "moMa  " }; // molar mass
-	_values[10] = { 2.51f, 0.01f, "20cDn " }; // 20c 101.325kpa density
-	_values[11] = { 1.2041f, 0.001f, "20cDD " }; // 20c 101.325kpa dry air density
-	_values[12] = { 44.62f, 0.01f, "UpMxA " }; // Up max concentration
-	_values[13] = { 0.00367f, 0.0001f, "UpMxB " };
-	_values[14] = { 32.46f, 0.01f, "UpMxC " };
-	_values[15] = { 0.25f, 0.01f, "vlvBA " }; // valve bore area
-	_values[16] = { 0.5f, 0.01f, "coCo  " }; // correctional coefficient
-	_values[17] = { 2000.0f, 1.0f, "lFwFa " }; // loader forward fan time
-	_values[18] = { 2000.0f, 1.0f, "lReFa " }; // loader reverse fan time
-	_values[19] = { 91.5f, 0.1f, "gasFA " }; // gas flow speed 
-	_values[20] = { 1.03f, 0.01f, "gasFB " };
-	_values[21] = { 10.0f, 1.0f, "ficc  " }; // firing idle cycles count
+	_values[SSPPA_INDEX] = { 0.61078l, 0.001l, "ssppA " }; // saturated steam partial pressure
+	_values[SSPPB_INDEX] = { 7.5l, 0.1l, "ssppB " };
+	_values[SSPPC_INDEX] = { 2048.625l, 0.01l, "ssppC " };
+	_values[SSPPD_INDEX] = { 35.85l, 0.01l, "ssppD " };
+	_values[MOIST_AIR_DENSITYA_INDEX] = {287.058l, 0.01l, "madA  " }; // moist air density
+	_values[MOIST_AIR_DENSITYB_INDEX] = { 461.495l, 0.01l, "madB " };
+	_values[CHAMBER_VOLUME_INDEX] = { 7.0l, 0.1l, "chaV  " }; // combustion chamber volume
+	_values[VALVE_DIAMETER_INDEX] = { 4.0l, 0.1l, "valD  " }; // valve diameter (6.0l)
+	_values[OUTFLOW_COEF_INDEX] = { 0.4l, 0.01l, "ouCo  " }; // outflow coefficient
+	_values[MOLAR_MASS_INDEX] = { 58.123l, 0.01l, "moMa  " }; // molar mass
+	_values[NORMAL_COND_DENSITY_INDEX] = { 2.51l, 0.01l, "20cDn " }; // 20c 101.325kpa density
+	_values[NORMAL_COND_DRY_DENSITY_INDEX] = { 1.2041l, 0.001l, "20cDD " }; // 20c 101.325kpa dry air density
+	_values[UP_MAX_CONCA_INDEX] = { 44.62l, 0.01l, "UpMxA " }; // Up max concentration
+	_values[UP_MAX_CONCB_INDEX] = { 0.00367l, 0.0001l, "UpMxB " };
+	_values[UP_MAX_CONCC_INDEX] = { 32.46l, 0.01l, "UpMxC " };
+	_values[VALVE_BORE_AREA_INDEX] = { 0.006l, 0.001l, "vlvBA " }; // valve bore area (0.25l)
+	_values[CORRECTIONAL_COEF_INDEX] = { 3.0l, 0.01l, "coCo  " }; // correctional coefficient
+	_values[LOADER_FORWARD_TIME_INDEX] = { 2000.0l, 1.0l, "lFwFa " }; // loader forward fan time
+	_values[LOADER_REVERSE_TIME_INDEX] = { 2000.0l, 1.0l, "lReFa " }; // loader reverse fan time
+	_values[GAS_FLOW_SPEEDA_INDEX] = { 91.5l, 0.1l, "gasFA " }; // gas flow speed 
+	_values[GAS_FLOW_SPEEDB_INDEX] = { 1.03l, 0.01l, "gasFB " };
+	_values[FIRING_IDLE_CYCLES_INDEX] = { 10.0l, 1.0l, "ficc  " }; // firing idle cycles count
 }
 
 ArduinoDouble ConfigurationValueStorage::GetDoubleFromEeeprom(short address) const
@@ -223,9 +223,9 @@ ArduinoDouble ConfigurationValueStorage::GetDoubleFromEeeprom(short address) con
 	unsigned char temp[4];
 
 	temp[0] = _wrapper->ReadFromEeprom(address);
-	temp[1] = _wrapper->ReadFromEeprom(address + 1);
-	temp[2] = _wrapper->ReadFromEeprom(address + 2);
-	temp[3] = _wrapper->ReadFromEeprom(address + 3);
+	temp[1] = _wrapper->ReadFromEeprom(static_cast<short>(address + 1));
+	temp[2] = _wrapper->ReadFromEeprom(static_cast<short>(address + 2));
+	temp[3] = _wrapper->ReadFromEeprom(static_cast<short>(address + 3));
 
 	const auto result = *reinterpret_cast<ArduinoDouble*>(temp);
 	return result;
@@ -233,11 +233,11 @@ ArduinoDouble ConfigurationValueStorage::GetDoubleFromEeeprom(short address) con
 
 void ConfigurationValueStorage::SaveDoubleToEeprom(ArduinoDouble val, short address) const
 {
-	auto value = reinterpret_cast<unsigned char*>(&val);
+	const auto value = reinterpret_cast<unsigned char*>(&val);
 
 	_wrapper->WriteToEeprom(address, value[0]);
-	_wrapper->WriteToEeprom(address + 1, value[1]);
-	_wrapper->WriteToEeprom(address + 2, value[2]);
-	_wrapper->WriteToEeprom(address + 3, value[3]);
+	_wrapper->WriteToEeprom(static_cast<short>(address + 1), value[1]);
+	_wrapper->WriteToEeprom(static_cast<short>(address + 2), value[2]);
+	_wrapper->WriteToEeprom(static_cast<short>(address + 3), value[3]);
 }
 

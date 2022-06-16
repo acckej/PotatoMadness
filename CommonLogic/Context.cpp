@@ -52,7 +52,7 @@ void Context::Halt()
 	_actuators->InjectorStop();
 	_actuators->CloseBreech();	
 	_actuators->TurnIgnitionOff();
-	_actuators->AuxOff();
+	_actuators->HeaterOff();
 	_actuators->EngageInjectorDiode(false);	
 	_sensors->ResetDebouncingTriggers();
 	_idleCyclesCounter = 0;

@@ -1,9 +1,11 @@
 #include "Sensors.h"
+
+//#include "CalculationConstants.h"
+#include "CalculationConstants.h"
 #include "Constants.h"
 
-Sensors::Sensors(IArduinoWrapper* wrapper)
+Sensors::Sensors(IArduinoWrapper* wrapper) : _wrapper(wrapper)
 {
-	_wrapper = wrapper;
 }
 
 double Sensors::GetBatteryVoltage() const
@@ -17,17 +19,20 @@ double Sensors::GetBatteryVoltage() const
 
 double Sensors::GetReceiverPressure() const
 {
+	//todo: 
 	auto press = _wrapper->AnalogRead(RECEIVER_PRESSURE_PORT);
-	auto val = static_cast<double>(press) * ANALOG_COEFFICIENT;
+	auto val = static_cast<double>(press) * static_cast<double>(ANALOG_COEFFICIENT);
 
-	if (val < 0.45l)
+	if (val < static_cast<double>(0.45f))
 	{
-		return -1;
+		return -1.0f;
 	}
 
-	val = static_cast<double>(val - PRESSURE_CONSTANT) * PRESSURE_COEFFICIENT;
+	val = (val - static_cast<double>(PRESSURE_CONSTANT)) * static_cast<double>(PRESSURE_COEFFICIENT) * KILO;
 
-	return val < 0l ? val * -1l : val;
+	return val < static_cast<double>(0.0f) ? val * static_cast<double>(- 1.0f) : val;
+
+	//return 400000.0f;//176000.0f;
 }
 
 void Sensors::ResetDebouncingTriggers() const

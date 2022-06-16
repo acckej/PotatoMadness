@@ -1,8 +1,8 @@
 #include "Injector.h"
 #include <math.h>
 #include "CalculationConstants.h"
+#include "Constants.h"
 
-#define M_PI 3.1415926535897932384626433832795f
 
 Injector::Injector(IConfiguration* config, IArduinoWrapper* wrapper, Sensors* sensors)
 {
@@ -14,30 +14,30 @@ Injector::Injector(IConfiguration* config, IArduinoWrapper* wrapper, Sensors* se
 unsigned long Injector::CalculateInjectionTime() const
 {
 	auto gasFlow = GetGasFlow();
-	auto time = KILO * GetInjectedPortion() / (gasFlow == 0 ? 1 : gasFlow);	
-	time = ceil(time / _configuration->GetCorrectionalCoef());
-	return time;
+	auto time = KILO * GetInjectedPortion() / (gasFlow == 0.0 ? 1 : gasFlow);	
+	time = ceil(time * _configuration->GetCorrectionalCoef());
+	return time > MAX_INJECTION_TIME ? MAX_INJECTION_TIME : static_cast<unsigned long>(time);	
 }
 
 double Injector::GetSaturatedSteamPartialPressure() const
 {
 	//=0.61078*10^(((7.5*(F2+273.15))-2048.625)/((F2+273.15)-35.85))
-	auto externalTemp = _wrapper->GetExternalTemp();
-	auto result = pow(_configuration->GetSsPpA() * 10, (_configuration->GetSsPpB() * (externalTemp + KELVIN) - _configuration->GetSsPpC()) / (externalTemp + KELVIN - _configuration->GetSsPpD()));
+	const auto externalTemp = static_cast<double>(_wrapper->GetExternalTemp() + KELVIN);
+	const auto result = pow(_configuration->GetSsPpA() * 10, (_configuration->GetSsPpB() * externalTemp - _configuration->GetSsPpC()) / (externalTemp - _configuration->GetSsPpD()));
 
 	return result;
 }
 
 double Injector::GetSteamPressure() const
 {
-	auto result = _wrapper->GetExternalHumidity() * GetSaturatedSteamPartialPressure();
+	const auto result = static_cast<double>(_wrapper->GetExternalHumidity()) * GetSaturatedSteamPartialPressure();
 
 	return result;
 }
 
 double Injector::GetDryAirPressure() const
 {
-	auto result = _wrapper->GetAtmPressure() - GetSteamPressure();
+	const auto result = static_cast<double>(_wrapper->GetAtmPressure()) - GetSteamPressure();
 
 	return result;
 }
@@ -45,15 +45,20 @@ double Injector::GetDryAirPressure() const
 double Injector::GetMoistAirDensity() const
 {
 	//=(F8*1000/(287.058*(F2+273.15)))+(F7*1000/(461.495*(F2+273.15)))
-	auto externalTemp = _wrapper->GetExternalTemp();
-	auto result = GetDryAirPressure() * KILO / (_configuration->GetMoistAirDensityA() * (externalTemp + KELVIN)) + GetSteamPressure() * KILO / (_configuration->GetMoistAirDensityB() * (externalTemp + KELVIN));
+	//KILO ?
+
+	const auto externalTemp = static_cast<double>(_wrapper->GetExternalTemp() + KELVIN);
+	//const auto result = GetDryAirPressure() * KILO / (_configuration->GetMoistAirDensityA() * externalTemp) + GetSteamPressure() * KILO / (_configuration->GetMoistAirDensityB() * externalTemp);
+
+	const auto result = GetDryAirPressure() / (_configuration->GetMoistAirDensityA() * externalTemp) + GetSteamPressure() / (_configuration->GetMoistAirDensityB() * externalTemp);
+
 
 	return result;
 }
 
 double Injector::GetChamberAirMass() const
 {
-	auto result = GetMoistAirDensity() * _configuration->GetChamberVolume() / KILO;
+	const auto result = GetMoistAirDensity() * _configuration->GetChamberVolume() / static_cast<double>(KILO);
 
 	return result;
 }
@@ -64,58 +69,65 @@ double Injector::GetGasDensity() const
 	//
 	//????
 	//
-	auto result = _configuration->GetNormalCondDensity() * (_sensors->GetReceiverPressure() / _wrapper->GetAtmPressure()) * ((KELVIN + NORMAL_TEMP_C) / (_wrapper->GetExternalTemp() + KELVIN));
+	const auto externalTemp = static_cast<double>(_wrapper->GetExternalTemp() + KELVIN);
+	const auto result = _configuration->GetNormalCondDensity() * (_sensors->GetReceiverPressure() / static_cast<double>(_wrapper->GetAtmPressure())) * (static_cast<double>((KELVIN + NORMAL_TEMP_C)) / externalTemp);
 
 	return result;
 }
 
 double Injector::GetGasConcentration() const
 {
+	//molar mass?
 	//=(44.62*F16)/((1+0.00367*F2)*32.46)
+	const auto externalTemp = static_cast<double>(_wrapper->GetExternalTemp() + KELVIN);
 
-	auto result = _configuration->GetUpMaxConcA() * _configuration->GetMolarMass() / ((1 + _configuration->GetUpMaxConcB() * _wrapper->GetExternalTemp()) * _configuration->GetUpMaxConcC());
+	const auto result = _configuration->GetUpMaxConcA() * _configuration->GetMolarMass() * MILLI / ((1 + _configuration->GetUpMaxConcB() * externalTemp) * _configuration->GetUpMaxConcC());
 
 	return result;
 }
 
 double Injector::GetDryAirMass() const
 {
-	auto result = _configuration->GetNormalCondDryDensity() * _configuration->GetChamberVolume() / KILO;
+	const auto result = _configuration->GetNormalCondDryDensity() * _configuration->GetChamberVolume() / KILO;
 
 	return result;
 }
 
 double Injector::GetCorrectionCoefficient() const
 {
-	auto result = GetChamberAirMass() / (GetDryAirMass() * GetDryAirPressure() / _wrapper->GetAtmPressure());
+	const auto result = GetChamberAirMass() / (GetDryAirMass() * GetDryAirPressure() / static_cast<double>(_wrapper->GetAtmPressure()));
 
 	return result;
 }
 
 double Injector::GetInjectedPortion() const
 {
-	auto result = GetGasConcentration() * GetCorrectionCoefficient() * GetChamberAirMass();
+	const auto result = GetGasConcentration() * GetCorrectionCoefficient() * GetChamberAirMass();
 
 	return result;
 }
 
 double Injector::GetValveArea() const
 {
-	auto result = M_PI * _configuration->GetValveBoreArea() * pow(_configuration->GetValveDiameter() * MILLI, 2);
+	//const auto result = M_PI * _configuration->GetValveBoreArea() * pow(_configuration->GetValveDiameter() * MILLI, 2);
+
+	const auto result = M_PI * pow(_configuration->GetValveDiameter() / 2 * MILLI, 2);
 
 	return result;
 }
 
 double Injector::GetGasFlowSpeed() const
 {
-	auto result = _configuration->GetGasFlowSpeedA() * sqrt(_configuration->GetGasFlowSpeedB() * (_wrapper->GetExternalTemp() + KELVIN) / _configuration->GetMolarMass());
+	const auto externalTemp = static_cast<double>(_wrapper->GetExternalTemp() + KELVIN);
+	const auto result = _configuration->GetGasFlowSpeedA() * sqrt(_configuration->GetGasFlowSpeedB() * externalTemp / _configuration->GetMolarMass());
 
 	return result;
 }
 
 double Injector::GetGasFlow() const
 {
-	auto result = KILO * GetGasDensity() * _configuration->GetOutflowCoefficient() * GetGasFlowSpeed() * GetValveArea();
+	// KILO?
+	const auto result = GetGasDensity() * _configuration->GetOutflowCoefficient() * GetGasFlowSpeed() * GetValveArea();
 
 	return  result;
 }

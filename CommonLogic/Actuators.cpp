@@ -7,7 +7,7 @@ Actuators::Actuators(IArduinoWrapper *wrapper)
 {
 	_wrapper = wrapper;
 	_fanOn = false;
-	_auxOn = false;
+	_heaterOn = false;
 	_breechOpened = false;
 	_ignitionOn = false;
 	_injectorStarted = false;
@@ -69,16 +69,29 @@ void Actuators::InjectorStop()
 	_injectorStarted = false;
 }
 
-void Actuators::AuxOn() 
+void Actuators::CheckHeater() 
 {
-	_wrapper->DigitalWrite(RESERVED_RELAY_PORT, ARDUINO_LOW);
-	_auxOn = true;
+	const auto vlt = GetHeaterSensorVoltage();
+
+	if(vlt >= HEATER_VOLTAGE_MAX || 
+		vlt <= HEATER_VOLTAGE_LIMIT)
+	{
+		_wrapper->DigitalWrite(HEATER_PORT, ARDUINO_HIGH);
+		_heaterOn = false;
+		return;
+	}
+
+	if(vlt >= HEATER_VOLTAGE_THR)
+	{
+		_wrapper->DigitalWrite(HEATER_PORT, ARDUINO_LOW);
+		_heaterOn = true;
+	}	
 }
 
-void Actuators::AuxOff() 
+void Actuators::HeaterOff() 
 {
-	_wrapper->DigitalWrite(RESERVED_RELAY_PORT, ARDUINO_HIGH);
-	_auxOn = false;
+	_wrapper->DigitalWrite(HEATER_PORT, ARDUINO_HIGH);
+	_heaterOn = false;
 }
 
 void Actuators::EngageInjectorDiode(bool on) const
@@ -103,11 +116,19 @@ bool Actuators::InjectorStarted() const
 
 bool Actuators::AuxEnabled() const
 {
-	return _auxOn;
+	return _heaterOn;
 }
 
 bool Actuators::BreechOpened() const
 {
 	return _breechOpened;
+}
+
+float Actuators::GetHeaterSensorVoltage() const
+{
+	const auto volt = _wrapper->AnalogRead(HEATER_SENSOR_PORT);
+	const auto val = static_cast<float>(volt) * static_cast<float>(ANALOG_COEFFICIENT);
+
+	return val;
 }
 

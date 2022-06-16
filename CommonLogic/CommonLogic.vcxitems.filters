@@ -133,7 +133,9 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)IgnitionCheck.cpp">
       <Filter>HardwareTest\Checks</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)FireCheck.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)FireCheck.cpp">
+      <Filter>HardwareTest\Checks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)Constants.h" />
@@ -241,6 +243,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)IgnitionCheck.h">
       <Filter>HardwareTest\Checks</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)FireCheck.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)FireCheck.h">
+      <Filter>HardwareTest\Checks</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

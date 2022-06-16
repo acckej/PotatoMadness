@@ -2,8 +2,6 @@
 #include "Constants.h"
 #include <stdio.h>
 
-#define REFRESH_CYCLE 500
-
 LoaderCheck::LoaderCheck(IArduinoWrapper * wrapper, TestScreen* screen, Loader* loader): IHwCheck(wrapper, screen)
 {
 	_cyclesCounter = 0;

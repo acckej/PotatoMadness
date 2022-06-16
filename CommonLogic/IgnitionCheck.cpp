@@ -1,8 +1,6 @@
 #include "IgnitionCheck.h"
 #include "Constants.h"
 
-#define REFRESH_CYCLE 500
-
 IgnitionCheck::IgnitionCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader* loader, Actuators* actuators) : IHwCheck(wrapper, screen)
 {
 	_cyclesCounter = 0;	

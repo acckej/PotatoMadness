@@ -1,7 +1,5 @@
 #include "SensorsCheck.h"
 
-#define REFRESH_CYCLE 500
-
 SensorsCheck::SensorsCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader* loader, Actuators* actuators, Sensors* sensors) : IHwCheck(wrapper, screen)
 {	
 	_shotSensors = true;
