@@ -2,10 +2,13 @@
 
 
  IArduinoWrapper* FireCheck::_staticWrapper;
- volatile unsigned long FireCheck::_millis;
+ volatile unsigned long FireCheck::_micros;
+ volatile unsigned long FireCheck::_rMicros;
  volatile bool FireCheck::_blastEngaged;
  volatile bool FireCheck::_fssOn;
  volatile bool FireCheck::_rssOn;
+ volatile short FireCheck::_order;
+ volatile short FireCheck::_digit;
 
 FireCheck::FireCheck(IArduinoWrapper* wrapper, 
 	TestScreen* screen, 
@@ -33,11 +36,8 @@ FireCheck::FireCheck(IArduinoWrapper* wrapper,
 	_fwCycleCounter = 0;
 	_revCycleCounter = 0;
 
-	_blastEngaged = false;
-	_millis = 0;
 	_staticWrapper = wrapper;
-	_fssOn = false;
-	_rssOn = false;
+	InitSpeedCalculation();
 }
 
 CheckResult FireCheck::Check()
@@ -69,6 +69,8 @@ CheckResult FireCheck::Check()
 	_screen->SetCursor(0, 1);
 	_screen->PrintNumber(press, 2);
 	_screen->Print(" pa");
+	_screen->SetCursor(17, 1);
+	_screen->PrintNumber(_order);
 
 	const auto vlt = _actuators->GetHeaterSensorVoltage();
 	_screen->SetCursor(0, 3);
@@ -77,11 +79,13 @@ CheckResult FireCheck::Check()
 	_screen->PrintNumber(vlt, 2);
 	_screen->Print(" v");
 
-	if (_blastEngaged && _millis != 0)
+	if (_blastEngaged)
 	{
-		auto speed = (SPEED_CONSTANT / _millis) * 1000;
+		const auto diff = _rMicros - _micros;
+		const auto speed = (SPEED_CONSTANT / static_cast<float>(diff == 0 ? 1 : diff)) * 1000000;
 		_screen->SetCursor(8, 3);		
-		_screen->PrintNumber(speed, 7);
+		_screen->PrintNumber(speed, 1);
+		_screen->Print("m/s");
 	}
 
 	if (_loader->IsRevCheckOn() && _buttons->IsButtonPressed(x1A))
@@ -96,11 +100,8 @@ CheckResult FireCheck::Check()
 
 	if(_buttons->IsButtonPressed(x3C))
 	{
-		_blastEngaged = 0;
-		_millis = 0;
+		InitSpeedCalculation();
 		_sensors->ResetDebouncingTriggers();
-		_fssOn = false;
-		_rssOn = false;
 
 		if (!_injecting)
 		{
@@ -108,21 +109,14 @@ CheckResult FireCheck::Check()
 			_actuators->InjectorStart();
 			_wrapper->Delay(injTime);
 			_actuators->InjectorStop();
+
+			Context::SetState(SystemIdle);
 		}
 	}
 	else
 	{
 		_injecting = false;
 	}
-
-	/*if (_buttons->IsButtonPressed(x3C))
-	{
-		_actuators->InjectorStart();
-	}
-	else
-	{
-		_actuators->InjectorStop();
-	}*/
 
 	if(_buttons->IsButtonPressed(x4D))
 	{
@@ -165,6 +159,7 @@ CheckResult FireCheck::Check()
 			_revCycleCounter = 0;
 
 			_actuators->CloseBreech();
+			_actuators->TurnFanOff();
 		}
 
 		if(_revCycleCounter < 20)
@@ -185,26 +180,57 @@ CheckResult FireCheck::Check()
 
 void FireCheck::FssOn()
 {
-	if (_blastEngaged && !_fssOn)
-	{
-		_millis = _staticWrapper->GetMilliseconds();
-		_fssOn = true;
-	}
+	_micros = _staticWrapper->GetMicroseconds();	
 }
 
 void FireCheck::RssOn()
 {
-	if (_blastEngaged && !_rssOn)
-	{
-		auto millis = _staticWrapper->GetMilliseconds();
-		_millis = millis - _millis;
-		_rssOn = true;
-	}
+	_rMicros = _staticWrapper->GetMicroseconds();
+
+	Context::SetState(SystemRunning);
 }
 
 void FireCheck::BlastOn()
 {
 	_blastEngaged = true;
+}
+
+void FireCheck::FssOnOrd()
+{
+	if (!_fssOn)
+	{
+		if (_blastEngaged)
+		{
+			_micros = _staticWrapper->GetMicroseconds();
+		}
+		_fssOn = true;
+
+		_order = _order + _digit * 2;
+		_digit *= 10;
+	}
+}
+
+void FireCheck::RssOnOrd()
+{
+	if (!_rssOn)
+	{
+		if (_blastEngaged)
+		{
+			_rMicros = _staticWrapper->GetMicroseconds();
+		}
+		_rssOn = true;
+
+		_order = _digit * 3 + _order;
+		_digit *= 10;
+	}
+}
+
+void FireCheck::BlastOnOrd()
+{
+	_blastEngaged = true;
+
+	_order = _order + _digit;
+	_digit *= 10;
 }
 
 void FireCheck::Stop() const
@@ -234,5 +260,16 @@ CheckResult FireCheck::CheckCurrent(char messageLine)
 	}
 
 	return Passed;
+}
+
+void FireCheck::InitSpeedCalculation()
+{
+	_blastEngaged = 0;
+	_micros = 0;
+	_rMicros = 0;	
+	_fssOn = false;
+	_rssOn = false;
+	_digit = 1;
+	_order = 0;
 }
 

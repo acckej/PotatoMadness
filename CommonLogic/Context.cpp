@@ -21,7 +21,7 @@ Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* l
 	_buttonsController = buttons;
 	_loader = loader;
 	_actuators = actuators;
-	_state = SystemIdle;
+	_state = SystemRunning;
 	_sensors = sensors;
 	_configuration = configuration;
 	_idleCyclesCount = _configuration->GetFiringIdleCyclesCount();

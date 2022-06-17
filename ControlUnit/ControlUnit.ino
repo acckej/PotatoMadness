@@ -61,7 +61,7 @@ void setup()
 
 	pinMode(LED_BUILTIN, OUTPUT);
 
-	g_context.Halt();
+	Context::Halt();
 
 	/*
 	attachInterrupt(digitalPinToInterrupt(BLAST_SENSOR_PORT), FiringController::BlastSensorHandler, RISING);///
@@ -80,15 +80,16 @@ void setup()
 
 void loop()
 {
-	/*
-	 if (_context.GetState() == SystemIdle)
+	if (Context::GetState() == SystemIdle)
 	{
-		if (!_context.IncrementIdleCycleCounter())
+		/*if (!Context::IncrementIdleCycleCounter())
 		{
 			return;
-		}
+		}*/
+		return;
 	}
 
+	/*
 	if (Context::GetState() != IdleCycle)
 	{
 		auto state = _mainSequence.Run();

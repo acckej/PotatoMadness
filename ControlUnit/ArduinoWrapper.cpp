@@ -182,6 +182,11 @@ unsigned long ArduinoWrapper::GetMilliseconds()
 	return millis();
 }
 
+unsigned long ArduinoWrapper::GetMicroseconds()
+{
+	return micros();
+}
+
 unsigned char ArduinoWrapper::ReadFromEeprom(short index)
 {
 	return EEPROM.read(index);

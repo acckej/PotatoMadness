@@ -22,9 +22,14 @@ public:
 	static void RssOn();
 	static void BlastOn();
 
+	static void FssOnOrd();
+	static void RssOnOrd();
+	static void BlastOnOrd();
+
 private:
 	void Stop() const;
 	CheckResult CheckCurrent(char messageLine);
+	void InitSpeedCalculation();
 	
 	Loader* _loader;
 	Actuators* _actuators;
@@ -41,9 +46,12 @@ private:
 	int _revCycleCounter;
 
 	static IArduinoWrapper* _staticWrapper;
-	static volatile unsigned long _millis;
+	static volatile unsigned long _micros;
+	static volatile unsigned long _rMicros;
 	static volatile bool _blastEngaged;
 	static volatile bool _fssOn;
 	static volatile bool _rssOn;
+	static volatile short _order;
+	static volatile short _digit;
 };
 

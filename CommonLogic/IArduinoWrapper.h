@@ -35,6 +35,7 @@ public:
 	virtual float GetExternalHumidity();
 
 	virtual unsigned long GetMilliseconds();	
+	virtual unsigned long GetMicroseconds();
 
 	virtual void WriteToEeprom(short index, unsigned char value);
 	virtual unsigned char ReadFromEeprom(short index);

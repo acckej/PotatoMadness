@@ -30,6 +30,7 @@ public:
 	void LogFloatingPoint(double val) override;
 	
 	unsigned long GetMilliseconds() override;
+	unsigned long GetMicroseconds() override;
 
 	unsigned char ReadFromEeprom(short index) override;
 	void WriteToEeprom(short index, unsigned char value) override;
