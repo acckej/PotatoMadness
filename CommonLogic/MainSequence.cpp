@@ -3,7 +3,6 @@
 #include "Context.h"
 #include "PrepareForFiringAction.h"
 #include "LoaderReverseAction.h"
-#include "LoaderReverseActionForcedMixing.h"
 #include "BatteryCheck.h"
 #include "ButtonsCheck.h"
 #include "LoaderCheck.h"
@@ -17,16 +16,14 @@ MainSequence::MainSequence(IArduinoWrapper* wrapper): _manualAction(nullptr), _m
 	_wrapper = wrapper;
 
 	_checks = nullptr;
-	_firingActions = nullptr;
-	_firingActionsForcedMixing = nullptr;
+	_firingActions = nullptr;	
 	_firingController = nullptr;
 	_firingScreen = nullptr;
 	_firingSequencer = nullptr;
 	_hwChecksSequence = nullptr;
 	_injector = nullptr;
 	_testScreen = nullptr;
-	_mainScreen = nullptr;
-	_injectorTestScreen = nullptr;
+	_mainScreen = nullptr;	
 	_configScreen = nullptr;
 	_waitingForInput = false;
 	_readyToSwitch = false;
@@ -62,18 +59,13 @@ SystemState MainSequence::Run()
 			return RunConfigEdit();
 		}
 	case FiringMode:
-	case FiringModeForcedMixing:
 		{
 			return RunFiringSequence();
 		}
 	case TestMode:
 		{
 			return RunHwChecks();
-		}
-	case InjectorTestMode:
-		{
-			return RunInjectorTest();
-		}
+		}	
 	default: ;
 	}
 
@@ -96,8 +88,7 @@ void MainSequence::Init()
 void MainSequence::InitializeFiringSequence()
 {
 	_firingActions = new IAction*[FIRING_ACTIONS_COUNT];
-	_firingActionsForcedMixing = new IAction*[FIRING_ACTIONS_COUNT];
-
+	
 	_firingController = new FiringController(_wrapper);
 	_injector = new Injector(Context::GetConfiguration(), _wrapper, Context::GetSensors());
 
@@ -108,11 +99,8 @@ void MainSequence::InitializeFiringSequence()
 	_firingActions[1] = new LoaderReverseAction(_wrapper, _injector, Context::GetLoader(), Context::GetActuators(), Context::GetSensors(), _firingActions[2]);
 	_firingActions[0] = new LoaderForwardAction(_wrapper, Context::GetConfiguration(), Context::GetLoader(), Context::GetActuators(), Context::GetSensors(), _firingActions[1]);
 	
-	_firingActionsForcedMixing[2] = new PrepareForFiringAction(_wrapper, _firingController, Context::GetActuators(), Context::GetSensors(), nullptr, _firingScreen);
-	_firingActionsForcedMixing[1] = new LoaderReverseActionForcedMixing(_wrapper, Context::GetConfiguration(), _injector, Context::GetLoader(), Context::GetActuators(), Context::GetSensors(), _firingActionsForcedMixing[2]);
-	_firingActionsForcedMixing[0] = new LoaderForwardAction(_wrapper, Context::GetConfiguration(), Context::GetLoader(), Context::GetActuators(), Context::GetSensors(), _firingActionsForcedMixing[1]);
 
-	_firingSequencer = new FiringSequencer(_wrapper, _firingActions[0], _firingActionsForcedMixing[0], _firingScreen);
+	_firingSequencer = new FiringSequencer(_wrapper, _firingActions[0],  _firingScreen);
 }
 
 void MainSequence::InitializeHwTest()
@@ -129,13 +117,6 @@ void MainSequence::InitializeHwTest()
 	_checks[4] = new SensorsCheck(_wrapper, _testScreen, Context::GetLoader(), Context::GetActuators(), Context::GetSensors());
 
 	_hwChecksSequence = new HwCheckSequence(_wrapper, _checks, HW_CHECKS_COUNT);
-}
-
-void MainSequence::InitializeInjectorTest()
-{
-	_injector = new Injector(Context::GetConfiguration(), _wrapper, Context::GetSensors());
-	_injectorTestScreen = new InjectorTestScreen(_wrapper, Context::GetSensors(), _injector);
-	_injectorTestScreen->Refresh();
 }
 
 void MainSequence::InitializeConfigEdit()
@@ -176,8 +157,7 @@ void MainSequence::SwitchMode(OperationMode mode)
 			CleanupConfigEdit();
 		}
 		break;
-	case FiringMode:
-	case FiringModeForcedMixing:
+	case FiringMode:	
 		{
 			CleanupFiringSequences();
 		}
@@ -191,12 +171,7 @@ void MainSequence::SwitchMode(OperationMode mode)
 		{
 			CleanupMainMenu();
 		}
-		break;
-	case InjectorTestMode:
-		{
-			CleanupInjectorTest();
-		}
-		break;
+		break;	
 	case ManualMode:
 		{
 			CleanupManualMode();
@@ -211,8 +186,7 @@ void MainSequence::SwitchMode(OperationMode mode)
 			InitializeConfigEdit();
 		}
 		break;
-	case FiringMode:
-	case FiringModeForcedMixing:
+	case FiringMode:	
 		{
 			InitializeFiringSequence();
 		}
@@ -221,12 +195,7 @@ void MainSequence::SwitchMode(OperationMode mode)
 		{
 			InitializeHwTest();
 		}
-		break;
-	case InjectorTestMode:
-		{
-			InitializeInjectorTest();
-		}
-		break;
+		break;	
 	case ManualMode:
 		{
 			InitializeManualMode();
@@ -255,17 +224,7 @@ void MainSequence::CleanupFiringSequences()
 	{
 		delete _firingScreen;
 		_firingScreen = nullptr;
-	}
-
-	if(_firingActionsForcedMixing != nullptr)
-	{
-		for (auto i = 0; i < FIRING_ACTIONS_COUNT; i++)
-		{
-			delete _firingActionsForcedMixing[i];
-		}
-		delete _firingActionsForcedMixing;
-		_firingActionsForcedMixing = nullptr;
-	}
+	}	
 
 	if (_firingActions != nullptr)
 	{
@@ -315,20 +274,6 @@ void MainSequence::CleanupHwChecks()
 	}
 }
 
-void MainSequence::CleanupInjectorTest()
-{
-	if(_injector != nullptr)
-	{
-		delete _injector;
-		_injector = nullptr;
-	}
-
-	if(_injectorTestScreen != nullptr)
-	{
-		delete _injectorTestScreen;
-		_injectorTestScreen = nullptr;
-	}
-}
 
 void MainSequence::CleanupConfigEdit()
 {		
@@ -439,24 +384,6 @@ SystemState MainSequence::RunHwChecks()
 	return SystemIdle;
 }
 
-SystemState MainSequence::RunInjectorTest()
-{
-	if (_injectorTestScreen != nullptr)
-	{
-		if (Context::GetButtonsController().IsButtonPressed(x2B)) //stop
-		{
-			SwitchMode(MainMenu);
-			return SystemIdle;
-		}
-
-		_injectorTestScreen->Draw();
-
-		return SystemRunning;	
-	}
-
-	return SystemIdle;
-}
-
 SystemState MainSequence::RunFiringSequence()
 {
 	if(_firingSequencer != nullptr)
@@ -532,13 +459,7 @@ SystemState MainSequence::RunMainMenu()
 		}
 
 		_readyToSwitch = true;
-	}
-
-	if(controller.AreButtonsPressed(x2B, x3C))
-	{
-		SwitchMode(InjectorTestMode);
-		return SystemRunning;
-	}
+	}	
 
 	if (controller.IsButtonPressed(x1A))
 	{
@@ -557,18 +478,7 @@ SystemState MainSequence::RunMainMenu()
 		Context::SetFiringSequenceMode(Auto);
 		_mainScreen->UpdateFiringMode();
 		return SystemIdle;
-	}
-
-	if (controller.IsButtonPressed(x2B))
-	{
-		if(IsSwitchDelay())
-		{
-			return SystemIdle;
-		}
-
-		SwitchMode(FiringModeForcedMixing);
-		return SystemRunning;
-	}
+	}	
 
 	if (controller.IsButtonPressed(x3C))
 	{

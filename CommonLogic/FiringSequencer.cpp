@@ -3,12 +3,11 @@
 #include "Context.h"
 
 
-FiringSequencer::FiringSequencer(IArduinoWrapper* wrapper, IAction* startActionNormal, IAction* startActionForcedMixing, FiringScreen* screen)
+FiringSequencer::FiringSequencer(IArduinoWrapper* wrapper, IAction* startActionNormal, FiringScreen* screen)
 {
 	_wrapper = wrapper;
 
-	_startActionNormal = startActionNormal;
-	_startActionForcedMixing = startActionForcedMixing;
+	_startActionNormal = startActionNormal;	
 	_currentAction = nullptr;
 	_screen = screen;
 }
@@ -16,7 +15,7 @@ FiringSequencer::FiringSequencer(IArduinoWrapper* wrapper, IAction* startActionN
 ActionState FiringSequencer::Execute()
 {
 	auto mode = Context::GetOperationMode();
-	if(mode != FiringMode && mode != FiringModeForcedMixing)
+	if(mode != FiringMode)
 	{
 		return Error;
 	}
@@ -30,7 +29,7 @@ ActionState FiringSequencer::Execute()
 
 	if(_currentAction == nullptr)
 	{
-		_currentAction = mode == FiringMode ? _startActionNormal : _startActionForcedMixing;
+		_currentAction = _startActionNormal;
 
 		if(!_currentAction->CheckPreconditions())
 		{
@@ -92,7 +91,7 @@ void FiringSequencer::Stop()
 bool FiringSequencer::Continue()
 {
 	auto mode = Context::GetOperationMode();
-	if (mode != FiringMode && mode != FiringModeForcedMixing)
+	if (mode != FiringMode)
 	{
 		return false;
 	}
@@ -109,8 +108,7 @@ bool FiringSequencer::Continue()
 		_currentAction->Reset();		
 	}
 	else
-	{
-		//_currentAction = mode == FiringMode ? _startActionNormal : _startActionForcedMixing;
+	{		
 		_currentAction = nullptr;				
 		return false;
 	}	

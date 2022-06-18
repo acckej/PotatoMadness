@@ -39,9 +39,6 @@
     <ClInclude Include="ArduinoFrameStub.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FiringActionForcedMixing_Frame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="HwChecksTest_Frame.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -40,13 +40,11 @@
       <DeploymentContent>true</DeploymentContent>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)Injector.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)InjectorTestScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)KeyHandler.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)Loader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderCheck.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderForwardAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderReverseAction.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)LoaderReverseActionForcedMixing.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MachineryCheck.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MainScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)MainSequence.h" />
@@ -114,9 +112,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)Injector.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)InjectorTestScreen.cpp">
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)KeyHandler.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -130,9 +125,6 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)LoaderReverseAction.cpp">
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)LoaderReverseActionForcedMixing.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)MachineryCheck.cpp">
