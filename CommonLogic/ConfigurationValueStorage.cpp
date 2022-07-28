@@ -210,7 +210,7 @@ void ConfigurationValueStorage::InitConfiguration()
 	_values[UP_MAX_CONCB_INDEX] = { 0.00367l, 0.0001l, "UpMxB " };
 	_values[UP_MAX_CONCC_INDEX] = { 32.46l, 0.01l, "UpMxC " };
 	_values[VALVE_BORE_AREA_INDEX] = { 0.006l, 0.001l, "vlvBA " }; // valve bore area (0.25l)
-	_values[CORRECTIONAL_COEF_INDEX] = { 3.0l, 0.01l, "coCo  " }; // correctional coefficient
+	_values[CORRECTIONAL_COEF_INDEX] = { 1.5l, 0.01l, "coCo  " }; // correctional coefficient
 	_values[LOADER_FORWARD_TIME_INDEX] = { 2000.0l, 1.0l, "lFwFa " }; // loader forward fan time
 	_values[LOADER_REVERSE_TIME_INDEX] = { 2000.0l, 1.0l, "lReFa " }; // loader reverse fan time
 	_values[GAS_FLOW_SPEEDA_INDEX] = { 91.5l, 0.1l, "gasFA " }; // gas flow speed 

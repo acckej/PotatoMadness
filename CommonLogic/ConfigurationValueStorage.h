@@ -27,7 +27,7 @@
 #define FIRING_IDLE_CYCLES_INDEX 21
 
 #define CONFIG_VALUES_COUNT 22
-#define CONFIG_UPDATED_FLAG 311
+#define CONFIG_UPDATED_FLAG 313
 
 
 class ConfigurationValueStorage : public IConfiguration

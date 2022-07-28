@@ -6,7 +6,7 @@ MachineryCheck::MachineryCheck(IArduinoWrapper * wrapper, TestScreen * screen, A
 	_cyclesCounter = 0;
 
 	_breachClose = true;
-	_breachOpen = false;
+	_breechOpen = false;
 	_fan = false;
 	_injector = false;
 	_actuators = actuators;
@@ -34,6 +34,7 @@ CheckResult MachineryCheck::Check()
 			_screen->Println("Drives check", 1);
 
 			_actuators->CloseBreech();
+			_actuators->CycleValveInternal();
 		}
 
 		if (IsRefreshCycle(REFRESH_CYCLE))
@@ -45,15 +46,16 @@ CheckResult MachineryCheck::Check()
 			_cyclesCounter = 0;
 			_breachClose = false;
 			_actuators->DisableBreech();
-			_breachOpen = true;
+			_breechOpen = true;
 		}
 	}
 
-	if (_breachOpen)
+	if (_breechOpen)
 	{
 		if (_cyclesCounter == 0)
 		{
 			_actuators->OpenBreech();
+			_actuators->CycleValveInternal();
 		}
 		if (IsRefreshCycle(REFRESH_CYCLE))
 		{
@@ -62,7 +64,7 @@ CheckResult MachineryCheck::Check()
 		if (_cyclesCounter >= 30)
 		{
 			_cyclesCounter = 0;
-			_breachOpen = false;			
+			_breechOpen = false;			
 			_fan = true;
 		}
 	}

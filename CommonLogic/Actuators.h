@@ -22,8 +22,12 @@ public:
 	void CheckHeater();
 	void HeaterOff();
 
+	void CycleValveExternal();
+	void CycleValveInternal();
+
 	void EngageInjectorDiode(bool on) const;
 
+	bool IsCycleValveExternal();
 	bool FanOn() const;
 	bool IgnitionOn() const;
 	bool InjectorStarted() const;
@@ -38,5 +42,6 @@ private:
 	bool _injectorStarted;
 	bool _heaterOn;
 	bool _breechOpened;
+	bool _cycleValveExternal;
 };
 

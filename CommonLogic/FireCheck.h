@@ -28,8 +28,8 @@ public:
 
 private:
 	void Stop() const;
-	CheckResult CheckCurrent(char messageLine);
-	void InitSpeedCalculation();
+	CheckResult CheckCurrent(char messageLine) const;
+	static void InitSpeedCalculation();
 	
 	Loader* _loader;
 	Actuators* _actuators;

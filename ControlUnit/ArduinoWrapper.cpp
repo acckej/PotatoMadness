@@ -11,7 +11,7 @@
 
 
 LiquidCrystal_I2C lcd(0x27, 20, 4); //0x3f
-#define DHTTYPE DHT22//DHT11  
+#define DHTTYPE DHT22 //DHT11
 
 Adafruit_BMP280 atmPSens;
 DHT dht(TEMP_HUM_SENSOR_PORT, DHTTYPE);
@@ -120,6 +120,7 @@ void ArduinoWrapper::Init()
 	lcd.backlight();
 
 	pinMode(LOADER_FWD_PORT, OUTPUT);
+
 	pinMode(LOADER_REV_PORT, OUTPUT);
 	pinMode(LOADER_ENABLE_PORT, OUTPUT);		
 	pinMode(LOADER_CURRENT_PORT, INPUT);
@@ -133,7 +134,7 @@ void ArduinoWrapper::Init()
 	pinMode(HEATER_PORT, OUTPUT);
 	pinMode(HEATER_SENSOR_PORT, INPUT);
 		
-	pinMode(FSS_PORT, INPUT);
+	pinMode(FSS_PORT, INPUT_PULLUP);
 	pinMode(RSS_PORT, INPUT);
 	pinMode(BLAST_SENSOR_PORT, INPUT);
 
@@ -154,6 +155,9 @@ void ArduinoWrapper::Init()
 	pinMode(BTN6_PORT, INPUT);
 	pinMode(LDR_FW_CHECK_PORT, INPUT);
 	pinMode(LDR_REV_CHECK_PORT, INPUT);
+
+	pinMode(CYCLE_VALVE_PORT_ONE, OUTPUT);
+	pinMode(CYCLE_VALVE_PORT_TWO, OUTPUT);
 
 	dht.begin();	
 	atmPSens.begin(BAROMETER_ADDRESS);	

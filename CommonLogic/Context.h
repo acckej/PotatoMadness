@@ -44,6 +44,11 @@ public:
 	static bool IsMainScreenRequested();
 
 	static bool IncrementIdleCycleCounter();
+
+	/*static volatile unsigned long _fMicros;
+	static volatile unsigned long _rMicros;
+	static volatile int _order;
+	static volatile int _digit;*/
 private:
 	static OperationMode _mode;
 	static SystemState _state;
@@ -57,6 +62,6 @@ private:
 	static ErrorCodes _errorCode;
 	static int _idleCyclesCount;
 	static int _idleCyclesCounter;
-	static bool _backToMainScreen;
+	static bool _backToMainScreen;	
 };
 

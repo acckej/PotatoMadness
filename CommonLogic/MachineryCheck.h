@@ -14,7 +14,7 @@ public:
 private:
 	bool _fan;
 	bool _injector;
-	bool _breachOpen;
+	bool _breechOpen;
 	bool _breachClose;
 	Actuators* _actuators;
 };

@@ -14,6 +14,11 @@ int Context::_idleCyclesCount;
 int Context::_idleCyclesCounter;
 bool Context::_backToMainScreen;
 
+//volatile unsigned long Context::_fMicros;
+//volatile unsigned long Context::_rMicros;
+//volatile int Context::_order;
+//volatile int Context::_digit;
+
 Context::Context(IArduinoWrapper *wrapper, ButtonsController* buttons, Loader* loader, Actuators* actuators, Sensors* sensors, IConfiguration* configuration)
 {
 	_mode = MainMenu;
@@ -56,6 +61,7 @@ void Context::Halt()
 	_actuators->EngageInjectorDiode(false);	
 	_sensors->ResetDebouncingTriggers();
 	_idleCyclesCounter = 0;
+	_actuators->CycleValveExternal();	
 }
 
 void Context::HandleError(char * message, ErrorCodes code)

@@ -11,6 +11,7 @@ Actuators::Actuators(IArduinoWrapper *wrapper)
 	_breechOpened = false;
 	_ignitionOn = false;
 	_injectorStarted = false;
+	_cycleValveExternal = true;
 }
 
 void Actuators::OpenBreech() 
@@ -94,9 +95,30 @@ void Actuators::HeaterOff()
 	_heaterOn = false;
 }
 
+void Actuators::CycleValveExternal()
+{
+	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_ONE, ARDUINO_HIGH);
+	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_TWO, ARDUINO_HIGH);
+	_wrapper->Delay(CYCLE_VALVE_DELAY);
+	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_ONE, ARDUINO_LOW);
+}
+
+void Actuators::CycleValveInternal()
+{
+	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_ONE, ARDUINO_LOW);
+	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_TWO, ARDUINO_LOW);
+	_wrapper->Delay(CYCLE_VALVE_DELAY);
+	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_ONE, ARDUINO_HIGH);
+}
+
 void Actuators::EngageInjectorDiode(bool on) const
 {
 	_wrapper->DigitalWrite(INJ_LED_PORT, on ? ARDUINO_HIGH : ARDUINO_LOW);
+}
+
+bool Actuators::IsCycleValveExternal()
+{
+	return _cycleValveExternal;
 }
 
 bool Actuators::FanOn() const
