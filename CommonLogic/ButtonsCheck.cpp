@@ -1,7 +1,7 @@
 #include "ButtonsCheck.h"
 #include "Context.h"
 
-ButtonsCheck::ButtonsCheck(IArduinoWrapper* wrapper, TestScreen* screen): IHwCheck(wrapper, screen)
+ButtonsCheck::ButtonsCheck(IArduinoWrapper* wrapper, TestScreen* screen): IHwCheck(wrapper, screen, nullptr)
 {
 }
 
@@ -71,7 +71,6 @@ CheckResult ButtonsCheck::Check()
 	}
 
 	_cyclesCounter++;
-	//_wrapper->Delay(100);
-
+	
 	return Running;
 }

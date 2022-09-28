@@ -24,7 +24,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)ConfigurationScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)ConfigurationValueStorage.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FireCheck.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)FiringController.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)FiringScreen.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IAction.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)IArduinoWrapper.h" />
@@ -85,9 +84,6 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)FireCheck.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)FiringController.cpp">
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)FiringScreen.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>

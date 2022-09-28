@@ -1,5 +1,4 @@
 #pragma once
-#include "IArduinoWrapper.h"
 #include "ScreenBase.h"
 
 #define REFRESH_CYCLE 500

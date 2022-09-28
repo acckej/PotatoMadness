@@ -1,15 +1,16 @@
 #include "MachineryCheck.h"
 #include "Context.h"
 
-MachineryCheck::MachineryCheck(IArduinoWrapper * wrapper, TestScreen * screen, Actuators* actuators) : IHwCheck(wrapper, screen)
+MachineryCheck::MachineryCheck(IArduinoWrapper * wrapper, TestScreen * screen, Actuators* actuators) : IHwCheck(wrapper, screen, nullptr)
 {
 	_cyclesCounter = 0;
 
-	_breachClose = true;
+	_breechClose = true;
 	_breechOpen = false;
 	_fan = false;
 	_injector = false;
 	_actuators = actuators;
+	_cycleInternal = false;
 }
 
 CheckResult MachineryCheck::Check()
@@ -25,7 +26,7 @@ CheckResult MachineryCheck::Check()
 		return Running;
 	}
 
-	if(_breachClose)
+	if(_breechClose)
 	{
 		if(_cyclesCounter == 0)
 		{
@@ -34,17 +35,17 @@ CheckResult MachineryCheck::Check()
 			_screen->Println("Drives check", 1);
 
 			_actuators->CloseBreech();
-			_actuators->CycleValveInternal();
+			_actuators->CycleValveExternal();
 		}
 
 		if (IsRefreshCycle(REFRESH_CYCLE))
 		{
-			_screen->Println("Breach close", 2);
+			_screen->Println("Breech close", 2);
 		}
 		if(_cyclesCounter >= 30)
 		{
 			_cyclesCounter = 0;
-			_breachClose = false;
+			_breechClose = false;
 			_actuators->DisableBreech();
 			_breechOpen = true;
 		}
@@ -54,12 +55,11 @@ CheckResult MachineryCheck::Check()
 	{
 		if (_cyclesCounter == 0)
 		{
-			_actuators->OpenBreech();
-			_actuators->CycleValveInternal();
+			_actuators->OpenBreech();			
 		}
 		if (IsRefreshCycle(REFRESH_CYCLE))
 		{
-			_screen->Println("Breach open", 3);
+			_screen->Println("Breech open", 3);
 		}
 		if (_cyclesCounter >= 30)
 		{
@@ -79,7 +79,13 @@ CheckResult MachineryCheck::Check()
 		{
 			_screen->Println("Fan", 4);
 		}
-		if (_cyclesCounter >= 30)
+		if (_cyclesCounter >= 20 && !_cycleInternal)
+		{
+			_actuators->CycleValveInternal();
+			_cycleInternal = true;
+		}
+
+		if (_cyclesCounter >= 40)
 		{
 			_cyclesCounter = 0;
 			_fan = false;
@@ -109,7 +115,6 @@ CheckResult MachineryCheck::Check()
 	}	
 
 	_cyclesCounter++;
-	//_wrapper->Delay(100);
-
+	
 	return Running;
 }

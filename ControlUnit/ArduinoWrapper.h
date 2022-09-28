@@ -32,6 +32,11 @@ public:
 	unsigned long GetMilliseconds() override;
 	unsigned long GetMicroseconds() override;
 
+	double GetSpeed() override;	
+	void StartMeasuring() override;
+	void MeasuringUnitStby() override;
+	void SetTestSpeed() override;
+
 	unsigned char ReadFromEeprom(short index) override;
 	void WriteToEeprom(short index, unsigned char value) override;
 };

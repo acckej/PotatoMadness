@@ -2,7 +2,7 @@
 #include "Constants.h"
 #include <stdio.h>
 
-LoaderCheck::LoaderCheck(IArduinoWrapper * wrapper, TestScreen* screen, Loader* loader): IHwCheck(wrapper, screen)
+LoaderCheck::LoaderCheck(IArduinoWrapper * wrapper, TestScreen* screen, Loader* loader): IHwCheck(wrapper, screen, loader)
 {
 	_cyclesCounter = 0;
 	_forward = true;
@@ -96,50 +96,4 @@ CheckResult LoaderCheck::Check()
 void LoaderCheck::Stop() const
 {
 	_loader->Stop();
-}
-
-CheckResult LoaderCheck::CheckCurrent(char messageLine) 
-{
-	auto loaderCurrent = _loader->GetCurrent();
-	
-	if (loaderCurrent > LOADER_CURRENT_MAX)
-	{
-		Stop();				
-		_screen->Println("Overload: ", messageLine);
-		_screen->PrintNumber(loaderCurrent, 2);
-		_screen->Print("a");	
-
-		return Failed;
-	}
-
-	//if (loaderCurrent < LOADER_CURRENT_WORKING)
-	//{
-	//	if(_loader->IsRevCheckOn() || _loader->IsFwCheckOn())
-	//	{
-	//		_screen->Println("Rchk:", 4);
-	//		_screen->Print(_loader->IsRevCheckOn() ? "1" : "0");
-	//		_screen->Print(";Fchk:");
-	//		_screen->Print(_loader->IsFwCheckOn() ? "1" : "0");
-
-	//		return Passed;
-	//	}
-
-	//	/*Stop();		
-	//	_screen->Println("Low curr: ", messageLine);
-	//	_screen->PrintNumber(loaderCurrent, 2);
-	//	_screen->Print("a");		
-
-	//	return Failed;*/
-	//}
-
-	if (IsRefreshCycle(REFRESH_CYCLE))
-	{
-		_screen->Println("Current: ", messageLine);
-		_screen->PrintNumber(loaderCurrent, 2);
-		_screen->Print("a");
-		_screen->Println(_loader->IsFwCheckOn() ? "fc1 rc" : "fc0 rc", 3);
-		_screen->Print(_loader->IsRevCheckOn() ? "1" : "0");
-	}
-
-	return Passed;
 }

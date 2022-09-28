@@ -18,18 +18,8 @@ public:
 
 	CheckResult Check() override;
 
-	static void FssOn();
-	static void RssOn();
-	static void BlastOn();
-
-	static void FssOnOrd();
-	static void RssOnOrd();
-	static void BlastOnOrd();
-
 private:
-	void Stop() const;
-	CheckResult CheckCurrent(char messageLine) const;
-	static void InitSpeedCalculation();
+	void ShowSpeed();
 	
 	Loader* _loader;
 	Actuators* _actuators;
@@ -41,17 +31,9 @@ private:
 	bool _isFwCycle;
 	bool _isRevCycle;
 	bool _injecting;
+	bool _speedRequest;
 
 	int _fwCycleCounter;
-	int _revCycleCounter;
-
-	static IArduinoWrapper* _staticWrapper;
-	static volatile unsigned long _micros;
-	static volatile unsigned long _rMicros;
-	static volatile bool _blastEngaged;
-	static volatile bool _fssOn;
-	static volatile bool _rssOn;
-	static volatile short _order;
-	static volatile short _digit;
+	int _revCycleCounter;	
 };
 

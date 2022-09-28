@@ -15,7 +15,8 @@ private:
 	bool _fan;
 	bool _injector;
 	bool _breechOpen;
-	bool _breachClose;
+	bool _breechClose;
+	bool _cycleInternal;
 	Actuators* _actuators;
 };
 

@@ -3,7 +3,7 @@
 
 #define BATTERY_CHECK_UPDATE_RATE 500
 
-BatteryCheck::BatteryCheck(IArduinoWrapper * wrapper, TestScreen * screen, Sensors* sensors) : IHwCheck(wrapper, screen)
+BatteryCheck::BatteryCheck(IArduinoWrapper * wrapper, TestScreen * screen, Sensors* sensors) : IHwCheck(wrapper, screen, nullptr)
 {
 	_cyclesCounter = 0;
 	_sensors = sensors;
@@ -41,8 +41,6 @@ CheckResult BatteryCheck::Check()
 		_cyclesCounter = 0;
 		return Passed;
 	}
-
-	//_wrapper->Delay(100);
 
 	return Running;
 }

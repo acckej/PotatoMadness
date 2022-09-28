@@ -3,6 +3,7 @@
 //#include "CalculationConstants.h"
 #include "CalculationConstants.h"
 #include "Constants.h"
+#include "TypeDefinitions.h"
 
 Sensors::Sensors(IArduinoWrapper* wrapper) : _wrapper(wrapper)
 {
@@ -38,10 +39,8 @@ double Sensors::GetReceiverPressure() const
 void Sensors::ResetDebouncingTriggers() const
 {
 	_wrapper->DigitalWrite(BLAST_TRIGGER_RESET_PORT, ARDUINO_HIGH);
-	_wrapper->DigitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_LOW);
-	_wrapper->Delay(100);
+	_wrapper->Delay(10);
 	_wrapper->DigitalWrite(BLAST_TRIGGER_RESET_PORT, ARDUINO_LOW);
-	_wrapper->DigitalWrite(SS_TRIGGER_RESET_PORT, ARDUINO_HIGH);
 }
 
 bool Sensors::GetFss() const

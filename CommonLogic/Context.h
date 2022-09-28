@@ -6,6 +6,7 @@
 #include "Actuators.h"
 #include "Sensors.h"
 #include "Configuration.h"
+#include "TypeDefinitions.h"
 
 class Context 
 {

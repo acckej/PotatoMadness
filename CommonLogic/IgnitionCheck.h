@@ -11,8 +11,7 @@ public:
 
 	CheckResult Check() override;
 private:
-	void Stop() const;
-	CheckResult CheckCurrent(char messageLine);
+	void Stop() const;	
 
 	Loader* _loader;
 	Actuators* _actuators;

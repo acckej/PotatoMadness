@@ -5,15 +5,16 @@
 #include <DHT.h>
 //#include <Adafruit_Sensor.h>
 #include <Adafruit_BMP280.h>
-
+#include <SoftwareSerial.h>
 #include "CalculationConstants.h"
 #include "EEPROM.h"
+#include "TypeDefinitions.h"
 
-
+SoftwareSerial g_link(MASTER_SERIAL_RX, MASTER_SERIAL_TX); // Rx, Tx
 LiquidCrystal_I2C lcd(0x27, 20, 4); //0x3f
 #define DHTTYPE DHT22 //DHT11
 
-Adafruit_BMP280 atmPSens;
+Adafruit_BMP280 atm_p_sens;
 DHT dht(TEMP_HUM_SENSOR_PORT, DHTTYPE);
 
 ArduinoWrapper::ArduinoWrapper()
@@ -90,12 +91,12 @@ void ArduinoWrapper::PrintFormatBuffer(char * buffer, char * message, ...)
 
 float ArduinoWrapper::GetAtmPressure()
 {
-	return atmPSens.readPressure() / ATM_PRESSURE_COEF * KILO;	
+	return atm_p_sens.readPressure() / ATM_PRESSURE_COEF * KILO;	
 }
 
 float ArduinoWrapper::GetInternalTemp()
 {	
-	return atmPSens.readTemperature();
+	return atm_p_sens.readTemperature();
 }
 
 float ArduinoWrapper::GetExternalTemp()
@@ -134,16 +135,12 @@ void ArduinoWrapper::Init()
 	pinMode(HEATER_PORT, OUTPUT);
 	pinMode(HEATER_SENSOR_PORT, INPUT);
 		
-	pinMode(FSS_PORT, INPUT_PULLUP);
-	pinMode(RSS_PORT, INPUT);
 	pinMode(BLAST_SENSOR_PORT, INPUT);
 
 	pinMode(INJ_LED_PORT, OUTPUT);
 	pinMode(IGNITION_PORT, OUTPUT);
 	
 	pinMode(BLAST_TRIGGER_RESET_PORT, OUTPUT);
-	pinMode(SS_TRIGGER_RESET_PORT, OUTPUT);
-
 	pinMode(RECEIVER_PRESSURE_PORT, INPUT);
 
 	pinMode(AMMO_SENSOR_PORT, INPUT);
@@ -160,7 +157,8 @@ void ArduinoWrapper::Init()
 	pinMode(CYCLE_VALVE_PORT_TWO, OUTPUT);
 
 	dht.begin();	
-	atmPSens.begin(BAROMETER_ADDRESS);	
+	atm_p_sens.begin(BAROMETER_ADDRESS);	
+	g_link.begin(SERIAL_SPEED);
 }
 
 void ArduinoWrapper::LogFormat(char * message, ...)
@@ -189,6 +187,46 @@ unsigned long ArduinoWrapper::GetMilliseconds()
 unsigned long ArduinoWrapper::GetMicroseconds()
 {
 	return micros();
+}
+
+double ArduinoWrapper::GetSpeed()
+{
+	g_link.write(GET_SPEED_COMMAND);
+
+	delay(MEAS_UNIT_RESPONSE_DELAY);
+	unsigned char buf[sizeof(double)];
+
+	auto bytesRead = 0;
+
+	while (g_link.available())
+	{
+		auto ch = static_cast<unsigned char>(g_link.read());
+		buf[bytesRead] = ch;
+		bytesRead++;
+
+		if(bytesRead >= sizeof(double))
+		{
+			const auto result = *reinterpret_cast<ArduinoDouble*>(buf);
+			return result;
+		}
+	}
+
+	return NAN;
+}
+
+void ArduinoWrapper::StartMeasuring()
+{
+	g_link.write(START_MEAS_COMMAND);
+}
+
+void ArduinoWrapper::MeasuringUnitStby()
+{
+	g_link.write(MEAS_STBY_COMMAND);
+}
+
+void ArduinoWrapper::SetTestSpeed()
+{
+	g_link.write(TEST_SPEED_COMMAND);
 }
 
 unsigned char ArduinoWrapper::ReadFromEeprom(short index)

@@ -1,4 +1,5 @@
 #include "IHwCheck.h"
+#include "Constants.h"
 
 IHwCheck::IHwCheck()
 {
@@ -9,13 +10,14 @@ IHwCheck::IHwCheck()
 	_refreshCycle = 0;
 }
 
-IHwCheck::IHwCheck(IArduinoWrapper* wrapper, TestScreen* screen)
+IHwCheck::IHwCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader* loader)
 {
 	_wrapper = wrapper;
 	_screen = screen;
 	_cyclesCounter = 0;
 	_lastCycle = 0;
 	_refreshCycle = 0;
+	_loader = loader;
 }
 
 CheckResult IHwCheck::Check()
@@ -47,6 +49,27 @@ bool IHwCheck::IsRefreshCycle(int duration)
 	}
 
 	return false;
+}
+
+CheckResult IHwCheck::CheckCurrent(char messageLine) const
+{
+	const auto loaderCurrent = static_cast<double>(_loader->GetCurrent());
+
+	if (loaderCurrent > LOADER_CURRENT_MAX)
+	{
+		_loader->Stop();
+		_screen->Println("Overload: ", messageLine);
+		_screen->PrintNumber(loaderCurrent, 2);
+		_screen->Print(" a");
+
+		return Failed;
+	}
+
+	_screen->Println("Current: ", messageLine);
+	_screen->PrintNumber(loaderCurrent, 2);
+	_screen->Print(" a");
+
+	return Passed;
 }
 
 

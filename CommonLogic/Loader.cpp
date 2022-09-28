@@ -1,6 +1,7 @@
 #include "Loader.h"
 #include "Constants.h"
 #include <math.h>
+#include "TypeDefinitions.h"
 
 
 Loader::Loader(IArduinoWrapper* wrapper)

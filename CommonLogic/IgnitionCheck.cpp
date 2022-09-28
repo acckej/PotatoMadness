@@ -1,7 +1,8 @@
 #include "IgnitionCheck.h"
 #include "Constants.h"
 
-IgnitionCheck::IgnitionCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader* loader, Actuators* actuators) : IHwCheck(wrapper, screen)
+IgnitionCheck::IgnitionCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader* loader, Actuators* actuators)
+	: IHwCheck(wrapper, screen, loader)
 {
 	_cyclesCounter = 0;	
 	_loader = loader;
@@ -72,27 +73,4 @@ void IgnitionCheck::Stop() const
 	_loader->Stop();
 }
 
-CheckResult IgnitionCheck::CheckCurrent(char messageLine)
-{
-	const auto loaderCurrent = static_cast<double>(_loader->GetCurrent());
-
-	if (loaderCurrent > LOADER_CURRENT_MAX)
-	{
-		Stop();
-		_screen->Println("Overload: ", messageLine);
-		_screen->PrintNumber(loaderCurrent, 2);
-		_screen->Print("a");
-
-		return Failed;
-	}	
-
-	if (IsRefreshCycle(REFRESH_CYCLE))
-	{
-		_screen->Println("Current: ", messageLine);
-		_screen->PrintNumber(loaderCurrent, 2);
-		_screen->Print("a");		
-	}
-
-	return Passed;
-}
 

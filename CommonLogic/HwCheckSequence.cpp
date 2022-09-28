@@ -1,5 +1,6 @@
 #include "HwCheckSequence.h"
 #include "Context.h"
+#include "Constants.h"
 
 
 HwCheckSequence::HwCheckSequence(IArduinoWrapper * wrapper, IHwCheck ** checks, int checksCount) : _wrapper(wrapper)
@@ -22,6 +23,7 @@ CheckResult HwCheckSequence::Run()
 
 	auto check = _checks[_checkIndex];
 	auto checkResult = check->Check();
+	_wrapper->Delay(CHECK_CYCLE_DELAY);
 
 	switch (checkResult)
 	{

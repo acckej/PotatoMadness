@@ -1,7 +1,6 @@
 #pragma once
 #include "IArduinoWrapper.h"
 
-
 class Loader
 {
 public:

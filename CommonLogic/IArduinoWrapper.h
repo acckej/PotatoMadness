@@ -1,5 +1,4 @@
 #pragma once
-#include "TypeDefinitions.h"
 
 class IArduinoWrapper  
 {
@@ -36,6 +35,11 @@ public:
 
 	virtual unsigned long GetMilliseconds();	
 	virtual unsigned long GetMicroseconds();
+
+	virtual double GetSpeed();
+	virtual void StartMeasuring();
+	virtual void MeasuringUnitStby();
+	virtual void SetTestSpeed();
 
 	virtual void WriteToEeprom(short index, unsigned char value);
 	virtual unsigned char ReadFromEeprom(short index);

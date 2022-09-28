@@ -1,6 +1,8 @@
 #include "SensorsCheck.h"
+#include "Constants.h"
 
-SensorsCheck::SensorsCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader* loader, Actuators* actuators, Sensors* sensors) : IHwCheck(wrapper, screen)
+SensorsCheck::SensorsCheck(IArduinoWrapper* wrapper, TestScreen* screen, Loader* loader, Actuators* actuators, Sensors* sensors)
+	: IHwCheck(wrapper, screen, loader)
 {	
 	_shotSensors = true;
 	_extEnv = false;
@@ -27,40 +29,29 @@ CheckResult SensorsCheck::Check()
 			_screen->Println("Sensor check", 1);
 			_actuators->EngageInjectorDiode(true);
 			_sensors->ResetDebouncingTriggers();
+
+			_wrapper->SetTestSpeed();
+			_wrapper->Delay(MEAS_UNIT_RESPONSE_DELAY);
 		}
 		else
-		{
+		{			
+			auto speed = _wrapper->GetSpeed();
 			auto blastSens = _sensors->GetBlastSensorState();
-			auto rss = _sensors->GetRss();
-			auto fss = _sensors->GetFss();
-			auto fail = false;
 
-			if(blastSens || rss || fss)
+			if (IsRefreshCycle(REFRESH_CYCLE))
 			{
-				_screen->Println("Incorrect state", 4);
-				fail = true;
-			}
-
-			if (IsRefreshCycle(REFRESH_CYCLE) || fail)
-			{
-				_screen->Println("Blast sens:", 2);
-				_screen->Print(blastSens ? "1" : "0");
-				_screen->Println("Rss:", 3);
-				_screen->Print(rss ? "1" : "0");
-				_screen->Print(" Fss:");
-				_screen->Print(fss ? "1" : "0");
-			}
-
-			if(fail)
-			{
-				return Failed;
-			}
+				_screen->Println("Blast sens:", 1);
+				_screen->Print(blastSens ? "1" : "0"); 
+				_screen->Println("Test speed:", 2);
+				_screen->PrintNumber(speed, 2);				
+			}			
 		}
 
 		_cyclesCounter++;
 
 		if(_cyclesCounter >= 40)
 		{
+			_wrapper->MeasuringUnitStby();
 			_shotSensors = false;
 			_extEnv = true;			
 			_cyclesCounter = 0;

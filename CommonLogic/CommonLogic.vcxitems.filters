@@ -78,7 +78,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)LoaderReverseAction.cpp">
       <Filter>Sequences</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)FiringController.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)PrepareForFiringAction.cpp">
       <Filter>Sequences</Filter>
     </ClCompile>
@@ -179,7 +178,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)LoaderReverseAction.h">
       <Filter>Sequences</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)FiringController.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)PrepareForFiringAction.h">
       <Filter>Sequences</Filter>
     </ClInclude>

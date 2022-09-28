@@ -1,10 +1,10 @@
-﻿#include <iarduino_DHT.h>
+﻿//#include <iarduino_DHT.h>
 #include "HwCheckSequence.h"
 #include "ArduinoWrapper.h"
 #include "Context.h"
 #include "Actuators.h"
 
-//#include "SensorsCheck.h"
+#include "SensorsCheck.h"
 #include "MachineryCheck.h"
 //#include "ButtonsCheck.h"
 #include "LoaderCheck.h"
@@ -17,7 +17,7 @@
 #include "MainSequence.h"
 #include "ConfigurationValueStorage.h"
 #include "FireCheck.h"
-#include "SensorsCheck.h"
+//#include "SensorsCheck.h"
 //#include "IgnitionCheck.h"
 //#include "MachineryCheck.h"
 //#include "SensorsCheck.h"
@@ -39,8 +39,8 @@ bool g_high = false;///
 
 auto g_screen = TestScreen(&g_wrapper);///
 IHwCheck* checks[1];///
-//auto g_bc = SensorsCheck(&g_wrapper, &g_screen, &g_loader, &g_actuators, &g_sensors);///
-auto g_bc = MachineryCheck(&g_wrapper, &g_screen, &g_actuators);///
+auto g_bc = SensorsCheck(&g_wrapper, &g_screen, &g_loader, &g_actuators, &g_sensors);///
+//auto g_bc = MachineryCheck(&g_wrapper, &g_screen, &g_actuators);///
 //auto g_bc = LoaderCheck(&g_wrapper, &g_screen, &g_loader);///
 //auto bc = BatteryCheck(&wrapper, &screen, &sensors);///
 //auto bc = ButtonsCheck(&wrapper, &screen);///
@@ -50,26 +50,10 @@ auto g_bc = MachineryCheck(&g_wrapper, &g_screen, &g_actuators);///
 auto g_seq = HwCheckSequence(&g_wrapper, checks, 1);///
 CheckResult hw_check_result = Running;///
 
-//static void FssOn()
-//{
-//	Context::_fMicros = micros();
-//
-//	Context::_order = Context::_order + Context::_digit * 2;
-//	Context::_digit *= 10;
-//}
-//
-//static void RssOn()
-//{
-//	Context::_rMicros = micros();
-//
-//	Context::_order = Context::_order + Context::_digit * 3;
-//	Context::_digit *= 10;
-//}
-
 void setup()
 {
 #ifdef Debug
-	Serial.begin(115200);
+	Serial.begin(SERIAL_SPEED);
 #endif	
 
 	g_wrapper.Init();
@@ -78,20 +62,7 @@ void setup()
 
 	pinMode(LED_BUILTIN, OUTPUT);
 
-	Context::Halt();
-
-	/*
-	attachInterrupt(digitalPinToInterrupt(BLAST_SENSOR_PORT), FiringController::BlastSensorHandler, RISING);///
-	attachInterrupt(digitalPinToInterrupt(FSS_PORT), FiringController::FrontSpeedSensorHandler, RISING);///
-	attachInterrupt(digitalPinToInterrupt(RSS_PORT), FiringController::RearSpeedSensorHandler, RISING);///	
-	//*/
-	attachInterrupt(digitalPinToInterrupt(BLAST_SENSOR_PORT), FireCheck::BlastOnOrd, RISING);///
-	attachInterrupt(digitalPinToInterrupt(FSS_PORT), FireCheck::FssOnOrd, RISING);///
-	attachInterrupt(digitalPinToInterrupt(RSS_PORT), FireCheck::RssOnOrd, RISING);///	
-
-	/*attachInterrupt(digitalPinToInterrupt(BLAST_SENSOR_PORT), FireCheck::BlastOnOrd, RISING);///
-	attachInterrupt(digitalPinToInterrupt(FSS_PORT), FssOn, RISING);///
-	attachInterrupt(digitalPinToInterrupt(RSS_PORT), RssOn, RISING);///	*/
+	Context::Halt();	
 
 	//main_sequence.Init();
 

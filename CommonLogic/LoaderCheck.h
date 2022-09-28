@@ -13,8 +13,7 @@ public:
 	
 private:
 	void Stop() const;
-	CheckResult CheckCurrent(char messageLine);	
-	
+		
 	bool _forward;
 	Loader* _loader;
 };

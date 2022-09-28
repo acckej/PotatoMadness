@@ -1,4 +1,5 @@
 #include "ButtonsController.h"
+#include "TypeDefinitions.h"
 
 static const char ButtonsMapData[] = { BTN1_PORT, BTN2_PORT, BTN3_PORT, BTN4_PORT, BTN5_PORT, BTN6_PORT };
 const char* ButtonsController::ButtonsMap = ButtonsMapData;

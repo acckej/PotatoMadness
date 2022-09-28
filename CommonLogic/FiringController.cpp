@@ -43,27 +43,6 @@ void FiringController::FrontSpeedsensorHandler()
 	_frontSensorEngaged = true;	*/
 }
 
-void FiringController::RearSpeedSensorHandler()
-{
-	r++;
-
-	/*if(!_fireFlag)
-	{
-		_errorCode = RssWithoutBlast;
-		return;
-	}
-
-	if(!_frontSensorEngaged)
-	{
-		_errorCode = RssWithoutFront;
-		return;
-	}
-
-	_rearSensorEngaged = true;
-	_endTime = _wrapper->GetMilliseconds();
-	Context::SetState(SystemRunning);	*/
-}
-
 void FiringController::BlastSensorHandler()
 {
 	b++;
@@ -72,25 +51,6 @@ void FiringController::BlastSensorHandler()
 	Context::SetState(IdleCycle);	*/
 }
 
-float FiringController::GetProjectileSpeed()
-{
-	if(_startTime == 0 || _endTime == 0 || _errorCode != NoError)
-	{
-		return 0;
-	}
-
-	auto diff = _endTime - _startTime;
-
-	if(diff == 0)
-	{
-		_errorCode = FssEqualsRss;
-		return 0;
-	}
-
-	auto result = SPEED_CONSTANT / (double(diff) / 1000);
-	
-	return result;
-}
 
 ErrorCodes FiringController::GetErrorCode()
 {

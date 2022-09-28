@@ -93,6 +93,23 @@ unsigned long IArduinoWrapper::GetMicroseconds()
 	return 0;
 }
 
+double IArduinoWrapper::GetSpeed()
+{
+	return 0.0;
+}
+
+void IArduinoWrapper::StartMeasuring()
+{
+}
+
+void IArduinoWrapper::MeasuringUnitStby()
+{
+}
+
+void IArduinoWrapper::SetTestSpeed()
+{
+}
+
 void IArduinoWrapper::WriteToEeprom(short index, unsigned char value)
 {
 }
