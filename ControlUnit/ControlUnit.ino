@@ -73,14 +73,14 @@ void setup()
 
 void loop()
 {
-	if (Context::GetState() == SystemIdle)
-	{
-		/*if (!Context::IncrementIdleCycleCounter())
-		{
-			return;
-		}*/
-		return;
-	}
+	//if (Context::GetState() == SystemIdle)
+	//{
+	//	/*if (!Context::IncrementIdleCycleCounter())
+	//	{
+	//		return;
+	//	}*/
+	//	return;
+	//}
 
 	/*
 	if (Context::GetState() != IdleCycle)

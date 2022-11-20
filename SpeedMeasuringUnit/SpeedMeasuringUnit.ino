@@ -9,10 +9,13 @@ volatile unsigned long g_start = 0;
 volatile unsigned long g_time = 0;
 volatile double g_speed = 0;
 
+volatile bool low = false;
 
 void setup()
 {
 	g_link.begin(SERIAL_SPEED);
+
+	//Serial.begin(SERIAL_SPEED);
 
 	pinMode(MEAS_UNIT_LED_ONE, OUTPUT);
 	pinMode(MEAS_UNIT_LED_TWO, OUTPUT);
@@ -20,28 +23,28 @@ void setup()
 	pinMode(RSS_PORT, INPUT_PULLUP);
 	pinMode(SS_TRIGGER_RESET_PORT, OUTPUT);
 
+	pinMode(13, OUTPUT);	
+
 	attachInterrupt(digitalPinToInterrupt(FSS_PORT), FssHandler, RISING);
 	attachInterrupt(digitalPinToInterrupt(RSS_PORT), RssHandler, RISING);	
 }
 
 void loop()
 {
-	ReceiveCommand(); 
+	ReceiveCommand();
 
-	/*if (!g_interruptsEnabled)
-	{
-		digitalWrite(MEAS_UNIT_LED_TWO, LOW);
-		digitalWrite(MEAS_UNIT_LED_ONE, LOW);
-		g_interruptsEnabled = true;
+	/*if (low)
+	{		
+		digitalWrite(13, HIGH);
 	}
 	else
 	{
-		digitalWrite(MEAS_UNIT_LED_TWO, HIGH);
-		digitalWrite(MEAS_UNIT_LED_ONE, HIGH);
-		g_interruptsEnabled = false;
+		digitalWrite(13, LOW);
 	}
+	low = !low;*/
 
-	delay(1000);*/
+	//Serial.println("test");	
+	//delay(100);
 }
 
 void Reset()
@@ -81,8 +84,9 @@ void ReceiveCommand()
 {
 	while (g_link.available())
 	{
-		unsigned char cmd = g_link.read();
+		unsigned char cmd = g_link.read();		
 
+		//*
 		switch(cmd)
 		{		
 		case MEAS_STBY_COMMAND:
@@ -107,6 +111,7 @@ void ReceiveCommand()
 		}
 		default: ;
 		}
+		//*/
 	}
 }
 
@@ -125,6 +130,7 @@ void StartMeasuring()
 void SendSpeed()
 {
 	g_link.write((const char*)&g_speed, sizeof(double));
+	g_link.flush();
 }
 
 void ResetDebouncingTriggers()

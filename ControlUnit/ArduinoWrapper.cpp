@@ -192,7 +192,7 @@ unsigned long ArduinoWrapper::GetMicroseconds()
 double ArduinoWrapper::GetSpeed()
 {
 	g_link.write(GET_SPEED_COMMAND);
-
+	g_link.flush();
 	delay(MEAS_UNIT_RESPONSE_DELAY);
 	unsigned char buf[sizeof(double)];
 
@@ -217,16 +217,19 @@ double ArduinoWrapper::GetSpeed()
 void ArduinoWrapper::StartMeasuring()
 {
 	g_link.write(START_MEAS_COMMAND);
+	g_link.flush();
 }
 
 void ArduinoWrapper::MeasuringUnitStby()
 {
 	g_link.write(MEAS_STBY_COMMAND);
+	g_link.flush();
 }
 
 void ArduinoWrapper::SetTestSpeed()
 {
 	g_link.write(TEST_SPEED_COMMAND);
+	g_link.flush();
 }
 
 unsigned char ArduinoWrapper::ReadFromEeprom(short index)

@@ -109,8 +109,8 @@
 #define FSS_PORT 6
 #define RSS_PORT 9
 
-#define MASTER_SERIAL_TX 50
-#define MASTER_SERIAL_RX 51
+#define MASTER_SERIAL_TX 51
+#define MASTER_SERIAL_RX 50
 
 #define SLAVE_SERIAL_TX 4
 #define SLAVE_SERIAL_RX 5

@@ -34,7 +34,9 @@ CheckResult SensorsCheck::Check()
 			_wrapper->Delay(MEAS_UNIT_RESPONSE_DELAY);
 		}
 		else
-		{			
+		{
+			_wrapper->SetTestSpeed();
+
 			auto speed = _wrapper->GetSpeed();
 			auto blastSens = _sensors->GetBlastSensorState();
 
@@ -43,7 +45,7 @@ CheckResult SensorsCheck::Check()
 				_screen->Println("Blast sens:", 1);
 				_screen->Print(blastSens ? "1" : "0"); 
 				_screen->Println("Test speed:", 2);
-				_screen->PrintNumber(speed, 2);				
+				//_screen->PrintNumber(speed, 2);				
 			}			
 		}
 
