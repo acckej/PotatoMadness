@@ -39,13 +39,13 @@ bool g_high = false;///
 
 auto g_screen = TestScreen(&g_wrapper);///
 IHwCheck* checks[1];///
-auto g_bc = SensorsCheck(&g_wrapper, &g_screen, &g_loader, &g_actuators, &g_sensors);///
+//auto g_bc = SensorsCheck(&g_wrapper, &g_screen, &g_loader, &g_actuators, &g_sensors);///
 //auto g_bc = MachineryCheck(&g_wrapper, &g_screen, &g_actuators);///
 //auto g_bc = LoaderCheck(&g_wrapper, &g_screen, &g_loader);///
 //auto bc = BatteryCheck(&wrapper, &screen, &sensors);///
 //auto bc = ButtonsCheck(&wrapper, &screen);///
 //auto bc = IgnitionCheck(& wrapper, & screen, &loader, &actuators);///
-//auto g_bc = FireCheck(&g_wrapper, &g_screen, &g_loader, &g_actuators, &g_sensors, &g_buttons, &g_injector);
+auto g_bc = FireCheck(&g_wrapper, &g_screen, &g_loader, &g_actuators, &g_sensors, &g_buttons, &g_injector);
 
 auto g_seq = HwCheckSequence(&g_wrapper, checks, 1);///
 CheckResult hw_check_result = Running;///
@@ -68,6 +68,8 @@ void setup()
 
 	g_config.Load();
 	g_config.Save();
+
+	attachInterrupt(digitalPinToInterrupt(BLAST_SENSOR_PORT), FireCheck::BlastSensorHandler, RISING);
 }
 
 

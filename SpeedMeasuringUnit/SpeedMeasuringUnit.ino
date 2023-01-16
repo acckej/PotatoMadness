@@ -19,32 +19,43 @@ void setup()
 
 	pinMode(MEAS_UNIT_LED_ONE, OUTPUT);
 	pinMode(MEAS_UNIT_LED_TWO, OUTPUT);
-	pinMode(FSS_PORT, INPUT_PULLUP);
-	pinMode(RSS_PORT, INPUT_PULLUP);
+	pinMode(FSS_PORT, INPUT);
+	pinMode(RSS_PORT, INPUT);
 	pinMode(SS_TRIGGER_RESET_PORT, OUTPUT);
 
-	pinMode(13, OUTPUT);	
+	pinMode(MEAS_UNIT_LED_THREE, OUTPUT);
 
-	attachInterrupt(digitalPinToInterrupt(FSS_PORT), FssHandler, RISING);
-	attachInterrupt(digitalPinToInterrupt(RSS_PORT), RssHandler, RISING);	
+	attachInterrupt(digitalPinToInterrupt(RSS_PORT), FssHandler, RISING);
+	attachInterrupt(digitalPinToInterrupt(FSS_PORT), RssHandler, RISING);
 }
 
 void loop()
 {
 	ReceiveCommand();
 
+	/*if(!low)
+	{
+		StartMeasuring();
+		low = true;
+	}*/
+
 	/*if (low)
 	{		
 		digitalWrite(13, HIGH);
+		digitalWrite(MEAS_UNIT_LED_ONE, HIGH);
+		digitalWrite(MEAS_UNIT_LED_TWO, HIGH);
 	}
 	else
 	{
 		digitalWrite(13, LOW);
+
+		digitalWrite(MEAS_UNIT_LED_ONE, LOW);
+		digitalWrite(MEAS_UNIT_LED_TWO, LOW);
 	}
 	low = !low;*/
 
 	//Serial.println("test");	
-	//delay(100);
+	//delay(1000);
 }
 
 void Reset()
@@ -55,6 +66,8 @@ void Reset()
 
 	digitalWrite(MEAS_UNIT_LED_TWO, LOW);
 	digitalWrite(MEAS_UNIT_LED_ONE, LOW);
+
+	ResetDebouncingTriggers();
 }
 
 void FssHandler()
@@ -75,8 +88,21 @@ void RssHandler()
 		return;
 	}
 
-	g_time = micros() - g_start;
-	g_speed = SPEED_CONSTANT / static_cast<double>(g_time == 0 ? 1 : g_time) * MEGA;
+	auto ms = micros();
+
+	if(g_start == 0)
+	{
+		g_speed = 1;
+	} else if(ms < g_start)
+	{
+		g_speed = 2;
+	}
+	else
+	{
+		g_time = ms - g_start;
+		g_speed = SPEED_CONSTANT / static_cast<double>(g_time == 0 ? 1 : g_time) * MEGA;
+	}
+	 
 	digitalWrite(MEAS_UNIT_LED_TWO, HIGH);
 }
 
@@ -118,13 +144,15 @@ void ReceiveCommand()
 void Stby()
 {
 	g_interruptsEnabled = false;
+	digitalWrite(MEAS_UNIT_LED_THREE, LOW);
 	Reset();	
 }
 
 void StartMeasuring()
 {
 	g_interruptsEnabled = true;
-	ResetDebouncingTriggers();
+	digitalWrite(MEAS_UNIT_LED_THREE, HIGH);
+	Reset();	
 }
 
 void SendSpeed()

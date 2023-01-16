@@ -11,8 +11,8 @@ Sensors::Sensors(IArduinoWrapper* wrapper) : _wrapper(wrapper)
 
 double Sensors::GetBatteryVoltage() const
 {
-	auto vlt = _wrapper->AnalogRead(VOLTAGE_PORT);
-	auto calculated = static_cast<double>(vlt) * ANALOG_COEFFICIENT * VOLTAGE_COEFFICIENT;
+	const auto vlt = _wrapper->AnalogRead(VOLTAGE_PORT);
+	const auto calculated = static_cast<double>(vlt) * static_cast<double>(ANALOG_COEFFICIENT) * static_cast<double>(VOLTAGE_COEFFICIENT);
 
 	return calculated;
 }
@@ -21,12 +21,12 @@ double Sensors::GetBatteryVoltage() const
 double Sensors::GetReceiverPressure() const
 {
 	//todo: 
-	auto press = _wrapper->AnalogRead(RECEIVER_PRESSURE_PORT);
+	const auto press = _wrapper->AnalogRead(RECEIVER_PRESSURE_PORT);
 	auto val = static_cast<double>(press) * static_cast<double>(ANALOG_COEFFICIENT);
 
 	if (val < static_cast<double>(0.45f))
 	{
-		return -1.0f;
+		return (double) - 1.0f;
 	}
 
 	val = (val - static_cast<double>(PRESSURE_CONSTANT)) * static_cast<double>(PRESSURE_COEFFICIENT) * KILO;
@@ -51,13 +51,13 @@ bool Sensors::GetFss() const
 
 bool Sensors::GetRss() const
 {
-	auto result = _wrapper->DigitalRead(RSS_PORT);
+	const auto result = _wrapper->DigitalRead(RSS_PORT);
 	return result == ARDUINO_HIGH;
 }
 
 bool Sensors::GetBlastSensorState() const
 {
-	auto result = _wrapper->DigitalRead(BLAST_SENSOR_PORT);
+	const auto result = _wrapper->DigitalRead(BLAST_SENSOR_PORT);
 	return result == ARDUINO_HIGH;
 }
 

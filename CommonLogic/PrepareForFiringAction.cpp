@@ -29,11 +29,11 @@ bool PrepareForFiringAction::CheckPreconditions()
 
 	_sensors->ResetDebouncingTriggers();
 
-	if (_sensors->GetRss() || _sensors->GetFss() || _sensors->GetBlastSensorState())
+	/*if (_sensors->GetRss() || _sensors->GetFss() || _sensors->GetBlastSensorState())
 	{
 		_errorCode = IncorrectShotSensorsState;
 		return false;
-	}
+	}*/
 
 	return true;
 }

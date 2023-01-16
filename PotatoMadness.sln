@@ -9,8 +9,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CommonLogic", "CommonLogic\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ControlUnit.UnitTests", "ControlUnit.UnitTests\ControlUnit.UnitTests.vcxproj", "{584A9EBD-2E41-4606-B8AD-F38A44A26FB2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Adafruit_Sensor-master", "..\..\..\Users\Acckej\Documents\Arduino\libraries\Adafruit_Sensor-master\Adafruit_Sensor-master.vcxitems", "{69359544-B246-4347-B395-14EFD0D25F53}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpeedMeasuringUnit", "SpeedMeasuringUnit\SpeedMeasuringUnit.vcxproj", "{B8801D4D-80C5-410E-82C2-9AAC4D83BE80}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SerialConnectivityTest", "SerialConnectivityTest\SerialConnectivityTest.vcxproj", "{1A19E06F-0D53-4FF4-88D4-96C905BCE4B5}"
@@ -64,7 +62,6 @@ Global
 		CommonLogic\CommonLogic.vcxitems*{1a19e06f-0d53-4ff4-88d4-96c905bce4b5}*SharedItemsImports = 4
 		CommonLogic\CommonLogic.vcxitems*{426a2709-7dde-494c-a587-40ea8127c15a}*SharedItemsImports = 9
 		CommonLogic\CommonLogic.vcxitems*{584a9ebd-2e41-4606-b8ad-f38a44a26fb2}*SharedItemsImports = 4
-		..\..\..\Users\Acckej\Documents\Arduino\libraries\Adafruit_Sensor-master\Adafruit_Sensor-master.vcxitems*{69359544-b246-4347-b395-14efd0d25f53}*SharedItemsImports = 9
 		CommonLogic\CommonLogic.vcxitems*{b8801d4d-80c5-410e-82c2-9aac4d83be80}*SharedItemsImports = 4
 		CommonLogic\CommonLogic.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
 	EndGlobalSection

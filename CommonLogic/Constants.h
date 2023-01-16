@@ -103,11 +103,11 @@
 #define BTN5_PORT 27
 #define BTN6_PORT 25
 
-#define SERIAL_SPEED 9600
+#define SERIAL_SPEED 4800 //9600
 #define MEGA 1000000
 
-#define FSS_PORT 6
-#define RSS_PORT 9
+#define FSS_PORT 2
+#define RSS_PORT 3
 
 #define MASTER_SERIAL_TX 51
 #define MASTER_SERIAL_RX 50
@@ -124,8 +124,9 @@
 
 #define MEAS_UNIT_RESPONSE_DELAY 200
 
-#define MEAS_UNIT_LED_ONE 2
-#define MEAS_UNIT_LED_TWO 3
+#define MEAS_UNIT_LED_ONE 8
+#define MEAS_UNIT_LED_TWO 6
+#define MEAS_UNIT_LED_THREE 13
 
 #define TEST_SPEED_VAL 123.9
 

@@ -35,7 +35,7 @@ CheckResult MachineryCheck::Check()
 			_screen->Println("Drives check", 1);
 
 			_actuators->CloseBreech();
-			_actuators->CycleValveExternal();
+			_actuators->TurnMixingFanOn();
 		}
 
 		if (IsRefreshCycle(REFRESH_CYCLE))
@@ -81,7 +81,7 @@ CheckResult MachineryCheck::Check()
 		}
 		if (_cyclesCounter >= 20 && !_cycleInternal)
 		{
-			_actuators->CycleValveInternal();
+			_actuators->TurnMixingFanOff();
 			_cycleInternal = true;
 		}
 

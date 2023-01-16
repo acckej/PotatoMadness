@@ -95,21 +95,33 @@ void Actuators::HeaterOff()
 	_heaterOn = false;
 }
 
-void Actuators::CycleValveExternal()
+void Actuators::TurnMixingFanOn()
 {
 	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_ONE, ARDUINO_HIGH);
 	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_TWO, ARDUINO_HIGH);
-	_wrapper->Delay(CYCLE_VALVE_DELAY);
-	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_ONE, ARDUINO_LOW);
 }
 
-void Actuators::CycleValveInternal()
+void Actuators::TurnMixingFanOff()
 {
 	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_ONE, ARDUINO_LOW);
 	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_TWO, ARDUINO_LOW);
-	_wrapper->Delay(CYCLE_VALVE_DELAY);
-	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_ONE, ARDUINO_HIGH);
 }
+
+//void Actuators::CycleValveExternal()
+//{
+//	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_ONE, ARDUINO_HIGH);
+//	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_TWO, ARDUINO_HIGH);
+//	_wrapper->Delay(CYCLE_VALVE_DELAY);
+//	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_ONE, ARDUINO_LOW);
+//}
+//
+//void Actuators::CycleValveInternal()
+//{
+//	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_ONE, ARDUINO_LOW);
+//	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_TWO, ARDUINO_LOW);
+//	_wrapper->Delay(CYCLE_VALVE_DELAY);
+//	_wrapper->DigitalWrite(CYCLE_VALVE_PORT_ONE, ARDUINO_HIGH);
+//}
 
 void Actuators::EngageInjectorDiode(bool on) const
 {

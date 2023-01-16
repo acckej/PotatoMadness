@@ -18,10 +18,13 @@ public:
 
 	CheckResult Check() override;
 
+	static void BlastSensorHandler();
+
+	static volatile bool _blast;
+
 private:
-	void ShowSpeed();
+	void ShowSpeed();	
 	
-	Loader* _loader;
 	Actuators* _actuators;
 	Sensors* _sensors; 
 	ButtonsController* _buttons;
@@ -32,6 +35,8 @@ private:
 	bool _isRevCycle;
 	bool _injecting;
 	bool _speedRequest;
+	bool _measOn;
+	bool _measRequest;
 
 	int _fwCycleCounter;
 	int _revCycleCounter;	

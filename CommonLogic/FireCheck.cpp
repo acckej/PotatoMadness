@@ -1,5 +1,7 @@
 #include "FireCheck.h"
 
+volatile bool FireCheck::_blast = false;
+
 FireCheck::FireCheck(IArduinoWrapper* wrapper, 
 	TestScreen* screen, 
 	Loader* loader, 
@@ -23,10 +25,13 @@ FireCheck::FireCheck(IArduinoWrapper* wrapper,
 	_isFwCycle = false;
 	_isRevCycle = false;
 
+	_measOn = false;
+
 	_fwCycleCounter = 0;
 	_revCycleCounter = 0;
 
 	_speedRequest = false;
+	_measRequest = false;
 }
 
 CheckResult FireCheck::Check()
@@ -52,7 +57,8 @@ CheckResult FireCheck::Check()
 		_screen->Print(BLANK_LINE);
 		_screen->SetCursor(0, 0);
 		_screen->PrintNumber(injTime);
-		_screen->Print(" ms");
+		_screen->Print(" ms ");
+		_screen->Print(_blast ? "1" : "0");
 
 		const auto press = _sensors->GetReceiverPressure();
 		_screen->SetCursor(0, 1);
@@ -66,7 +72,9 @@ CheckResult FireCheck::Check()
 		_screen->Print(BLANK_LINE);
 		_screen->SetCursor(0, 3);
 		_screen->PrintNumber(vlt, 2);
-		_screen->Print(" v");		
+		_screen->Print(" v");
+
+		ShowSpeed();
 	}
 
 	if (_loader->IsRevCheckOn() && _buttons->IsButtonPressed(x1A))
@@ -90,21 +98,15 @@ CheckResult FireCheck::Check()
 		if (!_injecting)
 		{
 			_injecting = true;
-			_speedRequest = false;
-			_actuators->OpenBreech();
-			_actuators->CycleValveInternal();
-			_actuators->TurnFanOn();
-
+								
 			_actuators->InjectorStart();
 			_wrapper->Delay(injTime);
-			_actuators->InjectorStop();	
-
+			_actuators->InjectorStop();
+			_sensors->ResetDebouncingTriggers();
+			_blast = false;
 			_wrapper->Delay(FORCED_MIXING_TIME);
-			_actuators->TurnFanOff();
-			_actuators->CloseBreech();
-			_wrapper->Delay(BREECH_CLOSE_TIME);
+			_actuators->TurnMixingFanOff();			
 			_actuators->TurnIngnitionOn();
-
 			_wrapper->StartMeasuring();
 			_actuators->EngageInjectorDiode(true);
 		}
@@ -115,15 +117,38 @@ CheckResult FireCheck::Check()
 	}
 
 	if (_buttons->IsButtonPressed(x5E))
-	{
-		ShowSpeed();
+	{		
 		_sensors->ResetDebouncingTriggers();
+	}
+
+	if (_buttons->IsButtonPressed(x6F))
+	{
+		if (!_measRequest)
+		{
+			_measRequest = true;
+			_measOn = !_measOn;
+
+			if (_measOn)
+			{
+				_wrapper->StartMeasuring();
+			}
+			else
+			{
+				_wrapper->MeasuringUnitStby();
+			}
+		}
 	}
 
 	if(_buttons->IsButtonPressed(x4D))
 	{
-		_loader->Stop();
-		return Passed;
+		/*_speedRequest = false;
+		_measRequest = false;
+		_loader->Stop();*/
+		//return Passed;
+
+		_actuators->TurnMixingFanOn();
+		_wrapper->Delay(FORCED_MIXING_TIME);
+		_actuators->TurnMixingFanOff();
 	}
 
 	if (_loader->IsFwCheckOn())
@@ -134,10 +159,10 @@ CheckResult FireCheck::Check()
 			_isRevCycle = false;
 			_fwCycleCounter = 0;
 
+			_actuators->TurnMixingFanOn();
 			_actuators->EngageInjectorDiode(false);
 			_actuators->TurnIgnitionOff();
 			_actuators->OpenBreech();	
-			_actuators->CycleValveExternal();
 			_actuators->TurnFanOn();
 		}
 
@@ -183,14 +208,13 @@ CheckResult FireCheck::Check()
 
 void FireCheck::ShowSpeed()
 {
-	if (!_speedRequest)
-	{
-		_speedRequest = true;
-		
-		auto speed = _wrapper->GetSpeed();
-		_screen->SetCursor(8, 3);
-		_screen->PrintNumber(speed, 1);
-		_screen->Print("m/s");
-	}
+	auto speed = _wrapper->GetSpeed();
+	_screen->SetCursor(8, 3);
+	_screen->PrintNumber(speed, 1);
+	_screen->Print("m/s");
+}
+void FireCheck::BlastSensorHandler()
+{
+	_blast = true;
 }
 

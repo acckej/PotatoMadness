@@ -61,7 +61,7 @@ void Context::Halt()
 	_actuators->EngageInjectorDiode(false);	
 	_sensors->ResetDebouncingTriggers();
 	_idleCyclesCounter = 0;
-	_actuators->CycleValveExternal();	
+	_actuators->TurnMixingFanOff();
 }
 
 void Context::HandleError(char * message, ErrorCodes code)

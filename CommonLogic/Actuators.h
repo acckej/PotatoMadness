@@ -22,8 +22,10 @@ public:
 	void CheckHeater();
 	void HeaterOff();
 
-	void CycleValveExternal();
-	void CycleValveInternal();
+	/*void CycleValveExternal();
+	void CycleValveInternal();*/
+	void TurnMixingFanOn();
+	void TurnMixingFanOff();
 
 	void EngageInjectorDiode(bool on) const;
 
