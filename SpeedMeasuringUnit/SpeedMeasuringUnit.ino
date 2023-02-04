@@ -22,6 +22,7 @@ void setup()
 	pinMode(FSS_PORT, INPUT);
 	pinMode(RSS_PORT, INPUT);
 	pinMode(SS_TRIGGER_RESET_PORT, OUTPUT);
+	pinMode(INDICATOR_LED, OUTPUT);
 
 	pinMode(MEAS_UNIT_LED_THREE, OUTPUT);
 
@@ -108,10 +109,13 @@ void RssHandler()
 
 void ReceiveCommand()
 {
+	digitalWrite(INDICATOR_LED, LOW);
+
 	while (g_link.available())
 	{
-		unsigned char cmd = g_link.read();		
+		unsigned char cmd = g_link.read();
 
+		digitalWrite(INDICATOR_LED, HIGH);
 		//*
 		switch(cmd)
 		{		

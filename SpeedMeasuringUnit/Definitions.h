@@ -1,5 +1,7 @@
 #pragma once
 
+#define INDICATOR_LED 13
+
 void FssHandler();
 
 void RssHandler();

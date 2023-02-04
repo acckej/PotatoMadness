@@ -67,12 +67,12 @@ CheckResult FireCheck::Check()
 		_screen->PrintNumber(press, 2);
 		_screen->Print(" pa");		
 
-		const auto vlt = _actuators->GetHeaterSensorVoltage();
+		const auto vlt = _wrapper->GetExternalTemp();
 		_screen->SetCursor(0, 3);
 		_screen->Print(BLANK_LINE);
 		_screen->SetCursor(0, 3);
 		_screen->PrintNumber(vlt, 2);
-		_screen->Print(" v");
+		_screen->Print(" c");
 
 		ShowSpeed();
 	}

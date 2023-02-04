@@ -103,7 +103,7 @@
 #define BTN5_PORT 27
 #define BTN6_PORT 25
 
-#define SERIAL_SPEED 4800 //9600
+#define SERIAL_SPEED 4800//9600
 #define MEGA 1000000
 
 #define FSS_PORT 2
@@ -130,8 +130,7 @@
 
 #define TEST_SPEED_VAL 123.9
 
-#define FORCED_MIXING_TIME 3000
-#define BREECH_CLOSE_TIME 2000
+#define FORCED_MIXING_TIME 7000
 
 //A continue
 //B stop
