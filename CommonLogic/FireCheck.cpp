@@ -67,7 +67,7 @@ CheckResult FireCheck::Check()
 		_screen->PrintNumber(press, 2);
 		_screen->Print(" pa");		
 
-		const auto vlt = _wrapper->GetExternalTemp();
+		const auto vlt = _wrapper->GetExternalHumidity();
 		_screen->SetCursor(0, 3);
 		_screen->Print(BLANK_LINE);
 		_screen->SetCursor(0, 3);
@@ -102,7 +102,7 @@ CheckResult FireCheck::Check()
 			_actuators->InjectorStart();
 			_wrapper->Delay(injTime);
 			_actuators->InjectorStop();
-			_sensors->ResetDebouncingTriggers();
+			//_sensors->ResetDebouncingTriggers();
 			_blast = false;
 			_wrapper->Delay(FORCED_MIXING_TIME);
 			_actuators->TurnMixingFanOff();			
@@ -117,7 +117,8 @@ CheckResult FireCheck::Check()
 	}
 
 	if (_buttons->IsButtonPressed(x5E))
-	{		
+	{
+		_blast = false;
 		_sensors->ResetDebouncingTriggers();
 	}
 
@@ -166,7 +167,7 @@ CheckResult FireCheck::Check()
 			_actuators->TurnFanOn();
 		}
 
-		if (_fwCycleCounter > 30)
+		if (_fwCycleCounter > 20)
 		{
 			_fwCycleCounter = 0;
 			_actuators->CloseBreech();
@@ -206,7 +207,7 @@ CheckResult FireCheck::Check()
 	return Running;
 }
 
-void FireCheck::ShowSpeed()
+void FireCheck::ShowSpeed() const
 {
 	auto speed = _wrapper->GetSpeed();
 	_screen->SetCursor(8, 3);

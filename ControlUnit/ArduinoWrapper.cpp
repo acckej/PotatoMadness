@@ -20,6 +20,8 @@ DHT dht(TEMP_HUM_SENSOR_PORT, DHTTYPE);
 ArduinoWrapper::ArduinoWrapper()
 = default;
 
+unsigned long g_smu_timestamp = 0;
+
 int ArduinoWrapper::DigitalRead(unsigned int port)
 {
 	return digitalRead(port);
@@ -193,7 +195,19 @@ double ArduinoWrapper::GetSpeed()
 {
 	g_link.write(GET_SPEED_COMMAND);
 	g_link.flush();
-	delay(MEAS_UNIT_RESPONSE_DELAY);
+	//
+	//delay(MEAS_UNIT_RESPONSE_DELAY);
+	//
+	g_smu_timestamp = millis();
+
+	while(!g_link.available())
+	{
+		if(millis() - g_smu_timestamp > SMU_RESPONSE_TIMEOUT)
+		{
+			return NAN;
+		}
+	}
+
 	unsigned char buf[sizeof(double)];
 
 	auto bytesRead = 0;

@@ -23,7 +23,7 @@ public:
 	static volatile bool _blast;
 
 private:
-	void ShowSpeed();	
+	void ShowSpeed() const;	
 	
 	Actuators* _actuators;
 	Sensors* _sensors; 
